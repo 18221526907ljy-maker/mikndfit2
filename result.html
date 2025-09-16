@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>测评结果页</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #f0f9ff);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+
+    h1 {
+      color: #0369a1;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    p.intro {
+      color: #334155;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      max-width: 600px;
+    }
+
+    #adviceBox {
+      width: 100%;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+    }
+
+    #adviceBox h2 {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #0f172a;
+      margin-bottom: 1rem;
+    }
+
+    #adviceList {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #adviceList li {
+      background: #f0f9ff;
+      margin-bottom: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.5;
+      box-shadow: inset 0 0 4px rgba(3, 102, 214, 0.08);
+    }
+
+    #adviceList li a {
+      color: #2563eb;
+      text-decoration: underline;
+    }
+
+    a.back {
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      background: #0369a1;
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.2s ease;
+    }
+
+    a.back:hover {
+      background: #025d8a;
+    }
+  </style>
+</head>
+<body>
+  <p class="intro">这是你的测评结果页面。下面是根据你的回答生成的个性化建议👇</p>
+
+  <!-- 建议展示区域 -->
+  <div id="adviceBox" class="hidden">
+    <h2>为你生成的建议</h2>
+    <ul id="adviceList">
+      <!-- JavaScript 会在这里插入建议 -->
+    </ul>
+  </div>
+
+  <a href="index.html" class="back">← 返回首页</a>
+
+  <script>
+    // 解析 URL 参数
+    function getQueryParam(key) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(key);
+    }
+
+    const adviceStr = getQueryParam("advice");
+    const adviceBox = document.getElementById("adviceBox");
+    const adviceList = document.getElementById("adviceList");
+
+    if (adviceStr && adviceBox && adviceList) {
+      const adviceArr = decodeURIComponent(adviceStr).split(",,");
+      adviceArr.forEach(text => {
+        const li = document.createElement("li");
+        li.innerHTML = text;  // ✅ 支持 HTML（例如链接）
+        adviceList.appendChild(li);
+      });
+      adviceBox.classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
