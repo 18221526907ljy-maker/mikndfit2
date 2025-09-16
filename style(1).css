@@ -1,4 +1,29 @@
-.feature-card {
+/* 更新配色方案 */
+:root {
+  --primary: #0d9488;
+  --secondary: #10B981;
+  --accent: #6366f1;
+}
+
+/* 更新按钮渐变 */
+.btn-primary {
+  background: linear-gradient(to right, #0d9488, #10B981) !important;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+}
+
+/* 更新滑杆颜色 */
+input[type="range"] {
+  background: linear-gradient(to right, #0d9488, #10B981) !important;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  border: 2px solid #0d9488 !important;
+}
+
+/* 更新进度条 */
+.result-gauge > .bar {
+  background: linear-gradient(90deg, #0d9488, #10B981) !important;
+}.feature-card {
   position: relative;
   background: rgba(255, 255, 255, 0.6); /* 轻透明 */
   backdrop-filter: blur(10px) saturate(160%);
