@@ -1,0 +1,417 @@
+/* MindFit 身心健康管理平台样式 */
+
+/* 基础配置 */
+:root {
+  --primary: #0d9488;
+  --secondary: #10B981;
+  --accent: #6366f1;
+  --neutral: #F3F4F6;
+  --dark: #1F2937;
+  --light: #F9FAFB;
+}
+
+/* 背景渐变 */
+body {
+  background: linear-gradient(135deg, #f0fdfa, #ecfdf5, #f0f9ff);
+  min-height: 100vh;
+}
+
+/* 玻璃拟态效果 */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* 功能卡片特效 */
+.feature-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05), 0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  padding: 24px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08), 0 6px 14px rgba(0, 0, 0, 0.06);
+}
+
+/* 卡片阴影效果 */
+.card-shadow {
+  position: relative;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 16px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.card-shadow:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.15), 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* 平滑过渡 */
+.transition-smooth {
+  transition: all 0.3s ease;
+}
+
+/* 滚动条隐藏 */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 按钮样式 */
+.btn-primary {
+  background: linear-gradient(135deg, #0d9488, #10B981);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 20px;
+  box-shadow: 0 4px 14px rgba(13, 148, 136, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 18px rgba(13, 148, 136, 0.4);
+  opacity: 0.95;
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 6px rgba(13, 148, 136, 0.25);
+}
+
+/* 测评滑杆美化 */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #0d9488, #10B981);
+  outline: none;
+  transition: background 0.3s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #0d9488;
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 6px rgba(13, 148, 136, 0.3);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.4);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #0d9488;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(13, 148, 136, 0.3);
+}
+
+/* 结果进度条 */
+.result-gauge { 
+  background: #f1f5f9; 
+  border-radius: 999px; 
+  height: 10px; 
+  overflow: hidden; 
+}
+
+.result-gauge > .bar { 
+  height: 100%; 
+  width: 0; 
+  background: linear-gradient(90deg, #0d9488, #10B981); 
+  transition: width 0.6s ease; 
+}
+
+.result-gauge-label { 
+  display: flex; 
+  justify-content: space-between; 
+  font-size: 12px; 
+  color: #475569; 
+  margin: 0.5rem 0 0.25rem; 
+}
+
+/* 标签和徽章 */
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.badge-chip { 
+  display: inline-block; 
+  font-size: 12px; 
+  padding: 2px 8px; 
+  border-radius: 999px; 
+  background: #eef2ff; 
+  color: #4f46e5; 
+  margin-left: 0.5rem; 
+}
+
+/* 复制按钮 */
+.copy-btn { 
+  font-size: 12px; 
+  color: #0d9488; 
+  cursor: pointer; 
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.copy-btn:hover { 
+  background-color: rgba(13, 148, 136, 0.1);
+}
+
+/* 页面显示控制 */
+.page {
+  display: block;
+}
+
+.page.hidden {
+  display: none !important;
+}
+
+.page.active {
+  display: block;
+}
+
+/* 情绪卡片轮播 */
+.carousel-container {
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.emotion-card {
+  flex-shrink: 0;
+  width: 288px; /* w-72 */
+}
+
+.emotion-card .complete-btn {
+  transition: all 0.3s ease;
+}
+
+.emotion-card.completed {
+  opacity: 0.6;
+}
+
+.emotion-card.completed .complete-btn {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+  color: #6b7280;
+  cursor: default;
+}
+
+/* 导航按钮 */
+.nav-btn {
+  transition: color 0.2s ease;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.nav-btn:hover {
+  background-color: rgba(13, 148, 136, 0.1);
+}
+
+/* 筛选按钮 */
+.filter-btn {
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.filter-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Toast 提示 */
+#toast {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#toast.hidden {
+  opacity: 0;
+  transform: translate(-50%, -20px);
+}
+
+/* 输入框和表单 */
+input[type="text"],
+input[type="number"],
+textarea,
+select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #0d9488;
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+}
+
+/* 进度条动画 */
+.progress-animation {
+  animation: progressFill 0.8s ease-out;
+}
+
+@keyframes progressFill {
+  from { width: 0%; }
+  to { width: var(--target-width); }
+}
+
+/* 徽章解锁动画 */
+.badge-unlock {
+  animation: badgeUnlock 0.6s ease-out;
+}
+
+@keyframes badgeUnlock {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 卡片出现动画 */
+.card-enter {
+  animation: cardEnter 0.5s ease-out;
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 640px) {
+  .feature-card {
+    padding: 16px;
+    min-height: 100px;
+  }
+  
+  .glass-card {
+    margin: 0 8px;
+    border-radius: 12px;
+  }
+  
+  .carousel-track {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* 深色模式支持（可选） */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --bg-primary: #1f2937;
+    --bg-secondary: #374151;
+  }
+}
+
+/* 可访问性支持 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus 可见性 */
+*:focus-visible {
+  outline: 2px solid #0d9488;
+  outline-offset: 2px;
+}
+
+/* 高对比度支持 */
+@media (prefers-contrast: high) {
+  .glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #0d9488;
+  }
+  
+  .btn-primary {
+    border: 2px solid #0d9488;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .fixed {
+    position: static !important;
+  }
+  
+  .glass-card {
+    background: white !important;
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+  }
+  
+  .btn-primary {
+    background: white !important;
+    color: #0d9488 !important;
+    border: 1px solid #0d9488 !important;
+  }
+}
