@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MindFit - 身心平衡管理</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#0d9488",
+            secondary: "#10B981", 
+            accent: "#6366f1",
+            neutral: "#f1f5f9",
+            warm: "#f59e0b"
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .feature-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .progress-ring {
+      transform: rotate(-90deg);
+    }
+
+    .progress-circle {
+      transition: stroke-dashoffset 0.6s ease;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f0fdfa, #ecfdf5, #f0f9ff);
+      min-height: 100vh;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0d9488, #10B981);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(13, 148, 136, 0.3);
+    }
+
+    .wellness-gradient {
+      background: linear-gradient(135deg, #0d9488, #10B981, #06b6d4);
+    }
+  </style>
+</head>
+
+<body class="min-h-screen">
+  <!-- 顶部导航 -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-card">
+    <div class="flex items-center justify-between px-4 py-3">
+      <div class="flex items-center">
+        <button id="backBtn" class="p-2 text-gray-500 hover:text-primary transition-colors">
+          <i class="fa fa-arrow-left text-lg"></i>
+        </button>
+        <h1 id="pageTitle" class="text-xl font-semibold ml-2 text-primary">MindFit 身心平衡</h1>
+      </div>
+      <div class="flex items-center space-x-3">
+        <div class="text-right">
+          <div class="text-xs text-gray-500">连续天数</div>
+          <div id="streakDisplay" class="text-sm font-bold text-primary">0天</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Toast提示 -->
+  <div id="toast" class="fixed left-1/2 transform -translate-x-1/2 top-20 z-60 hidden">
+    <div class="bg-gray-900 text-white text-sm px-4 py-2 rounded-lg shadow-lg"></div>
+  </div>
+
+  <!-- 主内容 -->
+  <main class="pt-16 pb-20 min-h-screen">
+    <!-- 首页 -->
+    <section id="homePage" class="page active">
+      <div class="px-4 py-6">
+        <!-- 欢迎卡片 -->
+        <div class="glass-card rounded-2xl p-6 mb-6 wellness-gradient text-white">
+          <div class="flex items-center justify-between">
+            <div>
+              <h2 class="text-2xl font-bold mb-2">你好，欢迎回来</h2>
+              <p class="text-blue-100 text-sm">专注身体功能，关注内在感受</p>
+            </div>
+            <div class="relative">
+              <svg class="w-16 h-16 progress-ring" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+                <circle id="progressCircle" cx="18" cy="18" r="15" fill="none" stroke="white" stroke-width="2" 
+                        stroke-dasharray="94.2" stroke-dashoffset="94.2" class="progress-circle"/>
+                <text x="18" y="22" text-anchor="middle" fill="white" class="text-xs font-bold" id="progressPercent">0%</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 今日小任务 -->
+        <div class="glass-card rounded-xl p-5 mb-6">
+          <h3 class="text-lg font-semibold mb-3 text-primary">今日小任务</h3>
+          <div id="todayTask" class="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg p-4">
+            <div class="flex items-start justify-between">
+              <div class="flex-1">
+                <h4 class="font-medium mb-1">3分钟身体扫描</h4>
+                <p class="text-sm text-gray-600 mb-3">从头到脚感受身体的每个部位，不评判只观察</p>
+                <button class="btn-primary text-white px-4 py-2 rounded-full text-sm" onclick="completeTask()">
+                  <i class="fa fa-check mr-1"></i>完成任务
+                </button>
+              </div>
+              <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center ml-3">
+                <i class="fa fa-leaf text-primary"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 功能模块 -->
+        <div class="grid grid-cols-2 gap-4 mb-6">
+          <!-- BMI自评 -->
+          <div class="feature-card glass-card rounded-xl p-5 cursor-pointer" onclick="navigateTo('bmiPage')">
+            <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+              <i class="ph ph-scales text-blue-600 text-xl"></i>
+            </div>
+            <h3 class="font-medium text-center">BMI功能自评</h3>
+            <p class="text-xs text-gray-500 text-center mt-1">关注功能健康</p>
+          </div>
+
+          <!-- 轻测评 -->
+          <div class="feature-card glass-card rounded-xl p-5 cursor-pointer" onclick="navigateTo('assessmentPage')">
+            <div class="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center mb-3">
+              <i class="ph ph-heartbeat text-pink-600 text-xl"></i>
+            </div>
+            <h3 class="font-medium text-center">身心轻测评</h3>
+            <p class="text-xs text-gray-500 text-center mt-1">9题快速评估</p>
+          </div>
+
+          <!-- CBT工具 -->
+          <div class="feature-card glass-card rounded-xl p-5 cursor-pointer" onclick="navigateTo('cbtPage')">
+            <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-3">
+              <i class="ph ph-brain text-green-600 text-xl"></i>
+            </div>
+            <h3 class="font-medium text-center">CBT自助工具</h3>
+            <p class="text-xs text-gray-500 text-center mt-1">认知重构练习</p>
+          </div>
+
+          <!-- 冥想练习 -->
+          <div class="feature-card glass-card rounded-xl p-5 cursor-pointer" onclick="navigateTo('meditationPage')">
+            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-3">
+              <i class="ph ph-headphones text-purple-600 text-xl"></i>
+            </div>
+            <h3 class="font-medium text-center">正念练习</h3>
+            <p class="text-xs text-gray-500 text-center mt-1">3-5分钟引导</p>
+          </div>
+        </div>
+
+        <!-- 我的记录 -->
+        <div class="glass-card rounded-xl p-5 mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-primary">我的记录</h3>
+            <button class="text-primary text-sm" onclick="navigateTo('recordsPage')">
+              查看全部 <i class="fa fa-angle-right"></i>
+            </button>
+          </div>
+          <div id="recentRecords" class="space-y-3">
+            <div class="text-sm text-gray-500 text-center py-4">开始你的第一次记录吧</div>
+          </div>
+        </div>
+
+        <!-- 身体中立理念 -->
+        <div class="glass-card rounded-xl p-5">
+          <h3 class="text-lg font-semibold mb-3 text-primary">身体中立理念</h3>
+          <div class="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-4">
+            <p class="text-sm text-gray-700 mb-3">
+              身体中立性（Body Neutrality）关注身体的<strong>功能</strong>而非外貌，
+              帮助我们建立更健康的身体认知。
+            </p>
+            <div class="flex items-center text-primary text-sm">
+              <i class="fa fa-lightbulb-o mr-2"></i>
+              <span>我的身体可以呼吸、行走、感受温度</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BMI功能自评页面 -->
+    <section id="bmiPage" class="page hidden">
+      <div class="px-4 py-6">
+        <div class="mb-6">
+          <h2 class="text-xl font-bold mb-2 text-primary">BMI功能自评</h2>
+          <p class="text-gray-600 text-sm">以功能健康视角认识身体状态，而非单一体重目标</p>
+        </div>
+
+        <div class="glass-card rounded-xl p-5 mb-6">
+          <h3 class="text-lg font-semibold mb-4">基础信息</h3>
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="block text-sm text-gray-600 mb-1">身高（cm）</label>
+              <input id="heightInput" type="number" placeholder="例如 165" 
+                     class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+            <div>
+              <label class="block text-sm text-gray-600 mb-1">体重（kg）</label>
+              <input id="weightInput" type="number" placeholder="例如 55"
+                     class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+          </div>
+          <div id="bmiResult" class="mt-4 p-4 rounded-lg bg-gray-50 hidden">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-sm text-gray-600">BMI指数</span>
+              <span id="bmiValue" class="font-bold text-primary"></span>
+            </div>
+            <div id="bmiInterpretation" class="text-sm text-gray-700"></div>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-xl p-5 mb-6">
+          <h3 class="text-lg font-semibold mb-4">主观身体感受</h3>
+          <select id="bodyFeeling" class="w-full p-3 border rounded-lg mb-4">
+            <option value="">选择当前感受</option>
+            <option value="energetic">充满活力</option>
+            <option value="comfortable">舒适自在</option>
+            <option value="neutral">感觉一般</option>
+            <option value="tired">疲惫乏力</option>
+            <option value="tense">紧绷不适</option>
+          </select>
+          <button onclick="saveBMIAssessment()" class="btn-primary w-full text-white py-3 rounded-lg font-medium">
+            <i class="fa fa-save mr-2"></i>保存评估
+          </button>
+        </div>
+
+        <div class="glass-card rounded-xl p-5">
+          <h3 class="text-lg font-semibold mb-3 text-primary">功能健康提醒</h3>
+          <div class="space-y-3 text-sm text-gray-700">
+            <div class="flex items-start">
+              <i class="fa fa-check-circle text-primary mr-2 mt-0.5"></i>
+              <span>BMI只是参考，身体功能更重要</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fa fa-check-circle text-primary mr-2 mt-0.5"></i>
+              <span>关注身体能做什么，而不是看起来如何</span>
+            </div>
+            <div class="flex items-start">
+              <i class="fa fa-check-circle text-primary mr-2 mt-0.5"></i>
+              <span>每个身体都有自己的健康状态</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 身心轻测评页面 -->
+    <section id="assessmentPage" class="page hidden">
+      <div class="px-4 py-6">
+        <div class="mb-6">
+          <h2 class="text-xl font-bold mb-2 text-primary">身心轻测评</h2>
+          <p class="text-gray-600 text-sm">9题快速评估，了解当前身心状态</p>
+        </div>
+
+        <div id="questionsContainer" class="space-y-4 mb-6">
+          <!-- 题目将通过JavaScript动态生成 -->
+        </div>
+
+        <div class="glass-card rounded-xl p-5">
+          <button onclick="submitAssessment()" class="btn-primary w-full text-white py-3 rounded-lg font-medium">
+            <i class="fa fa-check mr-2"></i>完成测评
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CBT自助工具页面 -->
+    <section id="cbtPage" class="page hidden">
+      <div class="px-4 py-6">
+        <div class="mb-6">
+          <h2 class="text-xl font-bold mb-2 text-primary">CBT自助工具</h2>
+          <p class="text-gray-600 text-sm">认知行为疗法工具，重构负面思维</p>
+        </div>
+
+        <!-- 工具选择 -->
+        <div class="grid grid-cols-1 gap-4 mb-6">
+          <div class="glass-card rounded-xl p-4 cursor-pointer" onclick="showTool('thoughtRecord')">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                <i class="fa fa-pencil text-blue-600"></i>
+              </div>
+              <div>
+                <h4 class="font-medium">自动思维记录</h4>
+                <p class="text-sm text-gray-500">识别并分析负面想法</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-4 cursor-pointer" onclick="showTool('emotionRegulation')">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                <i class="fa fa-heart text-green-600"></i>
+              </div>
+              <div>
+                <h4 class="font-medium">情绪调节卡片</h4>
+                <p class="text-sm text-gray-500">快速情绪调节练习</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-4 cursor-pointer" onclick="showTool('behaviorExperiment')">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-3">
+                <i class="fa fa-flask text-purple-600"></i>
+              </div>
+              <div>
+                <h4 class="font-medium">行为实验指南</h4>
+                <p class="text-sm text-gray-500">验证担忧的真实性</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 动态工具内容区域 -->
+        <div id="toolContent" class="hidden">
+          <!-- 内容将通过JavaScript动态加载 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 正念练习页面 -->
+    <section id="meditationPage" class="page hidden">
+      <div class="px-4 py-6">
+        <div class="mb-6">
+          <h2 class="text-xl font-bold mb-2 text-primary">正念练习</h2>
+          <p class="text-gray-600 text-sm">3-5分钟引导练习，回归内在平静</p>
+        </div>
+
+        <!-- 练习选择 -->
+        <div class="space-y-4 mb-6">
+          <div class="glass-card rounded-xl p-5">
+            <h3 class="font-medium mb-2">呼吸觉察</h3>
+            <p class="text-sm text-gray-600 mb-4">专注于自然呼吸，培养当下觉察力</p>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-500">3分钟</span>
+              <button onclick="startMeditation('breathing')" class="btn-primary text-white px-4 py-2 rounded-full text-sm">
+                开始练习
+              </button>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-5">
+            <h3 class="font-medium mb-2">身体扫描</h3>
+            <p class="text-sm text-gray-600 mb-4">从头到脚感受身体各个部位</p>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-500">5分钟</span>
+              <button onclick="startMeditation('bodyScan')" class="btn-primary text-white px-4 py-2 rounded-full text-sm">
+                开始练习
+              </button>
+            </div>
+          </div>
+
+          <div class="glass-card rounded-xl p-5">
+            <h3 class="font-medium mb-2">自我接纳</h3>
+            <p class="text-sm text-gray-600 mb-4">培养对自己温和友善的态度</p>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-500">4分钟</span>
+              <button onclick="startMeditation('selfAcceptance')" class="btn-primary text-white px-4 py-2 rounded-full text-sm">
+                开始练习
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 冥想计时器 -->
+        <div id="meditationTimer" class="glass-card rounded-xl p-6 text-center hidden">
+          <div class="w-24 h-24 rounded-full wellness-gradient flex items-center justify-center mx-auto mb-4">
+            <span id="timerDisplay" class="text-2xl font-bold text-white">3:00</span>
+          </div>
+          <h3 id="meditationTitle" class="text-lg font-semibold mb-2"></h3>
+          <p id="meditationInstructions" class="text-sm text-gray-600 mb-4"></p>
+          <div class="flex justify-center space-x-4">
+            <button onclick="pauseResumeMeditation()" id="pauseBtn" 
+                    class="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded-full">
+              <i class="fa fa-pause"></i>
+            </button>
+            <button onclick="stopMeditation()" class="bg-red-100 hover:bg-red-200 text-red-600 px-4 py-2 rounded-full">
+              <i class="fa fa-stop"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 我的记录页面 -->
+    <section id="recordsPage" class="page hidden">
+      <div class="px-4 py-6">
+        <div class="mb-6">
+          <h2 class="text-xl font-bold mb-2 text-primary">我的记录</h2>
+          <p class="text-gray-600 text-sm">查看你的所有练习记录和成长历程</p>
+        </div>
+
+        <!-- 统计概览 -->
+        <div class="glass-card rounded-xl p-5 mb-6">
+          <h3 class="text-lg font-semibold mb-4 text-primary">本周统计</h3>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-primary" id="weeklyRecords">0</div>
+              <div class="text-xs text-gray-500">记录次数</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-secondary" id="weeklyMeditation">0</div>
+              <div class="text-xs text-gray-500">冥想分钟</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-warm" id="weeklyTasks">0</div>
+              <div class="text-xs text-gray-500">完成任务</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 记录列表 -->
+        <div id="recordsList" class="space-y-3">
+          <div class="text-center py-8 text-gray-500">
+            <i class="fa fa-clipboard text-4xl mb-3 opacity-30"></i>
+            <p>还没有记录，开始你的第一次练习吧</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="fixed bottom-0 left-0 right-0 glass-card z-40">
+    <div class="flex justify-around py-3">
+      <button class="nav-btn flex flex-col items-center text-primary" onclick="navigateTo('homePage')">
+        <i class="fa fa-home text-lg mb-1"></i>
+        <span class="text-xs">首页</span>
+      </button>
+      <button class="nav-btn flex flex-col items-center text-gray-500" onclick="navigateTo('cbtPage')">
+        <i class="fa fa-brain text-lg mb-1"></i>
+        <span class="text-xs">工具</span>
+      </button>
+      <button class="nav-btn flex flex-col items-center text-gray-500" onclick="navigateTo('meditationPage')">
+        <i class="fa fa-leaf text-lg mb-1"></i>
+        <span class="text-xs">练习</span>
+      </button>
+      <button class="nav-btn flex flex-col items-center text-gray-500" onclick="navigateTo('recordsPage')">
+        <i class="fa fa-book text-lg mb-1"></i>
+        <span class="text-xs">记录</span>
+      </button>
+    </div>
+  </nav>
+
+  <script>
+    // 应用状态管理
+    const app = {
+      currentPage: 'homePage',
+      pageHistory: ['homePage'],
+      data: {
+        records: [],
+        streak: 0,
+        totalTasks: 0,
+        meditationMinutes: 0
+      },
+      meditation: {
+        timer: null,
+        seconds: 0,
+        isPaused: false,
+        type: null
+      }
+    };
+
+    // 页面导航
+    function navigateTo(pageId) {
+      // 隐藏所有页面
+      document.querySelectorAll('.page').forEach(page => {
+        page.classList.add('hidden');
+      });
+      
+      // 显示目标页面
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.remove('hidden');
+        app.currentPage = pageId;
+        
+        if (app.pageHistory[app.pageHistory.length - 1] !== pageId) {
+          app.pageHistory.push(pageId);
+        }
+        
+        // 更新导航状态
+        updateNavigation();
+        
+        // 页面特定的加载逻辑
+        switch(pageId) {
+          case 'homePage':
+            loadHomePage();
+            break;
+          case 'assessmentPage':
+            loadAssessment();
+            break;
+          case 'recordsPage':
+            loadRecords();
+            break;
+        }
+      }
+    }
+
+    // 返回按钮
+    document.getElementById('backBtn').addEventListener('click', () => {
+      if (app.pageHistory.length > 1) {
+        app.pageHistory.pop();
+        const previousPage = app.pageHistory[app.pageHistory.length - 1];
+        navigateTo(previousPage);
+      }
+    });
+
+    // 更新导航状态
+    function updateNavigation() {
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.classList.remove('text-primary');
+        btn.classList.add('text-gray-500');
+      });
+      
+      const pageMap = {
+        'homePage': 0,
+        'cbtPage': 1,
+        'meditationPage': 2,
+        'recordsPage': 3
+      };
+      
+      const activeIndex = pageMap[app.currentPage];
+      if (activeIndex !== undefined) {
+        const navBtns = document.querySelectorAll('.nav-btn');
+        if (navBtns[activeIndex]) {
+          navBtns[activeIndex].classList.remove('text-gray-500');
+          navBtns[activeIndex].classList.add('text-primary');
+        }
+      }
+    }
+
+    // Toast提示
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastContent = toast.querySelector('div');
+      toastContent.textContent = message;
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3000);
+    }
+
+    // BMI计算功能
+    function setupBMICalculator() {
+      const heightInput = document.getElementById('heightInput');
+      const weightInput = document.getElementById('weightInput');
+      
+      function calculateBMI() {
+        const height = parseFloat(heightInput.value);
+        const weight = parseFloat(weightInput.value);
+        
+        if (height && weight) {
+          const heightInMeters = height / 100;
+          const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(1);
+          
+          document.getElementById('bmiValue').textContent = bmi;
+          
+          let interpretation = '';
+          if (bmi < 18.5) {
+            interpretation = '功能健康提醒：注意营养均衡，关注身体能量需求';
+          } else if (bmi < 24) {
+            interpretation = '功能健康状态：继续保持均衡的生活方式';
+          } else if (bmi < 28) {
+            interpretation = '功能健康建议：适度调整饮食与活动，循序渐进';
+          } else {
+            interpretation = '功能健康关注：建议咨询专业人士，制定合适方案';
+          }
+          
+          document.getElementById('bmiInterpretation').textContent = interpretation;
+          document.getElementById('bmiResult').classList.remove('hidden');
+        }
+      }
+      
+      heightInput.addEventListener('input', calculateBMI);
+      weightInput.addEventListener('input', calculateBMI);
+    }
+
+    // 保存BMI评估
+    function saveBMIAssessment() {
+      const height = document.getElementById('heightInput').value
