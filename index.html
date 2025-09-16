@@ -12,11 +12,12 @@
       theme: {
         extend: {
           colors: {
-            primary: "#06d6a0",
-            secondary: "#f8ad9d", 
-            accent: "#ffd23f",
-            warm: "#fff5ee",
-            soft: "#f0f9ff",
+            primary: "#3B82F6",
+            secondary: "#10B981",
+            accent: "#8B5CF6",
+            neutral: "#F3F4F6",
+            dark: "#1F2937",
+            light: "#F9FAFB",
           },
           borderRadius: {
             '2xl': '1rem',
@@ -58,12 +59,12 @@
     
     .card-gentle:hover {
       transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 20px 40px rgba(6, 214, 160, 0.15);
-      border-color: rgba(6, 214, 160, 0.3);
+      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.3);
     }
     
     .glass-bg {
-      background: linear-gradient(135deg, #06d6a0 0%, #f8ad9d 100%);
+      background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
     }
     
     .soft-shadow {
@@ -87,14 +88,14 @@
   </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-warm via-white to-soft">
+<body class="min-h-screen bg-gradient-to-br from-light via-white to-neutral">
   
   <!-- 主导航 - 简化版 -->
   <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-white/20 z-50">
     <div class="flex items-center justify-between px-6 py-4">
       <div class="flex items-center space-x-2">
         <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-          <i class="fa fa-leaf text-white text-sm"></i>
+          <i class="fa fa-heartbeat text-white text-sm"></i>
         </div>
         <span class="text-lg font-semibold text-gray-800">MindFit</span>
       </div>
@@ -124,13 +125,13 @@
           <span class="text-gray-700 font-medium">今日心情</span>
           <div class="flex space-x-2">
             <button class="mood-btn w-8 h-8 rounded-full bg-yellow-100 hover:bg-accent transition-colors flex items-center justify-center">
-              😊
+              <i class="fa fa-smile-o text-yellow-600"></i>
             </button>
             <button class="mood-btn w-8 h-8 rounded-full bg-blue-100 hover:bg-primary hover:text-white transition-colors flex items-center justify-center">
-              😐
+              <i class="fa fa-meh-o text-blue-600"></i>
             </button>
-            <button class="mood-btn w-8 h-8 rounded-full bg-purple-100 hover:bg-secondary transition-colors flex items-center justify-center">
-              😔
+            <button class="mood-btn w-8 h-8 rounded-full bg-purple-100 hover:bg-accent hover:text-white transition-colors flex items-center justify-center">
+              <i class="fa fa-frown-o text-purple-600"></i>
             </button>
           </div>
         </div>
@@ -152,18 +153,18 @@
         <div class="card-gentle rounded-3xl p-6 soft-shadow animate-scale-in cursor-pointer" onclick="navigateTo('assessmentPage')">
           <div class="flex items-center space-x-4">
             <div class="relative">
-              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center">
-                <i class="fa fa-heart text-white text-xl"></i>
+              <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-400 to-pink-500 flex items-center justify-center">
+                <i class="fa fa-heartbeat text-white text-xl"></i>
               </div>
               <div class="absolute -top-1 -right-1 w-6 h-6 bg-accent rounded-full flex items-center justify-center pulse-ring">
-                <span class="text-xs">✨</span>
+                <i class="fa fa-star text-white text-xs"></i>
               </div>
             </div>
             <div class="flex-1">
               <h3 class="font-semibold text-gray-800 mb-1">了解自己</h3>
               <p class="text-sm text-gray-600">通过温和的评估，认识当下的自己</p>
               <div class="flex items-center mt-2">
-                <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">5分钟</span>
+                <span class="text-xs bg-pink-100 text-pink-600 px-2 py-1 rounded-full">5分钟</span>
               </div>
             </div>
             <i class="fa fa-chevron-right text-gray-400"></i>
@@ -173,8 +174,8 @@
         <!-- 日常练习 -->
         <div class="card-gentle rounded-3xl p-6 soft-shadow animate-scale-in cursor-pointer" onclick="navigateTo('practiceCenter')">
           <div class="flex items-center space-x-4">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-green-400 flex items-center justify-center">
-              <i class="fa fa-leaf text-white text-xl"></i>
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary to-green-500 flex items-center justify-center">
+              <i class="fa fa-heart text-white text-xl"></i>
             </div>
             <div class="flex-1">
               <h3 class="font-semibold text-gray-800 mb-1">日常练习</h3>
@@ -190,14 +191,14 @@
         <!-- 深度工具 -->
         <div class="card-gentle rounded-3xl p-6 soft-shadow animate-scale-in cursor-pointer" onclick="navigateTo('toolsCenter')">
           <div class="flex items-center space-x-4">
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary to-orange-400 flex items-center justify-center">
-              <i class="fa fa-tools text-white text-xl"></i>
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-purple-500 flex items-center justify-center">
+              <i class="fa fa-flask text-white text-xl"></i>
             </div>
             <div class="flex-1">
               <h3 class="font-semibold text-gray-800 mb-1">深度工具</h3>
               <p class="text-sm text-gray-600">思维记录和行为实验，深入了解内心</p>
               <div class="flex items-center mt-2">
-                <span class="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">10-15分钟</span>
+                <span class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">10-15分钟</span>
               </div>
             </div>
             <i class="fa fa-chevron-right text-gray-400"></i>
@@ -300,8 +301,6 @@
 
 </body>
 </html>
-
-
 
 
 
