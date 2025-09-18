@@ -90,27 +90,74 @@
 
 <body class="min-h-screen bg-gradient-to-br" style="background: linear-gradient(135deg, #f0f4f8, #e3f2fd);">
   
-  <!-- 主导航 - 简化版 -->
-  <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-white/20 z-50">
-    <div class="flex items-center justify-between px-6 py-4">
-      <div class="flex items-center space-x-2">
-        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-          <i class="fa fa-heartbeat text-white text-sm"></i>
+  <!-- 顶部导航 - 官网风格 -->
+  <nav class="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-md border-b border-gray-100 z-50">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+      <div class="flex items-center space-x-3">
+        <!-- Logo SVG -->
+        <div class="w-10 h-10 flex items-center justify-center">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18" fill="#10B981" fill-opacity="0.1"/>
+            <path d="M15 20c0-2.5 2-4.5 4.5-4.5S24 17.5 24 20s-2 4.5-4.5 4.5S15 22.5 15 20z" fill="#10B981"/>
+            <path d="M12 16c2-3 6-3 8 0M20 16c2-3 6-3 8 0" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/>
+          </svg>
         </div>
-        <span class="text-lg font-semibold text-gray-800">MindFit</span>
+        <span class="text-xl font-bold text-gray-800">MindFit</span>
       </div>
       
-      <div class="flex items-center space-x-4">
-        <button class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-primary hover:text-white transition-colors">
-          <i class="fa fa-bell text-sm"></i>
-        </button>
-        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary"></div>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#" class="text-gray-700 hover:text-primary transition-colors">首页</a>
+        <a href="#" class="text-gray-700 hover:text-primary transition-colors">功能</a>
+        <a href="#" class="text-gray-700 hover:text-primary transition-colors">理念</a>
+        <a href="#" class="text-gray-700 hover:text-primary transition-colors">关于</a>
       </div>
     </div>
   </nav>
 
+  <!-- Hero Section -->
+  <section class="pt-24 pb-16 px-6" style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center justify-between">
+        <!-- 左侧文字 -->
+        <div class="flex-1 max-w-2xl">
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
+            科学管理身心，<br>
+            告别身材焦虑
+          </h1>
+          <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+            结合心理干预与身体中立理念，帮助<br>
+            平衡与自信
+          </p>
+          <button class="bg-primary hover:bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-medium transition-all hover:transform hover:scale-105 shadow-lg">
+            开始测评
+          </button>
+        </div>
+        
+        <!-- 右侧插画 -->
+        <div class="flex-1 flex justify-center items-center">
+          <div class="relative w-80 h-80">
+            <!-- 背景圆形渐变 -->
+            <div class="absolute inset-0 rounded-full" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 50%, #93c5fd 100%);"></div>
+            
+            <!-- 人物轮廓SVG -->
+            <div class="absolute inset-0 flex items-center justify-center">
+              <svg width="200" height="240" viewBox="0 0 200 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 头部轮廓 -->
+                <path d="M100 40c30 0 45 20 45 50c0 25-10 40-20 45c-5 15-10 25-25 25s-20-10-25-25c-10-5-20-20-20-45c0-30 15-50 45-50z" fill="white" opacity="0.9"/>
+                <!-- 颈部 -->
+                <rect x="90" y="160" width="20" height="30" fill="white" opacity="0.9"/>
+                <!-- 肩膀暗示 -->
+                <path d="M70 190c0-5 10-10 30-10s30 5 30 10" stroke="white" stroke-width="3" fill="none" opacity="0.7"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 主内容区 -->
-  <main class="pt-20 pb-24 px-6">
+  <main class="pb-24 px-6">
     
     <!-- 欢迎区域 -->
     <section class="mb-8 animate-fade-in">
@@ -175,7 +222,7 @@
         <div class="card-gentle rounded-3xl p-6 soft-shadow animate-scale-in cursor-pointer" onclick="navigateTo('practiceCenter')">
           <div class="flex items-center space-x-4">
             <div class="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center">
-              <i class="fa fa-heart-o text-secondary text-xl"></i>
+              <i class="fa fa-refresh text-secondary text-xl"></i>
             </div>
             <div class="flex-1">
               <h3 class="font-semibold text-gray-800 mb-1">日常练习</h3>
@@ -192,7 +239,7 @@
         <div class="card-gentle rounded-3xl p-6 soft-shadow animate-scale-in cursor-pointer" onclick="navigateTo('toolsCenter')">
           <div class="flex items-center space-x-4">
             <div class="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center">
-              <i class="fa fa-flask text-accent text-xl"></i>
+              <i class="fa fa-search text-accent text-xl"></i>
             </div>
             <div class="flex-1">
               <h3 class="font-semibold text-gray-800 mb-1">深度工具</h3>
@@ -301,5 +348,3 @@
 
 </body>
 </html>
-
-
