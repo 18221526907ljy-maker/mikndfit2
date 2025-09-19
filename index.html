@@ -90,19 +90,12 @@
 
 <body class="min-h-screen bg-gradient-to-br" style="background: linear-gradient(135deg, #f0f4f8, #e3f2fd);">
   
-  <!-- 顶部导航 - 简化专业版 -->
+  <!-- 顶部导航 - 使用图片logo -->
   <nav class="fixed top-0 left-0 right-0 bg-white z-50">
-    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-5">
-      <!-- Logo区域 - 使用HTML版本的设计 -->
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+      <!-- Logo区域 - 使用图片 -->
       <div class="flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" class="h-10 mr-3">
-          <!-- 叶子图标 -->
-          <path d="M30 15 C20 25, 20 45, 35 50 C50 45, 50 25, 40 15 Z" fill="#5C8D6E"/>
-          <path d="M35 15 C45 20, 55 30, 50 45 C40 55, 25 55, 20 40 Z" fill="#D2B48C"/>
-          <circle cx="38" cy="30" r="4" fill="#C9A646"/>
-          <!-- MindFit 文字 -->
-          <text x="70" y="38" font-family="Georgia, serif" font-size="28" fill="#2A5E3F">MindFit</text>
-        </svg>
+        <img src="mindfit_logo.jpg" alt="MindFit Logo" width="120" class="h-auto">
       </div>
       
       <!-- 导航菜单 -->
@@ -115,7 +108,7 @@
     </div>
   </nav>
 
-  <!-- Hero Section - 采用HTML版本的简洁设计 -->
+  <!-- Hero Section - 使用图片插画 -->
   <section class="pt-24 pb-16 bg-white">
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex items-center justify-between">
@@ -133,32 +126,9 @@
           </button>
         </div>
         
-        <!-- 右侧插画 - 使用HTML版本的SVG -->
+        <!-- 右侧插画 - 使用图片 -->
         <div class="flex-1 flex justify-center">
-          <svg viewBox="0 0 560 340" xmlns="http://www.w3.org/2000/svg" 
-               role="img" aria-label="MindFit hero illustration" 
-               class="w-full max-w-lg h-auto">
-            <defs>
-              <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
-                gradientTransform="translate(388 168) scale(230 170)">
-                <stop offset="0" stop-color="#DDEBFA"/>
-                <stop offset="0.55" stop-color="#CDE1F6"/>
-                <stop offset="1" stop-color="#FFFFFF"/>
-              </radialGradient>
-              <linearGradient id="headFill" x1="335" y1="40" x2="335" y2="300" gradientUnits="userSpaceOnUse">
-                <stop offset="0" stop-color="#F6FAFF"/>
-                <stop offset="1" stop-color="#EAF3FE"/>
-              </linearGradient>
-              <style>
-                .outline { stroke:#1E2A3A; stroke-width:1.2; stroke-linecap:round; stroke-linejoin:round; }
-              </style>
-            </defs>
-            <!-- 背景光晕 -->
-            <ellipse cx="388" cy="168" rx="240" ry="180" fill="url(#halo)"/>
-            <!-- 头部形状 -->
-            <path d="M445 263 C445 222 423 212 414 198 C407 187 406 172 406 154 C406 136 408 124 417 108 C422 99 424 90 412 74 C397 56 377 46 354 44 C327 41 302 48 285 62 C266 77 256 100 254 128 C252 156 254 185 270 207 C282 223 301 236 321 246 C338 255 356 260 374 262 C392 264 409 264 445 263Z"
-              fill="url(#headFill)" class="outline"/>
-          </svg>
+          <img src="mindfit_hero.jpg" alt="Hero Illustration" width="400" class="max-w-full h-auto">
         </div>
       </div>
     </div>
