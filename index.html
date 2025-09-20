@@ -1,26 +1,4 @@
-<div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
-            <div class="aspect-video bg-primary flex items-center justify-center">
-              <i class="fa fa-image text-3xl text-white"></i>
-            </div>
-            <div class="p-4">
-              <h3 class="font-bold text-primary mb-1 text-sm tracking-title">身体中立基础</h3>
-              <p class="text-content text-xs">了解身体中立的核心理念</p>
-            </div>
-          </div>
-
-          <div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
-            <div class="aspect-video bg-mint flex items-center justify-center">
-              <i class="fa fa-image text-3xl text-white"></i>
-            </div>
-            <div class="p-4">
-              <h3 class="font-bold text-primary mb-1 text-sm tracking-title">实践方法</h3>
-              <p class="text-content text-xs">日常生活中的身体中立练习</p>
-            </div>
-          </div>
-
-          <div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
-            <div class    <!-- 个性化推荐 - 横向滑动 -->
-    <section class="py-6 md:py-20 mobile-section" style="background: linear-gradient(135deg, #A8E6E1, #F7F<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -109,37 +87,8 @@
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
     
-    /* 横向滑动容器 */
-    .scroll-container {
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-    .scroll-container::-webkit-scrollbar {
-      display: none;
-    }
-    
-    /* 移动端适配 */
+    /* 移动端功能卡片一行三个 - 精确控制 */
     @media (max-width: 768px) {
-      .hero-section {
-        flex-direction: row;
-        text-align: left;
-        gap: 1rem;
-      }
-      
-      .hero-content {
-        flex: 2;
-        order: 1;
-      }
-      
-      .hero-image {
-        flex: 1;
-        order: 2;
-        width: 100%;
-        max-width: 120px;
-        margin: 0;
-      }
-      
-      /* 移动端功能卡片一行三个 - 精确控制 */
       .mobile-features {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -155,15 +104,15 @@
         justify-content: space-between;
         min-height: 160px;
       }
-      
-      /* 移动端压缩各区域高度 */
-      .mobile-hero {
-        padding: 1rem 0;
-      }
-      
-      .mobile-section {
-        padding: 1rem 0;
-      }
+    }
+    
+    /* 横向滑动容器 */
+    .scroll-container {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .scroll-container::-webkit-scrollbar {
+      display: none;
     }
     
     /* 滑动指示器 */
@@ -218,15 +167,15 @@
     </div>
   </nav>
 
-  <main class="pb-20 md:pb-8">
+  <main class="pb-20 md:pb-8 bg-secondary">
     
     <!-- Hero 区域 -->
-    <section class="hero-gradient py-4 md:py-20 mobile-hero">
+    <section class="hero-gradient py-4 md:py-20">
       <div class="max-w-7xl mx-auto px-4 md:px-6">
-        <div class="hero-section flex items-center justify-between gap-3 md:gap-12">
+        <div class="flex items-center justify-between gap-3 md:gap-12">
           
           <!-- 左侧内容 -->
-          <div class="hero-content flex-1">
+          <div class="flex-1">
             <h1 class="text-lg md:text-5xl font-bold text-primary leading-tight mb-2 md:mb-6 tracking-title">
               科学管理身心、<br>
               <span class="text-accent">告别身材焦虑</span>
@@ -241,8 +190,8 @@
             </button>
           </div>
           
-          <!-- 右侧图片占位 - 移动端大幅缩小 -->
-          <div class="hero-image w-20 md:flex-1 md:max-w-lg">
+          <!-- 右侧图片占位 -->
+          <div class="w-20 md:flex-1 md:max-w-lg">
             <div class="hero-image-placeholder aspect-square rounded-lg md:rounded-2xl flex items-center justify-center">
               <div class="text-center text-gray-400">
                 <i class="fa fa-image text-lg md:text-6xl mb-1 md:mb-4"></i>
@@ -256,7 +205,7 @@
     </section>
 
     <!-- 主要功能区域 -->
-    <section class="py-6 md:py-20 mobile-section">
+    <section class="py-6 md:py-20">
       <div class="max-w-7xl mx-auto px-4 md:px-6">
         
         <!-- 桌面端：3列网格 -->
@@ -306,7 +255,7 @@
 
         </div>
 
-        <!-- 移动端：一行三个 - 简洁配色 -->
+        <!-- 移动端：一行三个 -->
         <div class="md:hidden mobile-features">
           
           <div class="glass-card rounded-xl mobile-feature-card">
@@ -358,8 +307,8 @@
       </div>
     </section>
 
-    <!-- 身体中立知识库 - 横向滑动 -->
-    <section class="py-6 md:py-20 bg-gray-50 mobile-section">
+    <!-- 身体中立知识库 -->
+    <section class="py-6 md:py-20 bg-gray-50">
       <div class="max-w-7xl mx-auto px-4 md:px-6">
         
         <div class="text-center mb-6 md:mb-12">
@@ -404,35 +353,35 @@
 
         <!-- 移动端：横向滑动 -->
         <div class="md:hidden relative">
-          <div class="flex space-x-4 overflow-x-auto scroll-container pb-4" id="knowledgeScroll">
+          <div class="flex space-x-4 overflow-x-auto scroll-container pb-4">
             
             <div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
-              <div class="aspect-video bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-blue-400"></i>
+              <div class="aspect-video bg-primary flex items-center justify-center">
+                <i class="fa fa-image text-3xl text-white"></i>
               </div>
               <div class="p-4">
-                <h3 class="font-bold text-gray-800 mb-1 text-sm">身体中立基础</h3>
-                <p class="text-gray-600 text-xs">了解身体中立的核心理念</p>
+                <h3 class="font-bold text-primary mb-1 text-sm tracking-title">身体中立基础</h3>
+                <p class="text-content text-xs">了解身体中立的核心理念</p>
               </div>
             </div>
 
             <div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
-              <div class="aspect-video bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-green-400"></i>
+              <div class="aspect-video bg-mint flex items-center justify-center">
+                <i class="fa fa-image text-3xl text-white"></i>
               </div>
               <div class="p-4">
-                <h3 class="font-bold text-gray-800 mb-1 text-sm">实践方法</h3>
-                <p class="text-gray-600 text-xs">日常生活中的身体中立练习</p>
+                <h3 class="font-bold text-primary mb-1 text-sm tracking-title">实践方法</h3>
+                <p class="text-content text-xs">日常生活中的身体中立练习</p>
               </div>
             </div>
 
             <div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
-              <div class="aspect-video bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-purple-400"></i>
+              <div class="aspect-video bg-accent flex items-center justify-center">
+                <i class="fa fa-image text-3xl text-white"></i>
               </div>
               <div class="p-4">
-                <h3 class="font-bold text-gray-800 mb-1 text-sm">科学研究</h3>
-                <p class="text-gray-600 text-xs">相关心理学研究和证据</p>
+                <h3 class="font-bold text-primary mb-1 text-sm tracking-title">科学研究</h3>
+                <p class="text-content text-xs">相关心理学研究和证据</p>
               </div>
             </div>
 
@@ -444,8 +393,8 @@
       </div>
     </section>
 
-    <!-- 个性化推荐 - 横向滑动 -->
-    <section class="py-6 md:py-20 mobile-section bg-light">
+    <!-- 个性化推荐 -->
+    <section class="py-6 md:py-20 bg-light">
       <div class="max-w-4xl mx-auto px-4 md:px-6">
         
         <div class="text-center mb-6 md:mb-12">
@@ -491,149 +440,3 @@
               <i class="fa fa-chevron-right text-mint"></i>
             </div>
           </div>
-
-        </div>
-
-        <!-- 移动端：横向滑动 -->
-        <div class="md:hidden relative">
-          <div class="flex space-x-4 overflow-x-auto scroll-container pb-4" id="qaScroll">
-            
-            <div class="qa-item rounded-xl p-4 cursor-pointer flex-shrink-0">
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white text-sm"></i>
-                </div>
-                <span class="text-primary font-medium text-sm">遇见学习问题帮助更适？</span>
-              </div>
-            </div>
-
-            <div class="qa-item rounded-xl p-4 cursor-pointer flex-shrink-0">
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-mint rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white text-sm"></i>
-                </div>
-                <span class="text-primary font-medium text-sm">什么干身材的帮助敬？</span>
-              </div>
-            </div>
-
-            <div class="qa-item rounded-xl p-4 cursor-pointer flex-shrink-0">
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white text-sm"></i>
-                </div>
-                <span class="text-primary font-medium text-sm">说促什么问题帮助史材？</span>
-              </div>
-            </div>
-
-          </div>
-          <!-- 滑动提示 -->
-          <div class="scroll-indicator"></div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- 底部信息 - 仅桌面端显示 -->
-    <footer class="hidden md:block py-12 bg-gray-100">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between">
-          
-          <div class="flex items-center space-x-6">
-            <div class="w-20 h-20 bg-gray-300 rounded-lg flex items-center justify-center">
-              <i class="fa fa-qrcode text-2xl text-gray-500"></i>
-            </div>
-            <div>
-              <p class="font-medium text-gray-800">微信二维码</p>
-              <p class="text-sm text-gray-600">扫码关注获取更多资源</p>
-            </div>
-          </div>
-          
-          <div class="flex items-center space-x-4">
-            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-              <i class="fa fa-envelope text-primary"></i>
-            </div>
-            <div>
-              <p class="font-medium text-gray-800">邮箱</p>
-              <p class="text-sm text-gray-600">contact@mindfit.com</p>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </footer>
-
-  </main>
-
-  <!-- 移动端底部导航 -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
-    <div class="flex justify-around py-2">
-      <button class="nav-item flex flex-col items-center py-2 px-3 text-primary">
-        <i class="fa fa-home text-lg mb-1"></i>
-        <span class="text-xs font-medium">首页</span>
-      </button>
-      <button class="nav-item flex flex-col items-center py-2 px-3 text-gray-500">
-        <i class="fa fa-clipboard text-lg mb-1"></i>
-        <span class="text-xs">测评</span>
-      </button>
-      <button class="nav-item flex flex-col items-center py-2 px-3 text-gray-500">
-        <i class="fa fa-wrench text-lg mb-1"></i>
-        <span class="text-xs">工具</span>
-      </button>
-      <button class="nav-item flex flex-col items-center py-2 px-3 text-gray-500">
-        <i class="fa fa-user text-lg mb-1"></i>
-        <span class="text-xs">我的</span>
-      </button>
-    </div>
-  </nav>
-
-  <script>
-    // 移动端导航交互
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', function() {
-        document.querySelectorAll('.nav-item').forEach(i => {
-          i.classList.remove('text-primary');
-          i.classList.add('text-gray-500');
-        });
-        this.classList.remove('text-gray-500');
-        this.classList.add('text-primary');
-      });
-    });
-
-    // QA 项目点击效果
-    document.querySelectorAll('.qa-item').forEach(item => {
-      item.addEventListener('click', function() {
-        console.log('点击了推荐项目');
-      });
-    });
-
-    // 功能卡片点击
-    document.querySelectorAll('.glass-card button').forEach(button => {
-      button.addEventListener('click', function() {
-        console.log('点击了功能按钮:', this.textContent);
-      });
-    });
-
-    // 横向滑动提示效果
-    function addScrollIndicator(containerId) {
-      const container = document.getElementById(containerId);
-      if (container) {
-        let isScrolling = false;
-        
-        container.addEventListener('scroll', function() {
-          if (!isScrolling) {
-            isScrolling = true;
-            setTimeout(() => {
-              isScrolling = false;
-            }, 150);
-          }
-        });
-      }
-    }
-
-    // 初始化滑动容器
-    addScrollIndicator('knowledgeScroll');
-    addScrollIndicator('qaScroll');
-  </script>
-
-</body>
-</html>
