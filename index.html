@@ -1,4 +1,25 @@
-<!-- 个性化推荐 - 横向滑动 -->
+<div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
+            <div class="aspect-video bg-primary flex items-center justify-center">
+              <i class="fa fa-image text-3xl text-white"></i>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-primary mb-1 text-sm tracking-title">身体中立基础</h3>
+              <p class="text-content text-xs">了解身体中立的核心理念</p>
+            </div>
+          </div>
+
+          <div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
+            <div class="aspect-video bg-mint flex items-center justify-center">
+              <i class="fa fa-image text-3xl text-white"></i>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-primary mb-1 text-sm tracking-title">实践方法</h3>
+              <p class="text-content text-xs">日常生活中的身体中立练习</p>
+            </div>
+          </div>
+
+          <div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
+            <div class    <!-- 个性化推荐 - 横向滑动 -->
     <section class="py-6 md:py-20 mobile-section" style="background: linear-gradient(135deg, #A8E6E1, #F7F<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -13,20 +34,15 @@
       theme: {
         extend: {
           colors: {
-            // MindFit 色彩方案 v2
-            primary: "#A7B8A8",      // 莫兰迪绿灰（主色）
-            secondary: "#F7F6F2",    // 米白/灰米色（背景）
-            accent: "#D4A373",       // 金色（点缀CTA）
-            warm: "#F7F6F2",         // 米白
-            soft: "#D8A7A7",         // 莫兰迪粉（日常练习）
-            neutral: "#A3BFD9",      // 莫兰迪蓝（了解自己）
-            light: "#FFFFFF",        // 纯白
-            purple: "#B6A0C4",       // 莫兰迪紫（深度工具）
-            mint: "#8FD9A8",         // 薄荷绿（亮色点缀）
-            coral: "#FFB5A7",        // 珊瑚粉（亮色点缀）
-            aqua: "#A8E6E1",         // 淡蓝绿（推荐区背景）
-            darkGreen: "#354A3D",    // 深绿灰（标题文字）
-            gray: "#555555",         // 灰色（副标题）
+            // MindFit 新配色方案 - 简洁现代
+            primary: "#4A6157",      // 深绿色灰（主色）
+            secondary: "#F7F6F2",    // 米白（辅色）
+            accent: "#2E2E2E",       // 深炭灰（强调色）
+            mint: "#8FD9A8",         // 浅薄荷绿（点缀色）
+            light: "#FAFAFA",        // 浅灰白
+            white: "#FFFFFF",        // 纯白
+            content: "#444444",      // 正文内容色
+            shadow: "rgba(0,0,0,0.08)", // 浅灰阴影
           },
           fontFamily: {
             sans: ["PingFang SC", "Helvetica Neue", "Arial", "sans-serif"],
@@ -45,60 +61,52 @@
     }
     
     .glass-card {
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
     
     .glass-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.08);
-      border-color: rgba(167, 184, 168, 0.2);
-    }
-    
-    .feature-icon {
-      background: linear-gradient(135deg, #D4A373, #FFB5A7);
-      background-clip: text;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
     }
     
     .hero-image-placeholder {
-      background: linear-gradient(135deg, #F7F6F2, #A7B8A8);
-      border: 2px dashed #A7B8A8;
+      background: linear-gradient(135deg, #FAFAFA, #F7F6F2);
+      border: 2px dashed #4A6157;
     }
     
-    .gold-accent-line {
-      border-left: 3px solid #D4A373;
+    .green-accent-line {
+      border-left: 3px solid #4A6157;
       padding-left: 1rem;
     }
     
     .knowledge-card {
-      background: linear-gradient(135deg, #FFFFFF, #F7F6F2);
-      border: 1px solid rgba(167, 184, 168, 0.15);
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.05);
       transition: all 0.3s ease;
       min-width: 280px;
     }
     
     .knowledge-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+      transform: translateY(-2px);
+      background: #FAFAFA;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
     }
     
     .qa-item {
-      background: rgba(255, 255, 255, 0.95);
-      border: 1px solid rgba(167, 184, 168, 0.2);
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.05);
       transition: all 0.3s ease;
       min-width: 300px;
     }
     
     .qa-item:hover {
-      background: #F7F6F2;
-      border-color: #A7B8A8;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      background: #FAFAFA;
+      border-color: #4A6157;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
     
     /* 横向滑动容器 */
@@ -174,37 +182,37 @@
 <body class="bg-gray-50 font-sans">
   
   <!-- 顶部导航 - 桌面端 -->
-  <nav class="hidden md:block bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+  <nav class="hidden md:block bg-light border-b border-gray-200 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-2">
           <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
             <i class="fa fa-heartbeat text-white text-sm"></i>
           </div>
-          <span class="text-xl font-bold text-gray-800">MindFit</span>
+          <span class="text-xl font-bold text-primary">MindFit</span>
         </div>
         
         <div class="flex items-center space-x-8">
-          <a href="#" class="text-gray-600 hover:text-primary transition-colors font-medium">首页</a>
-          <a href="#" class="text-gray-600 hover:text-primary transition-colors font-medium">功能</a>
-          <a href="#" class="text-gray-600 hover:text-primary transition-colors font-medium">理论</a>
-          <a href="#" class="text-gray-600 hover:text-primary transition-colors font-medium">个人中心</a>
+          <a href="#" class="text-primary hover:text-mint transition-colors font-medium">首页</a>
+          <a href="#" class="text-content hover:text-primary transition-colors font-medium">功能</a>
+          <a href="#" class="text-content hover:text-primary transition-colors font-medium">理论</a>
+          <a href="#" class="text-content hover:text-primary transition-colors font-medium">个人中心</a>
         </div>
       </div>
     </div>
   </nav>
 
   <!-- 移动端顶部导航 -->
-  <nav class="md:hidden bg-white/90 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
+  <nav class="md:hidden bg-light border-b border-gray-200 sticky top-0 z-50">
     <div class="flex items-center justify-between px-4 py-3">
       <div class="flex items-center space-x-2">
         <div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center">
           <i class="fa fa-heartbeat text-white text-xs"></i>
         </div>
-        <span class="text-lg font-bold text-gray-800">MindFit</span>
+        <span class="text-lg font-bold text-primary">MindFit</span>
       </div>
       <!-- 右上角头像 -->
-      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+      <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center">
         <i class="fa fa-user text-white text-xs"></i>
       </div>
     </div>
@@ -219,16 +227,16 @@
           
           <!-- 左侧内容 -->
           <div class="hero-content flex-1">
-            <h1 class="text-lg md:text-5xl font-bold text-darkGreen leading-tight mb-2 md:mb-6 tracking-title">
+            <h1 class="text-lg md:text-5xl font-bold text-primary leading-tight mb-2 md:mb-6 tracking-title">
               科学管理身心、<br>
-              <span class="text-primary">告别身材焦虑</span>
+              <span class="text-accent">告别身材焦虑</span>
             </h1>
             
-            <p class="text-xs md:text-xl text-gray leading-relaxed mb-3 md:mb-8">
+            <p class="text-xs md:text-xl text-content leading-relaxed mb-3 md:mb-8">
               平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
             </p>
             
-            <button class="bg-gradient-to-r from-accent to-coral hover:from-coral hover:to-accent text-white px-4 py-2 md:px-8 md:py-4 rounded-lg font-semibold text-xs md:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <button class="bg-accent hover:bg-primary text-white px-4 py-2 md:px-8 md:py-4 rounded-lg font-semibold text-xs md:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
               立即体验
             </button>
           </div>
@@ -254,94 +262,94 @@
         <!-- 桌面端：3列网格 -->
         <div class="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
           
-          <!-- 了解自己 - 莫兰迪蓝 -->
-          <div class="glass-card rounded-2xl p-8 text-center" style="background: linear-gradient(135deg, #A3BFD9, #FFFFFF);">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white flex items-center justify-center shadow-sm">
-              <i class="fa fa-user-circle text-neutral text-3xl"></i>
+          <!-- 了解自己 -->
+          <div class="glass-card rounded-2xl p-8 text-center">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
+              <i class="fa fa-user-circle text-primary text-3xl"></i>
             </div>
-            <h3 class="text-xl font-bold text-darkGreen mb-4 tracking-title">了解自己</h3>
-            <p class="text-gray mb-6 leading-relaxed">
+            <h3 class="text-xl font-bold text-primary mb-4 tracking-title">了解自己</h3>
+            <p class="text-content mb-6 leading-relaxed">
               通过各种帮助信任认知当下的自己
             </p>
-            <button class="w-full bg-gradient-to-r from-accent to-coral hover:from-coral hover:to-accent text-white py-3 rounded-xl font-medium transition-all duration-300">
+            <button class="w-full bg-accent hover:bg-primary text-white py-3 rounded-xl font-medium transition-all duration-300">
               开始评估
             </button>
           </div>
 
-          <!-- 日常练习 - 莫兰迪粉 -->
-          <div class="glass-card rounded-2xl p-8 text-center" style="background: linear-gradient(135deg, #D8A7A7, #FFFFFF);">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white flex items-center justify-center shadow-sm">
-              <i class="fa fa-apple text-soft text-3xl"></i>
+          <!-- 日常练习 -->
+          <div class="glass-card rounded-2xl p-8 text-center">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
+              <i class="fa fa-apple text-primary text-3xl"></i>
             </div>
-            <h3 class="text-xl font-bold text-darkGreen mb-4 tracking-title">日常练习</h3>
-            <p class="text-gray mb-6 leading-relaxed">
+            <h3 class="text-xl font-bold text-primary mb-4 tracking-title">日常练习</h3>
+            <p class="text-content mb-6 leading-relaxed">
               培养健康生活习惯的时候解决伴随紧张感
             </p>
-            <button class="w-full bg-gradient-to-r from-accent to-coral hover:from-coral hover:to-accent text-white py-3 rounded-xl font-medium transition-all duration-300">
+            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all duration-300">
               开始练习
             </button>
           </div>
 
-          <!-- 深度工具 - 莫兰迪紫 -->
-          <div class="glass-card rounded-2xl p-8 text-center" style="background: linear-gradient(135deg, #B6A0C4, #FFFFFF);">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-white flex items-center justify-center shadow-sm">
-              <i class="fa fa-cogs text-purple text-3xl"></i>
+          <!-- 深度工具 -->
+          <div class="glass-card rounded-2xl p-8 text-center">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
+              <i class="fa fa-cogs text-primary text-3xl"></i>
             </div>
-            <h3 class="text-xl font-bold text-darkGreen mb-4 tracking-title">深度工具</h3>
-            <p class="text-gray mb-6 leading-relaxed">
+            <h3 class="text-xl font-bold text-primary mb-4 tracking-title">深度工具</h3>
+            <p class="text-content mb-6 leading-relaxed">
               通过心理干预或深入了解内心
             </p>
-            <button class="w-full bg-gradient-to-r from-accent to-coral hover:from-coral hover:to-accent text-white py-3 rounded-xl font-medium transition-all duration-300">
+            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all duration-300">
               探索工具
             </button>
           </div>
 
         </div>
 
-        <!-- 移动端：一行三个 - 莫兰迪配色 -->
+        <!-- 移动端：一行三个 - 简洁配色 -->
         <div class="md:hidden mobile-features">
           
-          <div class="glass-card rounded-xl mobile-feature-card" style="background: linear-gradient(135deg, #A3BFD9, #FFFFFF);">
+          <div class="glass-card rounded-xl mobile-feature-card">
             <div class="flex flex-col items-center flex-1">
-              <div class="w-10 h-10 mb-2 rounded-xl bg-white flex items-center justify-center shadow-sm">
-                <i class="fa fa-user-circle text-neutral text-base"></i>
+              <div class="w-10 h-10 mb-2 rounded-xl bg-light flex items-center justify-center">
+                <i class="fa fa-user-circle text-primary text-base"></i>
               </div>
-              <h3 class="text-xs font-bold text-darkGreen mb-2 tracking-title">了解自己</h3>
-              <p class="text-xs text-gray leading-tight px-1 flex-1 mb-3">
+              <h3 class="text-xs font-bold text-primary mb-2 tracking-title">了解自己</h3>
+              <p class="text-xs text-content leading-tight px-1 flex-1 mb-3">
                 通过各种帮助信任认知当下的自己
               </p>
             </div>
-            <button class="w-full bg-gradient-to-r from-accent to-coral text-white py-2 rounded-lg text-xs font-medium hover:from-coral hover:to-accent transition-all">
+            <button class="w-full bg-accent text-white py-2 rounded-lg text-xs font-medium hover:bg-primary transition-all">
               开始评估
             </button>
           </div>
 
-          <div class="glass-card rounded-xl mobile-feature-card" style="background: linear-gradient(135deg, #D8A7A7, #FFFFFF);">
+          <div class="glass-card rounded-xl mobile-feature-card">
             <div class="flex flex-col items-center flex-1">
-              <div class="w-10 h-10 mb-2 rounded-xl bg-white flex items-center justify-center shadow-sm">
-                <i class="fa fa-apple text-soft text-base"></i>
+              <div class="w-10 h-10 mb-2 rounded-xl bg-light flex items-center justify-center">
+                <i class="fa fa-apple text-primary text-base"></i>
               </div>
-              <h3 class="text-xs font-bold text-darkGreen mb-2 tracking-title">日常练习</h3>
-              <p class="text-xs text-gray leading-tight px-1 flex-1 mb-3">
+              <h3 class="text-xs font-bold text-primary mb-2 tracking-title">日常练习</h3>
+              <p class="text-xs text-content leading-tight px-1 flex-1 mb-3">
                 培养健康生活习惯的时候解决伴随紧张感
               </p>
             </div>
-            <button class="w-full bg-gradient-to-r from-accent to-coral text-white py-2 rounded-lg text-xs font-medium hover:from-coral hover:to-accent transition-all">
+            <button class="w-full bg-white border border-primary text-primary py-2 rounded-lg text-xs font-medium hover:bg-mint hover:text-white hover:border-mint transition-all">
               开始练习
             </button>
           </div>
 
-          <div class="glass-card rounded-xl mobile-feature-card" style="background: linear-gradient(135deg, #B6A0C4, #FFFFFF);">
+          <div class="glass-card rounded-xl mobile-feature-card">
             <div class="flex flex-col items-center flex-1">
-              <div class="w-10 h-10 mb-2 rounded-xl bg-white flex items-center justify-center shadow-sm">
-                <i class="fa fa-cogs text-purple text-base"></i>
+              <div class="w-10 h-10 mb-2 rounded-xl bg-light flex items-center justify-center">
+                <i class="fa fa-cogs text-primary text-base"></i>
               </div>
-              <h3 class="text-xs font-bold text-darkGreen mb-2 tracking-title">深度工具</h3>
-              <p class="text-xs text-gray leading-tight px-1 flex-1 mb-3">
+              <h3 class="text-xs font-bold text-primary mb-2 tracking-title">深度工具</h3>
+              <p class="text-xs text-content leading-tight px-1 flex-1 mb-3">
                 通过心理干预或深入了解内心
               </p>
             </div>
-            <button class="w-full bg-gradient-to-r from-accent to-coral text-white py-2 rounded-lg text-xs font-medium hover:from-coral hover:to-accent transition-all">
+            <button class="w-full bg-white border border-primary text-primary py-2 rounded-lg text-xs font-medium hover:bg-mint hover:text-white hover:border-mint transition-all">
               探索工具
             </button>
           </div>
@@ -355,8 +363,8 @@
       <div class="max-w-7xl mx-auto px-4 md:px-6">
         
         <div class="text-center mb-6 md:mb-12">
-          <h2 class="text-xl md:text-3xl font-bold text-darkGreen mb-2 md:mb-4 tracking-title gold-accent-line">身体中立知识库</h2>
-          <p class="text-gray text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
+          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4 tracking-title green-accent-line">身体中立知识库</h2>
+          <p class="text-content text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
         </div>
 
         <!-- 桌面端：3列网格 -->
@@ -437,12 +445,12 @@
     </section>
 
     <!-- 个性化推荐 - 横向滑动 -->
-    <section class="py-6 md:py-20 mobile-section" style="background: linear-gradient(135deg, #A8E6E1, #F7F6F2);">
+    <section class="py-6 md:py-20 mobile-section bg-light">
       <div class="max-w-4xl mx-auto px-4 md:px-6">
         
         <div class="text-center mb-6 md:mb-12">
-          <h2 class="text-xl md:text-3xl font-bold text-darkGreen mb-2 md:mb-4 tracking-title">个性化推荐</h2>
-          <p class="text-gray text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
+          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4 tracking-title">个性化推荐</h2>
+          <p class="text-content text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
         </div>
 
         <!-- 桌面端：垂直排列 -->
@@ -451,36 +459,36 @@
           <div class="qa-item rounded-xl p-6 cursor-pointer">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-accent to-coral rounded-full flex items-center justify-center">
+                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
                   <i class="fa fa-search text-white"></i>
                 </div>
-                <span class="text-darkGreen font-medium">遇见学习问题帮助更适？</span>
+                <span class="text-primary font-medium">遇见学习问题帮助更适？</span>
               </div>
-              <i class="fa fa-chevron-right text-primary"></i>
+              <i class="fa fa-chevron-right text-mint"></i>
             </div>
           </div>
 
           <div class="qa-item rounded-xl p-6 cursor-pointer">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-mint to-primary rounded-full flex items-center justify-center">
+                <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center">
                   <i class="fa fa-search text-white"></i>
                 </div>
-                <span class="text-darkGreen font-medium">什么干身材的帮助敬？</span>
+                <span class="text-primary font-medium">什么干身材的帮助敬？</span>
               </div>
-              <i class="fa fa-chevron-right text-primary"></i>
+              <i class="fa fa-chevron-right text-mint"></i>
             </div>
           </div>
 
           <div class="qa-item rounded-xl p-6 cursor-pointer">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-gradient-to-br from-soft to-coral rounded-full flex items-center justify-center">
+                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
                   <i class="fa fa-search text-white"></i>
                 </div>
-                <span class="text-darkGreen font-medium">说促什么问题帮助史材？</span>
+                <span class="text-primary font-medium">说促什么问题帮助史材？</span>
               </div>
-              <i class="fa fa-chevron-right text-primary"></i>
+              <i class="fa fa-chevron-right text-mint"></i>
             </div>
           </div>
 
@@ -492,28 +500,28 @@
             
             <div class="qa-item rounded-xl p-4 cursor-pointer flex-shrink-0">
               <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-gradient-to-br from-accent to-coral rounded-full flex items-center justify-center">
+                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
                   <i class="fa fa-search text-white text-sm"></i>
                 </div>
-                <span class="text-darkGreen font-medium text-sm">遇见学习问题帮助更适？</span>
+                <span class="text-primary font-medium text-sm">遇见学习问题帮助更适？</span>
               </div>
             </div>
 
             <div class="qa-item rounded-xl p-4 cursor-pointer flex-shrink-0">
               <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-gradient-to-br from-mint to-primary rounded-full flex items-center justify-center">
+                <div class="w-8 h-8 bg-mint rounded-full flex items-center justify-center">
                   <i class="fa fa-search text-white text-sm"></i>
                 </div>
-                <span class="text-darkGreen font-medium text-sm">什么干身材的帮助敬？</span>
+                <span class="text-primary font-medium text-sm">什么干身材的帮助敬？</span>
               </div>
             </div>
 
             <div class="qa-item rounded-xl p-4 cursor-pointer flex-shrink-0">
               <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 bg-gradient-to-br from-soft to-coral rounded-full flex items-center justify-center">
+                <div class="w-8 h-8 bg-accent rounded-full flex items-center justify-center">
                   <i class="fa fa-search text-white text-sm"></i>
                 </div>
-                <span class="text-darkGreen font-medium text-sm">说促什么问题帮助史材？</span>
+                <span class="text-primary font-medium text-sm">说促什么问题帮助史材？</span>
               </div>
             </div>
 
