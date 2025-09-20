@@ -12,11 +12,14 @@
       theme: {
         extend: {
           colors: {
-            primary: "#3B82F6",
-            secondary: "#10B981", 
-            accent: "#8B5CF6",
-            warm: "#FFF7ED",
-            soft: "#F0F9FF",
+            // 新的高级疗愈配色
+            primary: "#6B7C5D",      // 深橄榄绿
+            secondary: "#C4A484",     // 柔雅金棕
+            accent: "#8B9A86",        // 深绿灰
+            warm: "#F7F5F0",          // 温暖米白
+            soft: "#A8B5A0",          // 雾霾绿
+            neutral: "#D4DDD0",       // 暖灰绿
+            light: "#FAFAF7",         // 更纯净的米白
           },
           fontFamily: {
             sans: ["PingFang SC", "Helvetica Neue", "Arial", "sans-serif"],
@@ -28,57 +31,59 @@
   
   <style>
     .hero-gradient {
-      background: linear-gradient(135deg, #f0f4f8 0%, #e3f2fd 50%, #f0f9ff 100%);
+      background: linear-gradient(135deg, #F7F5F0 0%, #FAFAF7 50%, #F7F5F0 100%);
     }
     
     .glass-card {
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 8px 32px rgba(107, 124, 93, 0.08);
     }
     
     .glass-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(59, 130, 246, 0.1);
-      border-color: rgba(59, 130, 246, 0.2);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(107, 124, 93, 0.15);
+      border-color: rgba(107, 124, 93, 0.2);
     }
     
     .feature-icon {
-      background: linear-gradient(135deg, #3B82F6, #10B981);
+      background: linear-gradient(135deg, #6B7C5D, #8B9A86);
       background-clip: text;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
     
     .hero-image-placeholder {
-      background: linear-gradient(135deg, #E0F2FE, #F0F9FF);
-      border: 2px dashed #93C5FD;
+      background: linear-gradient(135deg, #F7F5F0, #D4DDD0);
+      border: 2px dashed #A8B5A0;
     }
     
     .knowledge-card {
-      background: linear-gradient(135deg, #F8FAFC, #F1F5F9);
-      border: 1px solid #E2E8F0;
+      background: linear-gradient(135deg, #FAFAF7, #F7F5F0);
+      border: 1px solid rgba(168, 181, 160, 0.2);
       transition: all 0.3s ease;
       min-width: 280px;
     }
     
     .knowledge-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(107, 124, 93, 0.12);
     }
     
     .qa-item {
       background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #E5E7EB;
-      transition: all 0.2s ease;
+      border: 1px solid rgba(168, 181, 160, 0.3);
+      transition: all 0.3s ease;
       min-width: 300px;
     }
     
     .qa-item:hover {
-      background: #F9FAFB;
-      border-color: #3B82F6;
+      background: #FAFAF7;
+      border-color: #6B7C5D;
       transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(107, 124, 93, 0.1);
     }
     
     /* 横向滑动容器 */
@@ -111,16 +116,21 @@
         margin: 0;
       }
       
-      /* 移动端功能卡片一行三个 */
+      /* 移动端功能卡片一行三个 - 精确控制 */
       .mobile-features {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        gap: 0.75rem;
+        gap: 0.5rem;
+        padding: 0 0.25rem;
       }
       
       .mobile-feature-card {
-        padding: 1rem 0.5rem;
+        padding: 0.75rem 0.5rem;
         text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 160px;
       }
       
       /* 移动端压缩各区域高度 */
@@ -231,86 +241,92 @@
           
           <!-- 了解自己 -->
           <div class="glass-card rounded-2xl p-8 text-center">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-soft to-neutral flex items-center justify-center">
               <i class="fa fa-user-circle feature-icon text-3xl"></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800 mb-4">了解自己</h3>
             <p class="text-gray-600 mb-6 leading-relaxed">
               通过各种帮助信任认知当下的自己
             </p>
-            <button class="w-full bg-primary hover:bg-blue-600 text-white py-3 rounded-xl font-medium transition-colors">
+            <button class="w-full bg-primary hover:bg-accent text-white py-3 rounded-xl font-medium transition-colors">
               开始评估
             </button>
           </div>
 
           <!-- 日常练习 -->
           <div class="glass-card rounded-2xl p-8 text-center">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-neutral to-secondary flex items-center justify-center">
               <i class="fa fa-apple feature-icon text-3xl"></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800 mb-4">日常练习</h3>
             <p class="text-gray-600 mb-6 leading-relaxed">
               培养健康生活习惯的时候解决伴随紧张感
             </p>
-            <button class="w-full bg-secondary hover:bg-green-600 text-white py-3 rounded-xl font-medium transition-colors">
+            <button class="w-full bg-secondary hover:bg-primary text-white py-3 rounded-xl font-medium transition-colors">
               开始练习
             </button>
           </div>
 
           <!-- 深度工具 -->
           <div class="glass-card rounded-2xl p-8 text-center">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-gradient-to-br from-accent to-soft flex items-center justify-center">
               <i class="fa fa-cogs feature-icon text-3xl"></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800 mb-4">深度工具</h3>
             <p class="text-gray-600 mb-6 leading-relaxed">
               通过心理干预或深入了解内心
             </p>
-            <button class="w-full bg-accent hover:bg-purple-600 text-white py-3 rounded-xl font-medium transition-colors">
+            <button class="w-full bg-accent hover:bg-primary text-white py-3 rounded-xl font-medium transition-colors">
               探索工具
             </button>
           </div>
 
         </div>
 
-        <!-- 移动端：一行三个 - 统一高度 -->
+        <!-- 移动端：一行三个 - 统一尺寸和配色 -->
         <div class="md:hidden mobile-features">
           
-          <div class="glass-card rounded-xl mobile-feature-card h-40">
-            <div class="w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
-              <i class="fa fa-user-circle text-purple-500 text-base"></i>
+          <div class="glass-card rounded-xl mobile-feature-card">
+            <div class="flex flex-col items-center flex-1">
+              <div class="w-10 h-10 mb-2 rounded-xl bg-gradient-to-br from-soft to-neutral flex items-center justify-center">
+                <i class="fa fa-user-circle text-primary text-base"></i>
+              </div>
+              <h3 class="text-xs font-bold text-gray-800 mb-2">了解自己</h3>
+              <p class="text-xs text-gray-600 leading-tight px-1 flex-1 mb-3">
+                通过各种帮助信任认知当下的自己
+              </p>
             </div>
-            <h3 class="text-xs font-bold text-gray-800 mb-2">了解自己</h3>
-            <p class="text-xs text-gray-600 mb-3 leading-tight px-1">
-              通过各种帮助信任认知当下的自己
-            </p>
-            <button class="w-full bg-primary text-white py-2 rounded-lg text-xs font-medium">
+            <button class="w-full bg-primary text-white py-2 rounded-lg text-xs font-medium hover:bg-accent transition-colors">
               开始评估
             </button>
           </div>
 
-          <div class="glass-card rounded-xl mobile-feature-card h-40">
-            <div class="w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center">
-              <i class="fa fa-apple text-green-500 text-base"></i>
+          <div class="glass-card rounded-xl mobile-feature-card">
+            <div class="flex flex-col items-center flex-1">
+              <div class="w-10 h-10 mb-2 rounded-xl bg-gradient-to-br from-neutral to-secondary flex items-center justify-center">
+                <i class="fa fa-apple text-primary text-base"></i>
+              </div>
+              <h3 class="text-xs font-bold text-gray-800 mb-2">日常练习</h3>
+              <p class="text-xs text-gray-600 leading-tight px-1 flex-1 mb-3">
+                培养健康生活习惯的时候解决伴随紧张感
+              </p>
             </div>
-            <h3 class="text-xs font-bold text-gray-800 mb-2">日常练习</h3>
-            <p class="text-xs text-gray-600 mb-3 leading-tight px-1">
-              培养健康生活习惯的时候解决伴随紧张感
-            </p>
-            <button class="w-full bg-secondary text-white py-2 rounded-lg text-xs font-medium">
+            <button class="w-full bg-secondary text-white py-2 rounded-lg text-xs font-medium hover:bg-primary transition-colors">
               开始练习
             </button>
           </div>
 
-          <div class="glass-card rounded-xl mobile-feature-card h-40">
-            <div class="w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
-              <i class="fa fa-cogs text-blue-500 text-base"></i>
+          <div class="glass-card rounded-xl mobile-feature-card">
+            <div class="flex flex-col items-center flex-1">
+              <div class="w-10 h-10 mb-2 rounded-xl bg-gradient-to-br from-accent to-soft flex items-center justify-center">
+                <i class="fa fa-cogs text-primary text-base"></i>
+              </div>
+              <h3 class="text-xs font-bold text-gray-800 mb-2">深度工具</h3>
+              <p class="text-xs text-gray-600 leading-tight px-1 flex-1 mb-3">
+                通过心理干预或深入了解内心
+              </p>
             </div>
-            <h3 class="text-xs font-bold text-gray-800 mb-2">深度工具</h3>
-            <p class="text-xs text-gray-600 mb-3 leading-tight px-1">
-              通过心理干预或深入了解内心
-            </p>
-            <button class="w-full bg-accent text-white py-2 rounded-lg text-xs font-medium">
+            <button class="w-full bg-accent text-white py-2 rounded-lg text-xs font-medium hover:bg-primary transition-colors">
               探索工具
             </button>
           </div>
