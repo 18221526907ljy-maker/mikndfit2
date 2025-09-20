@@ -38,16 +38,81 @@
   <style>
     .hero-gradient { background: #F7F6F2; }
     
+    /* === 页面加载动画 === */
+    .hero-content {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroFadeInUp 0.3s ease-in-out 0.1s forwards;
+    }
+    
+    .hero-image {
+      opacity: 0;
+      transform: scale(0.95);
+      animation: heroImageIn 0.4s ease-in-out 0.2s forwards;
+    }
+    
+    @keyframes heroFadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes heroImageIn {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    /* === 功能卡片动画 === */
+    .feature-card {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.3s ease-in-out;
+      will-change: transform, opacity;
+    }
+    
+    .feature-card.animate-in {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
     .glass-card {
       background: #FFFFFF;
       border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
+      transition: all 0.3s ease-in-out;
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      will-change: transform, box-shadow;
     }
     
     .glass-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+    
+    .glass-card:active {
+      transform: translateY(-2px) scale(1);
+      transition: all 0.15s ease-in-out;
+    }
+    
+    /* 移动端功能卡片 */
+    .mobile-feature-card {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.3s ease-in-out;
+      will-change: transform, opacity, box-shadow;
+    }
+    
+    .mobile-feature-card.animate-in {
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    .mobile-feature-card:active {
+      transform: translateY(-4px) scale(1.02);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transition: all 0.2s ease-in-out;
     }
     
     .hero-image-placeholder {
@@ -139,7 +204,7 @@
         
         <!-- 桌面端布局 -->
         <div class="hidden md:flex items-center justify-between gap-12 px-6">
-          <div class="flex-1">
+          <div class="flex-1 hero-content">
             <h1 class="text-5xl font-bold text-primary leading-tight mb-6">
               科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
             </h1>
@@ -150,7 +215,7 @@
               开始探索
             </button>
           </div>
-          <div class="flex-1 max-w-lg">
+          <div class="flex-1 max-w-lg hero-image">
             <div class="hero-image-placeholder aspect-square rounded-2xl flex items-center justify-center">
               <div class="text-center text-gray-400">
                 <i class="fa fa-image text-6xl mb-4"></i>
@@ -162,7 +227,7 @@
 
         <!-- 移动端布局 -->
         <div class="md:hidden px-4">
-          <div class="flex items-center gap-4 mb-6">
+          <div class="flex items-center gap-4 mb-6 hero-content">
             <!-- 左侧文案和按钮 -->
             <div class="flex-1">
               <h1 class="text-mobile-title font-bold text-primary leading-tight mb-3">
@@ -176,7 +241,7 @@
               </button>
             </div>
             <!-- 右侧缩小的图片 -->
-            <div class="w-24 h-24 flex-shrink-0">
+            <div class="w-24 h-24 flex-shrink-0 hero-image">
               <div class="hero-image-placeholder w-full h-full rounded-xl flex items-center justify-center">
                 <div class="text-center text-gray-400">
                   <i class="fa fa-image text-xl mb-1"></i>
@@ -197,7 +262,7 @@
         <!-- 桌面端：3列网格 -->
         <div class="hidden md:grid grid-cols-3 gap-8 px-6">
           
-          <div class="glass-card rounded-2xl p-8 text-center">
+          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="0">
             <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
               <i class="fa fa-user-circle text-primary text-3xl"></i>
             </div>
@@ -208,7 +273,7 @@
             </button>
           </div>
 
-          <div class="glass-card rounded-2xl p-8 text-center">
+          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="1">
             <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
               <i class="fa fa-apple text-primary text-3xl"></i>
             </div>
@@ -219,7 +284,7 @@
             </button>
           </div>
 
-          <div class="glass-card rounded-2xl p-8 text-center">
+          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="2">
             <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
               <i class="fa fa-cogs text-primary text-3xl"></i>
             </div>
@@ -236,7 +301,7 @@
         <div class="md:hidden">
           <div class="grid grid-cols-2 gap-4 px-4 mb-4">
             
-            <div class="mobile-feature-card">
+            <div class="mobile-feature-card" data-delay="0">
               <i class="fa fa-user-circle text-primary text-2xl mb-3"></i>
               <h3 class="text-mobile-card-title font-bold text-primary mb-2">了解自己</h3>
               <p class="text-mobile-description text-lightGray mb-4">通过各种帮助信任认知当下的自己</p>
@@ -245,7 +310,7 @@
               </button>
             </div>
 
-            <div class="mobile-feature-card">
+            <div class="mobile-feature-card" data-delay="1">
               <i class="fa fa-apple text-mint text-2xl mb-3"></i>
               <h3 class="text-mobile-card-title font-bold text-primary mb-2">日常练习</h3>
               <p class="text-mobile-description text-lightGray mb-4">培养健康生活习惯的时候解决伴随紧张感</p>
@@ -258,7 +323,7 @@
           
           <!-- 深度工具居中 -->
           <div class="flex justify-center px-4">
-            <div class="mobile-feature-card w-48">
+            <div class="mobile-feature-card w-48" data-delay="2">
               <i class="fa fa-cogs text-accent text-2xl mb-3"></i>
               <h3 class="text-mobile-card-title font-bold text-primary mb-2">深度工具</h3>
               <p class="text-mobile-description text-lightGray mb-4">通过心理干预或深入了解内心</p>
@@ -492,6 +557,67 @@
       </button>
     </div>
   </nav>
+
+  <script>
+    // 🎯 页面加载动画控制
+    document.addEventListener('DOMContentLoaded', function() {
+      // 等待字体和关键资源加载完成
+      window.addEventListener('load', function() {
+        // 延迟执行，确保所有资源就绪
+        setTimeout(() => {
+          initPageAnimations();
+        }, 100);
+      });
+    });
+
+    function initPageAnimations() {
+      // 功能卡片 stagger 动画
+      animateFeatureCards();
+    }
+
+    function animateFeatureCards() {
+      // 桌面端卡片
+      const desktopCards = document.querySelectorAll('.feature-card');
+      // 移动端卡片
+      const mobileCards = document.querySelectorAll('.mobile-feature-card');
+      
+      // 合并所有卡片
+      const allCards = [...desktopCards, ...mobileCards];
+      
+      allCards.forEach((card, index) => {
+        const delay = parseInt(card.dataset.delay) || index;
+        setTimeout(() => {
+          card.classList.add('animate-in');
+        }, delay * 100); // 0.1s stagger
+      });
+    }
+
+    // 🎨 增强交互体验
+    document.addEventListener('DOMContentLoaded', function() {
+      // 为所有卡片添加触摸反馈（移动端）
+      const cards = document.querySelectorAll('.mobile-feature-card, .glass-card');
+      
+      cards.forEach(card => {
+        // 触摸开始
+        card.addEventListener('touchstart', function() {
+          this.style.transform = 'translateY(-4px) scale(1.02)';
+          this.style.transition = 'all 0.15s ease-in-out';
+        });
+        
+        // 触摸结束
+        card.addEventListener('touchend', function() {
+          this.style.transform = '';
+          this.style.transition = 'all 0.3s ease-in-out';
+        });
+        
+        // 触摸取消
+        card.addEventListener('touchcancel', function() {
+          this.style.transform = '';
+          this.style.transition = 'all 0.3s ease-in-out';
+        });
+      });
+    });
+  </script>
 
 </body>
 </html>
