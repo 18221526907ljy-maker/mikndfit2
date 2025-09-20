@@ -92,8 +92,8 @@
     }
     
     .glass-card:active {
-      transform: translateY(-3px) scale(1.01);
-      transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translateY(-3px) scale(0.98);
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     
     /* 移动端功能卡片 */
@@ -110,9 +110,105 @@
     }
     
     .mobile-feature-card:active {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px) scale(0.98);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* === 滚动触发动画 === */
+    .scroll-fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .scroll-fade-in.animate-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .knowledge-card {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .knowledge-card.animate-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .knowledge-card:active {
+      transform: scale(0.98);
+      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* === 按钮交互动画 === */
+    button {
       transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform, background-color, box-shadow;
+    }
+    
+    /* 主按钮（深炭灰底白字） */
+    .btn-primary, .bg-accent {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .btn-primary:hover, .bg-accent:hover {
+      background-color: rgba(46, 46, 46, 0.9);
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(46, 46, 46, 0.25);
+    }
+    
+    .btn-primary:active, .bg-accent:active {
+      transform: translateY(0) scale(0.98);
+      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* 次按钮（描边） */
+    .border-primary {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .border-primary:hover {
+      background-color: #8FD9A8;
+      border-color: #8FD9A8;
+      color: white;
+      transform: translateY(-1px) scale(1.01);
+    }
+    
+    .border-primary:active {
+      transform: translateY(0) scale(0.98);
+      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* 文字按钮 */
+    .text-gray-600:hover {
+      color: #4A6157;
+      transform: translateY(-1px);
+    }
+    
+    .text-gray-600:active {
+      transform: translateY(0) scale(0.98);
+      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* === 推荐列表动画 === */
+    .qa-item {
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .qa-item:active {
+      background-color: #f8f9fa;
+      transform: scale(0.98);
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .qa-item:active .fa-chevron-right {
+      transform: translateX(4px);
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     
     .hero-image-placeholder {
@@ -342,7 +438,7 @@
     <section class="py-6 md:py-20 bg-gray-50">
       <div class="max-w-7xl mx-auto">
         
-        <div class="text-center mb-6 md:mb-12 px-6">
+        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
           <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4 green-accent-line">身体中立知识库</h2>
           <p class="text-content text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
         </div>
@@ -351,7 +447,7 @@
         <div class="hidden md:block px-6">
           <div class="grid grid-cols-3 gap-8 mb-8">
             
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="0">
               <div class="aspect-video bg-primary flex items-center justify-center">
                 <i class="fa fa-image text-3xl text-white"></i>
               </div>
@@ -361,7 +457,7 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="1">
               <div class="aspect-video bg-mint flex items-center justify-center">
                 <i class="fa fa-image text-3xl text-white"></i>
               </div>
@@ -371,7 +467,7 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="2">
               <div class="aspect-video bg-accent flex items-center justify-center">
                 <i class="fa fa-image text-3xl text-white"></i>
               </div>
@@ -392,7 +488,7 @@
         <!-- 移动端 -->
         <div class="md:hidden px-4">
           
-          <div class="mobile-knowledge-card">
+          <div class="mobile-knowledge-card knowledge-card" data-delay="0">
             <div class="w-24 h-18 bg-primary flex items-center justify-center flex-shrink-0">
               <i class="fa fa-image text-white text-xl"></i>
             </div>
@@ -402,7 +498,7 @@
             </div>
           </div>
 
-          <div class="mobile-knowledge-card">
+          <div class="mobile-knowledge-card knowledge-card" data-delay="1">
             <div class="w-24 h-18 bg-mint flex items-center justify-center flex-shrink-0">
               <i class="fa fa-image text-white text-xl"></i>
             </div>
@@ -412,7 +508,7 @@
             </div>
           </div>
 
-          <div class="mobile-knowledge-card">
+          <div class="mobile-knowledge-card knowledge-card" data-delay="2">
             <div class="w-24 h-18 bg-accent flex items-center justify-center flex-shrink-0">
               <i class="fa fa-image text-white text-xl"></i>
             </div>
@@ -437,7 +533,7 @@
     <section class="py-6 md:py-20 bg-light">
       <div class="max-w-4xl mx-auto">
         
-        <div class="text-center mb-6 md:mb-12 px-6">
+        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
           <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4">个性化推荐</h2>
           <p class="text-content text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
         </div>
@@ -445,7 +541,7 @@
         <!-- 桌面端 -->
         <div class="hidden md:block space-y-4 px-6">
           
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all">
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
                 <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
@@ -457,7 +553,7 @@
             </div>
           </div>
 
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all">
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
                 <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center">
@@ -469,7 +565,7 @@
             </div>
           </div>
 
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all">
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
                 <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
@@ -487,17 +583,17 @@
         <div class="md:hidden px-4">
           <div class="bg-white rounded-xl overflow-hidden">
             
-            <div class="mobile-qa-item">
+            <div class="mobile-qa-item qa-item">
               <span class="text-mobile-knowledge text-primary font-medium">遇见学习问题帮助更适？</span>
               <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
 
-            <div class="mobile-qa-item">
+            <div class="mobile-qa-item qa-item">
               <span class="text-mobile-knowledge text-primary font-medium">什么干身材的帮助敬？</span>
               <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
 
-            <div class="mobile-qa-item">
+            <div class="mobile-qa-item qa-item">
               <span class="text-mobile-knowledge text-primary font-medium">说促什么问题帮助史材？</span>
               <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
@@ -573,6 +669,9 @@
     function initPageAnimations() {
       // 功能卡片 stagger 动画
       animateFeatureCards();
+      
+      // 设置滚动监听
+      setupScrollAnimations();
     }
 
     function animateFeatureCards() {
@@ -591,6 +690,32 @@
         }, delay * 150); // 0.15s stagger - 更舒缓
       });
     }
+    
+    function setupScrollAnimations() {
+      // 创建 Intersection Observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            if (entry.target.classList.contains('scroll-fade-in')) {
+              entry.target.classList.add('animate-in');
+            } else if (entry.target.classList.contains('knowledge-card')) {
+              const delay = parseInt(entry.target.dataset.delay) || 0;
+              setTimeout(() => {
+                entry.target.classList.add('animate-in');
+              }, delay * 100);
+            }
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      });
+      
+      // 监听所有需要滚动动画的元素
+      document.querySelectorAll('.scroll-fade-in, .knowledge-card').forEach(el => {
+        observer.observe(el);
+      });
+    }
 
     // 🎨 增强交互体验
     document.addEventListener('DOMContentLoaded', function() {
@@ -600,8 +725,8 @@
       cards.forEach(card => {
         // 触摸开始
         card.addEventListener('touchstart', function() {
-          this.style.transform = 'translateY(-6px) scale(1.02)';
-          this.style.transition = 'all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+          this.style.transform = 'translateY(-2px) scale(0.98)';
+          this.style.transition = 'all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
         });
         
         // 触摸结束
