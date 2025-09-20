@@ -93,20 +93,22 @@
     /* 移动端适配 */
     @media (max-width: 768px) {
       .hero-section {
-        flex-direction: column;
-        text-align: center;
+        flex-direction: row;
+        text-align: left;
+        gap: 1rem;
       }
       
       .hero-content {
-        order: 2;
-        margin-top: 1rem;
+        flex: 2;
+        order: 1;
       }
       
       .hero-image {
-        order: 1;
+        flex: 1;
+        order: 2;
         width: 100%;
-        max-width: 250px;
-        margin: 0 auto;
+        max-width: 120px;
+        margin: 0;
       }
       
       /* 移动端功能卡片一行三个 */
@@ -123,11 +125,11 @@
       
       /* 移动端压缩各区域高度 */
       .mobile-hero {
-        padding: 2rem 0;
+        padding: 1rem 0;
       }
       
       .mobile-section {
-        padding: 1.5rem 0;
+        padding: 1rem 0;
       }
     }
     
@@ -186,32 +188,32 @@
   <main class="pb-20 md:pb-8">
     
     <!-- Hero 区域 -->
-    <section class="hero-gradient py-6 md:py-20 mobile-hero">
+    <section class="hero-gradient py-4 md:py-20 mobile-hero">
       <div class="max-w-7xl mx-auto px-4 md:px-6">
-        <div class="hero-section flex items-center justify-between gap-6 md:gap-12">
+        <div class="hero-section flex items-center justify-between gap-3 md:gap-12">
           
           <!-- 左侧内容 -->
-          <div class="hero-content flex-1 max-w-xl">
-            <h1 class="text-2xl md:text-5xl font-bold text-gray-800 leading-tight mb-3 md:mb-6">
+          <div class="hero-content flex-1">
+            <h1 class="text-lg md:text-5xl font-bold text-gray-800 leading-tight mb-2 md:mb-6">
               科学管理身心、<br>
               <span class="text-primary">告别身材焦虑</span>
             </h1>
             
-            <p class="text-sm md:text-xl text-gray-600 mb-4 md:mb-8 leading-relaxed">
+            <p class="text-xs md:text-xl text-gray-600 mb-3 md:mb-8 leading-relaxed">
               平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
             </p>
             
-            <button class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 md:px-8 md:py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <button class="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 md:px-8 md:py-4 rounded-lg font-semibold text-xs md:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
               立即体验
             </button>
           </div>
           
-          <!-- 右侧图片占位 -->
-          <div class="hero-image flex-1 max-w-lg">
-            <div class="hero-image-placeholder aspect-square rounded-2xl flex items-center justify-center">
+          <!-- 右侧图片占位 - 移动端大幅缩小 -->
+          <div class="hero-image w-20 md:flex-1 md:max-w-lg">
+            <div class="hero-image-placeholder aspect-square rounded-lg md:rounded-2xl flex items-center justify-center">
               <div class="text-center text-gray-400">
-                <i class="fa fa-image text-3xl md:text-6xl mb-2 md:mb-4"></i>
-                <p class="text-sm md:text-lg">Hero 主图</p>
+                <i class="fa fa-image text-lg md:text-6xl mb-1 md:mb-4"></i>
+                <p class="text-xs md:text-lg hidden md:block">Hero 主图</p>
               </div>
             </div>
           </div>
@@ -271,15 +273,15 @@
 
         </div>
 
-        <!-- 移动端：一行三个 -->
+        <!-- 移动端：一行三个 - 统一高度 -->
         <div class="md:hidden mobile-features">
           
-          <div class="glass-card rounded-xl mobile-feature-card">
-            <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
-              <i class="fa fa-user-circle text-purple-500 text-lg"></i>
+          <div class="glass-card rounded-xl mobile-feature-card h-40">
+            <div class="w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+              <i class="fa fa-user-circle text-purple-500 text-base"></i>
             </div>
-            <h3 class="text-sm font-bold text-gray-800 mb-2">了解自己</h3>
-            <p class="text-xs text-gray-600 mb-3 leading-tight">
+            <h3 class="text-xs font-bold text-gray-800 mb-2">了解自己</h3>
+            <p class="text-xs text-gray-600 mb-3 leading-tight px-1">
               通过各种帮助信任认知当下的自己
             </p>
             <button class="w-full bg-primary text-white py-2 rounded-lg text-xs font-medium">
@@ -287,12 +289,12 @@
             </button>
           </div>
 
-          <div class="glass-card rounded-xl mobile-feature-card">
-            <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center">
-              <i class="fa fa-apple text-green-500 text-lg"></i>
+          <div class="glass-card rounded-xl mobile-feature-card h-40">
+            <div class="w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center">
+              <i class="fa fa-apple text-green-500 text-base"></i>
             </div>
-            <h3 class="text-sm font-bold text-gray-800 mb-2">日常练习</h3>
-            <p class="text-xs text-gray-600 mb-3 leading-tight">
+            <h3 class="text-xs font-bold text-gray-800 mb-2">日常练习</h3>
+            <p class="text-xs text-gray-600 mb-3 leading-tight px-1">
               培养健康生活习惯的时候解决伴随紧张感
             </p>
             <button class="w-full bg-secondary text-white py-2 rounded-lg text-xs font-medium">
@@ -300,12 +302,12 @@
             </button>
           </div>
 
-          <div class="glass-card rounded-xl mobile-feature-card">
-            <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
-              <i class="fa fa-cogs text-blue-500 text-lg"></i>
+          <div class="glass-card rounded-xl mobile-feature-card h-40">
+            <div class="w-10 h-10 mx-auto mb-2 rounded-lg bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
+              <i class="fa fa-cogs text-blue-500 text-base"></i>
             </div>
-            <h3 class="text-sm font-bold text-gray-800 mb-2">深度工具</h3>
-            <p class="text-xs text-gray-600 mb-3 leading-tight">
+            <h3 class="text-xs font-bold text-gray-800 mb-2">深度工具</h3>
+            <p class="text-xs text-gray-600 mb-3 leading-tight px-1">
               通过心理干预或深入了解内心
             </p>
             <button class="w-full bg-accent text-white py-2 rounded-lg text-xs font-medium">
@@ -596,4 +598,3 @@
 
 </body>
 </html>
-
