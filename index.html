@@ -60,6 +60,7 @@
       background: linear-gradient(135deg, #F8FAFC, #F1F5F9);
       border: 1px solid #E2E8F0;
       transition: all 0.3s ease;
+      min-width: 280px;
     }
     
     .knowledge-card:hover {
@@ -71,14 +72,25 @@
       background: rgba(255, 255, 255, 0.9);
       border: 1px solid #E5E7EB;
       transition: all 0.2s ease;
+      min-width: 300px;
     }
     
     .qa-item:hover {
       background: #F9FAFB;
       border-color: #3B82F6;
-      transform: translateX(4px);
+      transform: translateY(-2px);
     }
     
+    /* 横向滑动容器 */
+    .scroll-container {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* 移动端适配 */
     @media (max-width: 768px) {
       .hero-section {
         flex-direction: column;
@@ -87,22 +99,54 @@
       
       .hero-content {
         order: 2;
-        margin-top: 2rem;
+        margin-top: 1rem;
       }
       
       .hero-image {
         order: 1;
         width: 100%;
-        max-width: 300px;
+        max-width: 250px;
         margin: 0 auto;
       }
+      
+      /* 移动端功能卡片一行三个 */
+      .mobile-features {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0.75rem;
+      }
+      
+      .mobile-feature-card {
+        padding: 1rem 0.5rem;
+        text-align: center;
+      }
+      
+      /* 移动端压缩各区域高度 */
+      .mobile-hero {
+        padding: 2rem 0;
+      }
+      
+      .mobile-section {
+        padding: 1.5rem 0;
+      }
+    }
+    
+    /* 滑动指示器 */
+    .scroll-indicator {
+      background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+      width: 20px;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+      pointer-events: none;
     }
   </style>
 </head>
 
 <body class="bg-gray-50 font-sans">
   
-  <!-- 顶部导航 - 桌面端显示 -->
+  <!-- 顶部导航 - 桌面端 -->
   <nav class="hidden md:block bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-6 py-4">
       <div class="flex items-center justify-between">
@@ -132,31 +176,32 @@
         </div>
         <span class="text-lg font-bold text-gray-800">MindFit</span>
       </div>
-      <button class="w-8 h-8 flex items-center justify-center">
-        <i class="fa fa-bars text-gray-600"></i>
-      </button>
+      <!-- 右上角头像 -->
+      <div class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+        <i class="fa fa-user text-white text-xs"></i>
+      </div>
     </div>
   </nav>
 
   <main class="pb-20 md:pb-8">
     
     <!-- Hero 区域 -->
-    <section class="hero-gradient py-12 md:py-20">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="hero-section flex items-center justify-between gap-12">
+    <section class="hero-gradient py-6 md:py-20 mobile-hero">
+      <div class="max-w-7xl mx-auto px-4 md:px-6">
+        <div class="hero-section flex items-center justify-between gap-6 md:gap-12">
           
           <!-- 左侧内容 -->
           <div class="hero-content flex-1 max-w-xl">
-            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 leading-tight mb-6">
+            <h1 class="text-2xl md:text-5xl font-bold text-gray-800 leading-tight mb-3 md:mb-6">
               科学管理身心、<br>
               <span class="text-primary">告别身材焦虑</span>
             </h1>
             
-            <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed">
+            <p class="text-sm md:text-xl text-gray-600 mb-4 md:mb-8 leading-relaxed">
               平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
             </p>
             
-            <button class="bg-gray-800 hover:bg-gray-700 text-white px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
+            <button class="bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 md:px-8 md:py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
               立即体验
             </button>
           </div>
@@ -165,8 +210,8 @@
           <div class="hero-image flex-1 max-w-lg">
             <div class="hero-image-placeholder aspect-square rounded-2xl flex items-center justify-center">
               <div class="text-center text-gray-400">
-                <i class="fa fa-image text-6xl mb-4"></i>
-                <p class="text-lg">Hero 主图</p>
+                <i class="fa fa-image text-3xl md:text-6xl mb-2 md:mb-4"></i>
+                <p class="text-sm md:text-lg">Hero 主图</p>
               </div>
             </div>
           </div>
@@ -176,10 +221,11 @@
     </section>
 
     <!-- 主要功能区域 -->
-    <section class="py-16 md:py-20">
-      <div class="max-w-7xl mx-auto px-6">
+    <section class="py-6 md:py-20 mobile-section">
+      <div class="max-w-7xl mx-auto px-4 md:px-6">
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- 桌面端：3列网格 -->
+        <div class="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
           
           <!-- 了解自己 -->
           <div class="glass-card rounded-2xl p-8 text-center">
@@ -224,19 +270,64 @@
           </div>
 
         </div>
+
+        <!-- 移动端：一行三个 -->
+        <div class="md:hidden mobile-features">
+          
+          <div class="glass-card rounded-xl mobile-feature-card">
+            <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-purple-100 to-pink-100 flex items-center justify-center">
+              <i class="fa fa-user-circle text-purple-500 text-lg"></i>
+            </div>
+            <h3 class="text-sm font-bold text-gray-800 mb-2">了解自己</h3>
+            <p class="text-xs text-gray-600 mb-3 leading-tight">
+              通过各种帮助信任认知当下的自己
+            </p>
+            <button class="w-full bg-primary text-white py-2 rounded-lg text-xs font-medium">
+              开始评估
+            </button>
+          </div>
+
+          <div class="glass-card rounded-xl mobile-feature-card">
+            <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center">
+              <i class="fa fa-apple text-green-500 text-lg"></i>
+            </div>
+            <h3 class="text-sm font-bold text-gray-800 mb-2">日常练习</h3>
+            <p class="text-xs text-gray-600 mb-3 leading-tight">
+              培养健康生活习惯的时候解决伴随紧张感
+            </p>
+            <button class="w-full bg-secondary text-white py-2 rounded-lg text-xs font-medium">
+              开始练习
+            </button>
+          </div>
+
+          <div class="glass-card rounded-xl mobile-feature-card">
+            <div class="w-12 h-12 mx-auto mb-3 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
+              <i class="fa fa-cogs text-blue-500 text-lg"></i>
+            </div>
+            <h3 class="text-sm font-bold text-gray-800 mb-2">深度工具</h3>
+            <p class="text-xs text-gray-600 mb-3 leading-tight">
+              通过心理干预或深入了解内心
+            </p>
+            <button class="w-full bg-accent text-white py-2 rounded-lg text-xs font-medium">
+              探索工具
+            </button>
+          </div>
+
+        </div>
       </div>
     </section>
 
-    <!-- 身体中立知识库 -->
-    <section class="py-16 md:py-20 bg-gray-50">
-      <div class="max-w-7xl mx-auto px-6">
+    <!-- 身体中立知识库 - 横向滑动 -->
+    <section class="py-6 md:py-20 bg-gray-50 mobile-section">
+      <div class="max-w-7xl mx-auto px-4 md:px-6">
         
-        <div class="text-center mb-12">
-          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">身体中立知识库</h2>
-          <p class="text-gray-600 text-lg">科学理论支撑，帮助建立健康的身体认知</p>
+        <div class="text-center mb-6 md:mb-12">
+          <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-2 md:mb-4">身体中立知识库</h2>
+          <p class="text-gray-600 text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- 桌面端：3列网格 -->
+        <div class="hidden md:grid grid-cols-1 md:grid-cols-3 gap-8">
           
           <div class="knowledge-card rounded-xl overflow-hidden">
             <div class="aspect-video bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
@@ -269,19 +360,60 @@
           </div>
 
         </div>
+
+        <!-- 移动端：横向滑动 -->
+        <div class="md:hidden relative">
+          <div class="flex space-x-4 overflow-x-auto scroll-container pb-4" id="knowledgeScroll">
+            
+            <div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
+              <div class="aspect-video bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                <i class="fa fa-image text-3xl text-blue-400"></i>
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-gray-800 mb-1 text-sm">身体中立基础</h3>
+                <p class="text-gray-600 text-xs">了解身体中立的核心理念</p>
+              </div>
+            </div>
+
+            <div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
+              <div class="aspect-video bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                <i class="fa fa-image text-3xl text-green-400"></i>
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-gray-800 mb-1 text-sm">实践方法</h3>
+                <p class="text-gray-600 text-xs">日常生活中的身体中立练习</p>
+              </div>
+            </div>
+
+            <div class="knowledge-card rounded-xl overflow-hidden flex-shrink-0">
+              <div class="aspect-video bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center">
+                <i class="fa fa-image text-3xl text-purple-400"></i>
+              </div>
+              <div class="p-4">
+                <h3 class="font-bold text-gray-800 mb-1 text-sm">科学研究</h3>
+                <p class="text-gray-600 text-xs">相关心理学研究和证据</p>
+              </div>
+            </div>
+
+          </div>
+          <!-- 滑动提示 -->
+          <div class="scroll-indicator"></div>
+        </div>
+
       </div>
     </section>
 
-    <!-- 个性化推荐 -->
-    <section class="py-16 md:py-20">
-      <div class="max-w-4xl mx-auto px-6">
+    <!-- 个性化推荐 - 横向滑动 -->
+    <section class="py-6 md:py-20 mobile-section">
+      <div class="max-w-4xl mx-auto px-4 md:px-6">
         
-        <div class="text-center mb-12">
-          <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">个性化推荐</h2>
-          <p class="text-gray-600 text-lg">基于您的需求，为您推荐合适的内容</p>
+        <div class="text-center mb-6 md:mb-12">
+          <h2 class="text-xl md:text-3xl font-bold text-gray-800 mb-2 md:mb-4">个性化推荐</h2>
+          <p class="text-gray-600 text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
         </div>
 
-        <div class="space-y-4">
+        <!-- 桌面端：垂直排列 -->
+        <div class="hidden md:block space-y-4">
           
           <div class="qa-item rounded-xl p-6 cursor-pointer">
             <div class="flex items-center justify-between">
@@ -320,10 +452,47 @@
           </div>
 
         </div>
+
+        <!-- 移动端：横向滑动 -->
+        <div class="md:hidden relative">
+          <div class="flex space-x-4 overflow-x-auto scroll-container pb-4" id="qaScroll">
+            
+            <div class="qa-item rounded-xl p-4 cursor-pointer flex-shrink-0">
+              <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
+                  <i class="fa fa-search text-primary text-sm"></i>
+                </div>
+                <span class="text-gray-800 font-medium text-sm">遇见学习问题帮助更适？</span>
+              </div>
+            </div>
+
+            <div class="qa-item rounded-xl p-4 cursor-pointer flex-shrink-0">
+              <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-secondary/10 rounded-full flex items-center justify-center">
+                  <i class="fa fa-search text-secondary text-sm"></i>
+                </div>
+                <span class="text-gray-800 font-medium text-sm">什么干身材的帮助敬？</span>
+              </div>
+            </div>
+
+            <div class="qa-item rounded-xl p-4 cursor-pointer flex-shrink-0">
+              <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                  <i class="fa fa-search text-accent text-sm"></i>
+                </div>
+                <span class="text-gray-800 font-medium text-sm">说促什么问题帮助史材？</span>
+              </div>
+            </div>
+
+          </div>
+          <!-- 滑动提示 -->
+          <div class="scroll-indicator"></div>
+        </div>
+
       </div>
     </section>
 
-    <!-- 底部信息 -->
+    <!-- 底部信息 - 仅桌面端显示 -->
     <footer class="hidden md:block py-12 bg-gray-100">
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex items-center justify-between">
@@ -357,19 +526,19 @@
   <!-- 移动端底部导航 -->
   <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
     <div class="flex justify-around py-2">
-      <button class="nav-item flex flex-col items-center py-2 px-4 text-primary">
+      <button class="nav-item flex flex-col items-center py-2 px-3 text-primary">
         <i class="fa fa-home text-lg mb-1"></i>
         <span class="text-xs font-medium">首页</span>
       </button>
-      <button class="nav-item flex flex-col items-center py-2 px-4 text-gray-500">
-        <i class="fa fa-heart text-lg mb-1"></i>
-        <span class="text-xs">练习</span>
+      <button class="nav-item flex flex-col items-center py-2 px-3 text-gray-500">
+        <i class="fa fa-clipboard text-lg mb-1"></i>
+        <span class="text-xs">测评</span>
       </button>
-      <button class="nav-item flex flex-col items-center py-2 px-4 text-gray-500">
-        <i class="fa fa-book text-lg mb-1"></i>
-        <span class="text-xs">记录</span>
+      <button class="nav-item flex flex-col items-center py-2 px-3 text-gray-500">
+        <i class="fa fa-wrench text-lg mb-1"></i>
+        <span class="text-xs">工具</span>
       </button>
-      <button class="nav-item flex flex-col items-center py-2 px-4 text-gray-500">
+      <button class="nav-item flex flex-col items-center py-2 px-3 text-gray-500">
         <i class="fa fa-user text-lg mb-1"></i>
         <span class="text-xs">我的</span>
       </button>
@@ -392,7 +561,6 @@
     // QA 项目点击效果
     document.querySelectorAll('.qa-item').forEach(item => {
       item.addEventListener('click', function() {
-        // 这里可以添加展开详情的逻辑
         console.log('点击了推荐项目');
       });
     });
@@ -400,10 +568,30 @@
     // 功能卡片点击
     document.querySelectorAll('.glass-card button').forEach(button => {
       button.addEventListener('click', function() {
-        // 这里添加跳转逻辑
         console.log('点击了功能按钮:', this.textContent);
       });
     });
+
+    // 横向滑动提示效果
+    function addScrollIndicator(containerId) {
+      const container = document.getElementById(containerId);
+      if (container) {
+        let isScrolling = false;
+        
+        container.addEventListener('scroll', function() {
+          if (!isScrolling) {
+            isScrolling = true;
+            setTimeout(() => {
+              isScrolling = false;
+            }, 150);
+          }
+        });
+      }
+    }
+
+    // 初始化滑动容器
+    addScrollIndicator('knowledgeScroll');
+    addScrollIndicator('qaScroll');
   </script>
 
 </body>
