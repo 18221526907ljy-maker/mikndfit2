@@ -41,14 +41,14 @@
     /* === 页面加载动画 === */
     .hero-content {
       opacity: 0;
-      transform: translateY(20px);
-      animation: heroFadeInUp 0.3s ease-in-out 0.1s forwards;
+      transform: translateY(30px);
+      animation: heroFadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
     }
     
     .hero-image {
       opacity: 0;
-      transform: scale(0.95);
-      animation: heroImageIn 0.4s ease-in-out 0.2s forwards;
+      transform: scale(0.9);
+      animation: heroImageIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
     }
     
     @keyframes heroFadeInUp {
@@ -68,51 +68,51 @@
     /* === 功能卡片动画 === */
     .feature-card {
       opacity: 0;
-      transform: scale(0.95);
-      transition: all 0.3s ease-in-out;
+      transform: scale(0.92) translateY(20px);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       will-change: transform, opacity;
     }
     
     .feature-card.animate-in {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1) translateY(0);
     }
     
     .glass-card {
       background: #FFFFFF;
       border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease-in-out;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
       will-change: transform, box-shadow;
     }
     
     .glass-card:hover {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
     }
     
     .glass-card:active {
-      transform: translateY(-2px) scale(1);
-      transition: all 0.15s ease-in-out;
+      transform: translateY(-3px) scale(1.01);
+      transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
     /* 移动端功能卡片 */
     .mobile-feature-card {
       opacity: 0;
-      transform: scale(0.95);
-      transition: all 0.3s ease-in-out;
+      transform: scale(0.92) translateY(20px);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       will-change: transform, opacity, box-shadow;
     }
     
     .mobile-feature-card.animate-in {
       opacity: 1;
-      transform: scale(1);
+      transform: scale(1) translateY(0);
     }
     
     .mobile-feature-card:active {
-      transform: translateY(-4px) scale(1.02);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      transition: all 0.2s ease-in-out;
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
     .hero-image-placeholder {
@@ -588,7 +588,7 @@
         const delay = parseInt(card.dataset.delay) || index;
         setTimeout(() => {
           card.classList.add('animate-in');
-        }, delay * 100); // 0.1s stagger
+        }, delay * 150); // 0.15s stagger - 更舒缓
       });
     }
 
@@ -600,20 +600,20 @@
       cards.forEach(card => {
         // 触摸开始
         card.addEventListener('touchstart', function() {
-          this.style.transform = 'translateY(-4px) scale(1.02)';
-          this.style.transition = 'all 0.15s ease-in-out';
+          this.style.transform = 'translateY(-6px) scale(1.02)';
+          this.style.transition = 'all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         });
         
         // 触摸结束
         card.addEventListener('touchend', function() {
           this.style.transform = '';
-          this.style.transition = 'all 0.3s ease-in-out';
+          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         });
         
         // 触摸取消
         card.addEventListener('touchcancel', function() {
           this.style.transform = '';
-          this.style.transition = 'all 0.3s ease-in-out';
+          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         });
       });
     });
