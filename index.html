@@ -1,823 +1,4 @@
-<div class="mobile-qa-item qa-item" onclick="showSelfAssessment()">
-                <span class="text-mobile-knowledge text-primary font-medium">想了解自己的身心状态？</span>
-                <i class="fa fa-chevron-right text-gray-400"></i>
-              </div>
-
-              <div class="mobile-qa-item qa-item" onclick="showPage('appPage')">
-                <span class="text-mobile-knowledge text-primary font-medium">如何建立健康的身体观念？</span>
-                <i class="fa fa-chevron-right text-gray-400"></i>
-              </div>
-
-              <div class="mobile-qa-item qa-item" onclick="window.open('body-neutrality.html', '_blank')">
-                <span class="text-mobile-knowledge text-primary font-medium">什么是身体中立理念？</span>
-                <i class="fa fa-chevron-right text-gray-400"></i>
-              </div>
-
-            </div>
-          </div>
-          
-        </div>
-      </section>
-
-      <!-- 桌面端底部 -->
-      <footer class="hidden md:block py-12 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-6">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-6">
-              <div class="w-20 h-20 bg-gray-300 rounded-lg flex items-center justify-center">
-                <i class="fa fa-qrcode text-2xl text-gray-500"></i>
-              </div>
-              <div>
-                <p class="font-medium text-gray-800">微信二维码</p>
-                <p class="text-sm text-gray-600">扫码关注获取更多资源</p>
-              </div>
-            </div>
-            <div class="flex items-center space-x-4">
-              <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                <i class="fa fa-envelope text-primary"></i>
-              </div>
-              <div>
-                <p class="font-medium text-gray-800">邮箱</p>
-                <p class="text-sm text-gray-600">contact@mindfit.com</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-
-    <!-- 应用页面 -->
-    <div id="appPage" class="page">
-      <div class="min-h-screen bg-gray-50">
-        <!-- 应用顶部导航 -->
-        <header class="bg-white shadow-sm">
-          <div class="flex items-center justify-between px-4 py-3">
-            <div class="flex items-center">
-              <button onclick="goBack()" class="p-2 text-gray-500 hover:text-primary transition-colors">
-                <i class="fa fa-arrow-left text-lg"></i>
-              </button>
-              <h1 id="appPageTitle" class="text-xl font-medium ml-2">MindFit 身心管理</h1>
-            </div>
-            <div class="flex items-center space-x-4">
-              <button class="p-2 text-gray-500 hover:text-primary transition-colors">
-                <i class="fa fa-list-alt text-lg"></i>
-              </button>
-              <button class="p-2 text-gray-500 hover:text-primary transition-colors">
-                <i class="fa fa-star-o text-lg"></i>
-              </button>
-            </div>
-          </div>
-        </header>
-
-        <!-- 了解自己页面 -->
-        <div id="selfAssessmentSection" class="hidden">
-          <div class="px-4 py-6">
-            <div class="mb-6">
-              <h2 class="text-xl font-bold mb-2">了解自己</h2>
-              <p class="text-gray-500 text-sm">通过科学测评，更好地认知当下的自己</p>
-            </div>
-
-            <!-- 测评卡片网格 -->
-            <div class="space-y-4">
-              <!-- BMI测评卡片 -->
-              <div class="bg-white rounded-xl p-6 shadow-sm cursor-pointer hover:shadow-md transition-all" onclick="showBMIAssessment()">
-                <div class="flex items-center">
-                  <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                    <i class="fa fa-balance-scale text-blue-500 text-2xl"></i>
-                  </div>
-                  <div class="flex-1">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-1">BMI 身体测评</h3>
-                    <p class="text-sm text-gray-500 mb-2">了解身体状况，建立健康认知</p>
-                    <div class="flex items-center text-xs text-gray-400">
-                      <i class="fa fa-clock-o mr-1"></i>
-                      <span>约2分钟</span>
-                    </div>
-                  </div>
-                  <i class="fa fa-chevron-right text-gray-300 text-lg"></i>
-                </div>
-              </div>
-
-              <!-- 身材焦虑自评卡片 -->
-              <div class="bg-white rounded-xl p-6 shadow-sm cursor-pointer hover:shadow-md transition-all" onclick="showBodyAnxietyAssessment()">
-                <div class="flex items-center">
-                  <div class="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center mr-4">
-                    <i class="fa fa-heart text-pink-500 text-2xl"></i>
-                  </div>
-                  <div class="flex-1">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-1">身材焦虑自评</h3>
-                    <p class="text-sm text-gray-500 mb-2">9题量表，评估身材焦虑程度</p>
-                    <div class="flex items-center text-xs text-gray-400">
-                      <i class="fa fa-clock-o mr-1"></i>
-                      <span>约3分钟</span>
-                    </div>
-                  </div>
-                  <i class="fa fa-chevron-right text-gray-300 text-lg"></i>
-                </div>
-              </div>
-
-              <!-- 历史记录 -->
-              <div class="bg-gray-50 rounded-xl p-4">
-                <h4 class="text-sm font-medium text-gray-700 mb-3">最近测评</h4>
-                <div id="recentAssessments" class="space-y-2">
-                  <div class="text-sm text-gray-500">暂无测评记录</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- BMI测评页面 -->
-        <div id="bmiAssessmentSection" class="hidden">
-          <div class="px-4 py-6">
-            <div class="mb-6">
-              <h2 class="text-xl font-bold mb-2">BMI 身体测评</h2>
-              <p class="text-gray-500 text-sm">了解基础身体指标，建立健康的身体认知</p>
-            </div>
-
-            <!-- 输入区域 -->
-            <div class="bg-white rounded-xl p-6 shadow-sm mb-6">
-              <h3 class="text-lg font-semibold mb-4">基础信息</h3>
-              
-              <div class="space-y-4">
-                <div class="grid grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">身高 (cm)</label>
-                    <input id="bmiHeight" type="number" min="80" max="230" 
-                           class="w-full p-3 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" 
-                           placeholder="165" />
-                  </div>
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">体重 (kg)</label>
-                    <input id="bmiWeight" type="number" min="20" max="250" step="0.1"
-                           class="w-full p-3 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" 
-                           placeholder="55.5" />
-                  </div>
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">年龄</label>
-                  <input id="bmiAge" type="number" min="10" max="100" 
-                         class="w-full p-3 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" 
-                         placeholder="25" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">性别</label>
-                  <div class="flex space-x-4">
-                    <label class="flex items-center">
-                      <input type="radio" name="bmiGender" value="female" class="mr-2 text-primary">
-                      <span>女性</span>
-                    </label>
-                    <label class="flex items-center">
-                      <input type="radio" name="bmiGender" value="male" class="mr-2 text-primary">
-                      <span>男性</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <button id="calculateBMI" class="w-full mt-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors">
-                <i class="fa fa-calculator mr-2"></i>计算 BMI
-              </button>
-            </div>
-
-            <!-- 结果显示区域 -->
-            <div id="bmiResult" class="hidden bg-white rounded-xl p-6 shadow-sm mb-6">
-              <h3 class="text-lg font-semibold mb-4">测评结果</h3>
-              
-              <div class="text-center mb-6">
-                <div class="text-3xl font-bold text-primary mb-2" id="bmiValue">--</div>
-                <div class="text-sm text-gray-500 mb-4">您的BMI指数</div>
-                <div class="inline-block px-3 py-1 rounded-full text-sm font-medium" id="bmiCategory">
-                  <!-- 动态显示分类 -->
-                </div>
-              </div>
-
-              <div class="space-y-4">
-                <div class="bg-blue-50 rounded-lg p-4">
-                  <h4 class="font-medium text-blue-800 mb-2">健康建议</h4>
-                  <p id="bmiAdvice" class="text-sm text-blue-700">
-                    <!-- 动态显示建议 -->
-                  </p>
-                </div>
-
-                <div class="bg-yellow-50 rounded-lg p-4">
-                  <h4 class="font-medium text-yellow-800 mb-2">身体中立提醒</h4>
-                  <p class="text-sm text-yellow-700">
-                    BMI只是一个参考指标，不能完全反映健康状况。重要的是关注身体的功能和感受，而不仅仅是数字。
-                  </p>
-                </div>
-              </div>
-
-              <button id="saveBMI" class="w-full mt-4 py-3 bg-mint text-white rounded-lg font-medium hover:bg-mint/90 transition-colors">
-                <i class="fa fa-save mr-2"></i>保存结果
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 身材焦虑自评页面 -->
-        <div id="bodyAnxietyAssessmentSection" class="hidden">
-          <div class="px-4 py-6">
-            <div class="mb-6">
-              <h2 class="text-xl font-bold mb-2">身材焦虑自评</h2>
-              <p class="text-gray-500 text-sm">通过9道题目，了解你对身体形象的感受</p>
-            </div>
-
-            <!-- 进度指示器 -->
-            <div class="bg-white rounded-xl p-4 shadow-sm mb-6">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-sm font-medium text-gray-700">答题进度</span>
-                <span id="progressText" class="text-sm text-primary">0/9</span>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-2">
-                <div id="progressBar" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
-              </div>
-            </div>
-
-            <!-- 题目卡片 -->
-            <div id="questionCard" class="bg-white rounded-xl p-6 shadow-sm mb-6">
-              <div class="mb-4">
-                <span class="text-sm text-gray-500">第 <span id="currentQuestionNum">1</span> 题</span>
-              </div>
-              
-              <h3 id="questionText" class="text-lg font-medium text-gray-800 mb-6 leading-relaxed">
-                <!-- 动态显示题目 -->
-              </h3>
-
-              <div class="space-y-3">
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary hover:bg-blue-50 transition-all answer-option" data-value="1">
-                  <input type="radio" name="currentAnswer" value="1" class="mr-3 text-primary">
-                  <span>完全不同意</span>
-                </div>
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary hover:bg-blue-50 transition-all answer-option" data-value="2">
-                  <input type="radio" name="currentAnswer" value="2" class="mr-3 text-primary">
-                  <span>不太同意</span>
-                </div>
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary hover:bg-blue-50 transition-all answer-option" data-value="3">
-                  <input type="radio" name="currentAnswer" value="3" class="mr-3 text-primary">
-                  <span>有些同意</span>
-                </div>
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary hover:bg-blue-50 transition-all answer-option" data-value="4">
-                  <input type="radio" name="currentAnswer" value="4" class="mr-3 text-primary">
-                  <span>非常同意</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- 导航按钮 -->
-            <div class="flex space-x-3">
-              <button id="prevQuestion" class="flex-1 py-3 border border-gray-300 text-gray-600 rounded-lg font-medium hover:bg-gray-50 transition-colors" disabled>
-                <i class="fa fa-chevron-left mr-2"></i>上一题
-              </button>
-              <button id="nextQuestion" class="flex-1 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors" disabled>
-                下一题<i class="fa fa-chevron-right ml-2"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- 应用首页 -->
-        <div id="appHomeSection">
-          <div class="px-4 py-6">
-            <div class="flex items-center justify-between mb-6">
-              <h2 class="text-[clamp(1.5rem,3vw,1.8rem)] font-bold">身心焦虑自助工具</h2>
-              <div class="flex items-center">
-                <span class="text-sm text-gray-500 mr-2">我的进度</span>
-                <div class="w-28 h-2 bg-gray-200 rounded-full overflow-hidden">
-                  <div id="progressBarApp" class="h-full bg-primary rounded-full" style="width: 0%"></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 功能卡片网格 -->
-            <div class="grid grid-cols-2 gap-4 mb-8">
-              <!-- 了解自己 -->
-              <div class="bg-white rounded-xl p-5 shadow-sm flex flex-col items-center justify-center transition-all hover:shadow-md hover:-translate-y-1 cursor-pointer" onclick="showSelfAssessment()">
-                <div class="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center mb-3">
-                  <i class="fa fa-user-circle text-pink-500 text-2xl"></i>
-                </div>
-                <h3 class="text-base font-medium text-center">了解自己</h3>
-              </div>
-
-              <!-- 自动思维记录 -->
-              <div class="bg-white rounded-xl p-5 shadow-sm flex flex-col items-center justify-center transition-all hover:shadow-md hover:-translate-y-1 cursor-pointer">
-                <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-3">
-                  <i class="fa fa-pencil text-blue-500 text-2xl"></i>
-                </div>
-                <h3 class="text-base font-medium text-center">自动思维记录</h3>
-              </div>
-
-              <!-- 情绪调节卡片 -->
-              <div class="bg-white rounded-xl p-5 shadow-sm flex flex-col items-center justify-center transition-all hover:shadow-md hover:-translate-y-1 cursor-pointer">
-                <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mb-3">
-                  <i class="fa fa-comments text-green-500 text-2xl"></i>
-                </div>
-                <h3 class="text-base font-medium text-center">情绪调节卡片</h3>
-              </div>
-
-              <!-- 行为实验指南 -->
-              <div class="bg-white rounded-xl p-5 shadow-sm flex flex-col items-center justify-center transition-all hover:shadow-md hover:-translate-y-1 cursor-pointer">
-                <div class="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center mb-3">
-                  <i class="fa fa-flask text-purple-500 text-2xl"></i>
-                </div>
-                <h3 class="text-base font-medium text-center">行为实验指南</h3>
-              </div>
-
-              <!-- 冥想/正念练习 -->
-              <div class="bg-white rounded-xl p-5 shadow-sm flex flex-col items-center justify-center transition-all hover:shadow-md hover:-translate-y-1 cursor-pointer">
-                <div class="w-14 h-14 rounded-full bg-yellow-100 flex items-center justify-center mb-3">
-                  <i class="fa fa-headphones text-yellow-500 text-2xl"></i>
-                </div>
-                <h3 class="text-base font-medium text-center">冥想/正念练习</h3>
-              </div>
-            </div>
-
-            <!-- 最近记录 -->
-            <div class="mb-6">
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-lg font-semibold">最近记录</h3>
-                <button class="text-primary text-sm flex items-center">
-                  查看全部 <i class="fa fa-angle-right ml-1"></i>
-                </button>
-              </div>
-              <div id="recentList" class="space-y-3">
-                <div class="text-sm text-gray-500">暂无记录，先去试试上方的工具卡片吧～</div>
-              </div>
-            </div>
-
-            <!-- 为你推荐 -->
-            <div>
-              <h3 class="text-lg font-semibold mb-4">为你推荐</h3>
-              <div id="recommendList" class="space-y-4">
-                <div class="bg-white rounded-xl overflow-hidden shadow-sm">
-                  <img src="https://picsum.photos/400/200?random=33" alt="身体中立入门" class="w-full h-40 object-cover">
-                  <div class="p-4">
-                    <h4 class="font-semibold mb-1">身体中立入门</h4>
-                    <p class="text-sm text-gray-500 mb-3">从功能与健康角度看待身体</p>
-                    <div class="flex items-center justify-between">
-                      <span class="text-xs text-gray-400">2 分钟阅读</span>
-                      <button onclick="window.open('body-neutrality.html', '_blank')" class="text-primary text-sm">查看</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 移动端底部导航 -->
-      <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
-        <div class="flex justify-around py-2">
-          <button class="flex flex-col items-center py-2 px-3 text-primary" onclick="showAppHome()">
-            <i class="fa fa-home text-lg mb-1"></i>
-            <span class="text-xs font-medium">首页</span>
-          </button>
-          <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="showSelfAssessment()">
-            <i class="fa fa-clipboard text-lg mb-1"></i>
-            <span class="text-xs">测评</span>
-          </button>
-          <button class="flex flex-col items-center py-2 px-3 text-gray-500">
-            <i class="fa fa-wrench text-lg mb-1"></i>
-            <span class="text-xs">工具</span>
-          </button>
-          <button class="flex flex-col items-center py-2 px-3 text-gray-500">
-            <i class="fa fa-user text-lg mb-1"></i>
-            <span class="text-xs">我的</span>
-          </button>
-        </div>
-      </nav>
-    </div>
-
-  </main>
-
-  <script>
-    // 数据存储
-    const DB_KEY = "mindfit_db_v1";
-    
-    const defaultDB = () => ({
-      bmiAssessments: [],
-      bodyAnxietyAssessments: [],
-      lastActivityDate: ""
-    });
-
-    const loadDB = () => {
-      try {
-        const raw = localStorage.getItem(DB_KEY);
-        return raw ? JSON.parse(raw) : defaultDB();
-      } catch (e) {
-        return defaultDB();
-      }
-    };
-
-    const saveDB = (db) => localStorage.setItem(DB_KEY, JSON.stringify(db));
-
-    const fmtTime = (ts) => {
-      const d = new Date(ts);
-      const pad = (n) => (n < 10 ? "0" + n : n);
-      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-    };
-
-    // 页面导航
-    let navigationStack = ['landingPage'];
-    let currentSection = 'appHome';
-
-    function showPage(pageId) {
-      document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-      });
-      
-      document.getElementById(pageId).classList.add('active');
-      
-      if (navigationStack[navigationStack.length - 1] !== pageId) {
-        navigationStack.push(pageId);
-      }
-
-      if (pageId === 'appPage') {
-        showAppHome();
-      }
-    }
-
-    function showAppHome() {
-      hideAllSections();
-      document.getElementById('appHomeSection').classList.remove('hidden');
-      document.getElementById('appPageTitle').textContent = 'MindFit 身心管理';
-      currentSection = 'appHome';
-    }
-
-    function showSelfAssessment() {
-      if (!document.getElementById('appPage').classList.contains('active')) {
-        showPage('appPage');
-      }
-      hideAllSections();
-      document.getElementById('selfAssessmentSection').classList.remove('hidden');
-      document.getElementById('appPageTitle').textContent = '了解自己';
-      currentSection = 'selfAssessment';
-      renderRecentAssessments();
-    }
-
-    function showBMIAssessment() {
-      hideAllSections();
-      document.getElementById('bmiAssessmentSection').classList.remove('hidden');
-      document.getElementById('appPageTitle').textContent = 'BMI 身体测评';
-      currentSection = 'bmiAssessment';
-    }
-
-    function showBodyAnxietyAssessment() {
-      hideAllSections();
-      document.getElementById('bodyAnxietyAssessmentSection').classList.remove('hidden');
-      document.getElementById('appPageTitle').textContent = '身材焦虑自评';
-      currentSection = 'bodyAnxietyAssessment';
-      initBodyAnxietyAssessment();
-    }
-
-    function hideAllSections() {
-      document.querySelectorAll('#appPage > div > div').forEach(section => {
-        section.classList.add('hidden');
-      });
-    }
-
-    function goBack() {
-      if (currentSection === 'bmiAssessment' || currentSection === 'bodyAnxietyAssessment') {
-        showSelfAssessment();
-      } else if (currentSection === 'selfAssessment') {
-        showAppHome();
-      } else {
-        if (navigationStack.length > 1) {
-          navigationStack.pop();
-          const previousPage = navigationStack[navigationStack.length - 1];
-          showPage(previousPage);
-        }
-      }
-    }
-
-    // BMI 计算功能
-    document.getElementById('calculateBMI').addEventListener('click', () => {
-      const height = parseFloat(document.getElementById('bmiHeight').value);
-      const weight = parseFloat(document.getElementById('bmiWeight').value);
-      const age = parseFloat(document.getElementById('bmiAge').value);
-      const gender = document.querySelector('input[name="bmiGender"]:checked')?.value;
-
-      if (!height || !weight || !age || !gender) {
-        alert('请填写完整信息');
-        return;
-      }
-
-      // 计算BMI
-      const bmi = weight / Math.pow(height / 100, 2);
-      const bmiValue = bmi.toFixed(1);
-
-      // 确定BMI分类
-      let category, categoryClass, advice;
-      
-      if (bmi < 18.5) {
-        category = '偏瘦';
-        categoryClass = 'bg-blue-100 text-blue-800';
-        advice = '体重可能偏低，建议均衡饮食，适当增加营养摄入。关注身体能量和健康状态比单纯增重更重要。';
-      } else if (bmi < 24) {
-        category = '正常';
-        categoryClass = 'bg-green-100 text-green-800';
-        advice = '恭喜！您的BMI在正常范围内。继续保持健康的生活方式，关注身体功能和整体健康状况。';
-      } else if (bmi < 28) {
-        category = '偏重';
-        categoryClass = 'bg-yellow-100 text-yellow-800';
-        advice = '建议适度调整饮食结构和增加运动。记住，健康的身体不仅仅是体重数字，更重要的是整体的活力和功能。';
-      } else {
-        category = '肥胖';
-        categoryClass = 'bg-red-100 text-red-800';
-        advice = '建议咨询专业医生或营养师，制定个性化的健康管理计划。重要的是循序渐进，关爱自己的身体。';
-      }
-
-      // 显示结果
-      document.getElementById('bmiValue').textContent = bmiValue;
-      document.getElementById('bmiCategory').textContent = category;
-      document.getElementById('bmiCategory').className = `inline-block px-3 py-1 rounded-full text-sm font-medium ${categoryClass}`;
-      document.getElementById('bmiAdvice').textContent = advice;
-      document.getElementById('bmiResult').classList.remove('hidden');
-
-      // 保存按钮功能
-      document.getElementById('saveBMI').onclick = () => {
-        const db = loadDB();
-        const bmiData = {
-          ts: Date.now(),
-          height,
-          weight,
-          age,
-          gender,
-          bmi: parseFloat(bmiValue),
-          category,
-          advice
-        };
-        
-        db.bmiAssessments.push(bmiData);
-        saveDB(db);
-        alert('BMI结果已保存');
-        renderRecentAssessments();
-      };
-    });
-
-    // 身材焦虑测评
-    const BODY_ANXIETY_QUESTIONS = [
-      "照镜子或翻看照片时，我会特别关注自己的某些身体部位",
-      "我会把自己和社交媒体上的"完美身材"比较",
-      "吃完喜欢的食物后，我会感到后悔或愧疚",
-      "如果对自己的外貌不满意，我会情绪低落或心情受到影响",
-      "我会给自己制定严格的饮食或运动计划，若未完成会自责",
-      "因为担心身材，我会避免拍照或参加社交活动",
-      "我觉得类似于"如果我变得更好看，生活会更顺利"这类想法有一定道理",
-      "我想摆脱这些焦虑想法，但不知道从哪里开始",
-      "如果有简单可操作的心理自助练习（例如思维记录、情绪卡片等），我愿意尝试",
-    ];
-
-    let currentQuestion = 0;
-    let bodyAnxietyAnswers = [];
-
-    function initBodyAnxietyAssessment() {
-      currentQuestion = 0;
-      bodyAnxietyAnswers = [];
-      showQuestion(0);
-      updateProgress();
-    }
-
-    function showQuestion(index) {
-      if (index >= BODY_ANXIETY_QUESTIONS.length) {
-        completeBodyAnxietyAssessment();
-        return;
-      }
-
-      document.getElementById('currentQuestionNum').textContent = index + 1;
-      document.getElementById('questionText').textContent = BODY_ANXIETY_QUESTIONS[index];
-      
-      // 清除之前的选择
-      document.querySelectorAll('input[name="currentAnswer"]').forEach(input => {
-        input.checked = false;
-      });
-
-      // 如果有之前的答案，显示
-      if (bodyAnxietyAnswers[index]) {
-        document.querySelector(`input[name="currentAnswer"][value="${bodyAnxietyAnswers[index]}"]`).checked = true;
-        document.getElementById('nextQuestion').disabled = false;
-      } else {
-        document.getElementById('nextQuestion').disabled = true;
-      }
-
-      // 更新按钮状态
-      document.getElementById('prevQuestion').disabled = index === 0;
-      document.getElementById('nextQuestion').textContent = 
-        index === BODY_ANXIETY_QUESTIONS.length - 1 ? '完成测评' : '下一题';
-    }
-
-    function updateProgress() {
-      const progress = Math.round((currentQuestion / BODY_ANXIETY_QUESTIONS.length) * 100);
-      document.getElementById('progressBar').style.width = `${progress}%`;
-      document.getElementById('progressText').textContent = `${currentQuestion}/${BODY_ANXIETY_QUESTIONS.length}`;
-    }
-
-    // 答案选择事件
-    document.querySelectorAll('.answer-option').forEach(option => {
-      option.addEventListener('click', () => {
-        const value = option.dataset.value;
-        const radio = option.querySelector('input[type="radio"]');
-        radio.checked = true;
-        bodyAnxietyAnswers[currentQuestion] = parseInt(value);
-        document.getElementById('nextQuestion').disabled = false;
-      });
-    });
-
-    // 导航按钮事件
-    document.getElementById('prevQuestion').addEventListener('click', () => {
-      if (currentQuestion > 0) {
-        currentQuestion--;
-        showQuestion(currentQuestion);
-        updateProgress();
-      }
-    });
-
-    document.getElementById('nextQuestion').addEventListener('click', () => {
-      if (bodyAnxietyAnswers[currentQuestion]) {
-        currentQuestion++;
-        showQuestion(currentQuestion);
-        updateProgress();
-      }
-    });
-
-    function completeBodyAnxietyAssessment() {
-      const totalScore = bodyAnxietyAnswers.reduce((sum, score) => sum + score, 0);
-      const maxScore = BODY_ANXIETY_QUESTIONS.length * 4;
-      const percentage = Math.round((totalScore / maxScore) * 100);
-
-      // 生成建议
-      const advice = generateBodyAnxietyAdvice(totalScore, percentage);
-
-      // 保存结果
-      const db = loadDB();
-      const assessmentData = {
-        ts: Date.now(),
-        answers: bodyAnxietyAnswers,
-        totalScore,
-        percentage,
-        advice
-      };
-      
-      db.bodyAnxietyAssessments.push(assessmentData);
-      saveDB(db);
-      renderRecentAssessments();
-
-      // 跳转到结果页面
-      const adviceStr = encodeURIComponent(advice.join(",,"));
-      window.location.href = `result.html?advice=${adviceStr}`;
-    }
-
-    function generateBodyAnxietyAdvice(score, percentage) {
-      const advice = [];
-      
-      if (percentage >= 75) {
-        advice.push("⛈ 高度焦虑：你当前的身材焦虑程度较高，建议优先考虑专业心理支持，配合自我调节练习。");
-        advice.push("🧘 今日小任务：进行一次 10 分钟的身体扫描冥想，关注身体的功能而非外貌。");
-      } else if (percentage >= 50) {
-        advice.push("🌧 中度焦虑：你对身材有一定程度的焦虑，建议尝试身体中立练习和正念技巧。");
-        advice.push("📝 今日小任务：写下 3 条你身体的功能性优点，例如"我的身体让我可以自由行走"。");
-      } else if (percentage >= 25) {
-        advice.push("🌤 轻度焦虑：你偶尔会对身材感到担忧，这很正常。建议保持积极的身体意识。");
-        advice.push("🌿 今日小任务：每日 1 次正念呼吸（约 3 分钟），并练习自我肯定语。");
-      } else {
-        advice.push("🌟 状态良好：你对身材保持着健康的态度，继续保持这种平衡的心态。");
-        advice.push("💫 今日小任务：分享你的积极心态，帮助身边的人建立健康的身体观念。");
-      }
-
-      advice.push("📘 推荐阅读: <a href='body-neutrality.html' target='_blank'>身体中立入门指南</a> — 学习如何建立更健康的身体关系。");
-      
-      return advice;
-    }
-
-    function renderRecentAssessments() {
-      const db = loadDB();
-      const container = document.getElementById('recentAssessments');
-      
-      const bmiTests = (db.bmiAssessments || []).map(test => ({
-        type: 'BMI测评',
-        ts: test.ts,
-        result: `BMI: ${test.bmi} (${test.category})`
-      }));
-      
-      const anxietyTests = (db.bodyAnxietyAssessments || []).map(test => ({
-        type: '身材焦虑自评',
-        ts: test.ts,
-        result: `得分: ${test.totalScore}/36 (${test.percentage}%)`
-      }));
-      
-      const allTests = [...bmiTests, ...anxietyTests]
-        .sort((a, b) => b.ts - a.ts)
-        .slice(0, 3);
-
-      if (allTests.length === 0) {
-        container.innerHTML = '<div class="text-sm text-gray-500">暂无测评记录</div>';
-        return;
-      }
-
-      container.innerHTML = allTests.map(test => `
-        <div class="flex items-center justify-between py-2 border-b border-gray-200 last:border-b-0">
-          <div>
-            <div class="text-sm font-medium text-gray-800">${test.type}</div>
-            <div class="text-xs text-gray-500">${fmtTime(test.ts)}</div>
-          </div>
-          <div class="text-xs text-gray-600">${test.result}</div>
-        </div>
-      `).join('');
-    }
-
-    // 🎯 页面加载动画控制
-    document.addEventListener('DOMContentLoaded', function() {
-      // 等待字体和关键资源加载完成
-      window.addEventListener('load', function() {
-        // 延迟执行，确保所有资源就绪
-        setTimeout(() => {
-          initPageAnimations();
-        }, 100);
-      });
-    });
-
-    function initPageAnimations() {
-      // 功能卡片 stagger 动画
-      animateFeatureCards();
-      
-      // 设置滚动监听
-      setupScrollAnimations();
-    }
-
-    function animateFeatureCards() {
-      // 桌面端卡片
-      const desktopCards = document.querySelectorAll('.feature-card');
-      // 移动端卡片
-      const mobileCards = document.querySelectorAll('.mobile-feature-card');
-      
-      // 合并所有卡片
-      const allCards = [...desktopCards, ...mobileCards];
-      
-      allCards.forEach((card, index) => {
-        const delay = parseInt(card.dataset.delay) || index;
-        setTimeout(() => {
-          card.classList.add('animate-in');
-        }, delay * 150); // 0.15s stagger - 更舒缓
-      });
-    }
-    
-    function setupScrollAnimations() {
-      // 创建 Intersection Observer
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (entry.target.classList.contains('scroll-fade-in')) {
-              entry.target.classList.add('animate-in');
-            } else if (entry.target.classList.contains('knowledge-card')) {
-              const delay = parseInt(entry.target.dataset.delay) || 0;
-              setTimeout(() => {
-                entry.target.classList.add('animate-in');
-              }, delay * 100);
-            }
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-      
-      // 监听所有需要滚动动画的元素
-      document.querySelectorAll('.scroll-fade-in, .knowledge-card').forEach(el => {
-        observer.observe(el);
-      });
-    }
-
-    // 🎨 增强交互体验
-    document.addEventListener('DOMContentLoaded', function() {
-      // 为所有卡片添加触摸反馈（移动端）
-      const cards = document.querySelectorAll('.mobile-feature-card, .glass-card');
-      
-      cards.forEach(card => {
-        // 触摸开始
-        card.addEventListener('touchstart', function() {
-          this.style.transform = 'translateY(-2px) scale(0.98)';
-          this.style.transition = 'all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        });
-        
-        // 触摸结束
-        card.addEventListener('touchend', function() {
-          this.style.transform = '';
-          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        });
-        
-        // 触摸取消
-        card.addEventListener('touchcancel', function() {
-          this.style.transform = '';
-          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        });
-      });
-    });
-  </script>
-
-</body>
-</html><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -911,8 +92,8 @@
     }
     
     .glass-card:active {
-      transform: translateY(-3px) scale(0.98);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transform: translateY(-3px) scale(1.01);
+      transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
     /* 移动端功能卡片 */
@@ -929,105 +110,9 @@
     }
     
     .mobile-feature-card:active {
-      transform: translateY(-2px) scale(0.98);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 滚动触发动画 === */
-    .scroll-fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .scroll-fade-in.animate-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .knowledge-card {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .knowledge-card.animate-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .knowledge-card:active {
-      transform: scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 按钮交互动画 === */
-    button {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
       transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform, background-color, box-shadow;
-    }
-    
-    /* 主按钮（深炭灰底白字） */
-    .btn-primary, .bg-accent {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn-primary:hover, .bg-accent:hover {
-      background-color: rgba(46, 46, 46, 0.9);
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 8px 25px rgba(46, 46, 46, 0.25);
-    }
-    
-    .btn-primary:active, .bg-accent:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* 次按钮（描边） */
-    .border-primary {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .border-primary:hover {
-      background-color: #8FD9A8;
-      border-color: #8FD9A8;
-      color: white;
-      transform: translateY(-1px) scale(1.01);
-    }
-    
-    .border-primary:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* 文字按钮 */
-    .text-gray-600:hover {
-      color: #4A6157;
-      transform: translateY(-1px);
-    }
-    
-    .text-gray-600:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 推荐列表动画 === */
-    .qa-item {
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .qa-item:active {
-      background-color: #f8f9fa;
-      transform: scale(0.98);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    .qa-item:active .fa-chevron-right {
-      transform: translateX(4px);
-      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     
     .hero-image-placeholder {
@@ -1038,51 +123,6 @@
     .green-accent-line {
       border-left: 3px solid #4A6157;
       padding-left: 1rem;
-    }
-
-    /* === 页面切换样式 === */
-    .page {
-      display: none;
-    }
-    
-    .page.active {
-      display: block;
-    }
-
-    /* === 模态框样式 === */
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .modal.show {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .modal-content {
-      background: white;
-      border-radius: 12px;
-      max-width: 90%;
-      max-height: 90%;
-      overflow-y: auto;
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
-    }
-
-    .modal.show .modal-content {
-      transform: scale(1);
     }
     
     /* 移动端样式 */
@@ -1132,9 +172,9 @@
           <span class="text-xl font-bold text-primary">MindFit</span>
         </div>
         <div class="flex items-center space-x-8">
-          <a href="#" class="text-primary hover:text-mint transition-colors font-medium" onclick="showPage('landingPage')">首页</a>
-          <a href="#" class="text-content hover:text-primary transition-colors font-medium" onclick="showPage('appPage')">功能</a>
-          <a href="body-neutrality.html" class="text-content hover:text-primary transition-colors font-medium">理论</a>
+          <a href="#" class="text-primary hover:text-mint transition-colors font-medium">首页</a>
+          <a href="#" class="text-content hover:text-primary transition-colors font-medium">功能</a>
+          <a href="#" class="text-content hover:text-primary transition-colors font-medium">理论</a>
           <a href="#" class="text-content hover:text-primary transition-colors font-medium">个人中心</a>
         </div>
       </div>
@@ -1150,7 +190,7 @@
         </div>
         <span class="text-lg font-bold text-primary">MindFit</span>
       </div>
-      <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center" onclick="showPage('appPage')">
+      <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center">
         <i class="fa fa-user text-white text-xs"></i>
       </div>
     </div>
@@ -1158,996 +198,426 @@
 
   <main class="pb-20 md:pb-8 bg-secondary">
     
-    <!-- 营销首页 -->
-    <div id="landingPage" class="page active">
-      <!-- Hero 区域 -->
-      <section class="hero-gradient py-8 md:py-20">
-        <div class="max-w-7xl mx-auto">
-          
-          <!-- 桌面端布局 -->
-          <div class="hidden md:flex items-center justify-between gap-12 px-6">
-            <div class="flex-1 hero-content">
-              <h1 class="text-5xl font-bold text-primary leading-tight mb-6">
+    <!-- Hero 区域 -->
+    <section class="hero-gradient py-8 md:py-20">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- 桌面端布局 -->
+        <div class="hidden md:flex items-center justify-between gap-12 px-6">
+          <div class="flex-1 hero-content">
+            <h1 class="text-5xl font-bold text-primary leading-tight mb-6">
+              科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
+            </h1>
+            <p class="text-xl text-content leading-relaxed mb-8">
+              平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
+            </p>
+            <button class="bg-accent hover:bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all">
+              开始探索
+            </button>
+          </div>
+          <div class="flex-1 max-w-lg hero-image">
+            <div class="hero-image-placeholder aspect-square rounded-2xl flex items-center justify-center">
+              <div class="text-center text-gray-400">
+                <i class="fa fa-image text-6xl mb-4"></i>
+                <p class="text-lg">Hero 主图</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 移动端布局 -->
+        <div class="md:hidden px-4">
+          <div class="flex items-center gap-4 mb-6 hero-content">
+            <!-- 左侧文案和按钮 -->
+            <div class="flex-1">
+              <h1 class="text-mobile-title font-bold text-primary leading-tight mb-3">
                 科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
               </h1>
-              <p class="text-xl text-content leading-relaxed mb-8">
+              <p class="text-mobile-subtitle text-gray leading-relaxed mb-4">
                 平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
               </p>
-              <button class="bg-accent hover:bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all" onclick="showPage('appPage')">
+              <button class="w-full bg-accent text-white rounded-lg font-semibold h-11 transition-all">
                 开始探索
               </button>
             </div>
-            <div class="flex-1 max-w-lg hero-image">
-              <div class="hero-image-placeholder aspect-square rounded-2xl flex items-center justify-center">
+            <!-- 右侧缩小的图片 -->
+            <div class="w-24 h-24 flex-shrink-0 hero-image">
+              <div class="hero-image-placeholder w-full h-full rounded-xl flex items-center justify-center">
                 <div class="text-center text-gray-400">
-                  <i class="fa fa-image text-6xl mb-4"></i>
-                  <p class="text-lg">Hero 主图</p>
+                  <i class="fa fa-image text-xl mb-1"></i>
+                  <p class="text-xs">图</p>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- 移动端布局 -->
-          <div class="md:hidden px-4">
-            <div class="flex items-center gap-4 mb-6 hero-content">
-              <!-- 左侧文案和按钮 -->
-              <div class="flex-1">
-                <h1 class="text-mobile-title font-bold text-primary leading-tight mb-3">
-                  科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
-                </h1>
-                <p class="text-mobile-subtitle text-gray leading-relaxed mb-4">
-                  平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
-                </p>
-                <button class="w-full bg-accent text-white rounded-lg font-semibold h-11 transition-all" onclick="showPage('appPage')">
-                  开始探索
-                </button>
-              </div>
-              <!-- 右侧缩小的图片 -->
-              <div class="w-24 h-24 flex-shrink-0 hero-image">
-                <div class="hero-image-placeholder w-full h-full rounded-xl flex items-center justify-center">
-                  <div class="text-center text-gray-400">
-                    <i class="fa fa-image text-xl mb-1"></i>
-                    <p class="text-xs">图</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
         </div>
-      </section>
+        
+      </div>
+    </section>
 
-      <!-- 主要功能区域 -->
-      <section class="py-6 md:py-20">
-        <div class="max-w-7xl mx-auto">
+    <!-- 主要功能区域 -->
+    <section class="py-6 md:py-20">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- 桌面端：3列网格 -->
+        <div class="hidden md:grid grid-cols-3 gap-8 px-6">
           
-          <!-- 桌面端：3列网格 -->
-          <div class="hidden md:grid grid-cols-3 gap-8 px-6">
+          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="0">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
+              <i class="fa fa-user-circle text-primary text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-4">了解自己</h3>
+            <p class="text-content mb-6">通过各种帮助信任认知当下的自己</p>
+            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+              开始评估
+            </button>
+          </div>
+
+          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="1">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
+              <i class="fa fa-apple text-primary text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-4">日常练习</h3>
+            <p class="text-content mb-6">培养健康生活习惯的时候解决伴随紧张感</p>
+            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+              开始练习
+            </button>
+          </div>
+
+          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="2">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
+              <i class="fa fa-cogs text-primary text-3xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-primary mb-4">深度工具</h3>
+            <p class="text-content mb-6">通过心理干预或深入了解内心</p>
+            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+              探索工具
+            </button>
+          </div>
+
+        </div>
+
+        <!-- 移动端布局 -->
+        <div class="md:hidden">
+          <div class="grid grid-cols-2 gap-4 px-4 mb-4">
             
-            <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="0" onclick="showSelfAssessment()">
-              <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-                <i class="fa fa-user-circle text-primary text-3xl"></i>
-              </div>
-              <h3 class="text-xl font-bold text-primary mb-4">了解自己</h3>
-              <p class="text-content mb-6">通过各种帮助信任认知当下的自己</p>
-              <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+            <div class="mobile-feature-card" data-delay="0">
+              <i class="fa fa-user-circle text-primary text-2xl mb-3"></i>
+              <h3 class="text-mobile-card-title font-bold text-primary mb-2">了解自己</h3>
+              <p class="text-mobile-description text-lightGray mb-4">通过各种帮助信任认知当下的自己</p>
+              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
                 开始评估
               </button>
             </div>
 
-            <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="1" onclick="showPage('appPage')">
-              <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-                <i class="fa fa-apple text-primary text-3xl"></i>
-              </div>
-              <h3 class="text-xl font-bold text-primary mb-4">日常练习</h3>
-              <p class="text-content mb-6">培养健康生活习惯的时候解决伴随紧张感</p>
-              <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+            <div class="mobile-feature-card" data-delay="1">
+              <i class="fa fa-apple text-mint text-2xl mb-3"></i>
+              <h3 class="text-mobile-card-title font-bold text-primary mb-2">日常练习</h3>
+              <p class="text-mobile-description text-lightGray mb-4">培养健康生活习惯的时候解决伴随紧张感</p>
+              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
                 开始练习
               </button>
             </div>
 
-            <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="2" onclick="showPage('appPage')">
-              <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-                <i class="fa fa-cogs text-primary text-3xl"></i>
-              </div>
-              <h3 class="text-xl font-bold text-primary mb-4">深度工具</h3>
-              <p class="text-content mb-6">通过心理干预或深入了解内心</p>
-              <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+          </div>
+          
+          <!-- 深度工具居中 -->
+          <div class="flex justify-center px-4">
+            <div class="mobile-feature-card w-48" data-delay="2">
+              <i class="fa fa-cogs text-accent text-2xl mb-3"></i>
+              <h3 class="text-mobile-card-title font-bold text-primary mb-2">深度工具</h3>
+              <p class="text-mobile-description text-lightGray mb-4">通过心理干预或深入了解内心</p>
+              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
                 探索工具
               </button>
             </div>
-
           </div>
 
-          <!-- 移动端布局 -->
-          <div class="md:hidden">
-            <div class="grid grid-cols-2 gap-4 px-4 mb-4">
-              
-              <div class="mobile-feature-card" data-delay="0" onclick="showSelfAssessment()">
-                <i class="fa fa-user-circle text-primary text-2xl mb-3"></i>
-                <h3 class="text-mobile-card-title font-bold text-primary mb-2">了解自己</h3>
-                <p class="text-mobile-description text-lightGray mb-4">通过各种帮助信任认知当下的自己</p>
-                <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                  开始评估
-                </button>
-              </div>
-
-              <div class="mobile-feature-card" data-delay="1" onclick="showPage('appPage')">
-                <i class="fa fa-apple text-mint text-2xl mb-3"></i>
-                <h3 class="text-mobile-card-title font-bold text-primary mb-2">日常练习</h3>
-                <p class="text-mobile-description text-lightGray mb-4">培养健康生活习惯的时候解决伴随紧张感</p>
-                <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                  开始练习
-                </button>
-              </div>
-
-            </div>
-            
-            <!-- 深度工具居中 -->
-            <div class="flex justify-center px-4">
-              <div class="mobile-feature-card w-48" data-delay="2" onclick="showPage('appPage')">
-                <i class="fa fa-cogs text-accent text-2xl mb-3"></i>
-                <h3 class="text-mobile-card-title font-bold text-primary mb-2">深度工具</h3>
-                <p class="text-mobile-description text-lightGray mb-4">通过心理干预或深入了解内心</p>
-                <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                  探索工具
-                </button>
-              </div>
-            </div>
-
-          </div>
-          
         </div>
-      </section>
-
-      <!-- 身体中立知识库 -->
-      <section class="py-6 md:py-20 bg-gray-50">
-        <div class="max-w-7xl mx-auto">
-          
-          <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
-            <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4 green-accent-line">身体中立知识库</h2>
-            <p class="text-content text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
-          </div>
-
-          <!-- 桌面端 -->
-          <div class="hidden md:block px-6">
-            <div class="grid grid-cols-3 gap-8 mb-8">
-              
-              <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="0">
-                <div class="aspect-video bg-primary flex items-center justify-center">
-                  <i class="fa fa-image text-3xl text-white"></i>
-                </div>
-                <div class="p-6">
-                  <h3 class="font-bold text-primary mb-2">身体中立基础</h3>
-                  <p class="text-content text-sm">了解身体中立的核心理念</p>
-                </div>
-              </div>
-
-              <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="1">
-                <div class="aspect-video bg-mint flex items-center justify-center">
-                  <i class="fa fa-image text-3xl text-white"></i>
-                </div>
-                <div class="p-6">
-                  <h3 class="font-bold text-primary mb-2">实践方法</h3>
-                  <p class="text-content text-sm">日常生活中的身体中立练习</p>
-                </div>
-              </div>
-
-              <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="2">
-                <div class="aspect-video bg-accent flex items-center justify-center">
-                  <i class="fa fa-image text-3xl text-white"></i>
-                </div>
-                <div class="p-6">
-                  <h3 class="font-bold text-primary mb-2">科学研究</h3>
-                  <p class="text-content text-sm">相关心理学研究和证据</p>
-                </div>
-              </div>
-
-            </div>
-            <div class="text-center">
-              <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all">
-                查看更多
-              </button>
-            </div>
-          </div>
-
-          <!-- 移动端 -->
-          <div class="md:hidden px-4">
-            
-            <div class="mobile-knowledge-card knowledge-card" data-delay="0">
-              <div class="w-24 h-18 bg-primary flex items-center justify-center flex-shrink-0">
-                <i class="fa fa-image text-white text-xl"></i>
-              </div>
-              <div class="flex-1 p-4">
-                <h3 class="text-mobile-knowledge font-bold text-primary mb-2">身体中立基础</h3>
-                <p class="text-mobile-intro text-lightGray">了解身体中立的核心理念，学习如何建立健康的身体认知</p>
-              </div>
-            </div>
-
-            <div class="mobile-knowledge-card knowledge-card" data-delay="1">
-              <div class="w-24 h-18 bg-mint flex items-center justify-center flex-shrink-0">
-                <i class="fa fa-image text-white text-xl"></i>
-              </div>
-              <div class="flex-1 p-4">
-                <h3 class="text-mobile-knowledge font-bold text-primary mb-2">实践方法</h3>
-                <p class="text-mobile-intro text-lightGray">日常生活中的身体中立练习，简单易行的实用技巧</p>
-              </div>
-            </div>
-
-            <div class="mobile-knowledge-card knowledge-card" data-delay="2">
-              <div class="w-24 h-18 bg-accent flex items-center justify-center flex-shrink-0">
-                <i class="fa fa-image text-white text-xl"></i>
-              </div>
-              <div class="flex-1 p-4">
-                <h3 class="text-mobile-knowledge font-bold text-primary mb-2">科学研究</h3>
-                <p class="text-mobile-intro text-lightGray">相关心理学研究和证据，科学理论支撑实践效果</p>
-              </div>
-            </div>
-
-            <div class="text-center mt-6">
-              <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all">
-                查看更多
-              </button>
-            </div>
-
-          </div>
-          
-        </div>
-      </section>
-
-      <!-- 个性化推荐 -->
-      <section class="py-6 md:py-20 bg-light">
-        <div class="max-w-4xl mx-auto">
-          
-          <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
-            <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4">个性化推荐</h2>
-            <p class="text-content text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
-          </div>
-
-          <!-- 桌面端 -->
-          <div class="hidden md:block space-y-4 px-6">
-            
-            <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="showSelfAssessment()">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                  <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                    <i class="fa fa-search text-white"></i>
-                  </div>
-                  <span class="text-primary font-medium">想了解自己的身心状态？</span>
-                </div>
-                <i class="fa fa-chevron-right text-gray-400"></i>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="showPage('appPage')">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                  <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center">
-                    <i class="fa fa-search text-white"></i>
-                  </div>
-                  <span class="text-primary font-medium">如何建立健康的身体观念？</span>
-                </div>
-                <i class="fa fa-chevron-right text-gray-400"></i>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="window.open('body-neutrality.html', '_blank')">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center space-x-4">
-                  <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                    <i class="fa fa-search text-white"></i>
-                  </div>
-                  <span class="text-primary font-medium">什么是身体中立理念？</span>
-                </div>
-                <i class="fa fa-chevron-right text-gray-400"></i>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- 移动端 -->
-          <div class="md:hidden px-4">
-            <div class="bg-white rounded-xl overflow-hidden">
-              
-              <div class="mobile-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-  <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-  />
-  <title>MindFit - 身心焦虑自助工具</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="style.css">
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#3B82F6",
-            secondary: "#10B981",
-            accent: "#8B5CF6",
-            neutral: "#F3F4F6",
-            dark: "#1F2937",
-            light: "#F9FAFB",
-          },
-          fontFamily: {
-            sans: ["PingFang SC", "Helvetica Neue", "Arial", "sans-serif"],
-          },
-        },
-      },
-    };
-  </script>
-  <style type="text/tailwindcss">
-    @layer utilities {
-      .content-auto {
-        content-visibility: auto;
-      }
-      .card-shadow {
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      }
-      .transition-smooth {
-        transition: all 0.3s ease;
-      }
-      .scrollbar-hide::-webkit-scrollbar {
-        display: none;
-      }
-      .text-balance {
-        text-wrap: balance;
-      }
-      .btn-primary {
-        @apply w-full py-3 bg-primary text-white rounded-lg font-medium flex items-center justify-center;
-      }
-      .badge {
-        @apply text-xs px-2 py-1 rounded-full;
-      }
-    }
-    /* 美化测评滑杆 */
-input[type="range"] {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 6px;
-  border-radius: 3px;
-  background: linear-gradient(to right, #3B82F6, #10B981);
-  outline: none;
-  transition: background 0.3s;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #3B82F6;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-}
-
-input[type="range"]::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #3B82F6;
-  cursor: pointer;
-}
-    </style>
-    <style>
-/* 结果进度条（不依赖外部库） */
-.result-gauge { background:#f1f5f9; border-radius:999px; height:10px; overflow:hidden; }
-.result-gauge > .bar { height:100%; width:0; background:linear-gradient(90deg,#3B82F6,#10B981); transition:width .6s ease; }
-.result-gauge-label { display:flex; justify-content:space-between; font-size:12px; color:#475569; margin:.5rem 0 .25rem; }
-.badge-chip { display:inline-block; font-size:12px; padding:2px 8px; border-radius:999px; background:#eef2ff; color:#4f46e5; margin-left:.5rem; }
-.copy-btn { font-size:12px; color:#2563eb; cursor:pointer; }
-.copy-btn:hover { text-decoration:underline; }
-</style>
-
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
-</head>
-
-<body class="bg-gray-50 font-sans text-dark min-h-screen">
-  <!-- 顶部导航栏 -->
-  <header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
-    <div class="flex items-center justify-between px-4 py-3">
-      <div class="flex items-center">
-        <button id="backBtn" class="p-2 text-gray-500 hover:text-primary transition-smooth">
-          <i class="fa fa-arrow-left text-lg"></i>
-        </button>
-        <h1 id="pageTitle" class="text-xl font-medium ml-2">MindFit 身心管理</h1>
+        
       </div>
-      <div class="flex items-center space-x-4">
-        <button class="p-2 text-gray-500 hover:text-primary transition-smooth" data-target="myRecordsPage">
-          <i class="fa fa-list-alt text-lg"></i>
-        </button>
-        <button class="p-2 text-gray-500 hover:text-primary transition-smooth" data-target="myBadgesPage">
-          <i class="fa fa-star-o text-lg"></i>
-        </button>
-      </div>
-    </div>
-  </header>
+    </section>
 
-  <!-- 提示 Toast -->
-  <div id="toast" class="fixed left-1/2 -translate-x-1/2 top-16 z-[60] hidden">
-    <div class="bg-gray-900 text-white text-sm px-3 py-2 rounded-md shadow-lg"></div>
-  </div>
-
-  <!-- 主内容区 -->
-  <main class="pt-16 pb-20 min-h-screen">
-    <!-- 首页 -->
-    <section id="homePage" class="page active">
-      <div class="px-4 py-6">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="text-[clamp(1.5rem,3vw,1.8rem)] font-bold">身心焦虑自助工具</h2>
-          <div class="flex items-center">
-            <span class="text-sm text-gray-500 mr-2">我的进度</span>
-            <div class="w-28 h-2 bg-gray-200 rounded-full overflow-hidden">
-              <i class="ph ph-chart-line text-slate-500 text-2xl"></i>
-              <div id="progressBar" class="h-full bg-primary rounded-full" style="width: 0%"></div>
-            </div>
-          </div>
+    <!-- 身体中立知识库 -->
+    <section class="py-6 md:py-20 bg-gray-50">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="text-center mb-6 md:mb-12 px-6">
+          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4 green-accent-line">身体中立知识库</h2>
+          <p class="text-content text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
         </div>
 
-        <!-- 功能卡片网格 -->
-        <div class="grid grid-cols-2 gap-4 mb-8">
-          <!-- 了解自己 -->
-          <div class="feature-card bg-white rounded-xl p-5 card-shadow flex flex-col items-center justify-center transition-smooth hover:shadow-lg hover:-translate-y-1 cursor-pointer" onclick="navigateToSelfAssessment()">
-            <div class="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center mb-3">
-             <i class="ph ph-user-circle text-pink-500 text-2xl"></i>
+        <!-- 桌面端 -->
+        <div class="hidden md:block px-6">
+          <div class="grid grid-cols-3 gap-8 mb-8">
+            
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm">
+              <div class="aspect-video bg-primary flex items-center justify-center">
+                <i class="fa fa-image text-3xl text-white"></i>
+              </div>
+              <div class="p-6">
+                <h3 class="font-bold text-primary mb-2">身体中立基础</h3>
+                <p class="text-content text-sm">了解身体中立的核心理念</p>
+              </div>
             </div>
-            <h3 class="text-base font-medium text-center">了解自己</h3>
-          </div>
 
-          <!-- 自动思维记录 -->
-          <div class="feature-card bg-white rounded-xl p-5 card-shadow flex flex-col items-center justify-center transition-smooth hover:shadow-lg hover:-translate-y-1 cursor-pointer" data-target="thoughtRecordPage">
-            <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mb-3">
-             <i class="ph ph-pencil-simple text-blue-500 text-2xl"></i>
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm">
+              <div class="aspect-video bg-mint flex items-center justify-center">
+                <i class="fa fa-image text-3xl text-white"></i>
+              </div>
+              <div class="p-6">
+                <h3 class="font-bold text-primary mb-2">实践方法</h3>
+                <p class="text-content text-sm">日常生活中的身体中立练习</p>
+              </div>
             </div>
-            <h3 class="text-base font-medium text-center">自动思维记录</h3>
-          </div>
 
-          <!-- 情绪调节卡片 -->
-          <div class="feature-card bg-white rounded-xl p-5 card-shadow flex flex-col items-center justify-center transition-smooth hover:shadow-lg hover:-translate-y-1 cursor-pointer" data-target="emotionRegulationPage">
-            <div class="w-14 h-14 rounded-full bg-green-100 flex items-center justify-center mb-3">
-             <i class="ph ph-chat-centered-dots text-green-500 text-2xl"></i>
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm">
+              <div class="aspect-video bg-accent flex items-center justify-center">
+                <i class="fa fa-image text-3xl text-white"></i>
+              </div>
+              <div class="p-6">
+                <h3 class="font-bold text-primary mb-2">科学研究</h3>
+                <p class="text-content text-sm">相关心理学研究和证据</p>
+              </div>
             </div>
-            <h3 class="text-base font-medium text-center">情绪调节卡片</h3>
-          </div>
 
-          <!-- 行为实验指南 -->
-          <div class="feature-card bg-white rounded-xl p-5 card-shadow flex flex-col items-center justify-center transition-smooth hover:shadow-lg hover:-translate-y-1 cursor-pointer" data-target="behaviorExperimentPage">
-            <div class="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center mb-3">
-             <i class="ph ph-flask text-purple-500 text-2xl"></i>
-            </div>
-            <h3 class="text-base font-medium text-center">行为实验指南</h3>
           </div>
-
-          <!-- 冥想/正念练习 -->
-          <div class="feature-card bg-white rounded-xl p-5 card-shadow flex flex-col items-center justify-center transition-smooth hover:shadow-lg hover:-translate-y-1 cursor-pointer" data-target="mindfulnessPage">
-            <div class="w-14 h-14 rounded-full bg-yellow-100 flex items-center justify-center mb-3">
-            <i class="ph ph-headphones text-yellow-500 text-2xl"></i>
-            </div>
-            <h3 class="text-base font-medium text-center">冥想/正念练习</h3>
-          </div>
-        </div>
-
-        <!-- 最近记录（动态） -->
-        <div class="mb-6">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="text-lg font-semibold">最近记录</h3>
-            <button class="text-primary text-sm flex items-center" data-target="myRecordsPage">
-              查看全部 <i class="fa fa-angle-right ml-1"></i>
+          <div class="text-center">
+            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all">
+              查看更多
             </button>
           </div>
-          <div id="recentList" class="space-y-3"></div>
         </div>
 
-        <!-- 新解锁徽章（动态） -->
-        <div id="badgeBanner" class="hidden bg-gradient-to-r from-primary to-accent rounded-xl p-5 text-white mb-6">
-          <div class="flex items-start justify-between">
-            <div>
-              <h3 class="text-lg font-semibold mb-1">恭喜解锁新徽章！</h3>
-              <p id="badgeBannerText" class="text-sm opacity-90 mb-3"></p>
-              <button class="bg-white text-primary text-sm px-3 py-1.5 rounded-full font-medium" data-target="myBadgesPage">
-                查看我的徽章
-              </button>
-            </div>
-            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-              <i class="fa fa-star text-2xl"></i>
-            </div>
-          </div>
-        </div>
-
-        <!-- 为你推荐（动态） -->
-        <div>
-          <h3 class="text-lg font-semibold mb-4">为你推荐</h3>
-          <div id="recommendList" class="space-y-4"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 了解自己页面 -->
-    <section id="selfAssessmentPage" class="page hidden">
-      <div class="px-4 py-6">
-        <div class="mb-6">
-          <h2 class="text-xl font-bold mb-2">了解自己</h2>
-          <p class="text-gray-500 text-sm">通过科学测评，更好地认知当下的自己</p>
-        </div>
-
-        <!-- 测评卡片网格 -->
-        <div class="space-y-4">
-          <!-- BMI测评卡片 -->
-          <div class="bg-white rounded-xl p-6 card-shadow cursor-pointer hover:shadow-lg transition-all" data-target="bmiAssessmentPage">
-            <div class="flex items-center">
-              <div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                <i class="ph ph-scales text-blue-500 text-2xl"></i>
-              </div>
-              <div class="flex-1">
-                <h3 class="text-lg font-semibold text-gray-800 mb-1">BMI 身体测评</h3>
-                <p class="text-sm text-gray-500 mb-2">了解身体状况，建立健康认知</p>
-                <div class="flex items-center text-xs text-gray-400">
-                  <i class="fa fa-clock-o mr-1"></i>
-                  <span>约2分钟</span>
-                </div>
-              </div>
-              <i class="fa fa-chevron-right text-gray-300 text-lg"></i>
-            </div>
-          </div>
-
-          <!-- 身材焦虑自评卡片 -->
-          <div class="bg-white rounded-xl p-6 card-shadow cursor-pointer hover:shadow-lg transition-all" data-target="bodyAnxietyAssessmentPage">
-            <div class="flex items-center">
-              <div class="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center mr-4">
-                <i class="ph ph-heart text-pink-500 text-2xl"></i>
-              </div>
-              <div class="flex-1">
-                <h3 class="text-lg font-semibold text-gray-800 mb-1">身材焦虑自评</h3>
-                <p class="text-sm text-gray-500 mb-2">9题量表，评估身材焦虑程度</p>
-                <div class="flex items-center text-xs text-gray-400">
-                  <i class="fa fa-clock-o mr-1"></i>
-                  <span>约3分钟</span>
-                </div>
-              </div>
-              <i class="fa fa-chevron-right text-gray-300 text-lg"></i>
-            </div>
-          </div>
-
-          <!-- 历史记录 -->
-          <div class="bg-gray-50 rounded-xl p-4">
-            <h4 class="text-sm font-medium text-gray-700 mb-3">最近测评</h4>
-            <div id="recentAssessments" class="space-y-2">
-              <div class="text-sm text-gray-500">暂无测评记录</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BMI测评页面 -->
-    <section id="bmiAssessmentPage" class="page hidden">
-      <div class="px-4 py-6">
-        <div class="mb-6">
-          <h2 class="text-xl font-bold mb-2">BMI 身体测评</h2>
-          <p class="text-gray-500 text-sm">了解基础身体指标，建立健康的身体认知</p>
-        </div>
-
-        <!-- 输入区域 -->
-        <div class="bg-white rounded-xl p-6 card-shadow mb-6">
-          <h3 class="text-lg font-semibold mb-4">基础信息</h3>
+        <!-- 移动端 -->
+        <div class="md:hidden px-4">
           
-          <div class="space-y-4">
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">身高 (cm)</label>
-                <input id="bmiHeight" type="number" min="80" max="230" 
-                       class="w-full p-3 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" 
-                       placeholder="165" />
-              </div>
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">体重 (kg)</label>
-                <input id="bmiWeight" type="number" min="20" max="250" step="0.1"
-                       class="w-full p-3 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" 
-                       placeholder="55.5" />
-              </div>
+          <div class="mobile-knowledge-card">
+            <div class="w-24 h-18 bg-primary flex items-center justify-center flex-shrink-0">
+              <i class="fa fa-image text-white text-xl"></i>
             </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">年龄</label>
-              <input id="bmiAge" type="number" min="10" max="100" 
-                     class="w-full p-3 border border-gray-200 rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none" 
-                     placeholder="25" />
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">性别</label>
-              <div class="flex space-x-4">
-                <label class="flex items-center">
-                  <input type="radio" name="bmiGender" value="female" class="mr-2 text-primary">
-                  <span>女性</span>
-                </label>
-                <label class="flex items-center">
-                  <input type="radio" name="bmiGender" value="male" class="mr-2 text-primary">
-                  <span>男性</span>
-                </label>
-              </div>
+            <div class="flex-1 p-4">
+              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">身体中立基础</h3>
+              <p class="text-mobile-intro text-lightGray">了解身体中立的核心理念，学习如何建立健康的身体认知</p>
             </div>
           </div>
 
-          <button id="calculateBMI" class="w-full mt-6 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors">
-            <i class="fa fa-calculator mr-2"></i>计算 BMI
-          </button>
+          <div class="mobile-knowledge-card">
+            <div class="w-24 h-18 bg-mint flex items-center justify-center flex-shrink-0">
+              <i class="fa fa-image text-white text-xl"></i>
+            </div>
+            <div class="flex-1 p-4">
+              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">实践方法</h3>
+              <p class="text-mobile-intro text-lightGray">日常生活中的身体中立练习，简单易行的实用技巧</p>
+            </div>
+          </div>
+
+          <div class="mobile-knowledge-card">
+            <div class="w-24 h-18 bg-accent flex items-center justify-center flex-shrink-0">
+              <i class="fa fa-image text-white text-xl"></i>
+            </div>
+            <div class="flex-1 p-4">
+              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">科学研究</h3>
+              <p class="text-mobile-intro text-lightGray">相关心理学研究和证据，科学理论支撑实践效果</p>
+            </div>
+          </div>
+
+          <div class="text-center mt-6">
+            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all">
+              查看更多
+            </button>
+          </div>
+
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- 个性化推荐 -->
+    <section class="py-6 md:py-20 bg-light">
+      <div class="max-w-4xl mx-auto">
+        
+        <div class="text-center mb-6 md:mb-12 px-6">
+          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4">个性化推荐</h2>
+          <p class="text-content text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
         </div>
 
-        <!-- 结果显示区域 -->
-        <div id="bmiResult" class="hidden bg-white rounded-xl p-6 card-shadow mb-6">
-          <h3 class="text-lg font-semibold mb-4">测评结果</h3>
+        <!-- 桌面端 -->
+        <div class="hidden md:block space-y-4 px-6">
           
-          <div class="text-center mb-6">
-            <div class="text-3xl font-bold text-primary mb-2" id="bmiValue">--</div>
-            <div class="text-sm text-gray-500 mb-4">您的BMI指数</div>
-            <div class="inline-block px-3 py-1 rounded-full text-sm font-medium" id="bmiCategory">
-              <!-- 动态显示分类 -->
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                  <i class="fa fa-search text-white"></i>
+                </div>
+                <span class="text-primary font-medium">遇见学习问题帮助更适？</span>
+              </div>
+              <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
           </div>
 
-          <div class="space-y-4">
-            <div class="bg-blue-50 rounded-lg p-4">
-              <h4 class="font-medium text-blue-800 mb-2">健康建议</h4>
-              <p id="bmiAdvice" class="text-sm text-blue-700">
-                <!-- 动态显示建议 -->
-              </p>
-            </div>
-
-            <div class="bg-yellow-50 rounded-lg p-4">
-              <h4 class="font-medium text-yellow-800 mb-2">身体中立提醒</h4>
-              <p class="text-sm text-yellow-700">
-                BMI只是一个参考指标，不能完全反映健康状况。重要的是关注身体的功能和感受，而不仅仅是数字。
-              </p>
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center">
+                  <i class="fa fa-search text-white"></i>
+                </div>
+                <span class="text-primary font-medium">什么干身材的帮助敬？</span>
+              </div>
+              <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
           </div>
 
-          <button id="saveBMI" class="w-full mt-4 py-3 bg-secondary text-white rounded-lg font-medium hover:bg-secondary/90 transition-colors">
-            <i class="fa fa-save mr-2"></i>保存结果
-          </button>
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                  <i class="fa fa-search text-white"></i>
+                </div>
+                <span class="text-primary font-medium">说促什么问题帮助史材？</span>
+              </div>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+          </div>
+
         </div>
+
+        <!-- 移动端 -->
+        <div class="md:hidden px-4">
+          <div class="bg-white rounded-xl overflow-hidden">
+            
+            <div class="mobile-qa-item">
+              <span class="text-mobile-knowledge text-primary font-medium">遇见学习问题帮助更适？</span>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+
+            <div class="mobile-qa-item">
+              <span class="text-mobile-knowledge text-primary font-medium">什么干身材的帮助敬？</span>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+
+            <div class="mobile-qa-item">
+              <span class="text-mobile-knowledge text-primary font-medium">说促什么问题帮助史材？</span>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+
+          </div>
+        </div>
+        
       </div>
     </section>
 
-    <!-- 身材焦虑自评页面 -->
-    <section id="bodyAnxietyAssessmentPage" class="page hidden">
-      <div class="px-4 py-6">
-        <div class="mb-6">
-          <h2 class="text-xl font-bold mb-2">身材焦虑自评</h2>
-          <p class="text-gray-500 text-sm">通过9道题目，了解你对身体形象的感受</p>
-        </div>
-
-        <!-- 进度指示器 -->
-        <div class="bg-white rounded-xl p-4 card-shadow mb-6">
-          <div class="flex items-center justify-between mb-2">
-            <span class="text-sm font-medium text-gray-700">答题进度</span>
-            <span id="progressText" class="text-sm text-primary">0/9</span>
-          </div>
-          <div class="w-full bg-gray-200 rounded-full h-2">
-            <div id="progressBar" class="bg-primary h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
-          </div>
-        </div>
-
-        <!-- 题目卡片 -->
-        <div id="questionCard" class="bg-white rounded-xl p-6 card-shadow mb-6">
-          <div class="mb-4">
-            <span class="text-sm text-gray-500">第 <span id="currentQuestionNum">1</span> 题</span>
-          </div>
-          
-          <h3 id="questionText" class="text-lg font-medium text-gray-800 mb-6 leading-relaxed">
-            <!-- 动态显示题目 -->
-          </h3>
-
-          <div class="space-y-3">
-            <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary hover:bg-blue-50 transition-all answer-option" data-value="1">
-              <input type="radio" name="currentAnswer" value="1" class="mr-3 text-primary">
-              <span>完全不同意</span>
-            </div>
-            <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary hover:bg-blue-50 transition-all answer-option" data-value="2">
-              <input type="radio" name="currentAnswer" value="2" class="mr-3 text-primary">
-              <span>不太同意</span>
-            </div>
-            <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary hover:bg-blue-50 transition-all answer-option" data-value="3">
-              <input type="radio" name="currentAnswer" value="3" class="mr-3 text-primary">
-              <span>有些同意</span>
-            </div>
-            <div class="flex items-center p-3 border border-gray-200 rounded-lg cursor-pointer hover:border-primary hover:bg-blue-50 transition-all answer-option" data-value="4">
-              <input type="radio" name="currentAnswer" value="4" class="mr-3 text-primary">
-              <span>非常同意</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 导航按钮 -->
-        <div class="flex space-x-3">
-          <button id="prevQuestion" class="flex-1 py-3 border border-gray-300 text-gray-600 rounded-lg font-medium hover:bg-gray-50 transition-colors" disabled>
-            <i class="fa fa-chevron-left mr-2"></i>上一题
-          </button>
-          <button id="nextQuestion" class="flex-1 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition-colors" disabled>
-            下一题<i class="fa fa-chevron-right ml-2"></i>
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- 身心轻测评 -->
-    <section id="assessmentPage" class="page hidden">
-      <div class="px-4 py-6">
-        <div class="mb-6">
-          <h2 class="text-xl font-bold mb-2">身心轻测评</h2>
-          <p class="text-gray-500 text-sm">9 题 5 分量表 + BMI & 主观感受，生成个性化建议</p>
-        </div>
-
-        <!-- BMI + 主观感受 -->
-        <div class="bg-white rounded-xl p-5 card-shadow mb-6">
-          <h3 class="text-lg font-semibold mb-4">基础自评</h3>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-sm text-gray-600 mb-1">身高（cm）</label>
-              <input id="heightInput" type="number" min="80" max="230" class="w-full p-3 border border-gray-200 rounded-lg" placeholder="例如 165" />
+    <!-- 桌面端底部 -->
+    <footer class="hidden md:block py-12 bg-gray-100">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-6">
+            <div class="w-20 h-20 bg-gray-300 rounded-lg flex items-center justify-center">
+              <i class="fa fa-qrcode text-2xl text-gray-500"></i>
             </div>
             <div>
-              <label class="block text-sm text-gray-600 mb-1">体重（kg）</label>
-              <input id="weightInput" type="number" min="20" max="250" class="w-full p-3 border border-gray-200 rounded-lg" placeholder="例如 55" />
+              <p class="font-medium text-gray-800">微信二维码</p>
+              <p class="text-sm text-gray-600">扫码关注获取更多资源</p>
             </div>
           </div>
-          <div class="mt-3">
-            <label class="block text-sm text-gray-600 mb-1">此刻对身体的主观感受</label>
-            <select id="bodyFeel" class="w-full p-3 border border-gray-200 rounded-lg">
-              <option value="">请选择</option>
-              <option value="舒适">舒适</option>
-              <option value="紧绷">紧绷</option>
-              <option value="疲惫">疲惫</option>
-              <option value="不自信">不自信</option>
-            </select>
-          </div>
-          <div class="mt-3 text-sm text-gray-600">
-            <span id="bmiText" class="font-medium"></span>
-          </div>
-        </div>
-
-        <!-- 9题量表 -->
-        <div class="bg-white rounded-xl p-5 card-shadow mb-6">
-          <h3 class="text-lg font-semibold mb-4">9 题量表（1=从不，5=总是）</h3>
-          <div id="qList" class="space-y-3"></div>
-        </div>
-
-        <!-- 结果 -->
-        <div class="bg-white rounded-xl p-5 card-shadow mb-6">
-          <button id="btnAssess" class="btn-primary"><i class="fa fa-check mr-2"></i>提交并生成建议</button>
-          <div id="assessResult" class="hidden mt-4 border border-gray-100 rounded-lg p-4 bg-gray-50">
-            <p class="text-sm text-gray-600 mb-2">建议 & 今日小任务：</p>
-            <ul id="adviceList" class="list-disc pl-5 space-y-1 text-sm"></ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 自动思维记录 -->
-    <section id="thoughtRecordPage" class="page hidden">
-      <div class="px-4 py-6">
-        <div class="mb-6">
-          <h2 class="text-xl font-bold mb-2">自动思维记录</h2>
-          <p class="text-gray-500 text-sm">记录并分析你的想法与情绪反应（聚焦身材/自我评价/社交媒体等）</p>
-        </div>
-
-        <!-- 捕捉 -->
-        <div class="bg-white rounded-xl p-5 card-shadow mb-6">
-          <h3 class="text-lg font-semibold mb-4">捕捉</h3>
-
-          <div class="mb-5">
-            <label class="block text-sm font-medium text-gray-700 mb-2">情境</label>
-            <select id="trContext" class="w-full p-3 border border-gray-200 rounded-lg">
-              <option value="">请选择或输入情境</option>
-              <option>外貌被评价</option>
-              <option>社交媒体对比</option>
-              <option>体重波动</option>
-              <option>穿衣不自信</option>
-              <option>饮食控制失控</option>
-              <option>自我怀疑</option>
-              <option>家庭沟通</option>
-              <option>其他（请在下方输入）</option>
-            </select>
-            <input id="trContextCustom" type="text" placeholder="如选择'其他'，请在此输入具体情境" class="w-full mt-2 p-3 border border-gray-200 rounded-lg" />
-          </div>
-
-          <div class="mb-5">
-            <label class="block text-sm font-medium text-gray-700 mb-2">当时的想法</label>
-            <textarea id="trThought" placeholder="请描述你当时的想法..." rows="4" class="w-full p-3 border border-gray-200 rounded-lg"></textarea>
-          </div>
-
-          <div class="mb-5">
-            <label class="block text-sm font-medium text-gray-700 mb-2">证据（支持/反对）</label>
-            <textarea id="trEvidence" placeholder="有没有证据支持或反驳这个想法？" rows="3" class="w-full p-3 border border-gray-200 rounded-lg"></textarea>
-          </div>
-
-          <div class="">
-            <div class="flex items-center justify-between mb-2">
-              <label class="block text-sm font-medium text-gray-700">情绪强度</label>
-              <span id="emotionScore" class="text-primary font-semibold">5</span>
-            </div>
-            <input id="trEmotion" type="range" min="1" max="10" value="5" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-primary" oninput="document.getElementById('emotionScore').textContent = this.value" />
-            <div class="flex justify-between text-xs text-gray-500 mt-1">
-              <span>轻微</span><span>中等</span><span>强烈</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 操作 -->
-        <div class="bg-white rounded-xl p-5 card-shadow mb-6 space-y-3">
-          <button id="btnSaveTR" class="btn-primary"><i class="fa fa-save mr-2"></i>保存记录</button>
-          <div class="grid grid-cols-2 gap-3">
-            <button id="btnExportCSV" class="py-2 border border-primary text-primary rounded-lg font-medium text-sm"><i class="fa fa-table mr-1"></i>导出 CSV</button>
-            <button id="btnPrint" class="py-2 border border-gray-300 text-gray-700 rounded-lg font-medium text-sm"><i class="fa fa-file-pdf-o mr-1"></i>打印为 PDF</button>
-          </div>
-        </div>
-
-        <!-- 示例输出（改为动态最近一次） -->
-        <div class="bg-white rounded-xl p-5 card-shadow">
-          <h3 class="text-lg font-semibold mb-4">最近一次记录</h3>
-          <div id="trPreview" class="border border-gray-100 rounded-lg p-4 bg-gray-50 text-sm text-gray-700">
-            暂无记录，保存后会显示预览。
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 情绪调节卡片 -->
-    <section id="emotionRegulationPage" class="page hidden">
-      <div class="px-4 py-6">
-        <div class="mb-6">
-          <h2 class="text-xl font-bold mb-2">情绪调节卡片</h2>
-          <p class="text-gray-500 text-sm">通过简单练习，缓解焦虑、重获平衡</p>
-        </div>
-
-        <!-- 轮播容器 -->
-        <div class="relative mb-8">
-          <div class="carousel-container overflow-x-auto scrollbar-hide pb-4">
-            <div class="carousel-track flex space-x-4 min-w-max px-1">
-              <!-- 卡片 1：深呼吸 -->
-              <div class="emotion-card bg-white rounded-xl overflow-hidden card-shadow w-72 flex-shrink-0" data-card="deepBreath">
-                <div class="h-36 bg-blue-50 relative">
-                  <img src="https://picsum.photos/300/200?random=13" alt="深呼吸练习" class="w-full h-full object-cover opacity-70" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
-                    <h3 class="text-white text-lg font-semibold p-4">深呼吸练习</h3>
-                  </div>
-                </div>
-                <div class="p-4">
-                  <p class="text-sm text-gray-600 mb-4">4-2-6 呼吸：吸气 4 秒 - 停 2 秒 - 呼气 6 秒，重复 5–10 次。</p>
-                  <button class="complete-btn w-full py-2 border border-primary text-primary rounded-lg font-medium text-sm transition-smooth hover:bg-primary hover:text-white">
-                    标记完成
-                  </button>
-                </div>
-              </div>
-
-              <!-- 卡片 2：五感觉察 -->
-              <div class="emotion-card bg-white rounded-xl overflow-hidden card-shadow w-72 flex-shrink-0 opacity-90" data-card="fiveSenses">
-                <div class="h-36 bg-green-50 relative">
-                  <img src="https://picsum.photos/300/200?random=14" alt="五感觉察练习" class="w-full h-full object-cover opacity-70" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
-                    <h3 class="text-white text-lg font-semibold p-4">五感觉察</h3>
-                  </div>
-                  <div class="absolute top-3 right-3 hidden done-sticker bg-green-500 text-white text-xs px-2 py-1 rounded-full">已完成</div>
-                </div>
-                <div class="p-4">
-                  <p class="text-sm text-gray-600 mb-4">说出你看到/摸到/听到/闻到/尝到的 5-4-3-2-1 样东西。</p>
-                  <button class="complete-btn w-full py-2 border border-primary text-primary rounded-lg font-medium text-sm transition-smooth hover:bg-primary hover:text-white">
-                    标记完成
-                  </button>
-                </div>
-              </div>
-
-              <!-- 卡片 3：正念饮食 -->
-              <div class="emotion-card bg-white rounded-xl overflow-hidden card-shadow w-72 flex-shrink-0" data-card="mindfulEating">
-                <div class="h-36 bg-yellow-50 relative">
-                  <img src="https://picsum.photos/300/200?random=15" alt="正念饮食练习" class="w-full h-full object-cover opacity-70" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
-                    <h3 class="text-white text-lg font-semibold p-4">正念饮食</h3>
-                  </div>
-                </div>
-                <div class="p-4">
-                  <p class="text-sm text-gray-600 mb-4">选一颗葡萄干或一小块食物，慢慢观察、嗅闻、品尝，细嚼慢咽。</p>
-                  <button class="complete-btn w-full py-2 border border-primary text-primary rounded-lg font-medium text-sm transition-smooth hover:bg-primary hover:text-white">
-                    标记完成
-                  </button>
-                </div>
-              </div>
-
-              <!-- 卡片 4：情绪命名 -->
-              <div class="emotion-card bg-white rounded-xl overflow-hidden card-shadow w-72 flex-shrink-0" data-card="nameEmotion">
-                <div class="h-36 bg-purple-50 relative">
-                  <img src="https://picsum.photos/300/200?random=16" alt="情绪命名练习" class="w-full h-full object-cover opacity-70" />
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
-                    <h3 class="text-white text-lg font-semibold p-4">情绪命名</h3>
-                  </div>
-                </div>
-                <div class="p-4">
-                  <p class="text-sm text-gray-600 mb-4">停下 30 秒，辨认情绪并命名：焦虑/紧绷/羞愧/不安…接纳它的存在。</p>
-                  <button class="complete-btn w-full py-2 border border-primary text-primary rounded-lg font-medium text-sm transition-smooth hover:bg-primary hover:text-white">
-                    标记完成
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- 指示器 -->
-          <div class="flex justify-center mt-4 space-x-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-gray-300"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-gray-300"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-gray-300"></span>
-          </div>
-        </div>
-
-        <!-- 练习统计（动态） -->
-        <div class="bg-white rounded-xl p-5 card-shadow mb-6">
-          <h3 class="text-lg font-semibold mb-4">练习进度</h3>
-          <div class="flex justify-between items-center mb-4">
-            <div>
-              <p class="text-sm text-gray-500">本周已完成</p>
-              <p id="statWeek" class="text-xl font-bold">0/7</p>
-            </div>
-            <div class="w-16 h-16 rounded-full border-4 border-primary/20 flex items-center justify-center">
-              <div class="text-center">
-                <p class="text-xs text-gray-500">连续天数</p>
-                <p id="statStreak" class="text-lg font-bold text-primary">0</p>
-              </div>
+          <div class="flex items-center space-x-4">
+            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+              <i class="fa fa-envelope text-primary"></i>
             </div>
             <div>
-              <p class="text-sm text-gray-500">总完成次数</p>
-              <p id="statTotal" class="text-xl font-bold">0</p>
+              <p class="font-medium text-gray-800">邮箱</p>
+              <p class="text-sm text-gray-600">contact@mindfit.com</p>
             </div>
           </div>
-          <div class="w-full bg-gray-100 rounded-full h-2.5">
-            <div id="statBar" class="bg-primary h-2.5 rounded-full" style="width: 0%"></div>
-          </div>
-        </div>
-
-        <!-- 相关推荐（动态） -->
-        <div>
-          <h3 class="text-lg font-semibold mb-4">相关推荐</h3>
-          <div id="emotionRecs" class="space-y-4"></div>
         </div>
       </div>
-    </section>
+    </footer>
 
-    <!-- 行为实验指南 -->
-    <section id="behaviorExperimentPage" class="page hidden">
-      <div class="px-4 py-6">
-        <div class="mb-6">
-          <h2 class="text-xl font-bold mb-2">行为实验指南</h2>
-          <p class="text-gray-500 text-sm">用小实验验证焦虑性信念，获得新证据</p>
-        </div>
+  </main>
 
-        <!-- 说明 -->
-        <div class="bg-white rounded-xl p-5 card-shadow mb-6">
-          <h3 class="text-lg font-semibold mb-3">什么是行为实验？</h3>
-          <div class="prose prose-sm text-gray-700">
-            <p>行为实验是 CBT 的核心技术：设计并执行小型、低风险的行动，验证"我担心的事是否真的会发生"。</p>
-            <ul class="list-disc pl-5 space-y-1 mt-1">
-              <li>发现认知与现实的差距</li>
-              <li>收集反证，挑战不合理信念</li>
-              <li>通过体验形成新的、更健康的认知</li>
-            </ul>
-          </div>
-        </div>
+  <!-- 移动端底部导航 -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
+    <div class="flex justify-around py-2">
+      <button class="flex flex-col items-center py-2 px-3 text-primary">
+        <i class="fa fa-home text-lg mb-1"></i>
+        <span class="text-xs font-medium">首页</span>
+      </button>
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500">
+        <i class="fa fa-clipboard text-lg mb-1"></i>
+        <span class="text-xs">测评</span>
+      </button>
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500">
+        <i class="fa fa-wrench text-lg mb-1"></i>
+        <span class="text-xs">工具</span>
+      </button>
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500">
+        <i class="fa fa-user text-lg mb-1"></i>
+        <span class="text-xs">我的</span>
+      </button>
+    </div>
+  </nav>
 
-        <!-- 记录模板 -->
-        <div class="bg-white rounded-xl p-5 card-shadow mb-6">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-lg font-semibold">实验记录
+  <script>
+    // 🎯 页面加载动画控制
+    document.addEventListener('DOMContentLoaded', function() {
+      // 等待字体和关键资源加载完成
+      window.addEventListener('load', function() {
+        // 延迟执行，确保所有资源就绪
+        setTimeout(() => {
+          initPageAnimations();
+        }, 100);
+      });
+    });
+
+    function initPageAnimations() {
+      // 功能卡片 stagger 动画
+      animateFeatureCards();
+    }
+
+    function animateFeatureCards() {
+      // 桌面端卡片
+      const desktopCards = document.querySelectorAll('.feature-card');
+      // 移动端卡片
+      const mobileCards = document.querySelectorAll('.mobile-feature-card');
+      
+      // 合并所有卡片
+      const allCards = [...desktopCards, ...mobileCards];
+      
+      allCards.forEach((card, index) => {
+        const delay = parseInt(card.dataset.delay) || index;
+        setTimeout(() => {
+          card.classList.add('animate-in');
+        }, delay * 150); // 0.15s stagger - 更舒缓
+      });
+    }
+
+    // 🎨 增强交互体验
+    document.addEventListener('DOMContentLoaded', function() {
+      // 为所有卡片添加触摸反馈（移动端）
+      const cards = document.querySelectorAll('.mobile-feature-card, .glass-card');
+      
+      cards.forEach(card => {
+        // 触摸开始
+        card.addEventListener('touchstart', function() {
+          this.style.transform = 'translateY(-6px) scale(1.02)';
+          this.style.transition = 'all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        });
+        
+        // 触摸结束
+        card.addEventListener('touchend', function() {
+          this.style.transform = '';
+          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        });
+        
+        // 触摸取消
+        card.addEventListener('touchcancel', function() {
+          this.style.transform = '';
+          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
