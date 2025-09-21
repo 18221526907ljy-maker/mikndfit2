@@ -32,130 +32,236 @@
     .page-section {
       display: none;
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
     .page-section.active {
       display: block;
-      opacity: 1;
-      transform: translateY(0);
+      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
-    /* 卡片悬浮效果 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 卡片进入动画 */
     .assessment-card {
       background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(74, 97, 87, 0.1);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 8px 32px rgba(74, 97, 87, 0.08);
+      opacity: 0;
+      transform: scale(0.95) translateY(20px);
+      animation: cardFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    .assessment-card:nth-child(1) { animation-delay: 0.1s; }
+    .assessment-card:nth-child(2) { animation-delay: 0.2s; }
+    
+    @keyframes cardFadeIn {
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
     
     .assessment-card:hover {
-      transform: translateY(-4px) scale(1.01);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(74, 97, 87, 0.15);
+      border-color: rgba(143, 217, 168, 0.3);
     }
 
-    /* 按钮样式 */
+    /* 按钮样式优化 */
     .btn-primary {
       background: linear-gradient(135deg, #4A6157, #8FD9A8);
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 4px 20px rgba(74, 97, 87, 0.2);
     }
     
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(74, 97, 87, 0.3);
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 30px rgba(74, 97, 87, 0.3);
     }
 
     .btn-secondary {
       border: 2px solid #4A6157;
       color: #4A6157;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
     .btn-secondary:hover {
       background: #8FD9A8;
       border-color: #8FD9A8;
       color: white;
-      transform: translateY(-1px);
+      transform: translateY(-2px);
     }
 
     /* 进度条动画 */
     .progress-bar {
-      transition: width 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      background: linear-gradient(90deg, #4A6157, #8FD9A8);
     }
 
-    /* 答案选项hover效果 */
+    /* 答案选项优化 */
     .answer-option {
-      transition: all 0.2s ease;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border: 2px solid #e5e7eb;
     }
     
     .answer-option:hover {
       border-color: #4A6157;
-      background-color: rgba(74, 97, 87, 0.05);
-      transform: translateX(4px);
+      background: linear-gradient(135deg, rgba(74, 97, 87, 0.05), rgba(143, 217, 168, 0.05));
+      transform: translateX(8px);
     }
 
     .answer-option.selected {
       border-color: #4A6157;
-      background-color: rgba(74, 97, 87, 0.1);
+      background: linear-gradient(135deg, rgba(74, 97, 87, 0.1), rgba(143, 217, 168, 0.1));
+      transform: translateX(8px);
     }
 
-    /* 结果页面样式 */
+    /* 结果页面优化 */
     .result-card {
-      background: linear-gradient(135deg, rgba(74, 97, 87, 0.05), rgba(143, 217, 168, 0.05));
-      border: 1px solid rgba(74, 97, 87, 0.2);
+      background: linear-gradient(135deg, rgba(74, 97, 87, 0.03), rgba(143, 217, 168, 0.03));
+      border: 1px solid rgba(74, 97, 87, 0.15);
+      opacity: 0;
+      transform: scale(0.95);
+      animation: resultAppear 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    }
+
+    @keyframes resultAppear {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .advice-item {
-      background: rgba(255, 255, 255, 0.8);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
       border-left: 4px solid #8FD9A8;
-      transition: transform 0.2s ease;
+      transition: all 0.3s ease;
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: adviceSlideIn 0.6s ease forwards;
+    }
+
+    .advice-item:nth-child(1) { animation-delay: 0.1s; }
+    .advice-item:nth-child(2) { animation-delay: 0.2s; }
+    .advice-item:nth-child(3) { animation-delay: 0.3s; }
+    .advice-item:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes adviceSlideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
 
     .advice-item:hover {
-      transform: translateX(4px);
+      transform: translateX(8px);
+      box-shadow: 0 4px 20px rgba(143, 217, 168, 0.2);
     }
 
-    /* Toast 提示 */
+    /* Toast 优化 */
     .toast {
       position: fixed;
       top: 20px;
       right: 20px;
-      background: #4A6157;
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
       color: white;
-      padding: 12px 20px;
-      border-radius: 8px;
+      padding: 16px 24px;
+      border-radius: 12px;
       z-index: 1000;
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
+      transform: translateX(120%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 8px 32px rgba(74, 97, 87, 0.3);
     }
 
     .toast.show {
       transform: translateX(0);
     }
 
-    /* 移动端适配 */
+    /* 图标容器优化 */
+    .icon-container {
+      transition: all 0.3s ease;
+    }
+
+    .icon-container:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    /* 历史记录卡片 */
+    .history-item {
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+
+    .history-item:hover {
+      border-left-color: #8FD9A8;
+      background: rgba(143, 217, 168, 0.05);
+      transform: translateX(4px);
+    }
+
+    /* 移动端优化 */
     @media (max-width: 768px) {
       .assessment-card:hover {
-        transform: none;
+        transform: translateY(-4px) scale(1.01);
       }
       
       .answer-option:hover {
-        transform: none;
+        transform: translateX(4px);
       }
+    }
+
+    /* 页面标题动画 */
+    .page-title {
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: titleSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+    }
+
+    @keyframes titleSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 加载动画 */
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #4A6157;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 
 <body class="bg-secondary font-sans min-h-screen">
   <!-- 顶部导航 -->
-  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
     <div class="max-w-4xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <a href="index.html" class="flex items-center text-primary hover:text-mint transition-colors">
-            <i class="fa fa-arrow-left mr-2"></i>
+          <a href="index.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+            <i class="fa fa-arrow-left mr-2 transition-transform group-hover:-translate-x-1"></i>
             <span class="font-medium">返回首页</span>
           </a>
         </div>
@@ -171,7 +277,10 @@
 
   <!-- Toast 提示 -->
   <div id="toast" class="toast">
-    <span id="toastMessage"></span>
+    <div class="flex items-center">
+      <i class="fa fa-check-circle mr-2"></i>
+      <span id="toastMessage"></span>
+    </div>
   </div>
 
   <main class="max-w-4xl mx-auto px-4 py-8">
@@ -179,36 +288,36 @@
     <!-- 了解自己主页 -->
     <section id="mainPage" class="page-section active">
       <div class="text-center mb-8">
-        <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">了解自己</h1>
-        <p class="text-content text-lg">通过科学测评，更好地认知当下的自己</p>
+        <h1 class="page-title text-3xl md:text-4xl font-bold text-primary mb-4">了解自己</h1>
+        <p class="text-content text-lg opacity-0" style="animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;">通过科学测评，更好地认知当下的自己</p>
       </div>
 
-      <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <div class="grid md:grid-cols-2 gap-8 mb-8">
         <!-- BMI测评卡片 -->
-        <div class="assessment-card rounded-2xl p-6 cursor-pointer" onclick="showBMIAssessment()">
+        <div class="assessment-card rounded-2xl p-8 cursor-pointer" onclick="showBMIAssessment()">
           <div class="text-center">
-            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
-              <i class="fa fa-balance-scale text-blue-500 text-3xl"></i>
+            <div class="icon-container w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+              <i class="fa fa-balance-scale text-blue-600 text-3xl"></i>
             </div>
-            <h3 class="text-xl font-bold text-primary mb-2">BMI 身体测评</h3>
-            <p class="text-content mb-4">了解身体状况，建立健康认知</p>
+            <h3 class="text-xl font-bold text-primary mb-3">BMI 身体测评</h3>
+            <p class="text-content mb-4 leading-relaxed">了解身体状况，建立健康认知</p>
             <div class="flex items-center justify-center text-sm text-gray-500">
-              <i class="fa fa-clock-o mr-2"></i>
+              <i class="fa fa-clock-o mr-2 text-mint"></i>
               <span>约2分钟</span>
             </div>
           </div>
         </div>
 
         <!-- 身材焦虑自评卡片 -->
-        <div class="assessment-card rounded-2xl p-6 cursor-pointer" onclick="showBodyAnxietyAssessment()">
+        <div class="assessment-card rounded-2xl p-8 cursor-pointer" onclick="showBodyAnxietyAssessment()">
           <div class="text-center">
-            <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-pink-100 flex items-center justify-center">
-              <i class="fa fa-heart text-pink-500 text-3xl"></i>
+            <div class="icon-container w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center">
+              <i class="fa fa-heart text-pink-600 text-3xl"></i>
             </div>
-            <h3 class="text-xl font-bold text-primary mb-2">身材焦虑自评</h3>
-            <p class="text-content mb-4">9题量表，评估身材焦虑程度</p>
+            <h3 class="text-xl font-bold text-primary mb-3">身材焦虑自评</h3>
+            <p class="text-content mb-4 leading-relaxed">9题量表，评估身材焦虑程度</p>
             <div class="flex items-center justify-center text-sm text-gray-500">
-              <i class="fa fa-clock-o mr-2"></i>
+              <i class="fa fa-clock-o mr-2 text-mint"></i>
               <span>约3分钟</span>
             </div>
           </div>
@@ -216,8 +325,11 @@
       </div>
 
       <!-- 历史记录 -->
-      <div class="bg-white rounded-2xl p-6 shadow-sm">
-        <h4 class="text-lg font-semibold text-primary mb-4">最近测评记录</h4>
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+        <h4 class="text-lg font-semibold text-primary mb-4 flex items-center">
+          <i class="fa fa-history mr-2 text-mint"></i>
+          最近测评记录
+        </h4>
         <div id="recentAssessments" class="space-y-3">
           <div class="text-content">暂无测评记录，开始你的第一次测评吧！</div>
         </div>
@@ -227,7 +339,7 @@
     <!-- BMI测评页面 -->
     <section id="bmiPage" class="page-section">
       <div class="text-center mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">BMI 身体测评</h2>
+        <h2 class="page-title text-2xl md:text-3xl font-bold text-primary mb-2">BMI 身体测评</h2>
         <p class="text-content">了解基础身体指标，建立健康的身体认知</p>
       </div>
 
@@ -287,7 +399,7 @@
     <!-- 身材焦虑自评页面 -->
     <section id="anxietyPage" class="page-section">
       <div class="text-center mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">身材焦虑自评</h2>
+        <h2 class="page-title text-2xl md:text-3xl font-bold text-primary mb-2">身材焦虑自评</h2>
         <p class="text-content">通过9道题目，了解你对身体形象的感受</p>
       </div>
 
@@ -349,7 +461,7 @@
     <!-- 结果展示页面 -->
     <section id="resultPage" class="page-section">
       <div class="text-center mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">测评结果</h2>
+        <h2 class="page-title text-2xl md:text-3xl font-bold text-primary mb-2">测评结果</h2>
         <p class="text-content">根据你的回答生成的个性化建议</p>
       </div>
 
@@ -416,18 +528,24 @@
       }, 3000);
     }
 
-    // 页面切换功能
+    // 页面切换功能 - 修复版本
     function showPage(pageId) {
       // 隐藏所有页面
       document.querySelectorAll('.page-section').forEach(section => {
         section.classList.remove('active');
+        section.style.display = 'none';
       });
       
       // 显示目标页面
-      setTimeout(() => {
-        document.getElementById(pageId).classList.add('active');
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.style.display = 'block';
+        // 使用 setTimeout 确保 display:block 生效后再添加动画
+        setTimeout(() => {
+          targetPage.classList.add('active');
+        }, 10);
         window.scrollTo(0, 0);
-      }, 100);
+      }
     }
 
     function showMainPage() {
@@ -474,7 +592,7 @@
       } else if (bmi < 24) {
         category = '正常';
         categoryClass = 'bg-green-100 text-green-800 border-green-200';
-        advice = '恭喜！您的BMI在正常范围内。继续保持健康的生活方式，关注身体功能和整体健康状况。';
+        advice = '您的BMI在正常范围内。继续保持健康的生活方式，关注身体功能和整体健康状况。';
       } else if (bmi < 28) {
         category = '偏重';
         categoryClass = 'bg-yellow-100 text-yellow-800 border-yellow-200';
@@ -597,8 +715,10 @@
       // 如果有之前的答案，显示
       if (bodyAnxietyAnswers[index]) {
         const selectedOption = document.querySelector(`input[name="currentAnswer"][value="${bodyAnxietyAnswers[index]}"]`);
-        selectedOption.checked = true;
-        selectedOption.closest('.answer-option').classList.add('selected');
+        if (selectedOption) {
+          selectedOption.checked = true;
+          selectedOption.closest('.answer-option').classList.add('selected');
+        }
         document.getElementById('nextQuestion').disabled = false;
       } else {
         document.getElementById('nextQuestion').disabled = true;
@@ -616,24 +736,26 @@
       document.getElementById('progressText').textContent = `${currentQuestion}/${BODY_ANXIETY_QUESTIONS.length}`;
     }
 
-    // 答案选择事件
-    document.querySelectorAll('.answer-option').forEach(option => {
-      option.addEventListener('click', () => {
-        const value = option.dataset.value;
-        const radio = option.querySelector('input[type="radio"]');
-        
-        // 清除所有选择状态
-        document.querySelectorAll('.answer-option').forEach(opt => {
-          opt.classList.remove('selected');
+    // 答案选择事件 - 修复版本
+    function initAnswerOptions() {
+      document.querySelectorAll('.answer-option').forEach(option => {
+        option.addEventListener('click', () => {
+          const value = option.dataset.value;
+          const radio = option.querySelector('input[type="radio"]');
+          
+          // 清除所有选择状态
+          document.querySelectorAll('.answer-option').forEach(opt => {
+            opt.classList.remove('selected');
+          });
+          
+          // 设置当前选择
+          radio.checked = true;
+          option.classList.add('selected');
+          bodyAnxietyAnswers[currentQuestion] = parseInt(value);
+          document.getElementById('nextQuestion').disabled = false;
         });
-        
-        // 设置当前选择
-        radio.checked = true;
-        option.classList.add('selected');
-        bodyAnxietyAnswers[currentQuestion] = parseInt(value);
-        document.getElementById('nextQuestion').disabled = false;
       });
-    });
+    }
 
     // 导航按钮事件
     document.getElementById('prevQuestion').addEventListener('click', () => {
@@ -652,8 +774,6 @@
       }
     });
 
-    function completeBodyAnxietyAssessment() {
-      const totalScore = bodyAnxietyAnswers.reduce((sum, score) => sum + score, 0);
     function completeBodyAnxietyAssessment() {
       const totalScore = bodyAnxietyAnswers.reduce((sum, score) => sum + score, 0);
       const maxScore = BODY_ANXIETY_QUESTIONS.length * 4;
@@ -841,7 +961,7 @@
       }
 
       container.innerHTML = allTests.map(test => `
-        <div class="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0">
+        <div class="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0 history-item">
           <div class="flex items-center">
             <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3">
               <i class="fa ${test.icon} ${test.color}"></i>
@@ -861,11 +981,13 @@
     // 页面加载完成后的初始化
     document.addEventListener('DOMContentLoaded', function() {
       renderRecentAssessments();
+      initAnswerOptions();
       
-      // 添加页面切换动画
+      // 添加卡片动画延迟
       setTimeout(() => {
-        document.getElementById('mainPage').style.opacity = '1';
-        document.getElementById('mainPage').style.transform = 'translateY(0)';
+        document.querySelectorAll('.assessment-card').forEach((card, index) => {
+          card.style.animationDelay = `${0.1 + index * 0.1}s`;
+        });
       }, 100);
     });
   </script>
