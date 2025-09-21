@@ -294,10 +294,10 @@
 
       <div class="grid md:grid-cols-2 gap-8 mb-8">
         <!-- BMI测评卡片 -->
-        <div class="assessment-card rounded-2xl p-8 cursor-pointer" onclick="showBMIAssessment()">
+        <div class="assessment-card rounded-2xl p-8 cursor-pointer">
           <div class="text-center">
             <div class="icon-container w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-              <span class="text-blue-600 text-3xl">⚖️</span>
+              <span class="text-primary text-3xl">⚖️</span>
             </div>
             <h3 class="text-xl font-bold text-primary mb-3">BMI 身体测评</h3>
             <p class="text-content mb-4 leading-relaxed">了解身体状况，建立健康认知</p>
@@ -309,10 +309,10 @@
         </div>
 
         <!-- 身材焦虑自评卡片 -->
-        <div class="assessment-card rounded-2xl p-8 cursor-pointer" onclick="showBodyAnxietyAssessment()">
+        <div class="assessment-card rounded-2xl p-8 cursor-pointer">
           <div class="text-center">
             <div class="icon-container w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center">
-              <span class="text-pink-600 text-3xl">💖</span>
+              <span class="text-primary text-3xl">💖</span>
             </div>
             <h3 class="text-xl font-bold text-primary mb-3">身材焦虑自评</h3>
             <p class="text-content mb-4 leading-relaxed">9题量表，评估身材焦虑程度</p>
@@ -390,7 +390,7 @@
       </div>
 
       <div class="flex justify-center">
-        <button onclick="showMainPage()" class="btn-secondary px-6 py-3 rounded-lg font-medium">
+        <button id="returnFromBMI" class="btn-secondary px-6 py-3 rounded-lg font-medium">
           <span class="mr-2">←</span>返回主页
         </button>
       </div>
@@ -472,10 +472,10 @@
 
       <!-- 操作按钮 -->
       <div class="flex flex-col md:flex-row gap-4 mt-8">
-        <button onclick="showMainPage()" class="flex-1 btn-primary text-white py-3 rounded-lg font-medium">
+        <button id="restartAssessment" class="flex-1 btn-primary text-white py-3 rounded-lg font-medium">
           <span class="mr-2">🔄</span>重新测评
         </button>
-        <button onclick="saveResult()" class="flex-1 btn-secondary py-3 rounded-lg font-medium">
+        <button id="saveResultBtn" class="flex-1 btn-secondary py-3 rounded-lg font-medium">
           <span class="mr-2">💾</span>保存结果
         </button>
       </div>
@@ -1009,36 +1009,15 @@
 
     // 页面加载完成后的初始化
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('页面加载完成，开始初始化'); // 调试信息
+      console.log('页面加载完成，开始初始化');
       
       renderRecentAssessments();
+      
+      // 绑定所有按钮事件
+      bindAllEvents();
+      
+      // 初始化答案选项事件
       initAnswerOptions();
-      
-      // 手动绑定测评卡片的点击事件
-      const bmiCard = document.querySelector('.assessment-card[onclick*="showBMIAssessment"]');
-      const anxietyCard = document.querySelector('.assessment-card[onclick*="showBodyAnxietyAssessment"]');
-      
-      if (bmiCard) {
-        console.log('绑定BMI卡片点击事件');
-        bmiCard.addEventListener('click', function(e) {
-          e.preventDefault();
-          console.log('BMI卡片被点击');
-          showBMIAssessment();
-        });
-      } else {
-        console.error('未找到BMI测评卡片');
-      }
-      
-      if (anxietyCard) {
-        console.log('绑定身材焦虑卡片点击事件');
-        anxietyCard.addEventListener('click', function(e) {
-          e.preventDefault();
-          console.log('身材焦虑卡片被点击');
-          showBodyAnxietyAssessment();
-        });
-      } else {
-        console.error('未找到身材焦虑测评卡片');
-      }
       
       // 添加卡片动画延迟
       setTimeout(() => {
@@ -1047,6 +1026,57 @@
         });
       }, 100);
     });
+
+    function bindAllEvents() {
+      // 测评卡片事件
+      const bmiCard = document.querySelector('.assessment-card:first-child');
+      const anxietyCard = document.querySelector('.assessment-card:last-child');
+      
+      if (bmiCard) {
+        bmiCard.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('BMI卡片被点击');
+          showBMIAssessment();
+        });
+        console.log('BMI卡片事件已绑定');
+      }
+      
+      if (anxietyCard) {
+        anxietyCard.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('身材焦虑卡片被点击');
+          showBodyAnxietyAssessment();
+        });
+        console.log('身材焦虑卡片事件已绑定');
+      }
+
+      // 返回按钮事件
+      const returnFromBMI = document.getElementById('returnFromBMI');
+      if (returnFromBMI) {
+        returnFromBMI.addEventListener('click', function(e) {
+          e.preventDefault();
+          showMainPage();
+        });
+      }
+
+      // 结果页面按钮事件
+      const restartBtn = document.getElementById('restartAssessment');
+      const saveBtn = document.getElementById('saveResultBtn');
+      
+      if (restartBtn) {
+        restartBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          showMainPage();
+        });
+      }
+      
+      if (saveBtn) {
+        saveBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          saveResult();
+        });
+      }
+    }
   </script>
 
 </body>
