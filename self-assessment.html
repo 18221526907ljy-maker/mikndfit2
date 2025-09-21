@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>了解自己 - MindFit</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- 移除Font Awesome，使用Unicode图标代替 -->
   
   <script>
     tailwind.config = {
@@ -58,19 +57,7 @@
       border: 1px solid rgba(74, 97, 87, 0.1);
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       box-shadow: 0 8px 32px rgba(74, 97, 87, 0.08);
-      opacity: 0;
-      transform: scale(0.95) translateY(20px);
-      animation: cardFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-    }
-
-    .assessment-card:nth-child(1) { animation-delay: 0.1s; }
-    .assessment-card:nth-child(2) { animation-delay: 0.2s; }
-    
-    @keyframes cardFadeIn {
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
+      cursor: pointer;
     }
     
     .assessment-card:hover {
@@ -114,6 +101,7 @@
     .answer-option {
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       border: 2px solid #e5e7eb;
+      cursor: pointer;
     }
     
     .answer-option:hover {
@@ -132,12 +120,14 @@
     .result-card {
       background: linear-gradient(135deg, rgba(74, 97, 87, 0.03), rgba(143, 217, 168, 0.03));
       border: 1px solid rgba(74, 97, 87, 0.15);
-      opacity: 0;
-      transform: scale(0.95);
-      animation: resultAppear 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+      animation: resultAppear 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
     @keyframes resultAppear {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
       to {
         opacity: 1;
         transform: scale(1);
@@ -149,21 +139,6 @@
       backdrop-filter: blur(10px);
       border-left: 4px solid #8FD9A8;
       transition: all 0.3s ease;
-      opacity: 0;
-      transform: translateX(-20px);
-      animation: adviceSlideIn 0.6s ease forwards;
-    }
-
-    .advice-item:nth-child(1) { animation-delay: 0.1s; }
-    .advice-item:nth-child(2) { animation-delay: 0.2s; }
-    .advice-item:nth-child(3) { animation-delay: 0.3s; }
-    .advice-item:nth-child(4) { animation-delay: 0.4s; }
-
-    @keyframes adviceSlideIn {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
     }
 
     .advice-item:hover {
@@ -210,47 +185,6 @@
       background: rgba(143, 217, 168, 0.05);
       transform: translateX(4px);
     }
-
-    /* 移动端优化 */
-    @media (max-width: 768px) {
-      .assessment-card:hover {
-        transform: translateY(-4px) scale(1.01);
-      }
-      
-      .answer-option:hover {
-        transform: translateX(4px);
-      }
-    }
-
-    /* 页面标题动画 */
-    .page-title {
-      opacity: 0;
-      transform: translateY(-20px);
-      animation: titleSlideIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
-    }
-
-    @keyframes titleSlideIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* 加载动画 */
-    .loading-spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #4A6157;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 20px auto;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
   </style>
 </head>
 
@@ -288,13 +222,13 @@
     <!-- 了解自己主页 -->
     <section id="mainPage" class="page-section active">
       <div class="text-center mb-8">
-        <h1 class="page-title text-3xl md:text-4xl font-bold text-primary mb-4">了解自己</h1>
-        <p class="text-content text-lg opacity-0" style="animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;">通过科学测评，更好地认知当下的自己</p>
+        <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">了解自己</h1>
+        <p class="text-content text-lg">通过科学测评，更好地认知当下的自己</p>
       </div>
 
       <div class="grid md:grid-cols-2 gap-8 mb-8">
         <!-- BMI测评卡片 -->
-        <div class="assessment-card rounded-2xl p-8 cursor-pointer">
+        <div id="bmiCard" class="assessment-card rounded-2xl p-8">
           <div class="text-center">
             <div class="icon-container w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
               <span class="text-primary text-3xl">⚖️</span>
@@ -309,7 +243,7 @@
         </div>
 
         <!-- 身材焦虑自评卡片 -->
-        <div class="assessment-card rounded-2xl p-8 cursor-pointer">
+        <div id="anxietyCard" class="assessment-card rounded-2xl p-8">
           <div class="text-center">
             <div class="icon-container w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center">
               <span class="text-primary text-3xl">💖</span>
@@ -339,7 +273,7 @@
     <!-- BMI测评页面 -->
     <section id="bmiPage" class="page-section">
       <div class="text-center mb-8">
-        <h2 class="page-title text-2xl md:text-3xl font-bold text-primary mb-2">BMI 身体测评</h2>
+        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">BMI 身体测评</h2>
         <p class="text-content">了解基础身体指标，建立健康的身体认知</p>
       </div>
 
@@ -390,7 +324,7 @@
       </div>
 
       <div class="flex justify-center">
-        <button id="returnFromBMI" class="btn-secondary px-6 py-3 rounded-lg font-medium">
+        <button onclick="showMainPage()" class="btn-secondary px-6 py-3 rounded-lg font-medium">
           <span class="mr-2">←</span>返回主页
         </button>
       </div>
@@ -399,7 +333,7 @@
     <!-- 身材焦虑自评页面 -->
     <section id="anxietyPage" class="page-section">
       <div class="text-center mb-8">
-        <h2 class="page-title text-2xl md:text-3xl font-bold text-primary mb-2">身材焦虑自评</h2>
+        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">身材焦虑自评</h2>
         <p class="text-content">通过9道题目，了解你对身体形象的感受</p>
       </div>
 
@@ -425,19 +359,19 @@
         </h3>
 
         <div class="space-y-4">
-          <div class="answer-option flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer" data-value="1">
+          <div class="answer-option flex items-center p-4 border-2 border-gray-200 rounded-lg" data-value="1">
             <input type="radio" name="currentAnswer" value="1" class="mr-4 text-primary focus:ring-primary">
             <span class="text-content">完全不同意</span>
           </div>
-          <div class="answer-option flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer" data-value="2">
+          <div class="answer-option flex items-center p-4 border-2 border-gray-200 rounded-lg" data-value="2">
             <input type="radio" name="currentAnswer" value="2" class="mr-4 text-primary focus:ring-primary">
             <span class="text-content">不太同意</span>
           </div>
-          <div class="answer-option flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer" data-value="3">
+          <div class="answer-option flex items-center p-4 border-2 border-gray-200 rounded-lg" data-value="3">
             <input type="radio" name="currentAnswer" value="3" class="mr-4 text-primary focus:ring-primary">
             <span class="text-content">有些同意</span>
           </div>
-          <div class="answer-option flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer" data-value="4">
+          <div class="answer-option flex items-center p-4 border-2 border-gray-200 rounded-lg" data-value="4">
             <input type="radio" name="currentAnswer" value="4" class="mr-4 text-primary focus:ring-primary">
             <span class="text-content">非常同意</span>
           </div>
@@ -461,7 +395,7 @@
     <!-- 结果展示页面 -->
     <section id="resultPage" class="page-section">
       <div class="text-center mb-8">
-        <h2 class="page-title text-2xl md:text-3xl font-bold text-primary mb-2">测评结果</h2>
+        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">测评结果</h2>
         <p class="text-content">根据你的回答生成的个性化建议</p>
       </div>
 
@@ -472,11 +406,14 @@
 
       <!-- 操作按钮 -->
       <div class="flex flex-col md:flex-row gap-4 mt-8">
-        <button id="restartAssessment" class="flex-1 btn-primary text-white py-3 rounded-lg font-medium">
+        <button onclick="showMainPage()" class="flex-1 btn-primary text-white py-3 rounded-lg font-medium">
           <span class="mr-2">🔄</span>重新测评
         </button>
-        <button id="saveResultBtn" class="flex-1 btn-secondary py-3 rounded-lg font-medium">
+        <button onclick="saveResult()" class="flex-1 btn-secondary py-3 rounded-lg font-medium">
           <span class="mr-2">💾</span>保存结果
+        </button>
+        <button onclick="showMainPage()" class="flex-1 btn-secondary py-3 rounded-lg font-medium">
+          <span class="mr-2">🏠</span>返回主页
         </button>
       </div>
     </section>
@@ -488,16 +425,8 @@
     const DB_KEY = "mindfit_db_v1";
     
     const defaultDB = () => ({
-      records: [],
-      emotions: [],
-      experiments: [],
-      mindfulness: [],
-      assessments: [],
       bmiAssessments: [],
       bodyAnxietyAssessments: [],
-      badges: {},
-      streak: { count: 0, lastDate: "" },
-      cachedAudio: false,
     });
 
     const loadDB = () => {
@@ -528,10 +457,8 @@
       }, 3000);
     }
 
-    // 页面切换功能 - 修复版本
+    // 页面切换功能
     function showPage(pageId) {
-      console.log('切换到页面:', pageId); // 调试信息
-      
       // 隐藏所有页面
       document.querySelectorAll('.page-section').forEach(section => {
         section.classList.remove('active');
@@ -541,40 +468,12 @@
       // 显示目标页面
       const targetPage = document.getElementById(pageId);
       if (targetPage) {
-        console.log('找到目标页面:', pageId); // 调试信息
         targetPage.style.display = 'block';
-        // 使用 setTimeout 确保 display:block 生效后再添加动画
         setTimeout(() => {
           targetPage.classList.add('active');
         }, 10);
         window.scrollTo(0, 0);
-      } else {
-        console.error('未找到页面:', pageId); // 调试信息
       }
-    }
-
-    function showMainPage() {
-      console.log('显示主页'); // 调试信息
-      showPage('mainPage');
-      renderRecentAssessments();
-    }
-
-    function showBMIAssessment() {
-      console.log('显示BMI测评页面'); // 调试信息
-      showPage('bmiPage');
-    }
-
-    function showBodyAnxietyAssessment() {
-      console.log('显示身材焦虑测评页面'); // 调试信息
-      showPage('anxietyPage');
-      setTimeout(() => {
-        initBodyAnxietyAssessment();
-      }, 100);
-    }
-
-    function showResultPage() {
-      console.log('显示结果页面'); // 调试信息
-      showPage('resultPage');
     }
 
     function showMainPage() {
@@ -722,6 +621,9 @@
       bodyAnxietyAnswers = [];
       showQuestion(0);
       updateProgress();
+      
+      // 重新绑定答案选项事件
+      initAnswerOptions();
     }
 
     function showQuestion(index) {
@@ -765,12 +667,12 @@
       document.getElementById('progressText').textContent = `${currentQuestion}/${BODY_ANXIETY_QUESTIONS.length}`;
     }
 
-    // 答案选择事件 - 修复版本
+    // 答案选择事件
     function initAnswerOptions() {
       document.querySelectorAll('.answer-option').forEach(option => {
-        option.addEventListener('click', () => {
-          const value = option.dataset.value;
-          const radio = option.querySelector('input[type="radio"]');
+        option.addEventListener('click', function() {
+          const value = this.dataset.value;
+          const radio = this.querySelector('input[type="radio"]');
           
           // 清除所有选择状态
           document.querySelectorAll('.answer-option').forEach(opt => {
@@ -779,7 +681,7 @@
           
           // 设置当前选择
           radio.checked = true;
-          option.classList.add('selected');
+          this.classList.add('selected');
           bodyAnxietyAnswers[currentQuestion] = parseInt(value);
           document.getElementById('nextQuestion').disabled = false;
         });
@@ -949,6 +851,7 @@
       
       showResultPage();
       currentResult = data;
+      showToast('测评完成！');
     }
 
     // 保存结果功能
@@ -1009,74 +912,17 @@
 
     // 页面加载完成后的初始化
     document.addEventListener('DOMContentLoaded', function() {
-      console.log('页面加载完成，开始初始化');
-      
       renderRecentAssessments();
       
-      // 绑定所有按钮事件
-      bindAllEvents();
+      // 绑定测评卡片点击事件
+      document.getElementById('bmiCard').addEventListener('click', () => {
+        showBMIAssessment();
+      });
       
-      // 初始化答案选项事件
-      initAnswerOptions();
-      
-      // 添加卡片动画延迟
-      setTimeout(() => {
-        document.querySelectorAll('.assessment-card').forEach((card, index) => {
-          card.style.animationDelay = `${0.1 + index * 0.1}s`;
-        });
-      }, 100);
+      document.getElementById('anxietyCard').addEventListener('click', () => {
+        showBodyAnxietyAssessment();
+      });
     });
-
-    function bindAllEvents() {
-      // 测评卡片事件
-      const bmiCard = document.querySelector('.assessment-card:first-child');
-      const anxietyCard = document.querySelector('.assessment-card:last-child');
-      
-      if (bmiCard) {
-        bmiCard.addEventListener('click', function(e) {
-          e.preventDefault();
-          console.log('BMI卡片被点击');
-          showBMIAssessment();
-        });
-        console.log('BMI卡片事件已绑定');
-      }
-      
-      if (anxietyCard) {
-        anxietyCard.addEventListener('click', function(e) {
-          e.preventDefault();
-          console.log('身材焦虑卡片被点击');
-          showBodyAnxietyAssessment();
-        });
-        console.log('身材焦虑卡片事件已绑定');
-      }
-
-      // 返回按钮事件
-      const returnFromBMI = document.getElementById('returnFromBMI');
-      if (returnFromBMI) {
-        returnFromBMI.addEventListener('click', function(e) {
-          e.preventDefault();
-          showMainPage();
-        });
-      }
-
-      // 结果页面按钮事件
-      const restartBtn = document.getElementById('restartAssessment');
-      const saveBtn = document.getElementById('saveResultBtn');
-      
-      if (restartBtn) {
-        restartBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          showMainPage();
-        });
-      }
-      
-      if (saveBtn) {
-        saveBtn.addEventListener('click', function(e) {
-          e.preventDefault();
-          saveResult();
-        });
-      }
-    }
   </script>
 
 </body>
