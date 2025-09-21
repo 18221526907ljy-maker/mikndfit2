@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>了解自己 - MindFit</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- 移除Font Awesome，使用Unicode图标代替 -->
   
   <script>
     tailwind.config = {
@@ -261,13 +261,13 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
           <a href="index.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
-            <i class="fa fa-arrow-left mr-2 transition-transform group-hover:-translate-x-1"></i>
+            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
             <span class="font-medium">返回首页</span>
           </a>
         </div>
         <div class="flex items-center space-x-2">
           <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-            <i class="fa fa-heartbeat text-white text-sm"></i>
+            <span class="text-white text-sm">💗</span>
           </div>
           <span class="text-lg font-bold text-primary">MindFit</span>
         </div>
@@ -278,7 +278,7 @@
   <!-- Toast 提示 -->
   <div id="toast" class="toast">
     <div class="flex items-center">
-      <i class="fa fa-check-circle mr-2"></i>
+      <span class="mr-2">✓</span>
       <span id="toastMessage"></span>
     </div>
   </div>
@@ -297,12 +297,12 @@
         <div class="assessment-card rounded-2xl p-8 cursor-pointer" onclick="showBMIAssessment()">
           <div class="text-center">
             <div class="icon-container w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
-              <i class="fa fa-balance-scale text-blue-600 text-3xl"></i>
+              <span class="text-blue-600 text-3xl">⚖️</span>
             </div>
             <h3 class="text-xl font-bold text-primary mb-3">BMI 身体测评</h3>
             <p class="text-content mb-4 leading-relaxed">了解身体状况，建立健康认知</p>
             <div class="flex items-center justify-center text-sm text-gray-500">
-              <i class="fa fa-clock-o mr-2 text-mint"></i>
+              <span class="mr-2 text-mint">🕐</span>
               <span>约2分钟</span>
             </div>
           </div>
@@ -312,12 +312,12 @@
         <div class="assessment-card rounded-2xl p-8 cursor-pointer" onclick="showBodyAnxietyAssessment()">
           <div class="text-center">
             <div class="icon-container w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center">
-              <i class="fa fa-heart text-pink-600 text-3xl"></i>
+              <span class="text-pink-600 text-3xl">💖</span>
             </div>
             <h3 class="text-xl font-bold text-primary mb-3">身材焦虑自评</h3>
             <p class="text-content mb-4 leading-relaxed">9题量表，评估身材焦虑程度</p>
             <div class="flex items-center justify-center text-sm text-gray-500">
-              <i class="fa fa-clock-o mr-2 text-mint"></i>
+              <span class="mr-2 text-mint">🕐</span>
               <span>约3分钟</span>
             </div>
           </div>
@@ -327,7 +327,7 @@
       <!-- 历史记录 -->
       <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
         <h4 class="text-lg font-semibold text-primary mb-4 flex items-center">
-          <i class="fa fa-history mr-2 text-mint"></i>
+          <span class="mr-2 text-mint">📋</span>
           最近测评记录
         </h4>
         <div id="recentAssessments" class="space-y-3">
@@ -385,13 +385,13 @@
         </div>
 
         <button id="calculateBMI" class="w-full mt-8 py-4 btn-primary text-white rounded-lg font-semibold text-lg">
-          <i class="fa fa-calculator mr-2"></i>计算 BMI
+          <span class="mr-2">🧮</span>计算 BMI
         </button>
       </div>
 
       <div class="flex justify-center">
         <button onclick="showMainPage()" class="btn-secondary px-6 py-3 rounded-lg font-medium">
-          <i class="fa fa-arrow-left mr-2"></i>返回主页
+          <span class="mr-2">←</span>返回主页
         </button>
       </div>
     </section>
@@ -447,13 +447,13 @@
       <!-- 导航按钮 -->
       <div class="flex flex-col md:flex-row gap-4">
         <button id="prevQuestion" class="flex-1 py-3 btn-secondary rounded-lg font-medium" disabled>
-          <i class="fa fa-chevron-left mr-2"></i>上一题
+          <span class="mr-2">‹</span>上一题
         </button>
         <button id="nextQuestion" class="flex-1 py-3 btn-primary text-white rounded-lg font-medium" disabled>
-          下一题<i class="fa fa-chevron-right ml-2"></i>
+          下一题<span class="ml-2">›</span>
         </button>
         <button onclick="showMainPage()" class="md:w-auto px-6 py-3 btn-secondary rounded-lg font-medium">
-          <i class="fa fa-times mr-2"></i>取消
+          <span class="mr-2">✕</span>取消
         </button>
       </div>
     </section>
@@ -473,10 +473,10 @@
       <!-- 操作按钮 -->
       <div class="flex flex-col md:flex-row gap-4 mt-8">
         <button onclick="showMainPage()" class="flex-1 btn-primary text-white py-3 rounded-lg font-medium">
-          <i class="fa fa-refresh mr-2"></i>重新测评
+          <span class="mr-2">🔄</span>重新测评
         </button>
         <button onclick="saveResult()" class="flex-1 btn-secondary py-3 rounded-lg font-medium">
-          <i class="fa fa-save mr-2"></i>保存结果
+          <span class="mr-2">💾</span>保存结果
         </button>
       </div>
     </section>
@@ -530,6 +530,8 @@
 
     // 页面切换功能 - 修复版本
     function showPage(pageId) {
+      console.log('切换到页面:', pageId); // 调试信息
+      
       // 隐藏所有页面
       document.querySelectorAll('.page-section').forEach(section => {
         section.classList.remove('active');
@@ -539,13 +541,40 @@
       // 显示目标页面
       const targetPage = document.getElementById(pageId);
       if (targetPage) {
+        console.log('找到目标页面:', pageId); // 调试信息
         targetPage.style.display = 'block';
         // 使用 setTimeout 确保 display:block 生效后再添加动画
         setTimeout(() => {
           targetPage.classList.add('active');
         }, 10);
         window.scrollTo(0, 0);
+      } else {
+        console.error('未找到页面:', pageId); // 调试信息
       }
+    }
+
+    function showMainPage() {
+      console.log('显示主页'); // 调试信息
+      showPage('mainPage');
+      renderRecentAssessments();
+    }
+
+    function showBMIAssessment() {
+      console.log('显示BMI测评页面'); // 调试信息
+      showPage('bmiPage');
+    }
+
+    function showBodyAnxietyAssessment() {
+      console.log('显示身材焦虑测评页面'); // 调试信息
+      showPage('anxietyPage');
+      setTimeout(() => {
+        initBodyAnxietyAssessment();
+      }, 100);
+    }
+
+    function showResultPage() {
+      console.log('显示结果页面'); // 调试信息
+      showPage('resultPage');
     }
 
     function showMainPage() {
@@ -639,14 +668,14 @@
           <div class="space-y-4">
             <div class="advice-item rounded-lg p-4">
               <h4 class="font-semibold text-primary mb-2">
-                <i class="fa fa-lightbulb-o mr-2"></i>健康建议
+                <span class="mr-2">💡</span>健康建议
               </h4>
               <p class="text-content leading-relaxed">${data.advice}</p>
             </div>
 
             <div class="advice-item rounded-lg p-4">
               <h4 class="font-semibold text-primary mb-2">
-                <i class="fa fa-heart mr-2"></i>身体中立提醒
+                <span class="mr-2">💗</span>身体中立提醒
               </h4>
               <p class="text-content leading-relaxed">
                 BMI只是一个参考指标，不能完全反映健康状况。重要的是关注身体的功能和感受，而不仅仅是数字。
@@ -656,7 +685,7 @@
 
             <div class="advice-item rounded-lg p-4">
               <h4 class="font-semibold text-primary mb-2">
-                <i class="fa fa-calendar mr-2"></i>测评信息
+                <span class="mr-2">📅</span>测评信息
               </h4>
               <div class="text-sm text-gray-600 space-y-1">
                 <p>测评时间：${fmtTime(data.ts)}</p>
@@ -805,52 +834,52 @@
       
       if (percentage >= 75) {
         advice.push({
-          icon: "fa-exclamation-triangle",
+          icon: "⚠️",
           title: "高度焦虑",
           content: "你当前的身材焦虑程度较高，建议优先考虑专业心理支持，配合自我调节练习。",
           color: "text-red-600"
         });
         advice.push({
-          icon: "fa-tasks",
+          icon: "📝",
           title: "今日小任务",
           content: "进行一次 10 分钟的身体扫描冥想，关注身体的功能而非外貌。尝试对镜子中的自己说一句鼓励的话。",
           color: "text-blue-600"
         });
       } else if (percentage >= 50) {
         advice.push({
-          icon: "fa-cloud",
+          icon: "☁️",
           title: "中度焦虑",
           content: "你对身材有一定程度的焦虑，建议尝试身体中立练习和正念技巧。",
           color: "text-orange-600"
         });
         advice.push({
-          icon: "fa-tasks",
+          icon: "📝",
           title: "今日小任务",
           content: "写下 3 条你身体的功能性优点，例如"我的身体让我可以自由行走"、"我的手可以拥抱他人"。",
           color: "text-blue-600"
         });
       } else if (percentage >= 25) {
         advice.push({
-          icon: "fa-sun-o",
+          icon: "☀️",
           title: "轻度焦虑",
           content: "你偶尔会对身材感到担忧，这很正常。建议保持积极的身体意识。",
           color: "text-yellow-600"
         });
         advice.push({
-          icon: "fa-tasks",
+          icon: "📝",
           title: "今日小任务",
           content: "每日 1 次正念呼吸（约 3 分钟），并练习自我肯定语："我接纳现在的自己"。",
           color: "text-blue-600"
         });
       } else {
         advice.push({
-          icon: "fa-star",
+          icon: "⭐",
           title: "状态良好",
           content: "你对身材保持着健康的态度，继续保持这种平衡的心态。",
           color: "text-green-600"
         });
         advice.push({
-          icon: "fa-tasks",
+          icon: "📝",
           title: "今日小任务",
           content: "分享你的积极心态，帮助身边的人建立健康的身体观念。可以推荐一个身体中立的理念给朋友。",
           color: "text-blue-600"
@@ -858,7 +887,7 @@
       }
 
       advice.push({
-        icon: "fa-book",
+        icon: "📚",
         title: "推荐阅读",
         content: '<a href="body-neutrality.html" target="_blank" class="text-primary hover:text-mint underline">身体中立入门指南</a> — 学习如何建立更健康的身体关系。',
         color: "text-purple-600"
@@ -899,7 +928,7 @@
             ${data.advice.map(item => `
               <div class="advice-item rounded-lg p-4">
                 <h4 class="font-semibold text-primary mb-2">
-                  <i class="fa ${item.icon} mr-2 ${item.color}"></i>${item.title}
+                  <span class="mr-2 ${item.color}">${item.icon}</span>${item.title}
                 </h4>
                 <p class="text-content leading-relaxed">${item.content}</p>
               </div>
@@ -907,7 +936,7 @@
 
             <div class="advice-item rounded-lg p-4">
               <h4 class="font-semibold text-primary mb-2">
-                <i class="fa fa-calendar mr-2 text-gray-600"></i>测评信息
+                <span class="mr-2 text-gray-600">📅</span>测评信息
               </h4>
               <div class="text-sm text-gray-600 space-y-1">
                 <p>测评时间：${fmtTime(data.ts)}</p>
@@ -939,7 +968,7 @@
         type: 'BMI测评',
         ts: test.ts,
         result: `BMI: ${test.bmi} (${test.category})`,
-        icon: 'fa-balance-scale',
+        icon: '⚖️',
         color: 'text-blue-500'
       }));
       
@@ -947,7 +976,7 @@
         type: '身材焦虑自评',
         ts: test.ts,
         result: `得分: ${test.totalScore}/36 (${test.percentage}%)`,
-        icon: 'fa-heart',
+        icon: '💖',
         color: 'text-pink-500'
       }));
       
@@ -964,7 +993,7 @@
         <div class="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0 history-item">
           <div class="flex items-center">
             <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-              <i class="fa ${test.icon} ${test.color}"></i>
+              <span class="${test.color}">${test.icon}</span>
             </div>
             <div>
               <div class="font-medium text-content">${test.type}</div>
@@ -980,8 +1009,36 @@
 
     // 页面加载完成后的初始化
     document.addEventListener('DOMContentLoaded', function() {
+      console.log('页面加载完成，开始初始化'); // 调试信息
+      
       renderRecentAssessments();
       initAnswerOptions();
+      
+      // 手动绑定测评卡片的点击事件
+      const bmiCard = document.querySelector('.assessment-card[onclick*="showBMIAssessment"]');
+      const anxietyCard = document.querySelector('.assessment-card[onclick*="showBodyAnxietyAssessment"]');
+      
+      if (bmiCard) {
+        console.log('绑定BMI卡片点击事件');
+        bmiCard.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('BMI卡片被点击');
+          showBMIAssessment();
+        });
+      } else {
+        console.error('未找到BMI测评卡片');
+      }
+      
+      if (anxietyCard) {
+        console.log('绑定身材焦虑卡片点击事件');
+        anxietyCard.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('身材焦虑卡片被点击');
+          showBodyAnxietyAssessment();
+        });
+      } else {
+        console.error('未找到身材焦虑测评卡片');
+      }
       
       // 添加卡片动画延迟
       setTimeout(() => {
