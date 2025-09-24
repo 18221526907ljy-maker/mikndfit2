@@ -27,7 +27,6 @@
   </script>
   
   <style>
-    /* 页面切换动画 */
     .page-section {
       display: none;
       opacity: 0;
@@ -37,21 +36,10 @@
     
     .page-section.active {
       display: block;
-      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* 卡片进入动画 */
     .assessment-card {
       background: #FFFFFF;
       border: 1px solid rgba(74, 97, 87, 0.1);
@@ -66,7 +54,6 @@
       border-color: rgba(143, 217, 168, 0.3);
     }
 
-    /* 按钮样式优化 */
     .btn-primary {
       background: linear-gradient(135deg, #4A6157, #8FD9A8);
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -91,13 +78,11 @@
       transform: translateY(-2px);
     }
 
-    /* 进度条动画 */
     .progress-bar {
       transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       background: linear-gradient(90deg, #4A6157, #8FD9A8);
     }
 
-    /* 答案选项优化 */
     .answer-option {
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       border: 2px solid #e5e7eb;
@@ -116,7 +101,6 @@
       transform: translateX(8px);
     }
 
-    /* 结果页面优化 */
     .result-card {
       background: linear-gradient(135deg, rgba(74, 97, 87, 0.03), rgba(143, 217, 168, 0.03));
       border: 1px solid rgba(74, 97, 87, 0.15);
@@ -146,7 +130,6 @@
       box-shadow: 0 4px 20px rgba(143, 217, 168, 0.2);
     }
 
-    /* Toast 优化 */
     .toast {
       position: fixed;
       top: 20px;
@@ -165,7 +148,6 @@
       transform: translateX(0);
     }
 
-    /* 图标容器优化 */
     .icon-container {
       transition: all 0.3s ease;
     }
@@ -174,7 +156,6 @@
       transform: scale(1.1) rotate(5deg);
     }
 
-    /* 历史记录卡片 */
     .history-item {
       transition: all 0.3s ease;
       border-left: 3px solid transparent;
@@ -424,26 +405,37 @@
     // 数据存储配置
     const DB_KEY = "mindfit_db_v1";
     
-    const defaultDB = () => ({
-      bmiAssessments: [],
-      bodyAnxietyAssessments: [],
-    });
+    const defaultDB = function() {
+      return {
+        bmiAssessments: [],
+        bodyAnxietyAssessments: []
+      };
+    };
 
-    const loadDB = () => {
+    const loadDB = function() {
       try {
         const raw = localStorage.getItem(DB_KEY);
         return raw ? JSON.parse(raw) : defaultDB();
       } catch (e) {
+        console.error('加载数据失败:', e);
         return defaultDB();
       }
     };
 
-    const saveDB = (db) => localStorage.setItem(DB_KEY, JSON.stringify(db));
+    const saveDB = function(db) {
+      try {
+        localStorage.setItem(DB_KEY, JSON.stringify(db));
+      } catch (e) {
+        console.error('保存数据失败:', e);
+      }
+    };
 
-    const fmtTime = (ts) => {
+    const fmtTime = function(ts) {
       const d = new Date(ts);
-      const pad = (n) => (n < 10 ? "0" + n : n);
-      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      const pad = function(n) {
+        return n < 10 ? "0" + n : n;
+      };
+      return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + " " + pad(d.getHours()) + ":" + pad(d.getMinutes());
     };
 
     // Toast 提示功能
@@ -452,27 +444,30 @@
       const toastMessage = document.getElementById('toastMessage');
       toastMessage.textContent = message;
       toast.classList.add('show');
-      setTimeout(() => {
+      setTimeout(function() {
         toast.classList.remove('show');
       }, 3000);
     }
 
     // 页面切换功能
     function showPage(pageId) {
+      console.log('切换到页面:', pageId);
+      
       // 隐藏所有页面
-      document.querySelectorAll('.page-section').forEach(section => {
-        section.classList.remove('active');
-        section.style.display = 'none';
-      });
+      const sections = document.querySelectorAll('.page-section');
+      for (let i = 0; i < sections.length; i++) {
+        sections[i].classList.remove('active');
+      }
       
       // 显示目标页面
       const targetPage = document.getElementById(pageId);
       if (targetPage) {
-        targetPage.style.display = 'block';
-        setTimeout(() => {
+        setTimeout(function() {
           targetPage.classList.add('active');
         }, 10);
         window.scrollTo(0, 0);
+      } else {
+        console.error('页面不存在:', pageId);
       }
     }
 
@@ -495,11 +490,12 @@
     }
 
     // BMI 计算功能
-    document.getElementById('calculateBMI').addEventListener('click', () => {
+    document.getElementById('calculateBMI').addEventListener('click', function() {
       const height = parseFloat(document.getElementById('bmiHeight').value);
       const weight = parseFloat(document.getElementById('bmiWeight').value);
       const age = parseFloat(document.getElementById('bmiAge').value);
-      const gender = document.querySelector('input[name="bmiGender"]:checked')?.value;
+      const genderElement = document.querySelector('input[name="bmiGender"]:checked');
+      const gender = genderElement ? genderElement.value : null;
 
       if (!height || !weight || !age || !gender) {
         showToast('请填写完整信息');
@@ -535,13 +531,13 @@
       const db = loadDB();
       const bmiData = {
         ts: Date.now(),
-        height,
-        weight,
-        age,
-        gender,
+        height: height,
+        weight: weight,
+        age: age,
+        gender: gender,
         bmi: parseFloat(bmiValue),
-        category,
-        advice,
+        category: category,
+        advice: advice,
         type: 'bmi'
       };
       
@@ -554,46 +550,42 @@
 
     function displayBMIResult(data, categoryClass) {
       const resultContent = document.getElementById('resultContent');
-      resultContent.innerHTML = `
-        <div class="result-card rounded-2xl p-6 md:p-8">
-          <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-primary mb-4">BMI 测评结果</h3>
-            <div class="text-5xl font-bold text-primary mb-2">${data.bmi}</div>
-            <div class="inline-block px-4 py-2 rounded-full text-sm font-medium border ${categoryClass}">
-              ${data.category}
-            </div>
-          </div>
-
-          <div class="space-y-4">
-            <div class="advice-item rounded-lg p-4">
-              <h4 class="font-semibold text-primary mb-2">
-                <span class="mr-2">💡</span>健康建议
-              </h4>
-              <p class="text-content leading-relaxed">${data.advice}</p>
-            </div>
-
-            <div class="advice-item rounded-lg p-4">
-              <h4 class="font-semibold text-primary mb-2">
-                <span class="mr-2">💗</span>身体中立提醒
-              </h4>
-              <p class="text-content leading-relaxed">
-                BMI只是一个参考指标，不能完全反映健康状况。重要的是关注身体的功能和感受，而不仅仅是数字。
-                每个人的身体都是独特的，学会欣赏和感谢身体为你做的一切。
-              </p>
-            </div>
-
-            <div class="advice-item rounded-lg p-4">
-              <h4 class="font-semibold text-primary mb-2">
-                <span class="mr-2">📅</span>测评信息
-              </h4>
-              <div class="text-sm text-gray-600 space-y-1">
-                <p>测评时间：${fmtTime(data.ts)}</p>
-                <p>身高：${data.height}cm | 体重：${data.weight}kg | 年龄：${data.age}岁 | 性别：${data.gender === 'female' ? '女性' : '男性'}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
+      const genderText = data.gender === 'female' ? '女性' : '男性';
+      
+      resultContent.innerHTML = '<div class="result-card rounded-2xl p-6 md:p-8">' +
+        '<div class="text-center mb-6">' +
+          '<h3 class="text-2xl font-bold text-primary mb-4">BMI 测评结果</h3>' +
+          '<div class="text-5xl font-bold text-primary mb-2">' + data.bmi + '</div>' +
+          '<div class="inline-block px-4 py-2 rounded-full text-sm font-medium border ' + categoryClass + '">' +
+            data.category +
+          '</div>' +
+        '</div>' +
+        '<div class="space-y-4">' +
+          '<div class="advice-item rounded-lg p-4">' +
+            '<h4 class="font-semibold text-primary mb-2">' +
+              '<span class="mr-2">💡</span>健康建议' +
+            '</h4>' +
+            '<p class="text-content leading-relaxed">' + data.advice + '</p>' +
+          '</div>' +
+          '<div class="advice-item rounded-lg p-4">' +
+            '<h4 class="font-semibold text-primary mb-2">' +
+              '<span class="mr-2">💗</span>身体中立提醒' +
+            '</h4>' +
+            '<p class="text-content leading-relaxed">' +
+              'BMI只是一个参考指标，不能完全反映健康状况。重要的是关注身体的功能和感受，而不仅仅是数字。每个人的身体都是独特的，学会欣赏和感谢身体为你做的一切。' +
+            '</p>' +
+          '</div>' +
+          '<div class="advice-item rounded-lg p-4">' +
+            '<h4 class="font-semibold text-primary mb-2">' +
+              '<span class="mr-2">📅</span>测评信息' +
+            '</h4>' +
+            '<div class="text-sm text-gray-600 space-y-1">' +
+              '<p>测评时间：' + fmtTime(data.ts) + '</p>' +
+              '<p>身高：' + data.height + 'cm | 体重：' + data.weight + 'kg | 年龄：' + data.age + '岁 | 性别：' + genderText + '</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
       
       showResultPage();
       currentResult = data;
@@ -609,7 +601,7 @@
       "因为担心身材，我会避免拍照或参加社交活动",
       "我觉得类似于"如果我变得更好看，生活会更顺利"这类想法有一定道理",
       "我想摆脱这些焦虑想法，但不知道从哪里开始",
-      "如果有简单可操作的心理自助练习（例如思维记录、情绪卡片等），我愿意尝试",
+      "如果有简单可操作的心理自助练习（例如思维记录、情绪卡片等），我愿意尝试"
     ];
 
     let currentQuestion = 0;
@@ -617,16 +609,20 @@
     let currentResult = null;
 
     function initBodyAnxietyAssessment() {
+      console.log('初始化身材焦虑测评');
       currentQuestion = 0;
       bodyAnxietyAnswers = [];
       showQuestion(0);
       updateProgress();
       
-      // 重新绑定答案选项事件
-      initAnswerOptions();
+      setTimeout(function() {
+        initAnswerOptions();
+      }, 100);
     }
 
     function showQuestion(index) {
+      console.log('显示第', index + 1, '题');
+      
       if (index >= BODY_ANXIETY_QUESTIONS.length) {
         completeBodyAnxietyAssessment();
         return;
@@ -636,16 +632,19 @@
       document.getElementById('questionText').textContent = BODY_ANXIETY_QUESTIONS[index];
       
       // 清除之前的选择
-      document.querySelectorAll('input[name="currentAnswer"]').forEach(input => {
-        input.checked = false;
-      });
-      document.querySelectorAll('.answer-option').forEach(option => {
-        option.classList.remove('selected');
-      });
+      const answerInputs = document.querySelectorAll('input[name="currentAnswer"]');
+      for (let i = 0; i < answerInputs.length; i++) {
+        answerInputs[i].checked = false;
+      }
+      
+      const answerOptions = document.querySelectorAll('.answer-option');
+      for (let i = 0; i < answerOptions.length; i++) {
+        answerOptions[i].classList.remove('selected');
+      }
 
       // 如果有之前的答案，显示
       if (bodyAnxietyAnswers[index]) {
-        const selectedOption = document.querySelector(`input[name="currentAnswer"][value="${bodyAnxietyAnswers[index]}"]`);
+        const selectedOption = document.querySelector('input[name="currentAnswer"][value="' + bodyAnxietyAnswers[index] + '"]');
         if (selectedOption) {
           selectedOption.checked = true;
           selectedOption.closest('.answer-option').classList.add('selected');
@@ -657,39 +656,64 @@
 
       // 更新按钮状态
       document.getElementById('prevQuestion').disabled = index === 0;
-      document.getElementById('nextQuestion').textContent = 
-        index === BODY_ANXIETY_QUESTIONS.length - 1 ? '完成测评' : '下一题';
+      const nextBtn = document.getElementById('nextQuestion');
+      if (index === BODY_ANXIETY_QUESTIONS.length - 1) {
+        nextBtn.innerHTML = '完成测评';
+      } else {
+        nextBtn.innerHTML = '下一题<span class="ml-2">›</span>';
+      }
     }
 
     function updateProgress() {
       const progress = Math.round((currentQuestion / BODY_ANXIETY_QUESTIONS.length) * 100);
-      document.getElementById('progressBar').style.width = `${progress}%`;
-      document.getElementById('progressText').textContent = `${currentQuestion}/${BODY_ANXIETY_QUESTIONS.length}`;
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('progressText').textContent = currentQuestion + '/' + BODY_ANXIETY_QUESTIONS.length;
     }
 
-    // 答案选择事件
     function initAnswerOptions() {
-      document.querySelectorAll('.answer-option').forEach(option => {
-        option.addEventListener('click', function() {
+      console.log('初始化答案选项事件');
+      
+      const answerOptions = document.querySelectorAll('.answer-option');
+      for (let i = 0; i < answerOptions.length; i++) {
+        const option = answerOptions[i];
+        
+        // 移除旧的事件监听器
+        const newOption = option.cloneNode(true);
+        option.parentNode.replaceChild(newOption, option);
+      }
+      
+      // 重新获取元素并绑定事件
+      const newAnswerOptions = document.querySelectorAll('.answer-option');
+      for (let i = 0; i < newAnswerOptions.length; i++) {
+        const option = newAnswerOptions[i];
+        option.addEventListener('click', function(e) {
+          e.preventDefault();
+          console.log('点击答案选项:', this.dataset.value);
+          
           const value = this.dataset.value;
           const radio = this.querySelector('input[type="radio"]');
           
           // 清除所有选择状态
-          document.querySelectorAll('.answer-option').forEach(opt => {
-            opt.classList.remove('selected');
-          });
+          const allOptions = document.querySelectorAll('.answer-option');
+          for (let j = 0; j < allOptions.length; j++) {
+            allOptions[j].classList.remove('selected');
+            allOptions[j].querySelector('input[type="radio"]').checked = false;
+          }
           
           // 设置当前选择
           radio.checked = true;
           this.classList.add('selected');
           bodyAnxietyAnswers[currentQuestion] = parseInt(value);
           document.getElementById('nextQuestion').disabled = false;
+          
+          console.log('当前答案:', bodyAnxietyAnswers[currentQuestion]);
         });
-      });
+      }
     }
 
     // 导航按钮事件
-    document.getElementById('prevQuestion').addEventListener('click', () => {
+    document.getElementById('prevQuestion').addEventListener('click', function() {
+      console.log('点击上一题');
       if (currentQuestion > 0) {
         currentQuestion--;
         showQuestion(currentQuestion);
@@ -697,18 +721,28 @@
       }
     });
 
-    document.getElementById('nextQuestion').addEventListener('click', () => {
+    document.getElementById('nextQuestion').addEventListener('click', function() {
+      console.log('点击下一题');
       if (bodyAnxietyAnswers[currentQuestion]) {
         currentQuestion++;
         showQuestion(currentQuestion);
         updateProgress();
+      } else {
+        showToast('请先选择答案');
       }
     });
 
     function completeBodyAnxietyAssessment() {
-      const totalScore = bodyAnxietyAnswers.reduce((sum, score) => sum + score, 0);
+      console.log('完成身材焦虑测评');
+      let totalScore = 0;
+      for (let i = 0; i < bodyAnxietyAnswers.length; i++) {
+        totalScore += bodyAnxietyAnswers[i];
+      }
+      
       const maxScore = BODY_ANXIETY_QUESTIONS.length * 4;
       const percentage = Math.round((totalScore / maxScore) * 100);
+
+      console.log('总分:', totalScore, '百分比:', percentage);
 
       // 生成建议
       const advice = generateBodyAnxietyAdvice(totalScore, percentage);
@@ -717,10 +751,10 @@
       const db = loadDB();
       const assessmentData = {
         ts: Date.now(),
-        answers: bodyAnxietyAnswers,
-        totalScore,
-        percentage,
-        advice,
+        answers: bodyAnxietyAnswers.slice(),
+        totalScore: totalScore,
+        percentage: percentage,
+        advice: advice,
         type: 'bodyAnxiety'
       };
       
@@ -815,39 +849,47 @@
         levelBg = 'bg-yellow-100 border-yellow-200';
       }
 
-      resultContent.innerHTML = `
-        <div class="result-card rounded-2xl p-6 md:p-8">
-          <div class="text-center mb-6">
-            <h3 class="text-2xl font-bold text-primary mb-4">身材焦虑自评结果</h3>
-            <div class="text-5xl font-bold ${levelColor} mb-2">${data.percentage}%</div>
-            <div class="text-sm text-gray-600 mb-4">焦虑程度评分</div>
-            <div class="inline-block px-4 py-2 rounded-full text-sm font-medium border ${levelBg}">
-              总分：${data.totalScore}/36
-            </div>
-          </div>
+      // 生成建议HTML
+      let adviceHTML = '';
+      for (let i = 0; i < data.advice.length; i++) {
+        const item = data.advice[i];
+        adviceHTML += '<div class="advice-item rounded-lg p-4">' +
+          '<h4 class="font-semibold text-primary mb-2">' +
+            '<span class="mr-2 ' + item.color + '">' + item.icon + '</span>' + item.title +
+          '</h4>' +
+          '<p class="text-content leading-relaxed">' + item.content + '</p>' +
+        '</div>';
+      }
 
-          <div class="space-y-4">
-            ${data.advice.map(item => `
-              <div class="advice-item rounded-lg p-4">
-                <h4 class="font-semibold text-primary mb-2">
-                  <span class="mr-2 ${item.color}">${item.icon}</span>${item.title}
-                </h4>
-                <p class="text-content leading-relaxed">${item.content}</p>
-              </div>
-            `).join('')}
+      // 生成答题详情
+      let answerDetails = '';
+      for (let i = 0; i < data.answers.length; i++) {
+        if (i > 0) answerDetails += ' | ';
+        answerDetails += '第' + (i + 1) + '题: ' + data.answers[i] + '分';
+      }
 
-            <div class="advice-item rounded-lg p-4">
-              <h4 class="font-semibold text-primary mb-2">
-                <span class="mr-2 text-gray-600">📅</span>测评信息
-              </h4>
-              <div class="text-sm text-gray-600 space-y-1">
-                <p>测评时间：${fmtTime(data.ts)}</p>
-                <p>答题详情：${data.answers.map((answer, index) => `第${index + 1}题: ${answer}分`).join(' | ')}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      `;
+      resultContent.innerHTML = '<div class="result-card rounded-2xl p-6 md:p-8">' +
+        '<div class="text-center mb-6">' +
+          '<h3 class="text-2xl font-bold text-primary mb-4">身材焦虑自评结果</h3>' +
+          '<div class="text-5xl font-bold ' + levelColor + ' mb-2">' + data.percentage + '%</div>' +
+          '<div class="text-sm text-gray-600 mb-4">焦虑程度评分</div>' +
+          '<div class="inline-block px-4 py-2 rounded-full text-sm font-medium border ' + levelBg + '">' +
+            '总分：' + data.totalScore + '/36' +
+          '</div>' +
+        '</div>' +
+        '<div class="space-y-4">' +
+          adviceHTML +
+          '<div class="advice-item rounded-lg p-4">' +
+            '<h4 class="font-semibold text-primary mb-2">' +
+              '<span class="mr-2 text-gray-600">📅</span>测评信息' +
+            '</h4>' +
+            '<div class="text-sm text-gray-600 space-y-1">' +
+              '<p>测评时间：' + fmtTime(data.ts) + '</p>' +
+              '<p>答题详情：' + answerDetails + '</p>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
       
       showResultPage();
       currentResult = data;
@@ -867,61 +909,88 @@
       const db = loadDB();
       const container = document.getElementById('recentAssessments');
       
-      const bmiTests = (db.bmiAssessments || []).map(test => ({
-        type: 'BMI测评',
-        ts: test.ts,
-        result: `BMI: ${test.bmi} (${test.category})`,
-        icon: '⚖️',
-        color: 'text-blue-500'
-      }));
+      const bmiTests = [];
+      for (let i = 0; i < db.bmiAssessments.length; i++) {
+        const test = db.bmiAssessments[i];
+        bmiTests.push({
+          type: 'BMI测评',
+          ts: test.ts,
+          result: 'BMI: ' + test.bmi + ' (' + test.category + ')',
+          icon: '⚖️',
+          color: 'text-blue-500'
+        });
+      }
       
-      const anxietyTests = (db.bodyAnxietyAssessments || []).map(test => ({
-        type: '身材焦虑自评',
-        ts: test.ts,
-        result: `得分: ${test.totalScore}/36 (${test.percentage}%)`,
-        icon: '💖',
-        color: 'text-pink-500'
-      }));
+      const anxietyTests = [];
+      for (let i = 0; i < db.bodyAnxietyAssessments.length; i++) {
+        const test = db.bodyAnxietyAssessments[i];
+        anxietyTests.push({
+          type: '身材焦虑自评',
+          ts: test.ts,
+          result: '得分: ' + test.totalScore + '/36 (' + test.percentage + '%)',
+          icon: '💖',
+          color: 'text-pink-500'
+        });
+      }
       
-      const allTests = [...bmiTests, ...anxietyTests]
-        .sort((a, b) => b.ts - a.ts)
-        .slice(0, 5);
+      const allTests = bmiTests.concat(anxietyTests);
+      allTests.sort(function(a, b) {
+        return b.ts - a.ts;
+      });
+      
+      const recentTests = allTests.slice(0, 5);
 
-      if (allTests.length === 0) {
+      if (recentTests.length === 0) {
         container.innerHTML = '<div class="text-content">暂无测评记录，开始你的第一次测评吧！</div>';
         return;
       }
 
-      container.innerHTML = allTests.map(test => `
-        <div class="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0 history-item">
-          <div class="flex items-center">
-            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3">
-              <span class="${test.color}">${test.icon}</span>
-            </div>
-            <div>
-              <div class="font-medium text-content">${test.type}</div>
-              <div class="text-xs text-gray-500">${fmtTime(test.ts)}</div>
-            </div>
-          </div>
-          <div class="text-sm text-gray-600 text-right">
-            ${test.result}
-          </div>
-        </div>
-      `).join('');
+      let testsHTML = '';
+      for (let i = 0; i < recentTests.length; i++) {
+        const test = recentTests[i];
+        testsHTML += '<div class="flex items-center justify-between py-3 border-b border-gray-100 last:border-b-0 history-item">' +
+          '<div class="flex items-center">' +
+            '<div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-3">' +
+              '<span class="' + test.color + '">' + test.icon + '</span>' +
+            '</div>' +
+            '<div>' +
+              '<div class="font-medium text-content">' + test.type + '</div>' +
+              '<div class="text-xs text-gray-500">' + fmtTime(test.ts) + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="text-sm text-gray-600 text-right">' +
+            test.result +
+          '</div>' +
+        '</div>';
+      }
+      
+      container.innerHTML = testsHTML;
     }
 
     // 页面加载完成后的初始化
     document.addEventListener('DOMContentLoaded', function() {
+      console.log('页面加载完成');
       renderRecentAssessments();
       
       // 绑定测评卡片点击事件
-      document.getElementById('bmiCard').addEventListener('click', () => {
-        showBMIAssessment();
-      });
+      const bmiCard = document.getElementById('bmiCard');
+      const anxietyCard = document.getElementById('anxietyCard');
       
-      document.getElementById('anxietyCard').addEventListener('click', () => {
-        showBodyAnxietyAssessment();
-      });
+      if (bmiCard) {
+        bmiCard.addEventListener('click', function() {
+          console.log('点击BMI测评卡片');
+          showBMIAssessment();
+        });
+      }
+      
+      if (anxietyCard) {
+        anxietyCard.addEventListener('click', function() {
+          console.log('点击身材焦虑测评卡片');
+          showBodyAnxietyAssessment();
+        });
+      }
+      
+      console.log('事件绑定完成');
     });
   </script>
 
