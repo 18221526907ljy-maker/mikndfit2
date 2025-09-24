@@ -288,8 +288,12 @@
 
     // 页面跳转到结果页
     function goToResults(data, type) {
-      const encodedData = encodeURIComponent(JSON.stringify(data));
-      window.location.href = `assessment-result.html?data=${encodedData}&type=${type}`;
+      // 将数据临时存储到sessionStorage，避免URL过长问题
+      sessionStorage.setItem('assessment_result', JSON.stringify({
+        data: data,
+        type: type
+      }));
+      window.location.href = `assessment-result.html`;
     }
 
     // BMI 计算功能
