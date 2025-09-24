@@ -360,8 +360,8 @@
       // 将建议编码为URL参数（与现有result.html兼容）
       const adviceStr = encodeURIComponent(advice.join(",,"));
       
-      // 跳转到现有的结果页面
-      window.location.href = `result.html?advice=${adviceStr}`;
+      // 跳转到正确的结果页面
+      window.location.href = `assessment-result.html?advice=${adviceStr}`;
     }
 
     // 生成身材焦虑建议
