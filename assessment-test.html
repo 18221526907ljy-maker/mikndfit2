@@ -354,20 +354,37 @@
       const maxScore = BODY_ANXIETY_QUESTIONS.length * 4;
       const percentage = Math.round((totalScore / maxScore) * 100);
 
-      // 构建结果数据
-      const resultData = {
-        type: 'bodyAnxiety',
-        answers: bodyAnxietyAnswers,
-        totalScore,
-        percentage,
-        timestamp: Date.now()
-      };
+      // 生成建议
+      const advice = generateBodyAnxietyAdvice(totalScore, percentage);
 
-      // 将结果数据编码为URL参数
-      const resultParams = encodeURIComponent(JSON.stringify(resultData));
+      // 将建议编码为URL参数（与现有result.html兼容）
+      const adviceStr = encodeURIComponent(advice.join(",,"));
       
-      // 跳转到结果页面（这里假设结果页面是result.html）
-      window.location.href = `result.html?data=${resultParams}`;
+      // 跳转到现有的结果页面
+      window.location.href = `result.html?advice=${adviceStr}`;
+    }
+
+    // 生成身材焦虑建议
+    function generateBodyAnxietyAdvice(score, percentage) {
+      const advice = [];
+      
+      if (percentage >= 75) {
+        advice.push("⛈ 高度焦虑：你当前的身材焦虑程度较高，建议优先考虑专业心理支持，配合自我调节练习。");
+        advice.push("🧘 今日小任务：进行一次 10 分钟的身体扫描冥想，关注身体的功能而非外貌。尝试对镜子中的自己说一句鼓励的话。");
+      } else if (percentage >= 50) {
+        advice.push("🌧 中度焦虑：你对身材有一定程度的焦虑，建议尝试身体中立练习和正念技巧。");
+        advice.push("📝 今日小任务：写下 3 条你身体的功能性优点，例如\"我的身体让我可以自由行走\"、\"我的手可以拥抱他人\"。");
+      } else if (percentage >= 25) {
+        advice.push("🌤 轻度焦虑：你偶尔会对身材感到担忧，这很正常。建议保持积极的身体意识。");
+        advice.push("🌿 今日小任务：每日 1 次正念呼吸（约 3 分钟），并练习自我肯定语：\"我接纳现在的自己\"。");
+      } else {
+        advice.push("🌟 状态良好：你对身材保持着健康的态度，继续保持这种平衡的心态。");
+        advice.push("💫 今日小任务：分享你的积极心态，帮助身边的人建立健康的身体观念。可以推荐一个身体中立的理念给朋友。");
+      }
+
+      advice.push("📘 推荐阅读: <a href='body-neutrality.html' target='_blank'>身体中立入门指南</a> — 学习如何建立更健康的身体关系。");
+      
+      return advice;
     }
 
     // 取消测试
