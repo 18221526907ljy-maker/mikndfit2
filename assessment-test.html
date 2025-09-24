@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>测评进行中 - MindFit</title>
+  <title>身材焦虑测评 - MindFit</title>
   <script src="https://cdn.tailwindcss.com"></script>
   
   <script>
@@ -27,6 +27,25 @@
   </script>
   
   <style>
+    /* 页面加载动画 */
+    .page-content {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 按钮样式优化 */
     .btn-primary {
       background: linear-gradient(135deg, #4A6157, #8FD9A8);
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -51,11 +70,13 @@
       transform: translateY(-2px);
     }
 
+    /* 进度条动画 */
     .progress-bar {
       transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       background: linear-gradient(90deg, #4A6157, #8FD9A8);
     }
 
+    /* 答案选项优化 */
     .answer-option {
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       border: 2px solid #e5e7eb;
@@ -74,6 +95,7 @@
       transform: translateX(8px);
     }
 
+    /* Toast 优化 */
     .toast {
       position: fixed;
       top: 20px;
@@ -91,6 +113,16 @@
     .toast.show {
       transform: translateX(0);
     }
+
+    /* 问题切换动画 */
+    .question-container {
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .question-container.changing {
+      opacity: 0.7;
+      transform: scale(0.98);
+    }
   </style>
 </head>
 
@@ -100,9 +132,9 @@
     <div class="max-w-4xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <a href="self-assessment.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+          <a href="javascript:history.back()" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
             <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
-            <span class="font-medium">返回测评首页</span>
+            <span class="font-medium">返回</span>
           </a>
         </div>
         <div class="flex items-center space-x-2">
@@ -124,65 +156,11 @@
   </div>
 
   <main class="max-w-4xl mx-auto px-4 py-8">
-    
-    <!-- BMI测评页面 -->
-    <section id="bmiTest" class="test-section hidden">
+    <div class="page-content">
+      
+      <!-- 页面标题 -->
       <div class="text-center mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">BMI 身体测评</h2>
-        <p class="text-content">了解基础身体指标，建立健康的身体认知</p>
-      </div>
-
-      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm mb-6">
-        <h3 class="text-xl font-semibold text-primary mb-6">基础信息</h3>
-        
-        <div class="space-y-6">
-          <div class="grid md:grid-cols-2 gap-4">
-            <div>
-              <label class="block text-sm font-medium text-content mb-2">身高 (cm)</label>
-              <input id="bmiHeight" type="number" min="80" max="230" 
-                     class="w-full p-4 border border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors" 
-                     placeholder="例如: 165" />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-content mb-2">体重 (kg)</label>
-              <input id="bmiWeight" type="number" min="20" max="250" step="0.1"
-                     class="w-full p-4 border border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors" 
-                     placeholder="例如: 55.5" />
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-content mb-2">年龄</label>
-            <input id="bmiAge" type="number" min="10" max="100" 
-                   class="w-full p-4 border border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-colors" 
-                   placeholder="例如: 25" />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium text-content mb-2">性别</label>
-            <div class="flex space-x-6">
-              <label class="flex items-center cursor-pointer">
-                <input type="radio" name="bmiGender" value="female" class="mr-3 text-primary focus:ring-primary">
-                <span class="text-content">女性</span>
-              </label>
-              <label class="flex items-center cursor-pointer">
-                <input type="radio" name="bmiGender" value="male" class="mr-3 text-primary focus:ring-primary">
-                <span class="text-content">男性</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <button id="calculateBMI" class="w-full mt-8 py-4 btn-primary text-white rounded-lg font-semibold text-lg">
-          <span class="mr-2">🧮</span>计算 BMI
-        </button>
-      </div>
-    </section>
-
-    <!-- 身材焦虑自评页面 -->
-    <section id="anxietyTest" class="test-section hidden">
-      <div class="text-center mb-8">
-        <h2 class="text-2xl md:text-3xl font-bold text-primary mb-2">身材焦虑自评</h2>
+        <h1 class="text-2xl md:text-3xl font-bold text-primary mb-2">身材焦虑自评</h1>
         <p class="text-content">通过9道题目，了解你对身体形象的感受</p>
       </div>
 
@@ -198,7 +176,7 @@
       </div>
 
       <!-- 题目卡片 -->
-      <div id="questionCard" class="bg-white rounded-2xl p-6 md:p-8 shadow-sm mb-6">
+      <div id="questionCard" class="question-container bg-white rounded-2xl p-6 md:p-8 shadow-sm mb-6">
         <div class="mb-4">
           <span class="text-sm text-gray-500">第 <span id="currentQuestionNum">1</span> 题</span>
         </div>
@@ -207,7 +185,7 @@
           <!-- 动态显示题目 -->
         </h3>
 
-        <div class="space-y-4">
+        <div class="space-y-4" id="answerOptions">
           <div class="answer-option flex items-center p-4 border-2 border-gray-200 rounded-lg" data-value="1">
             <input type="radio" name="currentAnswer" value="1" class="mr-4 text-primary focus:ring-primary">
             <span class="text-content">完全不同意</span>
@@ -235,39 +213,30 @@
         <button id="nextQuestion" class="flex-1 py-3 btn-primary text-white rounded-lg font-medium" disabled>
           下一题<span class="ml-2">›</span>
         </button>
-        <button onclick="window.location.href='self-assessment.html'" class="md:w-auto px-6 py-3 btn-secondary rounded-lg font-medium">
+        <button onclick="cancelTest()" class="md:w-auto px-6 py-3 btn-secondary rounded-lg font-medium">
           <span class="mr-2">✕</span>取消
         </button>
       </div>
-    </section>
 
+    </div>
   </main>
 
   <script>
-    // 数据存储配置
-    const DB_KEY = "mindfit_db_v1";
-    
-    const defaultDB = () => ({
-      bmiAssessments: [],
-      bodyAnxietyAssessments: [],
-    });
+    // 身材焦虑测评题目
+    const BODY_ANXIETY_QUESTIONS = [
+      "照镜子或翻看照片时，我会特别关注自己的某些身体部位",
+      "我会把自己和社交媒体上的\"完美身材\"比较",
+      "吃完喜欢的食物后，我会感到后悔或愧疚",
+      "如果对自己的外貌不满意，我会情绪低落或心情受到影响",
+      "我会给自己制定严格的饮食或运动计划，若未完成会自责",
+      "因为担心身材，我会避免拍照或参加社交活动",
+      "我觉得类似于\"如果我变得更好看，生活会更顺利\"这类想法有一定道理",
+      "我想摆脱这些焦虑想法，但不知道从哪里开始",
+      "如果有简单可操作的心理自助练习（例如思维记录、情绪卡片等），我愿意尝试",
+    ];
 
-    const loadDB = () => {
-      try {
-        const raw = localStorage.getItem(DB_KEY);
-        return raw ? JSON.parse(raw) : defaultDB();
-      } catch (e) {
-        return defaultDB();
-      }
-    };
-
-    const saveDB = (db) => localStorage.setItem(DB_KEY, JSON.stringify(db));
-
-    const fmtTime = (ts) => {
-      const d = new Date(ts);
-      const pad = (n) => (n < 10 ? "0" + n : n);
-      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-    };
+    let currentQuestion = 0;
+    let bodyAnxietyAnswers = [];
 
     // Toast 提示功能
     function showToast(message) {
@@ -280,93 +249,8 @@
       }, 3000);
     }
 
-    // 获取URL参数
-    function getURLParameter(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
-    }
-
-    // 页面跳转到结果页
-    function goToResults(data, type) {
-      // 将数据临时存储到sessionStorage，避免URL过长问题
-      sessionStorage.setItem('assessment_result', JSON.stringify({
-        data: data,
-        type: type
-      }));
-      window.location.href = `assessment-result.html`;
-    }
-
-    // BMI 计算功能
-    document.getElementById('calculateBMI').addEventListener('click', () => {
-      const height = parseFloat(document.getElementById('bmiHeight').value);
-      const weight = parseFloat(document.getElementById('bmiWeight').value);
-      const age = parseFloat(document.getElementById('bmiAge').value);
-      const gender = document.querySelector('input[name="bmiGender"]:checked')?.value;
-
-      if (!height || !weight || !age || !gender) {
-        showToast('请填写完整信息');
-        return;
-      }
-
-      // 计算BMI
-      const bmi = weight / Math.pow(height / 100, 2);
-      const bmiValue = bmi.toFixed(1);
-
-      // 确定BMI分类和建议
-      let category, advice;
-      
-      if (bmi < 18.5) {
-        category = '偏瘦';
-        advice = '体重可能偏低，建议均衡饮食，适当增加营养摄入。关注身体能量和健康状态比单纯增重更重要。';
-      } else if (bmi < 24) {
-        category = '正常';
-        advice = '您的BMI在正常范围内。继续保持健康的生活方式，关注身体功能和整体健康状况。';
-      } else if (bmi < 28) {
-        category = '偏重';
-        advice = '建议适度调整饮食结构和增加运动。记住，健康的身体不仅仅是体重数字，更重要的是整体的活力和功能。';
-      } else {
-        category = '肥胖';
-        advice = '建议咨询专业医生或营养师，制定个性化的健康管理计划。重要的是循序渐进，关爱自己的身体。';
-      }
-
-      // 保存数据
-      const db = loadDB();
-      const bmiData = {
-        ts: Date.now(),
-        height,
-        weight,
-        age,
-        gender,
-        bmi: parseFloat(bmiValue),
-        category,
-        advice,
-        type: 'bmi'
-      };
-      
-      db.bmiAssessments.push(bmiData);
-      saveDB(db);
-
-      // 跳转到结果页面
-      goToResults(bmiData, 'bmi');
-    });
-
-    // 身材焦虑测评
-    const BODY_ANXIETY_QUESTIONS = [
-      "照镜子或翻看照片时，我会特别关注自己的某些身体部位",
-      "我会把自己和社交媒体上的"完美身材"比较",
-      "吃完喜欢的食物后，我会感到后悔或愧疚",
-      "如果对自己的外貌不满意，我会情绪低落或心情受到影响",
-      "我会给自己制定严格的饮食或运动计划，若未完成会自责",
-      "因为担心身材，我会避免拍照或参加社交活动",
-      "我觉得类似于"如果我变得更好看，生活会更顺利"这类想法有一定道理",
-      "我想摆脱这些焦虑想法，但不知道从哪里开始",
-      "如果有简单可操作的心理自助练习（例如思维记录、情绪卡片等），我愿意尝试",
-    ];
-
-    let currentQuestion = 0;
-    let bodyAnxietyAnswers = [];
-
-    function initBodyAnxietyAssessment() {
+    // 初始化测评
+    function initAssessment() {
       currentQuestion = 0;
       bodyAnxietyAnswers = [];
       showQuestion(0);
@@ -374,48 +258,58 @@
       initAnswerOptions();
     }
 
+    // 显示题目
     function showQuestion(index) {
       if (index >= BODY_ANXIETY_QUESTIONS.length) {
-        completeBodyAnxietyAssessment();
+        completeAssessment();
         return;
       }
 
-      document.getElementById('currentQuestionNum').textContent = index + 1;
-      document.getElementById('questionText').textContent = BODY_ANXIETY_QUESTIONS[index];
-      
-      // 清除之前的选择
-      document.querySelectorAll('input[name="currentAnswer"]').forEach(input => {
-        input.checked = false;
-      });
-      document.querySelectorAll('.answer-option').forEach(option => {
-        option.classList.remove('selected');
-      });
+      // 添加切换动画
+      const questionContainer = document.getElementById('questionCard');
+      questionContainer.classList.add('changing');
 
-      // 如果有之前的答案，显示
-      if (bodyAnxietyAnswers[index]) {
-        const selectedOption = document.querySelector(`input[name="currentAnswer"][value="${bodyAnxietyAnswers[index]}"]`);
-        if (selectedOption) {
-          selectedOption.checked = true;
-          selectedOption.closest('.answer-option').classList.add('selected');
+      setTimeout(() => {
+        document.getElementById('currentQuestionNum').textContent = index + 1;
+        document.getElementById('questionText').textContent = BODY_ANXIETY_QUESTIONS[index];
+        
+        // 清除之前的选择
+        document.querySelectorAll('input[name="currentAnswer"]').forEach(input => {
+          input.checked = false;
+        });
+        document.querySelectorAll('.answer-option').forEach(option => {
+          option.classList.remove('selected');
+        });
+
+        // 如果有之前的答案，显示
+        if (bodyAnxietyAnswers[index]) {
+          const selectedOption = document.querySelector(`input[name="currentAnswer"][value="${bodyAnxietyAnswers[index]}"]`);
+          if (selectedOption) {
+            selectedOption.checked = true;
+            selectedOption.closest('.answer-option').classList.add('selected');
+          }
+          document.getElementById('nextQuestion').disabled = false;
+        } else {
+          document.getElementById('nextQuestion').disabled = true;
         }
-        document.getElementById('nextQuestion').disabled = false;
-      } else {
-        document.getElementById('nextQuestion').disabled = true;
-      }
 
-      // 更新按钮状态
-      document.getElementById('prevQuestion').disabled = index === 0;
-      document.getElementById('nextQuestion').textContent = 
-        index === BODY_ANXIETY_QUESTIONS.length - 1 ? '完成测评' : '下一题';
+        // 更新按钮状态
+        document.getElementById('prevQuestion').disabled = index === 0;
+        document.getElementById('nextQuestion').textContent = 
+          index === BODY_ANXIETY_QUESTIONS.length - 1 ? '完成测评' : '下一题';
+
+        questionContainer.classList.remove('changing');
+      }, 200);
     }
 
+    // 更新进度
     function updateProgress() {
       const progress = Math.round((currentQuestion / BODY_ANXIETY_QUESTIONS.length) * 100);
       document.getElementById('progressBar').style.width = `${progress}%`;
       document.getElementById('progressText').textContent = `${currentQuestion}/${BODY_ANXIETY_QUESTIONS.length}`;
     }
 
-    // 答案选择事件
+    // 初始化答案选项事件
     function initAnswerOptions() {
       document.querySelectorAll('.answer-option').forEach(option => {
         option.addEventListener('click', function() {
@@ -436,127 +330,102 @@
       });
     }
 
-    // 导航按钮事件
-    document.getElementById('prevQuestion').addEventListener('click', () => {
+    // 上一题
+    function prevQuestion() {
       if (currentQuestion > 0) {
         currentQuestion--;
         showQuestion(currentQuestion);
         updateProgress();
       }
-    });
+    }
 
-    document.getElementById('nextQuestion').addEventListener('click', () => {
+    // 下一题
+    function nextQuestion() {
       if (bodyAnxietyAnswers[currentQuestion]) {
         currentQuestion++;
         showQuestion(currentQuestion);
         updateProgress();
       }
-    });
+    }
 
-    function completeBodyAnxietyAssessment() {
+    // 完成测评
+    function completeAssessment() {
       const totalScore = bodyAnxietyAnswers.reduce((sum, score) => sum + score, 0);
       const maxScore = BODY_ANXIETY_QUESTIONS.length * 4;
       const percentage = Math.round((totalScore / maxScore) * 100);
 
-      // 生成建议
-      const advice = generateBodyAnxietyAdvice(totalScore, percentage);
-
-      // 保存结果
-      const db = loadDB();
-      const assessmentData = {
-        ts: Date.now(),
+      // 构建结果数据
+      const resultData = {
+        type: 'bodyAnxiety',
         answers: bodyAnxietyAnswers,
         totalScore,
         percentage,
-        advice,
-        type: 'bodyAnxiety'
+        timestamp: Date.now()
       };
-      
-      db.bodyAnxietyAssessments.push(assessmentData);
-      saveDB(db);
 
-      // 跳转到结果页面
-      goToResults(assessmentData, 'anxiety');
+      // 将结果数据编码为URL参数
+      const resultParams = encodeURIComponent(JSON.stringify(resultData));
+      
+      // 跳转到结果页面（这里假设结果页面是result.html）
+      window.location.href = `result.html?data=${resultParams}`;
     }
 
-    function generateBodyAnxietyAdvice(score, percentage) {
-      const advice = [];
-      
-      if (percentage >= 75) {
-        advice.push({
-          icon: "⚠️",
-          title: "高度焦虑",
-          content: "你当前的身材焦虑程度较高，建议优先考虑专业心理支持，配合自我调节练习。",
-          color: "text-red-600"
-        });
-        advice.push({
-          icon: "📝",
-          title: "今日小任务",
-          content: "进行一次 10 分钟的身体扫描冥想，关注身体的功能而非外貌。尝试对镜子中的自己说一句鼓励的话。",
-          color: "text-blue-600"
-        });
-      } else if (percentage >= 50) {
-        advice.push({
-          icon: "☁️",
-          title: "中度焦虑",
-          content: "你对身材有一定程度的焦虑，建议尝试身体中立练习和正念技巧。",
-          color: "text-orange-600"
-        });
-        advice.push({
-          icon: "📝",
-          title: "今日小任务",
-          content: "写下 3 条你身体的功能性优点，例如"我的身体让我可以自由行走"、"我的手可以拥抱他人"。",
-          color: "text-blue-600"
-        });
-      } else if (percentage >= 25) {
-        advice.push({
-          icon: "☀️",
-          title: "轻度焦虑",
-          content: "你偶尔会对身材感到担忧，这很正常。建议保持积极的身体意识。",
-          color: "text-yellow-600"
-        });
-        advice.push({
-          icon: "📝",
-          title: "今日小任务",
-          content: "每日 1 次正念呼吸（约 3 分钟），并练习自我肯定语："我接纳现在的自己"。",
-          color: "text-blue-600"
-        });
+    // 取消测试
+    function cancelTest() {
+      if (currentQuestion > 0) {
+        if (confirm('确定要取消测评吗？当前进度将丢失。')) {
+          history.back();
+        }
       } else {
-        advice.push({
-          icon: "⭐",
-          title: "状态良好",
-          content: "你对身材保持着健康的态度，继续保持这种平衡的心态。",
-          color: "text-green-600"
-        });
-        advice.push({
-          icon: "📝",
-          title: "今日小任务",
-          content: "分享你的积极心态，帮助身边的人建立健康的身体观念。可以推荐一个身体中立的理念给朋友。",
-          color: "text-blue-600"
-        });
+        history.back();
       }
-
-      advice.push({
-        icon: "📚",
-        title: "推荐阅读",
-        content: '<a href="body-neutrality.html" target="_blank" class="text-primary hover:text-mint underline">身体中立入门指南</a> — 学习如何建立更健康的身体关系。',
-        color: "text-purple-600"
-      });
-      
-      return advice;
     }
 
-    // 页面初始化
+    // 绑定事件
+    document.getElementById('prevQuestion').addEventListener('click', prevQuestion);
+    document.getElementById('nextQuestion').addEventListener('click', nextQuestion);
+
+    // 键盘导航支持
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') {
+        prevQuestion();
+      } else if (e.key === 'ArrowRight') {
+        if (!document.getElementById('nextQuestion').disabled) {
+          nextQuestion();
+        }
+      } else if (e.key >= '1' && e.key <= '4') {
+        const value = e.key;
+        const option = document.querySelector(`[data-value="${value}"]`);
+        if (option) {
+          option.click();
+        }
+      }
+    });
+
+    // 页面加载完成后初始化
     document.addEventListener('DOMContentLoaded', function() {
-      const testType = getURLParameter('type');
+      // 检查是否有传入的测评类型参数
+      const urlParams = new URLSearchParams(window.location.search);
+      const testType = urlParams.get('type');
       
+      // 根据测评类型调整页面（如果需要支持多种测评类型）
       if (testType === 'bmi') {
-        document.getElementById('bmiTest').classList.remove('hidden');
-        document.title = 'BMI 身体测评 - MindFit';
-      } else if (testType === 'anxiety') {
-        document.getElementById('anxietyTest').classList.remove('hidden');
-        document.title = '身材焦虑自评 - MindFit';
-        initBodyAnxietyAssessment();
+        // 如果是BMI测评，可以重定向到BMI测评页面
+        // 或者在这里实现BMI测评逻辑
+        window.location.href = 'bmi-assessment.html';
+        return;
+      }
+      
+      // 默认进行身材焦虑测评
+      initAssessment();
+      showToast('开始测评，请根据实际情况如实回答');
+    });
+
+    // 防止意外刷新丢失进度
+    window.addEventListener('beforeunload', function(e) {
+      if (currentQuestion > 0 && currentQuestion < BODY_ANXIETY_QUESTIONS.length) {
+        e.preventDefault();
+        e.returnValue = '测评进行中，确定要离开吗？';
       }
     });
   </script>
