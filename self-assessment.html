@@ -164,25 +164,7 @@
           </div>
         </div>
 
-        <!-- 综合身心测评 -->
-        <div class="assessment-card bg-white rounded-2xl p-6 md:p-8 shadow-sm" onclick="startComprehensiveAssessment()">
-          <div class="flex items-center">
-            <div class="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center mr-6">
-              <i class="fa fa-leaf text-green-500 text-2xl"></i>
-            </div>
-            <div class="flex-1">
-              <h3 class="text-xl font-bold text-primary mb-2">综合身心测评</h3>
-              <p class="text-content mb-3">全面了解身心状态，获得个性化建议</p>
-              <div class="flex items-center text-sm text-gray-500">
-                <i class="fa fa-clock-o mr-2"></i>
-                <span>约 5-8 分钟</span>
-                <span class="mx-2">•</span>
-                <span>综合评估分析</span>
-              </div>
-            </div>
-            <i class="fa fa-chevron-right text-gray-300 text-xl"></i>
-          </div>
-        </div>
+
 
       </div>
 
@@ -258,13 +240,11 @@
         // 从localStorage获取测评记录
         const bmiRecords = JSON.parse(localStorage.getItem('bmi_assessments') || '[]');
         const anxietyRecords = JSON.parse(localStorage.getItem('anxiety_assessments') || '[]');
-        const comprehensiveRecords = JSON.parse(localStorage.getItem('comprehensive_assessments') || '[]');
         
         // 合并所有记录并按时间排序
         const allRecords = [
           ...bmiRecords.map(r => ({...r, type: 'BMI测评', icon: 'fa-balance-scale', color: 'text-blue-500'})),
-          ...anxietyRecords.map(r => ({...r, type: '身材焦虑自评', icon: 'fa-heart', color: 'text-pink-500'})),
-          ...comprehensiveRecords.map(r => ({...r, type: '综合测评', icon: 'fa-leaf', color: 'text-green-500'}))
+          ...anxietyRecords.map(r => ({...r, type: '身材焦虑自评', icon: 'fa-heart', color: 'text-pink-500'}))
         ].sort((a, b) => b.timestamp - a.timestamp).slice(0, 5);
 
         const container = document.getElementById('recentAssessments');
@@ -306,7 +286,7 @@
     function startBMIAssessment() {
       showToast('准备开始BMI测评...');
       setTimeout(() => {
-        window.location.href = 'bmi-assessment.html';
+        window.location.href = 'BMI测评页面.html';
       }, 500);
     }
 
@@ -315,14 +295,6 @@
       showToast('准备开始身材焦虑自评...');
       setTimeout(() => {
         window.location.href = 'assessment-test.html?type=anxiety';
-      }, 500);
-    }
-
-    // 开始综合测评
-    function startComprehensiveAssessment() {
-      showToast('准备开始综合身心测评...');
-      setTimeout(() => {
-        window.location.href = 'comprehensive-assessment.html';
       }, 500);
     }
 
