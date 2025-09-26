@@ -84,6 +84,7 @@
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
       will-change: transform, box-shadow;
+      cursor: pointer;
     }
     
     .glass-card:hover {
@@ -102,6 +103,7 @@
       transform: scale(0.92) translateY(20px);
       transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       will-change: transform, opacity, box-shadow;
+      cursor: pointer;
     }
     
     .mobile-feature-card.animate-in {
@@ -131,6 +133,7 @@
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
     }
     
     .knowledge-card.animate-in {
@@ -198,6 +201,7 @@
     /* === 推荐列表动画 === */
     .qa-item {
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
     }
     
     .qa-item:active {
@@ -238,6 +242,7 @@
         border-radius: 12px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         margin-bottom: 1rem;
+        cursor: pointer;
       }
       
       .mobile-qa-item {
@@ -253,20 +258,18 @@
       }
     }
 
-    /* 推荐卡片样式 */
-    .recommendation-card {
+    /* 练习快捷入口样式 */
+    .practice-shortcut {
+      background: linear-gradient(135deg, rgba(74, 97, 87, 0.05), rgba(143, 217, 168, 0.05));
+      border: 1px solid rgba(74, 97, 87, 0.1);
+      transition: all 0.3s ease;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
-    .recommendation-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    }
-
-    .recommendation-card:active {
-      transform: translateY(-2px) scale(0.98);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    .practice-shortcut:hover {
+      background: linear-gradient(135deg, rgba(74, 97, 87, 0.1), rgba(143, 217, 168, 0.1));
+      border-color: rgba(74, 97, 87, 0.2);
+      transform: translateY(-2px);
     }
   </style>
 </head>
@@ -286,6 +289,8 @@
         <div class="flex items-center space-x-8">
           <a href="#" class="text-primary hover:text-mint transition-colors font-medium">首页</a>
           <a href="self-assessment.html" class="text-content hover:text-primary transition-colors font-medium">测评</a>
+          <a href="practice.html" class="text-content hover:text-primary transition-colors font-medium">练习</a>
+          <a href="practice-records.html" class="text-content hover:text-primary transition-colors font-medium">记录</a>
           <a href="body-neutrality.html" class="text-content hover:text-primary transition-colors font-medium">理论</a>
           <a href="#" class="text-content hover:text-primary transition-colors font-medium">个人中心</a>
         </div>
@@ -323,7 +328,7 @@
             <p class="text-xl text-content leading-relaxed mb-8">
               平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
             </p>
-            <button class="bg-accent hover:bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all" onclick="window.location.href='self-assessment.html'">
+            <button class="bg-accent hover:bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all" onclick="navigateToAssessment()">
               开始探索
             </button>
           </div>
@@ -348,7 +353,7 @@
               <p class="text-mobile-subtitle text-gray leading-relaxed mb-4">
                 平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
               </p>
-              <button class="w-full bg-accent text-white rounded-lg font-semibold h-11 transition-all" onclick="window.location.href='self-assessment.html'">
+              <button class="w-full bg-accent text-white rounded-lg font-semibold h-11 transition-all" onclick="navigateToAssessment()">
                 开始探索
               </button>
             </div>
@@ -374,7 +379,7 @@
         <!-- 桌面端：3列网格 -->
         <div class="hidden md:grid grid-cols-3 gap-8 px-6">
           
-          <div class="glass-card rounded-2xl p-8 text-center feature-card cursor-pointer" data-delay="0" onclick="window.location.href='self-assessment.html'">
+          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="0" onclick="navigateToAssessment()">
             <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
               <i class="fa fa-user-circle text-primary text-3xl"></i>
             </div>
@@ -385,7 +390,7 @@
             </button>
           </div>
 
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="1">
+          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="1" onclick="navigateToPractice()">
             <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
               <i class="fa fa-apple text-primary text-3xl"></i>
             </div>
@@ -396,7 +401,7 @@
             </button>
           </div>
 
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="2">
+          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="2" onclick="navigateToRecords()">
             <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
               <i class="fa fa-cogs text-primary text-3xl"></i>
             </div>
@@ -413,7 +418,7 @@
         <div class="md:hidden">
           <div class="grid grid-cols-2 gap-4 px-4 mb-4">
             
-            <div class="mobile-feature-card cursor-pointer" data-delay="0" onclick="window.location.href='self-assessment.html'">
+            <div class="mobile-feature-card" data-delay="0" onclick="navigateToAssessment()">
               <i class="fa fa-user-circle text-primary text-2xl mb-3"></i>
               <h3 class="text-mobile-card-title font-bold text-primary mb-2">了解自己</h3>
               <p class="text-mobile-description text-lightGray mb-4">通过各种帮助信任认知当下的自己</p>
@@ -422,7 +427,7 @@
               </button>
             </div>
 
-            <div class="mobile-feature-card" data-delay="1">
+            <div class="mobile-feature-card" data-delay="1" onclick="navigateToPractice()">
               <i class="fa fa-apple text-mint text-2xl mb-3"></i>
               <h3 class="text-mobile-card-title font-bold text-primary mb-2">日常练习</h3>
               <p class="text-mobile-description text-lightGray mb-4">培养健康生活习惯的时候解决伴随紧张感</p>
@@ -435,7 +440,7 @@
           
           <!-- 深度工具居中 -->
           <div class="flex justify-center px-4">
-            <div class="mobile-feature-card w-48" data-delay="2">
+            <div class="mobile-feature-card w-48" data-delay="2" onclick="navigateToRecords()">
               <i class="fa fa-cogs text-accent text-2xl mb-3"></i>
               <h3 class="text-mobile-card-title font-bold text-primary mb-2">深度工具</h3>
               <p class="text-mobile-description text-lightGray mb-4">通过心理干预或深入了解内心</p>
@@ -447,6 +452,42 @@
 
         </div>
         
+      </div>
+    </section>
+
+    <!-- 快速练习入口 -->
+    <section class="py-6 md:py-12 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-8">
+          <h2 class="text-xl md:text-2xl font-bold text-primary mb-2">🚀 快速开始</h2>
+          <p class="text-content text-sm md:text-base">感到焦虑或紧张？试试这些3分钟快速练习</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="practice-shortcut rounded-lg p-4 text-center" onclick="quickStartPractice('breathing')">
+            <div class="text-3xl mb-2">🌬️</div>
+            <div class="text-sm font-medium text-primary">4-7-8呼吸</div>
+            <div class="text-xs text-gray-500 mt-1">3分钟</div>
+          </div>
+
+          <div class="practice-shortcut rounded-lg p-4 text-center" onclick="quickStartPractice('grounding')">
+            <div class="text-3xl mb-2">🎯</div>
+            <div class="text-sm font-medium text-primary">接地技术</div>
+            <div class="text-xs text-gray-500 mt-1">2分钟</div>
+          </div>
+
+          <div class="practice-shortcut rounded-lg p-4 text-center" onclick="quickStartPractice('mindful-eating')">
+            <div class="text-3xl mb-2">🍇</div>
+            <div class="text-sm font-medium text-primary">正念饮食</div>
+            <div class="text-xs text-gray-500 mt-1">15分钟</div>
+          </div>
+
+          <div class="practice-shortcut rounded-lg p-4 text-center" onclick="quickStartPractice('muscle-relaxation')">
+            <div class="text-3xl mb-2">💆</div>
+            <div class="text-sm font-medium text-primary">肌肉放松</div>
+            <div class="text-xs text-gray-500 mt-1">10分钟</div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -463,7 +504,7 @@
         <div class="hidden md:block px-6">
           <div class="grid grid-cols-3 gap-8 mb-8">
             
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card cursor-pointer recommendation-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
               <div class="aspect-video bg-primary flex items-center justify-center">
                 <i class="fa fa-image text-3xl text-white"></i>
               </div>
@@ -473,7 +514,7 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card recommendation-card" data-delay="1" onclick="window.open('body-neutrality.html', '_blank')">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="1" onclick="navigateToPractice()">
               <div class="aspect-video bg-mint flex items-center justify-center">
                 <i class="fa fa-image text-3xl text-white"></i>
               </div>
@@ -483,7 +524,7 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card recommendation-card" data-delay="2" onclick="window.open('body-neutrality.html', '_blank')">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="2" onclick="navigateToRecords()">
               <div class="aspect-video bg-accent flex items-center justify-center">
                 <i class="fa fa-image text-3xl text-white"></i>
               </div>
@@ -495,7 +536,7 @@
 
           </div>
           <div class="text-center">
-            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all">
+            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all" onclick="window.open('body-neutrality.html', '_blank')">
               查看更多
             </button>
           </div>
@@ -504,7 +545,7 @@
         <!-- 移动端 -->
         <div class="md:hidden px-4">
           
-          <div class="mobile-knowledge-card knowledge-card cursor-pointer recommendation-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
+          <div class="mobile-knowledge-card knowledge-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
             <div class="w-24 h-18 bg-primary flex items-center justify-center flex-shrink-0">
               <i class="fa fa-image text-white text-xl"></i>
             </div>
@@ -514,7 +555,7 @@
             </div>
           </div>
 
-          <div class="mobile-knowledge-card knowledge-card recommendation-card" data-delay="1" onclick="window.open('body-neutrality.html', '_blank')">
+          <div class="mobile-knowledge-card knowledge-card" data-delay="1" onclick="navigateToPractice()">
             <div class="w-24 h-18 bg-mint flex items-center justify-center flex-shrink-0">
               <i class="fa fa-image text-white text-xl"></i>
             </div>
@@ -524,7 +565,7 @@
             </div>
           </div>
 
-          <div class="mobile-knowledge-card knowledge-card recommendation-card" data-delay="2" onclick="window.open('body-neutrality.html', '_blank')">
+          <div class="mobile-knowledge-card knowledge-card" data-delay="2" onclick="navigateToRecords()">
             <div class="w-24 h-18 bg-accent flex items-center justify-center flex-shrink-0">
               <i class="fa fa-image text-white text-xl"></i>
             </div>
@@ -535,7 +576,7 @@
           </div>
 
           <div class="text-center mt-6">
-            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all">
+            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all" onclick="window.open('body-neutrality.html', '_blank')">
               查看更多
             </button>
           </div>
@@ -557,7 +598,7 @@
         <!-- 桌面端 -->
         <div class="hidden md:block space-y-4 px-6">
           
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="window.location.href='self-assessment.html'">
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToAssessment()">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
                 <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
@@ -569,11 +610,11 @@
             </div>
           </div>
 
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="window.open('body-neutrality.html', '_blank')">
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToPractice()">
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
                 <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white"></i>
+                  <i class="fa fa-leaf text-white"></i>
                 </div>
                 <span class="text-primary font-medium">如何建立健康的身体观念？</span>
               </div>
@@ -585,9 +626,21 @@
             <div class="flex items-center justify-between">
               <div class="flex items-center space-x-4">
                 <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white"></i>
+                  <i class="fa fa-book text-white"></i>
                 </div>
                 <span class="text-primary font-medium">什么是身体中立理念？</span>
+              </div>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToRecords()">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                  <i class="fa fa-chart-line text-white"></i>
+                </div>
+                <span class="text-primary font-medium">查看我的练习记录和进展？</span>
               </div>
               <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
@@ -599,47 +652,26 @@
         <div class="md:hidden px-4">
           <div class="bg-white rounded-xl overflow-hidden">
             
-            <div class="mobile-qa-item qa-item cursor-pointer" onclick="window.location.href='self-assessment.html'">
+            <div class="mobile-qa-item qa-item" onclick="navigateToAssessment()">
               <span class="text-mobile-knowledge text-primary font-medium">想了解自己的身心状态？</span>
               <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
 
-            <div class="mobile-qa-item qa-item cursor-pointer" onclick="window.open('body-neutrality.html', '_blank')">
+            <div class="mobile-qa-item qa-item" onclick="navigateToPractice()">
               <span class="text-mobile-knowledge text-primary font-medium">如何建立健康的身体观念？</span>
               <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
 
-            <div class="mobile-qa-item qa-item cursor-pointer" onclick="window.open('body-neutrality.html', '_blank')">
+            <div class="mobile-qa-item qa-item" onclick="window.open('body-neutrality.html', '_blank')">
               <span class="text-mobile-knowledge text-primary font-medium">什么是身体中立理念？</span>
               <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
 
-          </div>
-        </div>
-        
-      </div>
-    </section>
+            <div class="mobile-qa-item qa-item" onclick="navigateToRecords()">
+              <span class="text-mobile-knowledge text-primary font-medium">查看我的练习记录和进展？</span>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
 
-    <!-- 推荐内容卡片区域 -->
-    <section class="py-6 md:py-16 bg-secondary">
-      <div class="max-w-7xl mx-auto">
-        
-        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
-          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4">推荐内容</h2>
-          <p class="text-content text-sm md:text-lg">精选优质内容，助力你的身心健康之旅</p>
-        </div>
-
-        <!-- 桌面端推荐内容 -->
-        <div class="hidden md:block px-6">
-          <div id="recommendList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- 这里会由JavaScript动态填充推荐内容 -->
-          </div>
-        </div>
-
-        <!-- 移动端推荐内容 -->
-        <div class="md:hidden px-4">
-          <div id="recommendListMobile" class="space-y-4">
-            <!-- 这里会由JavaScript动态填充移动端推荐内容 -->
           </div>
         </div>
         
@@ -681,13 +713,17 @@
         <i class="fa fa-home text-lg mb-1"></i>
         <span class="text-xs font-medium">首页</span>
       </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="window.location.href='self-assessment.html'">
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToAssessment()">
         <i class="fa fa-clipboard text-lg mb-1"></i>
         <span class="text-xs">测评</span>
       </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500">
-        <i class="fa fa-wrench text-lg mb-1"></i>
-        <span class="text-xs">工具</span>
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToPractice()">
+        <i class="fa fa-leaf text-lg mb-1"></i>
+        <span class="text-xs">练习</span>
+      </button>
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToRecords()">
+        <i class="fa fa-chart-line text-lg mb-1"></i>
+        <span class="text-xs">记录</span>
       </button>
       <button class="flex flex-col items-center py-2 px-3 text-gray-500">
         <i class="fa fa-user text-lg mb-1"></i>
@@ -697,6 +733,117 @@
   </nav>
 
   <script>
+    /*****************
+     * 导航跳转逻辑
+     *****************/
+    
+    // 跳转到测评页面
+    function navigateToAssessment() {
+      window.location.href = 'self-assessment.html';
+    }
+
+    // 跳转到练习页面
+    function navigateToPractice() {
+      window.location.href = 'practice.html';
+    }
+
+    // 跳转到记录页面
+    function navigateToRecords() {
+      window.location.href = 'practice-records.html';
+    }
+
+    // 快速开始练习
+    function quickStartPractice(type) {
+      // 根据练习类型跳转到对应页面
+      switch(type) {
+        case 'breathing':
+          window.location.href = 'anxiety-relief.html';
+          break;
+        case 'grounding':
+          window.location.href = 'anxiety-relief.html';
+          break;
+        case 'mindful-eating':
+          window.location.href = 'mindful-eating.html';
+          break;
+        case 'muscle-relaxation':
+          window.location.href = 'anxiety-relief.html';
+          break;
+        default:
+          window.location.href = 'practice.html';
+      }
+    }
+
+    /*****************
+     * 基础工具 & 存储
+     *****************/
+    const DB_KEY = "mindfit_db_v1";
+
+    const defaultDB = () => ({
+      records: [],          // 思维记录
+      emotions: [],         // 情绪练习完成 {card, ts}
+      experiments: [],      // 行为实验
+      mindfulness: [],      // 冥想练习 {seconds, ts}
+      assessments: [],      // 测评结果
+      bmiAssessments: [],   // BMI测评结果
+      bodyAnxietyAssessments: [], // 身材焦虑测评结果
+      practiceHistory: [],  // 练习历史
+      badges: {},           // 徽章布尔
+      streak: { count: 0, lastDate: "" }, // 连续天数
+      cachedAudio: false,   // 冥想音频缓存标记（提示用）
+    });
+
+    const loadDB = () => {
+      try {
+        const raw = localStorage.getItem(DB_KEY);
+        return raw ? JSON.parse(raw) : defaultDB();
+      } catch (e) {
+        return defaultDB();
+      }
+    };
+
+    const saveDB = (db) => localStorage.setItem(DB_KEY, JSON.stringify(db));
+
+    const todayStr = () => {
+      const d = new Date();
+      return d.toISOString().slice(0, 10);
+    };
+
+    const fmtTime = (ts) => {
+      const d = new Date(ts);
+      const pad = (n) => (n < 10 ? "0" + n : n);
+      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    };
+
+    const showToast = (msg) => {
+      // 简单的toast实现
+      const toast = document.createElement('div');
+      toast.className = 'fixed top-4 right-4 bg-primary text-white px-6 py-3 rounded-lg shadow-lg z-50';
+      toast.textContent = msg;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        if (document.body.contains(toast)) {
+          document.body.removeChild(toast);
+        }
+      }, 3000);
+    };
+
+    // streak 更新：每天任意操作一次记为活跃
+    const touchStreak = (db) => {
+      const t = todayStr();
+      if (db.streak.lastDate === t) return;
+      // 判断是否连续
+      const last = db.streak.lastDate ? new Date(db.streak.lastDate) : null;
+      const y = new Date(t);
+      const one = 24 * 60 * 60 * 1000;
+      const isConsecutive = last && (y - last) / one === 1;
+      db.streak.count = isConsecutive ? (db.streak.count + 1) : 1;
+      db.streak.lastDate = t;
+    };
+
+    /*****************
+     * 页面动画控制
+     *****************/
+    
     // 🎯 页面加载动画控制
     document.addEventListener('DOMContentLoaded', function() {
       // 等待字体和关键资源加载完成
@@ -704,7 +851,6 @@
         // 延迟执行，确保所有资源就绪
         setTimeout(() => {
           initPageAnimations();
-          renderRecommendContent(); // 渲染推荐内容
         }, 100);
       });
     });
@@ -715,6 +861,9 @@
       
       // 设置滚动监听
       setupScrollAnimations();
+      
+      // 更新首页数据
+      updateHomeData();
     }
 
     function animateFeatureCards() {
@@ -760,10 +909,162 @@
       });
     }
 
+    /*****************
+     * 首页数据更新
+     *****************/
+    function updateHomeData() {
+      const db = loadDB();
+      
+      // 获取练习历史数据
+      const practiceHistory = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      const mindfulEating = JSON.parse(localStorage.getItem('mindfulEatingRecords') || '[]');
+      
+      // 合并所有练习记录
+      const allPractices = [
+        ...practiceHistory,
+        ...mindfulEating.map(p => ({
+          id: p.id,
+          title: `正念饮食：${p.food}`,
+          date: p.startTime,
+          duration: p.duration
+        }))
+      ];
+
+      // 更新推荐内容
+      updateRecommendations(db, allPractices);
+      
+      // 显示个性化欢迎信息
+      showWelcomeMessage(db, allPractices);
+    }
+
+    function updateRecommendations(db, practices) {
+      // 根据用户的练习历史和测评结果提供个性化推荐
+      const hasAssessments = db.assessments.length > 0 || db.bodyAnxietyAssessments.length > 0;
+      const hasPractices = practices.length > 0;
+      
+      // 动态更新推荐文案
+      const recommendItems = document.querySelectorAll('.qa-item span');
+      
+      if (!hasAssessments) {
+        // 如果没有测评，鼓励先做测评
+        if (recommendItems[0]) {
+          recommendItems[0].textContent = '还没有测评？先了解一下自己的身心状态';
+        }
+      }
+      
+      if (!hasPractices) {
+        // 如果没有练习记录，鼓励开始练习
+        if (recommendItems[1]) {
+          recommendItems[1].textContent = '想要开始改善身体关系？试试日常练习';
+        }
+      } else {
+        // 有练习记录，鼓励查看进展
+        if (recommendItems[3]) {
+          recommendItems[3].textContent = `已完成${practices.length}次练习，查看你的成长轨迹`;
+        }
+      }
+    }
+
+    function showWelcomeMessage(db, practices) {
+      // 延迟显示个性化欢迎信息
+      setTimeout(() => {
+        const totalPractices = practices.length;
+        const streak = calculateCurrentStreak(practices);
+        
+        let welcomeMsg = '欢迎来到MindFit！';
+        
+        if (totalPractices === 0) {
+          welcomeMsg = '开始你的身心健康之旅吧！先做个测评了解自己';
+        } else if (totalPractices < 5) {
+          welcomeMsg = `很棒！你已经完成了${totalPractices}次练习，继续保持`;
+        } else if (streak > 0) {
+          welcomeMsg = `太棒了！你已经连续${streak}天坚持练习`;
+        } else {
+          welcomeMsg = `欢迎回来！你已经完成了${totalPractices}次练习`;
+        }
+        
+        showToast(welcomeMsg);
+      }, 2000);
+    }
+
+    function calculateCurrentStreak(practices) {
+      if (practices.length === 0) return 0;
+      
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      let streak = 0;
+      let currentDate = new Date(today);
+      
+      // 检查连续天数
+      for (let i = 0; i < 30; i++) {
+        const dateStr = currentDate.toDateString();
+        const hasPractice = practices.some(p => 
+          new Date(p.date).toDateString() === dateStr
+        );
+        
+        if (hasPractice) {
+          streak++;
+        } else {
+          break;
+        }
+        
+        currentDate.setDate(currentDate.getDate() - 1);
+      }
+      
+      return streak;
+    }
+
+    /*****************
+     * 智能推荐系统
+     *****************/
+    function getSmartRecommendations() {
+      const db = loadDB();
+      const practices = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      const lastAssessment = db.bodyAnxietyAssessments[db.bodyAnxietyAssessments.length - 1];
+      
+      let recommendations = [];
+      
+      // 基于最后一次测评结果推荐
+      if (lastAssessment) {
+        if (lastAssessment.percentage >= 75) {
+          recommendations.push({
+            text: '基于你的测评结果，建议尝试4-7-8呼吸法缓解焦虑',
+            action: () => quickStartPractice('breathing')
+          });
+        } else if (lastAssessment.percentage >= 50) {
+          recommendations.push({
+            text: '正念练习可能对你很有帮助，试试正念饮食',
+            action: () => quickStartPractice('mindful-eating')
+          });
+        }
+      }
+      
+      // 基于练习历史推荐
+      if (practices.length === 0) {
+        recommendations.push({
+          text: '新手推荐：从简单的呼吸练习开始',
+          action: () => quickStartPractice('breathing')
+        });
+      } else {
+        const lastPractice = practices[practices.length - 1];
+        const daysSinceLastPractice = Math.floor((Date.now() - new Date(lastPractice.date)) / (1000 * 60 * 60 * 24));
+        
+        if (daysSinceLastPractice > 3) {
+          recommendations.push({
+            text: '好几天没练习了，来个快速的接地技术？',
+            action: () => quickStartPractice('grounding')
+          });
+        }
+      }
+      
+      return recommendations;
+    }
+
     // 🎨 增强交互体验
     document.addEventListener('DOMContentLoaded', function() {
       // 为所有卡片添加触摸反馈（移动端）
-      const cards = document.querySelectorAll('.mobile-feature-card, .glass-card');
+      const cards = document.querySelectorAll('.mobile-feature-card, .glass-card, .practice-shortcut');
       
       cards.forEach(card => {
         // 触摸开始
@@ -784,73 +1085,51 @@
           this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
         });
       });
+
+      // 智能推荐提示
+      setTimeout(() => {
+        const recommendations = getSmartRecommendations();
+        if (recommendations.length > 0) {
+          // 可以在这里显示智能推荐
+          console.log('智能推荐:', recommendations);
+        }
+      }, 5000);
     });
 
-    // 渲染推荐内容
-    function renderRecommendContent() {
-      const items = [
-        {
-          title: "身体中立入门",
-          desc: "从功能与健康角度看待身体，建立平和的身体关系",
-          img: 1,
-          link: "body-neutrality.html",
-          tag: "理论基础"
-        },
-        {
-          title: "正念饮食 5 步",
-          desc: "慢一点，和味道好好相处，重建与食物的健康关系",
-          img: 2,
-          link: "body-neutrality.html",
-          tag: "实践指南"
-        },
-        {
-          title: "焦虑舒缓小练习",
-          desc: "3 分钟调节身体紧绷，回归此刻的平静状态",
-          img: 3,
-          link: "body-neutrality.html",
-          tag: "快速缓解"
+    /*****************
+     * 快捷键支持
+     *****************/
+    document.addEventListener('keydown', function(e) {
+      // Alt + 数字键快速导航
+      if (e.altKey) {
+        switch(e.key) {
+          case '1':
+            e.preventDefault();
+            navigateToAssessment();
+            break;
+          case '2':
+            e.preventDefault();
+            navigateToPractice();
+            break;
+          case '3':
+            e.preventDefault();
+            navigateToRecords();
+            break;
+          case '4':
+            e.preventDefault();
+            window.open('body-neutrality.html', '_blank');
+            break;
         }
-      ];
-
-      // 桌面端推荐内容
-      const recBox = document.getElementById("recommendList");
-      if (recBox) {
-        recBox.innerHTML = items
-          .map((r) => `
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm recommendation-card cursor-pointer" onclick="window.open('${r.link}', '_blank')">
-              <img src="https://picsum.photos/400/200?random=${r.img}" alt="${r.title}" class="w-full h-40 object-cover">
-              <div class="p-6">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">${r.tag}</span>
-                  <span class="text-xs text-gray-400">2 分钟阅读</span>
-                </div>
-                <h4 class="font-semibold text-primary mb-2">${r.title}</h4>
-                <p class="text-sm text-gray-500 line-clamp-2">${r.desc}</p>
-              </div>
-            </div>
-          `)
-          .join("");
       }
+    });
 
-      // 移动端推荐内容
-      const recBoxMobile = document.getElementById("recommendListMobile");
-      if (recBoxMobile) {
-        recBoxMobile.innerHTML = items
-          .map((r) => `
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm recommendation-card cursor-pointer flex" onclick="window.open('${r.link}', '_blank')">
-              <img src="https://picsum.photos/120/120?random=${r.img}" alt="${r.title}" class="w-24 h-24 object-cover flex-shrink-0">
-              <div class="p-4 flex-1">
-                <div class="flex items-center justify-between mb-2">
-                  <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">${r.tag}</span>
-                </div>
-                <h4 class="font-medium text-primary mb-1 text-sm">${r.title}</h4>
-                <p class="text-xs text-gray-500 line-clamp-2">${r.desc}</p>
-              </div>
-            </div>
-          `)
-          .join("");
+    // 显示快捷键提示
+    setTimeout(() => {
+      if (localStorage.getItem('showKeyboardTips') !== 'false') {
+        showToast('小贴士: 按 Alt+1/2/3/4 快速导航到各个功能模块');
+        localStorage.setItem('showKeyboardTips', 'false');
       }
-    }
+    }, 8000);
   </script>
 
 </body>
