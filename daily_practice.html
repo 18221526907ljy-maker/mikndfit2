@@ -169,6 +169,139 @@
     .week-day.today {
       border: 2px solid #4A6157;
     }
+
+    /* 彩带庆祝动画 */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #f0f;
+      animation: confetti-fall 3s linear infinite;
+      z-index: 9999;
+    }
+
+    .confetti:nth-child(1) { 
+      background: #ff6b6b; 
+      left: 10%; 
+      animation-delay: 0s;
+      animation-duration: 3s;
+    }
+    .confetti:nth-child(2) { 
+      background: #4ecdc4; 
+      left: 20%; 
+      animation-delay: 0.5s;
+      animation-duration: 2.5s;
+    }
+    .confetti:nth-child(3) { 
+      background: #45b7d1; 
+      left: 30%; 
+      animation-delay: 1s;
+      animation-duration: 3.5s;
+    }
+    .confetti:nth-child(4) { 
+      background: #f9ca24; 
+      left: 40%; 
+      animation-delay: 0.3s;
+      animation-duration: 2.8s;
+    }
+    .confetti:nth-child(5) { 
+      background: #f0932b; 
+      left: 50%; 
+      animation-delay: 0.7s;
+      animation-duration: 3.2s;
+    }
+    .confetti:nth-child(6) { 
+      background: #eb4d4b; 
+      left: 60%; 
+      animation-delay: 1.2s;
+      animation-duration: 2.7s;
+    }
+    .confetti:nth-child(7) { 
+      background: #6c5ce7; 
+      left: 70%; 
+      animation-delay: 0.2s;
+      animation-duration: 3.1s;
+    }
+    .confetti:nth-child(8) { 
+      background: #a29bfe; 
+      left: 80%; 
+      animation-delay: 0.9s;
+      animation-duration: 2.9s;
+    }
+    .confetti:nth-child(9) { 
+      background: #fd79a8; 
+      left: 90%; 
+      animation-delay: 1.5s;
+      animation-duration: 3.3s;
+    }
+    .confetti:nth-child(10) { 
+      background: #00b894; 
+      left: 15%; 
+      animation-delay: 0.4s;
+      animation-duration: 2.6s;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      10% {
+        transform: translateY(-90vh) rotate(36deg);
+        opacity: 1;
+      }
+      20% {
+        transform: translateY(-80vh) rotate(72deg);
+        opacity: 1;
+      }
+      30% {
+        transform: translateY(-70vh) rotate(108deg);
+        opacity: 1;
+      }
+      40% {
+        transform: translateY(-60vh) rotate(144deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-50vh) rotate(180deg);
+        opacity: 1;
+      }
+      60% {
+        transform: translateY(-40vh) rotate(216deg);
+        opacity: 1;
+      }
+      70% {
+        transform: translateY(-30vh) rotate(252deg);
+        opacity: 1;
+      }
+      80% {
+        transform: translateY(-20vh) rotate(288deg);
+        opacity: 0.8;
+      }
+      90% {
+        transform: translateY(-10vh) rotate(324deg);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* 彩带的不同形状 */
+    .confetti.square {
+      border-radius: 0;
+    }
+    .confetti.circle {
+      border-radius: 50%;
+    }
+    .confetti.triangle {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 10px solid;
+    }
   </style>
 </head>
 
@@ -474,6 +607,90 @@
       return `${mins}:${secs.toString().padStart(2, '0')}`;
     }
 
+    // 彩带庆祝动画
+    function showConfettiCelebration() {
+      // 创建彩带容器
+      const confettiContainer = document.createElement('div');
+      confettiContainer.style.position = 'fixed';
+      confettiContainer.style.top = '0';
+      confettiContainer.style.left = '0';
+      confettiContainer.style.width = '100%';
+      confettiContainer.style.height = '100%';
+      confettiContainer.style.pointerEvents = 'none';
+      confettiContainer.style.zIndex = '9999';
+      
+      // 创建多个彩带
+      const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7', '#a29bfe', '#fd79a8', '#00b894'];
+      const shapes = ['square', 'circle', 'triangle'];
+      
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = `confetti ${shapes[Math.floor(Math.random() * shapes.length)]}`;
+        
+        // 随机位置和颜色
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        
+        // 随机大小
+        const size = Math.random() * 8 + 4;
+        confetti.style.width = size + 'px';
+        confetti.style.height = size + 'px';
+        
+        // 三角形特殊处理
+        if (confetti.classList.contains('triangle')) {
+          confetti.style.borderBottomColor = confetti.style.backgroundColor;
+          confetti.style.backgroundColor = 'transparent';
+        }
+        
+        confettiContainer.appendChild(confetti);
+      }
+      
+      document.body.appendChild(confettiContainer);
+      
+      // 4秒后清除彩带
+      setTimeout(() => {
+        if (document.body.contains(confettiContainer)) {
+          document.body.removeChild(confettiContainer);
+        }
+      }, 4000);
+      
+      // 播放庆祝音效（如果支持）
+      playSuccessSound();
+    }
+
+    // 播放成功音效
+    function playSuccessSound() {
+      try {
+        // 创建简单的成功音效
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // 创建音符序列（C大调和弦）
+        const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+        
+        notes.forEach((freq, index) => {
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          
+          oscillator.frequency.value = freq;
+          oscillator.type = 'sine';
+          
+          gainNode.gain.setValueAtTime(0, audioContext.currentTime + index * 0.1);
+          gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + index * 0.1 + 0.05);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + index * 0.1 + 0.3);
+          
+          oscillator.start(audioContext.currentTime + index * 0.1);
+          oscillator.stop(audioContext.currentTime + index * 0.1 + 0.3);
+        });
+      } catch (error) {
+        console.log('Audio not supported');
+      }
+    }
+
     // 更新今日数据
     function updateTodayStats() {
       const today = new Date().toDateString();
@@ -628,6 +845,108 @@
       
       // 特殊处理呼吸练习
       if (currentPractice.category === 'breathing') {
+        document.getElementById('breathingGuide').classList.remove('hidden');
+        document.getElementById('practiceGuide').classList.add('hidden');
+      } else {
+        document.getElementById('breathingGuide').classList.add('hidden');
+        document.getElementById('practiceGuide').classList.remove('hidden');
+      }
+      
+      // 重置计时器状态
+      remainingTime = currentPractice.duration * 60;
+      isPaused = false;
+      updateTimerDisplay();
+      resetTimerButtons();
+      
+      document.getElementById('practiceModal').classList.remove('hidden');
+    }
+
+    // 关闭练习模态框
+    function closePracticeModal() {
+      document.getElementById('practiceModal').classList.add('hidden');
+      stopPractice();
+      currentPractice = null;
+    }
+
+    // 开始练习
+    function startPractice() {
+      if (isPaused) {
+        isPaused = false;
+      } else {
+        remainingTime = currentPractice.duration * 60;
+      }
+      
+      document.getElementById('startBtn').classList.add('hidden');
+      document.getElementById('pauseBtn').classList.remove('hidden');
+      
+      if (currentPractice.category === 'breathing') {
+        startBreathingGuide();
+      }
+      
+      practiceTimer = setInterval(() => {
+        remainingTime--;
+        updateTimerDisplay();
+        
+        if (remainingTime <= 0) {
+          completePractice();
+        }
+      }, 1000);
+    }
+
+    // 暂停练习
+    function pausePractice() {
+      isPaused = true;
+      clearInterval(practiceTimer);
+      
+      document.getElementById('startBtn').classList.remove('hidden');
+      document.getElementById('pauseBtn').classList.add('hidden');
+      
+      if (currentPractice.category === 'breathing') {
+        stopBreathingGuide();
+      }
+    }
+
+    // 停止练习
+    function stopPractice() {
+      clearInterval(practiceTimer);
+      isPaused = false;
+      remainingTime = currentPractice ? currentPractice.duration * 60 : 0;
+      
+      resetTimerButtons();
+      
+      if (currentPractice && currentPractice.category === 'breathing') {
+        stopBreathingGuide();
+      }
+    }
+
+    // 完成练习
+    function completePractice() {
+      clearInterval(practiceTimer);
+      
+      // 记录练习历史
+      practiceHistory.push({
+        id: currentPractice.id,
+        title: currentPractice.title,
+        date: new Date().toISOString(),
+        duration: currentPractice.duration
+      });
+      
+      localStorage.setItem('practiceHistory', JSON.stringify(practiceHistory));
+      
+      // 更新统计
+      updateTodayStats();
+      generateWeekCalendar();
+      
+      // 显示完成按钮
+      document.getElementById('completeBtn').classList.remove('hidden');
+      resetTimerButtons();
+      
+      // 🎉 显示彩带庆祝动画
+      showConfettiCelebration();
+      
+      showToast(`恭喜完成《${currentPractice.title}》练习！`);
+      
+      if (currentPractice.category === 'breathing') {
         stopBreathingGuide();
       }
     }
@@ -765,102 +1084,3 @@
 
 </body>
 </html>
-        document.getElementById('breathingGuide').classList.remove('hidden');
-        document.getElementById('practiceGuide').classList.add('hidden');
-      } else {
-        document.getElementById('breathingGuide').classList.add('hidden');
-        document.getElementById('practiceGuide').classList.remove('hidden');
-      }
-      
-      // 重置计时器状态
-      remainingTime = currentPractice.duration * 60;
-      isPaused = false;
-      updateTimerDisplay();
-      resetTimerButtons();
-      
-      document.getElementById('practiceModal').classList.remove('hidden');
-    }
-
-    // 关闭练习模态框
-    function closePracticeModal() {
-      document.getElementById('practiceModal').classList.add('hidden');
-      stopPractice();
-      currentPractice = null;
-    }
-
-    // 开始练习
-    function startPractice() {
-      if (isPaused) {
-        isPaused = false;
-      } else {
-        remainingTime = currentPractice.duration * 60;
-      }
-      
-      document.getElementById('startBtn').classList.add('hidden');
-      document.getElementById('pauseBtn').classList.remove('hidden');
-      
-      if (currentPractice.category === 'breathing') {
-        startBreathingGuide();
-      }
-      
-      practiceTimer = setInterval(() => {
-        remainingTime--;
-        updateTimerDisplay();
-        
-        if (remainingTime <= 0) {
-          completePractice();
-        }
-      }, 1000);
-    }
-
-    // 暂停练习
-    function pausePractice() {
-      isPaused = true;
-      clearInterval(practiceTimer);
-      
-      document.getElementById('startBtn').classList.remove('hidden');
-      document.getElementById('pauseBtn').classList.add('hidden');
-      
-      if (currentPractice.category === 'breathing') {
-        stopBreathingGuide();
-      }
-    }
-
-    // 停止练习
-    function stopPractice() {
-      clearInterval(practiceTimer);
-      isPaused = false;
-      remainingTime = currentPractice ? currentPractice.duration * 60 : 0;
-      
-      resetTimerButtons();
-      
-      if (currentPractice && currentPractice.category === 'breathing') {
-        stopBreathingGuide();
-      }
-    }
-
-    // 完成练习
-    function completePractice() {
-      clearInterval(practiceTimer);
-      
-      // 记录练习历史
-      practiceHistory.push({
-        id: currentPractice.id,
-        title: currentPractice.title,
-        date: new Date().toISOString(),
-        duration: currentPractice.duration
-      });
-      
-      localStorage.setItem('practiceHistory', JSON.stringify(practiceHistory));
-      
-      // 更新统计
-      updateTodayStats();
-      generateWeekCalendar();
-      
-      // 显示完成按钮
-      document.getElementById('completeBtn').classList.remove('hidden');
-      resetTimerButtons();
-      
-      showToast(`恭喜完成《${currentPractice.title}》练习！`);
-      
-      if (currentPractice.category === 'breathing') {
