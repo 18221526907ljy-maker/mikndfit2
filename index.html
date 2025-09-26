@@ -289,8 +289,8 @@
         <div class="flex items-center space-x-8">
           <a href="#" class="text-primary hover:text-mint transition-colors font-medium">首页</a>
           <a href="self-assessment.html" class="text-content hover:text-primary transition-colors font-medium">测评</a>
-          <a href="practice.html" class="text-content hover:text-primary transition-colors font-medium">练习</a>
-          <a href="practice-records.html" class="text-content hover:text-primary transition-colors font-medium">记录</a>
+          <a href="daily_practice.html" class="text-content hover:text-primary transition-colors font-medium">练习</a>
+          <a href="practice_records.html" class="text-content hover:text-primary transition-colors font-medium">记录</a>
           <a href="body-neutrality.html" class="text-content hover:text-primary transition-colors font-medium">理论</a>
           <a href="#" class="text-content hover:text-primary transition-colors font-medium">个人中心</a>
         </div>
@@ -744,12 +744,12 @@
 
     // 跳转到练习页面
     function navigateToPractice() {
-      window.location.href = 'practice.html';
+      window.location.href = 'daily_practice.html';
     }
 
     // 跳转到记录页面
     function navigateToRecords() {
-      window.location.href = 'practice-records.html';
+      window.location.href = 'practice_records.html';
     }
 
     // 快速开始练习
@@ -757,19 +757,19 @@
       // 根据练习类型跳转到对应页面
       switch(type) {
         case 'breathing':
-          window.location.href = 'anxiety-relief.html';
+          window.location.href = 'anxiety_relief.html';
           break;
         case 'grounding':
-          window.location.href = 'anxiety-relief.html';
+          window.location.href = 'anxiety_relief.html';
           break;
         case 'mindful-eating':
-          window.location.href = 'mindful-eating.html';
+          window.location.href = 'mindful_eating.html';
           break;
         case 'muscle-relaxation':
-          window.location.href = 'anxiety-relief.html';
+          window.location.href = 'anxiety_relief.html';
           break;
         default:
-          window.location.href = 'practice.html';
+          window.location.href = 'daily_practice.html';
       }
     }
 
