@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMI 身体测评 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4A6157",
+            secondary: "#F7F6F2", 
+            accent: "#2E2E2E",
+            mint: "#8FD9A8",
+            light: "#FAFAFA",
+            white: "#FFFFFF",
+            content: "#444444",
+            gray: "#666666",
+            lightGray: "#777777",
+          },
+        },
+      },
+    };
+  </script>
+  
+  <style>
+    /* 页面加载动画 */
+    .page-content {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 按钮样式优化 */
+    .btn-primary {
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 4px 20px rgba(74, 97, 87, 0.2);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 30px rgba(74, 97, 87, 0.3);
+    }
+
+    .btn-secondary {
+      border: 2px solid #4A6157;
+      color: #4A6157;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .btn-secondary:hover {
+      background: #8FD9A8;
+      border-color: #8FD9A8;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Toast 样式 */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 8px 32px rgba(74, 97, 87, 0.3);
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    /* 输入框焦点样式 */
+    .form-input:focus {
+      border-color: #4A6157;
+      box-shadow: 0 0 0 3px rgba(74, 97, 87, 0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-secondary font-sans min-h-screen">
+  <!-- 顶部导航 -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
+    <div class="max-w-4xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <a href="self-assessment.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+            <span class="font-medium">返回测评首页</span>
+          </a>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-balance-scale text-white text-sm"></i>
+          </div>
+          <span class="text-lg font-bold text-primary">MindFit</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <div class="flex items-center">
+      <span class="mr-2">✓</span>
+      <span id="toastMessage"></span>
+    </div>
+  </div>
+
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    <div class="page-content">
+      
+      <!-- 页面标题 -->
+      <div class="text-center mb-8">
+        <h1 class="text-2xl md:text-3xl font-bold text-primary mb-2">BMI 身体测评</h1>
+        <p class="text-content">了解基础身体指标，建立健康的身体认知</p>
+      </div>
+
+      <!-- 输入表单 -->
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm mb-6">
+        <h3 class="text-xl font-semibold text-primary mb-6">基础信息</h3>
+        
+        <form id="bmiForm" class="space-y-6">
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-content mb-2">身高 (cm)</label>
+              <input id="height" type="number" min="80" max="230" step="0.1"
+                     class="form-input w-full p-4 border border-gray-300 rounded-lg transition-colors outline-none" 
+                     placeholder="例如: 165" required />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-content mb-2">体重 (kg)</label>
+              <input id="weight" type="number" min="20" max="250" step="0.1"
+                     class="form-input w-full p-4 border border-gray-300 rounded-lg transition-colors outline-none" 
+                     placeholder="例如: 55.5" required />
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-content mb-2">年龄</label>
+              <input id="age" type="number" min="10" max="100" 
+                     class="form-input w-full p-4 border border-gray-300 rounded-lg transition-colors outline-none" 
+                     placeholder="例如: 25" required />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-content mb-2">性别</label>
+              <div class="flex space-x-6 pt-3">
+                <label class="flex items-center cursor-pointer">
+                  <input type="radio" name="gender" value="female" class="mr-3 text-primary focus:ring-primary" required>
+                  <span class="text-content">女性</span>
+                </label>
+                <label class="flex items-center cursor-pointer">
+                  <input type="radio" name="gender" value="male" class="mr-3 text-primary focus:ring-primary" required>
+                  <span class="text-content">男性</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 实时BMI显示 -->
+          <div id="bmiPreview" class="bg-gray-50 rounded-lg p-4 hidden">
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-content">预览BMI:</span>
+              <span id="bmiValue" class="text-lg font-bold text-primary">--</span>
+            </div>
+            <div id="bmiCategory" class="text-sm text-gray-500 mt-1"></div>
+          </div>
+
+          <button type="submit" class="w-full btn-primary text-white py-4 rounded-lg font-semibold text-lg">
+            <i class="fa fa-calculator mr-2"></i>计算 BMI 并查看结果
+          </button>
+        </form>
+      </div>
+
+      <!-- 身体中立提醒 -->
+      <div class="bg-gradient-to-r from-mint/10 to-primary/10 rounded-2xl p-6 border border-primary/20">
+        <div class="flex items-start">
+          <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mr-4 flex-shrink-0">
+            <i class="fa fa-heart text-primary"></i>
+          </div>
+          <div>
+            <h4 class="font-semibold text-primary mb-2">身体中立提醒</h4>
+            <p class="text-sm text-content leading-relaxed">
+              BMI只是一个参考指标，不能完全反映健康状况。重要的是关注身体的功能和感受，而不仅仅是数字。
+              每个人的身体都是独特的，学会欣赏和感谢身体为你做的一切。
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Toast 提示功能
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 计算BMI
+    function calculateBMI(height, weight) {
+      if (!height || !weight) return null;
+      return weight / Math.pow(height / 100, 2);
+    }
+
+    // 获取BMI分类
+    function getBMICategory(bmi) {
+      if (bmi < 18.5) return { category: '偏瘦', class: 'text-blue-600' };
+      if (bmi < 24) return { category: '正常', class: 'text-green-600' };
+      if (bmi < 28) return { category: '偏重', class: 'text-yellow-600' };
+      return { category: '肥胖', class: 'text-red-600' };
+    }
+
+    // 生成BMI建议
+    function generateBMIAdvice(bmi, category) {
+      switch (category) {
+        case '偏瘦':
+          return '体重可能偏低，建议均衡饮食，适当增加营养摄入。关注身体能量和健康状态比单纯增重更重要。';
+        case '正常':
+          return '恭喜！您的BMI在正常范围内。继续保持健康的生活方式，关注身体功能和整体健康状况。';
+        case '偏重':
+          return '建议适度调整饮食结构和增加运动。记住，健康的身体不仅仅是体重数字，更重要的是整体的活力和功能。';
+        case '肥胖':
+          return '建议咨询专业医生或营养师，制定个性化的健康管理计划。重要的是循序渐进，关爱自己的身体。';
+        default:
+          return '请咨询专业医疗人员获取个性化建议。';
+      }
+    }
+
+    // 实时更新BMI预览
+    function updateBMIPreview() {
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      const preview = document.getElementById('bmiPreview');
+      const bmiValueEl = document.getElementById('bmiValue');
+      const bmiCategoryEl = document.getElementById('bmiCategory');
+
+      if (height && weight) {
+        const bmi = calculateBMI(height, weight);
+        const { category, class: categoryClass } = getBMICategory(bmi);
+        
+        bmiValueEl.textContent = bmi.toFixed(1);
+        bmiCategoryEl.textContent = category;
+        bmiCategoryEl.className = `text-sm mt-1 ${categoryClass}`;
+        preview.classList.remove('hidden');
+      } else {
+        preview.classList.add('hidden');
+      }
+    }
+
+    // 表单提交处理
+    document.getElementById('bmiForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      const age = parseFloat(document.
