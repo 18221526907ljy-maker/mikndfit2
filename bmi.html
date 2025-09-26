@@ -281,4 +281,84 @@
       
       const height = parseFloat(document.getElementById('height').value);
       const weight = parseFloat(document.getElementById('weight').value);
-      const age = parseFloat(document.
+      const age = parseFloat(document.getElementById('age').value);
+      const gender = document.querySelector('input[name="gender"]:checked')?.value;
+
+      if (!height || !weight || !age || !gender) {
+        showToast('请填写完整信息');
+        return;
+      }
+
+      // 计算BMI
+      const bmi = calculateBMI(height, weight);
+      const { category } = getBMICategory(bmi);
+      const advice = generateBMIAdvice(bmi, category);
+
+      // 构建结果数据
+      const resultData = {
+        timestamp: Date.now(),
+        height,
+        weight,
+        age,
+        gender,
+        bmi: parseFloat(bmi.toFixed(1)),
+        category,
+        advice
+      };
+
+      // 保存到localStorage
+      try {
+        const existingRecords = JSON.parse(localStorage.getItem('bmi_assessments') || '[]');
+        existingRecords.push(resultData);
+        localStorage.setItem('bmi_assessments', JSON.stringify(existingRecords));
+      } catch (error) {
+        console.error('保存BMI记录失败:', error);
+      }
+
+      // 使用sessionStorage传递数据到结果页面
+      sessionStorage.setItem('assessment_result', JSON.stringify({
+        type: 'bmi',
+        data: resultData
+      }));
+      
+      showToast('计算完成，正在跳转到结果页面...');
+      
+      // 跳转到结果页面
+      setTimeout(() => {
+        window.location.href = 'assessment-result.html?type=bmi';
+      }, 1000);
+    });
+
+    // 监听输入变化，实时更新预览
+    document.getElementById('height').addEventListener('input', updateBMIPreview);
+    document.getElementById('weight').addEventListener('input', updateBMIPreview);
+
+    // 页面加载完成后的初始化
+    document.addEventListener('DOMContentLoaded', function() {
+      // 添加键盘导航支持
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          window.location.href = 'self-assessment.html';
+        }
+      });
+
+      // 自动聚焦到第一个输入框
+      document.getElementById('height').focus();
+      
+      showToast('请填写基础信息开始BMI测评');
+    });
+
+    // 防止意外刷新丢失数据
+    window.addEventListener('beforeunload', function(e) {
+      const height = document.getElementById('height').value;
+      const weight = document.getElementById('weight').value;
+      
+      if (height || weight) {
+        e.preventDefault();
+        e.returnValue = '表单中有未保存的数据，确定要离开吗？';
+      }
+    });
+  </script>
+
+</body>
+</html>
