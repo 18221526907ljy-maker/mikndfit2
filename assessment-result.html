@@ -185,7 +185,7 @@
 
     function retakeTest() {
       if (currentTestType === 'bmi') {
-        window.location.href = 'assessment-test.html?type=bmi';
+        window.location.href = 'self-assessment.html?type=bmi';
       } else if (currentTestType === 'anxiety') {
         window.location.href = 'assessment-test.html?type=anxiety';
       } else {
@@ -337,7 +337,7 @@
           <h3 class="text-xl font-semibold text-primary mb-2">无法显示测评结果</h3>
           <p class="text-gray-500 mb-6">请重新进行测评以获取结果</p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onclick="window.location.href='assessment-test.html?type=bmi'" class="btn-primary text-white px-6 py-3 rounded-lg">
+            <button onclick="window.location.href='self-assessment.html?type=bmi'" class="btn-primary text-white px-6 py-3 rounded-lg">
               <span class="mr-2">⚖️</span>BMI测评
             </button>
             <button onclick="window.location.href='assessment-test.html?type=anxiety'" class="btn-primary text-white px-6 py-3 rounded-lg">

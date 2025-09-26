@@ -601,15 +601,29 @@
       // 检查是否有传入的测评类型参数
       const urlParams = new URLSearchParams(window.location.search);
       const testType = urlParams.get('type');
-      
-      // 根据测评类型调整页面（如果需要支持多种测评类型）
+      const bmiSection = document.getElementById('bmiSection');
+      const anxietySection = document.getElementById('anxietySection');
+
       if (testType === 'bmi') {
-        // 如果是BMI测评，可以重定向到BMI测评页面
-        // 或者在这里实现BMI测评逻辑
-        window.location.href = 'bmi-assessment.html';
+        if (bmiSection) {
+          bmiSection.style.display = 'block';
+        }
+        if (anxietySection) {
+          anxietySection.style.display = 'none';
+        }
+
+        initBMIAssessment();
+        showToast('请输入您的基础信息以查看 BMI 结果');
         return;
       }
-      
+
+      if (bmiSection) {
+        bmiSection.style.display = 'none';
+      }
+      if (anxietySection) {
+        anxietySection.style.display = 'block';
+      }
+
       // 默认进行身材焦虑测评
       initAssessment();
       showToast('开始测评，请根据实际情况如实回答');
