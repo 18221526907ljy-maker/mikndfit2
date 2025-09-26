@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>练习记录 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4A6157",
+            secondary: "#F7F6F2", 
+            accent: "#2E2E2E",
+            mint: "#8FD9A8",
+            light: "#FAFAFA",
+            white: "#FFFFFF",
+            content: "#444444",
+            gray: "#666666",
+            lightGray: "#777777",
+          },
+        },
+      },
+    };
+  </script>
+  
+  <style>
+    /* 页面加载动画 */
+    .page-content {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 统计卡片 */
+    .stat-card {
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(74, 97, 87, 0.15);
+    }
+
+    /* 记录卡片 */
+    .record-card {
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+    }
+
+    .record-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(74, 97, 87, 0.1);
+    }
+
+    /* 按钮样式 */
+    .btn-primary {
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 4px 20px rgba(74, 97, 87, 0.2);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 30px rgba(74, 97, 87, 0.3);
+    }
+
+    .btn-secondary {
+      border: 2px solid #4A6157;
+      color: #4A6157;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .btn-secondary:hover {
+      background: #8FD9A8;
+      border-color: #8FD9A8;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* 图表容器 */
+    .chart-container {
+      position: relative;
+      height: 300px;
+    }
+
+    /* 日历热力图 */
+    .calendar-heatmap {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+
+    .calendar-day {
+      aspect-ratio: 1;
+      border-radius: 2px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .calendar-day:hover {
+      transform: scale(1.1);
+    }
+
+    .calendar-day.level-0 { background-color: #ebedf0; }
+    .calendar-day.level-1 { background-color: #c6e48b; }
+    .calendar-day.level-2 { background-color: #7bc96f; }
+    .calendar-day.level-3 { background-color: #239a3b; }
+    .calendar-day.level-4 { background-color: #196127; }
+
+    /* 模态框 */
+    .modal {
+      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      animation: modalSlideUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    @keyframes modalSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Toast 样式 */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 8px 32px rgba(74, 97, 87, 0.3);
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    /* 标签样式 */
+    .practice-tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.375rem;
+      font-weight: 500;
+    }
+
+    .tag-breathing { background: rgba(59, 130, 246, 0.1); color: #1d4ed8; }
+    .tag-body { background: rgba(34, 197, 94, 0.1); color: #15803d; }
+    .tag-mindful { background: rgba(245, 158, 11, 0.1); color: #d97706; }
+    .tag-emotion { background: rgba(236, 72, 153, 0.1); color: #be185d; }
+
+    /* 空状态 */
+    .empty-state {
+      opacity: 0.7;
+    }
+  </style>
+</head>
+
+<body class="bg-secondary font-sans min-h-screen">
+  <!-- 顶部导航 -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <a href="practice.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+            <span class="font-medium">返回练习</span>
+          </a>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-chart-line text-white text-sm"></i>
+          </div>
+          <span class="text-lg font-bold text-primary">练习记录</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <div class="flex items-center">
+      <span class="mr-2">✓</span>
+      <span id="toastMessage"></span>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="page-content">
+      
+      <!-- 页面标题 -->
+      <div class="text-center mb-8">
+        <h1 class="text-2xl md:text-3xl font-bold text-primary mb-2">练习记录与统计</h1>
+        <p class="text-content">追踪你的练习进展，见证成长轨迹</p>
+      </div>
+
+      <!-- 统计概览 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm text-center">
+          <div class="text-3xl font-bold text-primary mb-2" id="totalPractices">0</div>
+          <div class="text-sm text-gray-600">总练习次数</div>
+        </div>
+        
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm text-center">
+          <div class="text-3xl font-bold text-mint mb-2" id="totalMinutes">0</div>
+          <div class="text-sm text-gray-600">总练习时长(分钟)</div>
+        </div>
+        
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm text-center">
+          <div class="text-3xl font-bold text-accent mb-2" id="currentStreak">0</div>
+          <div class="text-sm text-gray-600">当前连续天数</div>
+        </div>
+        
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm text-center">
+          <div class="text-3xl font-bold text-yellow-600 mb-2" id="thisWeek">0</div>
+          <div class="text-sm text-gray-600">本周练习次数</div>
+        </div>
+      </div>
+
+      <!-- 练习热力图 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-semibold text-primary">练习活跃度</h2>
+          <div class="flex items-center space-x-2 text-sm text-gray-500">
+            <span>少</span>
+            <div class="calendar-day level-0 w-3 h-3"></div>
+            <div class="calendar-day level-1 w-3 h-3"></div>
+            <div class="calendar-day level-2 w-3 h-3"></div>
+            <div class="calendar-day level-3 w-3 h-3"></div>
+            <div class="calendar-day level-4 w-3 h-3"></div>
+            <span>多</span>
+          </div>
+        </div>
+        
+        <!-- 月份导航 -->
+        <div class="flex items-center justify-between mb-4">
+          <button id="prevMonth" class="p-2 rounded-lg hover:bg-gray-100">
+            <i class="fa fa-chevron-left text-gray-500"></i>
+          </button>
+          <h3 id="currentMonth" class="text-lg font-medium text-primary">2024年11月</h3>
+          <button id="nextMonth" class="p-2 rounded-lg hover:bg-gray-100">
+            <i class="fa fa-chevron-right text-gray-500"></i>
+          </button>
+        </div>
+        
+        <!-- 星期标题 -->
+        <div class="grid grid-cols-7 gap-2 mb-2">
+          <div class="text-xs text-gray-500 text-center py-1">日</div>
+          <div class="text-xs text-gray-500 text-center py-1">一</div>
+          <div class="text-xs text-gray-500 text-center py-1">二</div>
+          <div class="text-xs text-gray-500 text-center py-1">三</div>
+          <div class="text-xs text-gray-500 text-center py-1">四</div>
+          <div class="text-xs text-gray-500 text-center py-1">五</div>
+          <div class="text-xs text-gray-500 text-center py-1">六</div>
+        </div>
+        
+        <!-- 日历网格 -->
+        <div id="calendarGrid" class="calendar-heatmap">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- 分类统计和记录列表 -->
+      <div class="grid lg:grid-cols-3 gap-8">
+        
+        <!-- 分类统计 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm">
+          <h2 class="text-xl font-semibold text-primary mb-6">练习分类统计</h2>
+          
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-4 h-4 rounded bg-blue-500 mr-3"></div>
+                <span class="text-sm">呼吸冥想</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-sm font-medium mr-2" id="bodyCount">0</span>
+                <div class="w-16 h-2 bg-gray-200 rounded-full">
+                  <div id="bodyBar" class="h-2 bg-green-500 rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-4 h-4 rounded bg-yellow-500 mr-3"></div>
+                <span class="text-sm">正念练习</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-sm font-medium mr-2" id="mindfulCount">0</span>
+                <div class="w-16 h-2 bg-gray-200 rounded-full">
+                  <div id="mindfulBar" class="h-2 bg-yellow-500 rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-4 h-4 rounded bg-pink-500 mr-3"></div>
+                <span class="text-sm">情绪调节</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-sm font-medium mr-2" id="emotionCount">0</span>
+                <div class="w-16 h-2 bg-gray-200 rounded-full">
+                  <div id="emotionBar" class="h-2 bg-pink-500 rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- 最爱练习 -->
+          <div class="mt-6 pt-6 border-t border-gray-100">
+            <h3 class="text-sm font-medium text-gray-700 mb-3">最爱练习</h3>
+            <div id="favoritePractice" class="text-sm text-gray-500">暂无数据</div>
+          </div>
+        </div>
+
+        <!-- 练习记录列表 -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-6">
+              <h2 class="text-xl font-semibold text-primary">最近练习</h2>
+              
+              <!-- 筛选和排序 -->
+              <div class="flex items-center space-x-3">
+                <select id="categoryFilter" class="text-sm border border-gray-300 rounded-lg px-3 py-1">
+                  <option value="all">全部分类</option>
+                  <option value="breathing">呼吸冥想</option>
+                  <option value="body">身体觉察</option>
+                  <option value="mindful">正念练习</option>
+                  <option value="emotion">情绪调节</option>
+                </select>
+                
+                <select id="sortBy" class="text-sm border border-gray-300 rounded-lg px-3 py-1">
+                  <option value="date">按时间排序</option>
+                  <option value="duration">按时长排序</option>
+                  <option value="type">按类型排序</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- 记录列表 -->
+            <div id="recordsList" class="space-y-4">
+              <!-- 动态生成 -->
+            </div>
+            
+            <!-- 加载更多 -->
+            <div class="text-center mt-6">
+              <button id="loadMore" class="btn-secondary px-6 py-2 rounded-lg text-sm hidden">
+                加载更多
+              </button>
+            </div>
+            
+            <!-- 空状态 -->
+            <div id="emptyState" class="empty-state text-center py-12 hidden">
+              <div class="text-6xl mb-4">📊</div>
+              <h3 class="text-lg font-semibold text-gray-700 mb-2">还没有练习记录</h3>
+              <p class="text-gray-500 mb-6">开始你的第一次练习，建立健康的习惯</p>
+              <a href="practice.html" class="btn-primary text-white px-6 py-3 rounded-lg inline-block">
+                开始练习
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 导出和管理 -->
+      <div class="mt-8 bg-white rounded-2xl p-6 shadow-sm">
+        <h2 class="text-xl font-semibold text-primary mb-6">数据管理</h2>
+        
+        <div class="grid md:grid-cols-3 gap-4">
+          <button onclick="exportData()" class="btn-secondary p-4 rounded-lg text-center">
+            <i class="fa fa-download text-xl mb-2"></i>
+            <div class="font-medium">导出数据</div>
+            <div class="text-xs text-gray-500">下载CSV格式</div>
+          </button>
+          
+          <button onclick="shareProgress()" class="btn-secondary p-4 rounded-lg text-center">
+            <i class="fa fa-share text-xl mb-2"></i>
+            <div class="font-medium">分享进展</div>
+            <div class="text-xs text-gray-500">生成分享图片</div>
+          </button>
+          
+          <button onclick="clearData()" class="btn-secondary p-4 rounded-lg text-center border-red-300 text-red-600 hover:bg-red-50">
+            <i class="fa fa-trash text-xl mb-2"></i>
+            <div class="font-medium">清除数据</div>
+            <div class="text-xs text-gray-500">谨慎操作</div>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- 练习详情模态框 -->
+  <div id="recordModal" class="modal fixed inset-0 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="modal-content bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 id="modalTitle" class="text-xl font-semibold text-primary">练习详情</h3>
+          <button onclick="closeRecordModal()" class="text-gray-400 hover:text-gray-600">
+            <i class="fa fa-times text-xl"></i>
+          </button>
+        </div>
+        
+        <div id="modalContent" class="space-y-4">
+          <!-- 动态内容 -->
+        </div>
+        
+        <div class="flex space-x-3 mt-6">
+          <button onclick="closeRecordModal()" class="flex-1 btn-secondary py-3 rounded-lg">
+            关闭
+          </button>
+          <button id="deleteRecord" class="btn-secondary border-red-300 text-red-600 px-4 py-3 rounded-lg">
+            删除
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // 全局变量
+    let currentDisplayMonth = new Date();
+    let practiceHistory = [];
+    let currentPage = 1;
+    const recordsPerPage = 10;
+
+    // Toast 提示功能
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 加载练习数据
+    function loadPracticeData() {
+      // 从localStorage加载不同类型的练习记录
+      const generalPractices = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      const mindfulEating = JSON.parse(localStorage.getItem('mindfulEatingRecords') || '[]');
+      
+      // 合并并标准化数据格式
+      practiceHistory = [
+        ...generalPractices.map(p => ({
+          id: p.id || Date.now(),
+          title: p.title,
+          category: getCategoryFromTitle(p.title),
+          date: p.date,
+          duration: p.duration || 5,
+          type: 'general'
+        })),
+        ...mindfulEating.map(p => ({
+          id: p.id,
+          title: `正念饮食：${p.food}`,
+          category: 'mindful',
+          date: p.startTime,
+          duration: p.duration,
+          type: 'mindfulEating',
+          details: p
+        }))
+      ].sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+
+    // 从标题推断分类
+    function getCategoryFromTitle(title) {
+      if (title.includes('呼吸') || title.includes('冥想')) return 'breathing';
+      if (title.includes('身体') || title.includes('扫描') || title.includes('放松')) return 'body';
+      if (title.includes('正念') || title.includes('饮食') || title.includes('感恩')) return 'mindful';
+      if (title.includes('情绪') || title.includes('慈悲') || title.includes('自我')) return 'emotion';
+      return 'other';
+    }
+
+    // 更新统计数据
+    function updateStatistics() {
+      const total = practiceHistory.length;
+      const totalMinutes = practiceHistory.reduce((sum, p) => sum + (p.duration || 0), 0);
+      
+      document.getElementById('totalPractices').textContent = total;
+      document.getElementById('totalMinutes').textContent = totalMinutes;
+      
+      // 计算连续天数
+      const streak = calculateStreak();
+      document.getElementById('currentStreak').textContent = streak;
+      
+      // 本周练习次数
+      const thisWeek = calculateThisWeek();
+      document.getElementById('thisWeek').textContent = thisWeek;
+      
+      // 分类统计
+      updateCategoryStats();
+    }
+
+    // 计算连续天数
+    function calculateStreak() {
+      if (practiceHistory.length === 0) return 0;
+      
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      let streak = 0;
+      let currentDate = new Date(today);
+      
+      for (let i = 0; i < 365; i++) {
+        const dateStr = currentDate.toDateString();
+        const hasPractice = practiceHistory.some(p => 
+          new Date(p.date).toDateString() === dateStr
+        );
+        
+        if (hasPractice) {
+          streak++;
+        } else {
+          break;
+        }
+        
+        currentDate.setDate(currentDate.getDate() - 1);
+      }
+      
+      return streak;
+    }
+
+    // 计算本周练习次数
+    function calculateThisWeek() {
+      const now = new Date();
+      const startOfWeek = new Date(now);
+      startOfWeek.setDate(now.getDate() - now.getDay());
+      startOfWeek.setHours(0, 0, 0, 0);
+      
+      return practiceHistory.filter(p => 
+        new Date(p.date) >= startOfWeek
+      ).length;
+    }
+
+    // 更新分类统计
+    function updateCategoryStats() {
+      const categories = ['breathing', 'body', 'mindful', 'emotion'];
+      const counts = {};
+      let maxCount = 0;
+      
+      categories.forEach(cat => {
+        counts[cat] = practiceHistory.filter(p => p.category === cat).length;
+        maxCount = Math.max(maxCount, counts[cat]);
+      });
+      
+      categories.forEach(cat => {
+        const countEl = document.getElementById(`${cat}Count`);
+        const barEl = document.getElementById(`${cat}Bar`);
+        
+        if (countEl && barEl) {
+          countEl.textContent = counts[cat];
+          const percentage = maxCount > 0 ? (counts[cat] / maxCount) * 100 : 0;
+          barEl.style.width = `${percentage}%`;
+        }
+      });
+      
+      // 最爱练习
+      const favoriteEl = document.getElementById('favoritePractice');
+      if (maxCount > 0) {
+        const favoriteCategory = categories.find(cat => counts[cat] === maxCount);
+        const categoryNames = {
+          breathing: '呼吸冥想',
+          body: '身体觉察',
+          mindful: '正念练习',
+          emotion: '情绪调节'
+        };
+        favoriteEl.textContent = `${categoryNames[favoriteCategory]} (${maxCount}次)`;
+      } else {
+        favoriteEl.textContent = '暂无数据';
+      }
+    }
+
+    // 生成日历热力图
+    function generateCalendar() {
+      const grid = document.getElementById('calendarGrid');
+      const year = currentDisplayMonth.getFullYear();
+      const month = currentDisplayMonth.getMonth();
+      
+      // 更新月份标题
+      document.getElementById('currentMonth').textContent = 
+        `${year}年${month + 1}月`;
+      
+      // 获取月份的第一天和最后一天
+      const firstDay = new Date(year, month, 1);
+      const lastDay = new Date(year, month + 1, 0);
+      
+      // 计算需要显示的天数（包括上月末尾和下月开头）
+      const startDate = new Date(firstDay);
+      startDate.setDate(startDate.getDate() - firstDay.getDay());
+      
+      const endDate = new Date(lastDay);
+      endDate.setDate(endDate.getDate() + (6 - lastDay.getDay()));
+      
+      // 计算每日练习次数
+      const dailyCounts = {};
+      practiceHistory.forEach(p => {
+        const dateStr = new Date(p.date).toDateString();
+        dailyCounts[dateStr] = (dailyCounts[dateStr] || 0) + 1;
+      });
+      
+      // 生成日历格子
+      grid.innerHTML = '';
+      const currentDate = new Date(startDate);
+      
+      while (currentDate <= endDate) {
+        const dateStr = currentDate.toDateString();
+        const count = dailyCounts[dateStr] || 0;
+        const level = Math.min(4, count);
+        const isCurrentMonth = currentDate.getMonth() === month;
+        
+        const dayEl = document.createElement('div');
+        dayEl.className = `calendar-day level-${level} ${!isCurrentMonth ? 'opacity-30' : ''}`;
+        dayEl.title = `${currentDate.getMonth() + 1}/${currentDate.getDate()}: ${count}次练习`;
+        dayEl.addEventListener('click', () => showDayDetails(new Date(currentDate)));
+        
+        grid.appendChild(dayEl);
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+    }
+
+    // 显示某天的练习详情
+    function showDayDetails(date) {
+      const dayPractices = practiceHistory.filter(p => 
+        new Date(p.date).toDateString() === date.toDateString()
+      );
+      
+      if (dayPractices.length === 0) {
+        showToast(`${date.getMonth() + 1}月${date.getDate()}日没有练习记录`);
+        return;
+      }
+      
+      const practiceList = dayPractices.map(p => 
+        `• ${p.title} (${p.duration}分钟)`
+      ).join('\n');
+      
+      showToast(`${date.getMonth() + 1}月${date.getDate()}日:\n${practiceList}`);
+    }
+
+    // 渲染练习记录列表
+    function renderRecordsList(page = 1) {
+      const recordsList = document.getElementById('recordsList');
+      const emptyState = document.getElementById('emptyState');
+      const loadMoreBtn = document.getElementById('loadMore');
+      
+      // 获取筛选条件
+      const categoryFilter = document.getElementById('categoryFilter').value;
+      const sortBy = document.getElementById('sortBy').value;
+      
+      // 筛选记录
+      let filteredRecords = practiceHistory;
+      if (categoryFilter !== 'all') {
+        filteredRecords = practiceHistory.filter(p => p.category === categoryFilter);
+      }
+      
+      // 排序
+      switch (sortBy) {
+        case 'duration':
+          filteredRecords.sort((a, b) => (b.duration || 0) - (a.duration || 0));
+          break;
+        case 'type':
+          filteredRecords.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        default: // date
+          filteredRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
+      }
+      
+      if (filteredRecords.length === 0) {
+        recordsList.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        loadMoreBtn.classList.add('hidden');
+        return;
+      }
+      
+      recordsList.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      
+      // 分页
+      const startIndex = (page - 1) * recordsPerPage;
+      const endIndex = startIndex + recordsPerPage;
+      const pageRecords = filteredRecords.slice(0, endIndex);
+      
+      // 渲染记录
+      recordsList.innerHTML = pageRecords.map(record => {
+        const date = new Date(record.date);
+        const categoryClass = `tag-${record.category}`;
+        const categoryName = getCategoryName(record.category);
+        
+        return `
+          <div class="record-card bg-gray-50 rounded-lg p-4 hover:bg-gray-100" 
+               onclick="showRecordDetail('${record.id}')">
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-medium text-gray-800">${record.title}</h3>
+              <span class="practice-tag ${categoryClass}">${categoryName}</span>
+            </div>
+            
+            <div class="flex items-center justify-between text-sm text-gray-500">
+              <div class="flex items-center space-x-4">
+                <span>
+                  <i class="fa fa-calendar mr-1"></i>
+                  ${date.toLocaleDateString('zh-CN')}
+                </span>
+                <span>
+                  <i class="fa fa-clock-o mr-1"></i>
+                  ${record.duration}分钟
+                </span>
+              </div>
+              <span>${date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      // 显示/隐藏加载更多按钮
+      if (endIndex < filteredRecords.length) {
+        loadMoreBtn.classList.remove('hidden');
+        loadMoreBtn.onclick = () => renderRecordsList(page + 1);
+      } else {
+        loadMoreBtn.classList.add('hidden');
+      }
+    }
+
+    // 获取分类名称
+    function getCategoryName(category) {
+      const names = {
+        breathing: '呼吸冥想',
+        body: '身体觉察',
+        mindful: '正念练习',
+        emotion: '情绪调节'
+      };
+      return names[category] || '其他';
+    }
+
+    // 显示练习详情
+    function showRecordDetail(recordId) {
+      const record = practiceHistory.find(p => p.id == recordId);
+      if (!record) return;
+      
+      document.getElementById('modalTitle').textContent = record.title;
+      
+      const date = new Date(record.date);
+      let content = `
+        <div class="space-y-3">
+          <div class="flex justify-between">
+            <span class="text-gray-600">练习时间：</span>
+            <span>${date.toLocaleString('zh-CN')}</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">练习时长：</span>
+            <span>${record.duration}分钟</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-gray-600">练习分类：</span>
+            <span>${getCategoryName(record.category)}</span>
+          </div>
+      `;
+      
+      // 如果是正念饮食，显示更多详情
+      if (record.type === 'mindfulEating' && record.details) {
+        const details = record.details;
+        content += `
+          <div class="pt-3 border-t">
+            <div class="text-sm font-medium text-gray-700 mb-2">练习详情：</div>
+            <div class="text-sm text-gray-600 space-y-1">
+              <div>食物：${details.food}</div>
+              ${details.observations.visual ? `<div>视觉观察：${details.observations.visual}</div>` : ''}
+              ${details.observations.smell ? `<div>嗅觉感受：${details.observations.smell}</div>` : ''}
+              ${details.observations.texture ? `<div>触觉体验：${details.observations.texture}</div>` : ''}
+              ${details.observations.taste ? `<div>味觉体验：${details.observations.taste}</div>` : ''}
+            </div>
+          </div>
+        `;
+      }
+      
+      content += '</div>';
+      document.getElementById('modalContent').innerHTML = content;
+      
+      // 设置删除按钮
+      document.getElementById('deleteRecord').onclick = () => deleteRecord(recordId);
+      
+      document.getElementById('recordModal').classList.remove('hidden');
+    }
+
+    // 关闭详情模态框
+    function closeRecordModal() {
+      document.getElementById('recordModal').classList.add('hidden');
+    }
+
+    // 删除练习记录
+    function deleteRecord(recordId) {
+      if (!confirm('确定要删除这条练习记录吗？')) return;
+      
+      // 从对应的存储中删除
+      const record = practiceHistory.find(p => p.id == recordId);
+      if (record) {
+        if (record.type === 'mindfulEating') {
+          const records = JSON.parse(localStorage.getItem('mindfulEatingRecords') || '[]');
+          const filtered = records.filter(r => r.id != recordId);
+          localStorage.setItem('mindfulEatingRecords', JSON.stringify(filtered));
+        } else {
+          const records = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+          const filtered = records.filter(r => r.id != recordId);
+          localStorage.setItem('practiceHistory', JSON.stringify(filtered));
+        }
+      }
+      
+      closeRecordModal();
+      loadPracticeData();
+      updateStatistics();
+      generateCalendar();
+      renderRecordsList();
+      showToast('练习记录已删除');
+    }
+
+    // 导出数据
+    function exportData() {
+      if (practiceHistory.length === 0) {
+        showToast('没有可导出的数据');
+        return;
+      }
+      
+      const headers = ['日期', '时间', '练习名称', '分类', '时长(分钟)'];
+      const csvData = practiceHistory.map(record => {
+        const date = new Date(record.date);
+        return [
+          date.toLocaleDateString('zh-CN'),
+          date.toLocaleTimeString('zh-CN'),
+          record.title,
+          getCategoryName(record.category),
+          record.duration || 0
+        ];
+      });
+      
+      const csvContent = [headers, ...csvData]
+        .map(row => row.map(cell => `"${cell}"`).join(','))
+        .join('\n');
+      
+      const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `MindFit练习记录_${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      
+      URL.revokeObjectURL(url);
+      showToast('数据导出成功');
+    }
+
+    // 分享进展
+    function shareProgress() {
+      const total = practiceHistory.length;
+      const streak = calculateStreak();
+      const thisWeek = calculateThisWeek();
+      
+      const text = `我在MindFit上已经完成了${total}次练习，连续${streak}天坚持，本周练习${thisWeek}次！正念练习让我更加关注身心健康。`;
+      
+      if (navigator.share) {
+        navigator.share({
+          title: 'MindFit练习进展',
+          text: text,
+          url: window.location.origin
+        }).catch(console.error);
+      } else {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(() => {
+            showToast('分享文本已复制到剪贴板');
+          });
+        } else {
+          showToast('分享功能暂不可用');
+        }
+      }
+    }
+
+    // 清除所有数据
+    function clearData() {
+      if (!confirm('确定要清除所有练习数据吗？此操作不可恢复！')) return;
+      
+      localStorage.removeItem('practiceHistory');
+      localStorage.removeItem('mindfulEatingRecords');
+      
+      practiceHistory = [];
+      updateStatistics();
+      generateCalendar();
+      renderRecordsList();
+      
+      showToast('所有数据已清除');
+    }
+
+    // 月份导航
+    function initMonthNavigation() {
+      document.getElementById('prevMonth').addEventListener('click', () => {
+        currentDisplayMonth.setMonth(currentDisplayMonth.getMonth() - 1);
+        generateCalendar();
+      });
+      
+      document.getElementById('nextMonth').addEventListener('click', () => {
+        currentDisplayMonth.setMonth(currentDisplayMonth.getMonth() + 1);
+        generateCalendar();
+      });
+    }
+
+    // 筛选和排序
+    function initFiltersAndSort() {
+      document.getElementById('categoryFilter').addEventListener('change', () => {
+        currentPage = 1;
+        renderRecordsList();
+      });
+      
+      document.getElementById('sortBy').addEventListener('change', () => {
+        currentPage = 1;
+        renderRecordsList();
+      });
+    }
+
+    // 点击模态框背景关闭
+    document.getElementById('recordModal').addEventListener('click', (e) => {
+      if (e.target.id === 'recordModal') {
+        closeRecordModal();
+      }
+    });
+
+    // ESC键关闭模态框
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !document.getElementById('recordModal').classList.contains('hidden')) {
+        closeRecordModal();
+      }
+    });
+
+    // 页面初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      loadPracticeData();
+      updateStatistics();
+      generateCalendar();
+      renderRecordsList();
+      initMonthNavigation();
+      initFiltersAndSort();
+      
+      // 欢迎提示
+      setTimeout(() => {
+        if (practiceHistory.length === 0) {
+          showToast('还没有练习记录，去开始你的第一次练习吧！');
+        } else {
+          showToast(`你已经完成了 ${practiceHistory.length} 次练习，继续保持！`);
+        }
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>breathingCount">0</span>
+                <div class="w-16 h-2 bg-gray-200 rounded-full">
+                  <div id="breathingBar" class="h-2 bg-blue-500 rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-4 h-4 rounded bg-green-500 mr-3"></div>
+                <span class="text-sm">身体觉察</span>
+              </div>
+              <div class="flex items-center">
+                <span class="text-sm font-medium mr-2" id="
