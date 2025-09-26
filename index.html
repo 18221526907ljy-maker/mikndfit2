@@ -252,6 +252,22 @@
         border-bottom: none;
       }
     }
+
+    /* 推荐卡片样式 */
+    .recommendation-card {
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .recommendation-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .recommendation-card:active {
+      transform: translateY(-2px) scale(0.98);
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
   </style>
 </head>
 
@@ -447,7 +463,7 @@
         <div class="hidden md:block px-6">
           <div class="grid grid-cols-3 gap-8 mb-8">
             
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card cursor-pointer" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card cursor-pointer recommendation-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
               <div class="aspect-video bg-primary flex items-center justify-center">
                 <i class="fa fa-image text-3xl text-white"></i>
               </div>
@@ -457,7 +473,7 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="1">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card recommendation-card" data-delay="1" onclick="window.open('body-neutrality.html', '_blank')">
               <div class="aspect-video bg-mint flex items-center justify-center">
                 <i class="fa fa-image text-3xl text-white"></i>
               </div>
@@ -467,7 +483,7 @@
               </div>
             </div>
 
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="2">
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card recommendation-card" data-delay="2" onclick="window.open('body-neutrality.html', '_blank')">
               <div class="aspect-video bg-accent flex items-center justify-center">
                 <i class="fa fa-image text-3xl text-white"></i>
               </div>
@@ -488,7 +504,7 @@
         <!-- 移动端 -->
         <div class="md:hidden px-4">
           
-          <div class="mobile-knowledge-card knowledge-card cursor-pointer" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
+          <div class="mobile-knowledge-card knowledge-card cursor-pointer recommendation-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
             <div class="w-24 h-18 bg-primary flex items-center justify-center flex-shrink-0">
               <i class="fa fa-image text-white text-xl"></i>
             </div>
@@ -498,7 +514,7 @@
             </div>
           </div>
 
-          <div class="mobile-knowledge-card knowledge-card" data-delay="1">
+          <div class="mobile-knowledge-card knowledge-card recommendation-card" data-delay="1" onclick="window.open('body-neutrality.html', '_blank')">
             <div class="w-24 h-18 bg-mint flex items-center justify-center flex-shrink-0">
               <i class="fa fa-image text-white text-xl"></i>
             </div>
@@ -508,7 +524,7 @@
             </div>
           </div>
 
-          <div class="mobile-knowledge-card knowledge-card" data-delay="2">
+          <div class="mobile-knowledge-card knowledge-card recommendation-card" data-delay="2" onclick="window.open('body-neutrality.html', '_blank')">
             <div class="w-24 h-18 bg-accent flex items-center justify-center flex-shrink-0">
               <i class="fa fa-image text-white text-xl"></i>
             </div>
@@ -543,7 +559,98 @@
           
           <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="window.location.href='self-assessment.html'">
             <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-6">
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+                  <i class="fa fa-search text-white"></i>
+                </div>
+                <span class="text-primary font-medium">想了解自己的身心状态？</span>
+              </div>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="window.open('body-neutrality.html', '_blank')">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center">
+                  <i class="fa fa-search text-white"></i>
+                </div>
+                <span class="text-primary font-medium">如何建立健康的身体观念？</span>
+              </div>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="window.open('body-neutrality.html', '_blank')">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
+                  <i class="fa fa-search text-white"></i>
+                </div>
+                <span class="text-primary font-medium">什么是身体中立理念？</span>
+              </div>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 移动端 -->
+        <div class="md:hidden px-4">
+          <div class="bg-white rounded-xl overflow-hidden">
+            
+            <div class="mobile-qa-item qa-item cursor-pointer" onclick="window.location.href='self-assessment.html'">
+              <span class="text-mobile-knowledge text-primary font-medium">想了解自己的身心状态？</span>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+
+            <div class="mobile-qa-item qa-item cursor-pointer" onclick="window.open('body-neutrality.html', '_blank')">
+              <span class="text-mobile-knowledge text-primary font-medium">如何建立健康的身体观念？</span>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+
+            <div class="mobile-qa-item qa-item cursor-pointer" onclick="window.open('body-neutrality.html', '_blank')">
+              <span class="text-mobile-knowledge text-primary font-medium">什么是身体中立理念？</span>
+              <i class="fa fa-chevron-right text-gray-400"></i>
+            </div>
+
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- 推荐内容卡片区域 -->
+    <section class="py-6 md:py-16 bg-secondary">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
+          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4">推荐内容</h2>
+          <p class="text-content text-sm md:text-lg">精选优质内容，助力你的身心健康之旅</p>
+        </div>
+
+        <!-- 桌面端推荐内容 -->
+        <div class="hidden md:block px-6">
+          <div id="recommendList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- 这里会由JavaScript动态填充推荐内容 -->
+          </div>
+        </div>
+
+        <!-- 移动端推荐内容 -->
+        <div class="md:hidden px-4">
+          <div id="recommendListMobile" class="space-y-4">
+            <!-- 这里会由JavaScript动态填充移动端推荐内容 -->
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <!-- 桌面端底部 -->
+    <footer class="hidden md:block py-12 bg-gray-100">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
             <div class="w-20 h-20 bg-gray-300 rounded-lg flex items-center justify-center">
               <i class="fa fa-qrcode text-2xl text-gray-500"></i>
             </div>
@@ -597,6 +704,7 @@
         // 延迟执行，确保所有资源就绪
         setTimeout(() => {
           initPageAnimations();
+          renderRecommendContent(); // 渲染推荐内容
         }, 100);
       });
     });
@@ -677,99 +785,72 @@
         });
       });
     });
-  </script>
 
-</body>
-</html>-4">
-                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white"></i>
+    // 渲染推荐内容
+    function renderRecommendContent() {
+      const items = [
+        {
+          title: "身体中立入门",
+          desc: "从功能与健康角度看待身体，建立平和的身体关系",
+          img: 1,
+          link: "body-neutrality.html",
+          tag: "理论基础"
+        },
+        {
+          title: "正念饮食 5 步",
+          desc: "慢一点，和味道好好相处，重建与食物的健康关系",
+          img: 2,
+          link: "body-neutrality.html",
+          tag: "实践指南"
+        },
+        {
+          title: "焦虑舒缓小练习",
+          desc: "3 分钟调节身体紧绷，回归此刻的平静状态",
+          img: 3,
+          link: "body-neutrality.html",
+          tag: "快速缓解"
+        }
+      ];
+
+      // 桌面端推荐内容
+      const recBox = document.getElementById("recommendList");
+      if (recBox) {
+        recBox.innerHTML = items
+          .map((r) => `
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm recommendation-card cursor-pointer" onclick="window.open('${r.link}', '_blank')">
+              <img src="https://picsum.photos/400/200?random=${r.img}" alt="${r.title}" class="w-full h-40 object-cover">
+              <div class="p-6">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">${r.tag}</span>
+                  <span class="text-xs text-gray-400">2 分钟阅读</span>
                 </div>
-                <span class="text-primary font-medium">想了解自己的身心状态？</span>
+                <h4 class="font-semibold text-primary mb-2">${r.title}</h4>
+                <p class="text-sm text-gray-500 line-clamp-2">${r.desc}</p>
               </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
-          </div>
+          `)
+          .join("");
+      }
 
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white"></i>
+      // 移动端推荐内容
+      const recBoxMobile = document.getElementById("recommendListMobile");
+      if (recBoxMobile) {
+        recBoxMobile.innerHTML = items
+          .map((r) => `
+            <div class="bg-white rounded-xl overflow-hidden shadow-sm recommendation-card cursor-pointer flex" onclick="window.open('${r.link}', '_blank')">
+              <img src="https://picsum.photos/120/120?random=${r.img}" alt="${r.title}" class="w-24 h-24 object-cover flex-shrink-0">
+              <div class="p-4 flex-1">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">${r.tag}</span>
                 </div>
-                <span class="text-primary font-medium">如何建立健康的身体观念？</span>
+                <h4 class="font-medium text-primary mb-1 text-sm">${r.title}</h4>
+                <p class="text-xs text-gray-500 line-clamp-2">${r.desc}</p>
               </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
             </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="window.open('body-neutrality.html', '_blank')">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white"></i>
-                </div>
-                <span class="text-primary font-medium">什么是身体中立理念？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 移动端 -->
-        <div class="md:hidden px-4">
-          <div class="bg-white rounded-xl overflow-hidden">
-            
-            <div class="mobile-qa-item qa-item cursor-pointer" onclick="window.location.href='self-assessment.html'">
-              <span class="text-mobile-knowledge text-primary font-medium">想了解自己的身心状态？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item">
-              <span class="text-mobile-knowledge text-primary font-medium">如何建立健康的身体观念？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item cursor-pointer" onclick="window.open('body-neutrality.html', '_blank')">
-              <span class="text-mobile-knowledge text-primary font-medium">什么是身体中立理念？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-          </div>
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- 桌面端底部 -->
-    <footer class="hidden md:block py-12 bg-gray-100">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x// 🎨 增强交互体验
-    document.addEventListener('DOMContentLoaded', function() {
-      // 为所有卡片添加触摸反馈（移动端）
-      const cards = document.querySelectorAll('.mobile-feature-card, .glass-card');
-      
-      cards.forEach(card => {
-        // 触摸开始
-        card.addEventListener('touchstart', function() {
-          this.style.transform = 'translateY(-2px) scale(0.98)';
-          this.style.transition = 'all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        });
-        
-        // 触摸结束
-        card.addEventListener('touchend', function() {
-          this.style.transform = '';
-          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        });
-        
-        // 触摸取消
-        card.addEventListener('touchcancel', function() {
-          this.style.transform = '';
-          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        });
-      });
-    });
+          `)
+          .join("");
+      }
+    }
   </script>
 
 </body>
