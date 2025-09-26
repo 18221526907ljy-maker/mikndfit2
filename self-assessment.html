@@ -213,25 +213,16 @@
       }, 3000);
     }
 
-    // 格式化时间
+    // 格式化时间为精准时间
     function formatTime(timestamp) {
       const date = new Date(timestamp);
-      const now = new Date();
-      const diffTime = Math.abs(now - date);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
       
-      if (diffDays === 1) {
-        return '今天';
-      } else if (diffDays === 2) {
-        return '昨天';
-      } else if (diffDays <= 7) {
-        return `${diffDays - 1}天前`;
-      } else {
-        return date.toLocaleDateString('zh-CN', {
-          month: 'short',
-          day: 'numeric'
-        });
-      }
+      return `${year}-${month}-${day} ${hours}:${minutes}`;
     }
 
     // 加载并显示最近的测评记录
