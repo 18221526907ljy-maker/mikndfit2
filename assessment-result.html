@@ -157,10 +157,16 @@
   </main>
 
   <script>
-    const fmtTime = (ts) => {
-      const d = new Date(ts);
-      const pad = (n) => (n < 10 ? "0" + n : n);
-      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+    // 格式化时间为精准时间
+    const formatTime = (timestamp) => {
+      const date = new Date(timestamp);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      
+      return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
 
     // Toast 提示功能
@@ -185,7 +191,7 @@
 
     function retakeTest() {
       if (currentTestType === 'bmi') {
-        window.location.href = 'assessment-test.html?type=bmi';
+        window.location.href = 'BMI测评页面.html';
       } else if (currentTestType === 'anxiety') {
         window.location.href = 'assessment-test.html?type=anxiety';
       } else {
@@ -239,7 +245,7 @@
                 <span class="mr-2">📅</span>测评信息
               </h4>
               <div class="text-sm text-gray-600 space-y-1">
-                <p>测评时间：${fmtTime(data.ts)}</p>
+                <p>测评时间：${formatTime(data.timestamp || data.ts)}</p>
                 <p>身高：${data.height}cm | 体重：${data.weight}kg | 年龄：${data.age}岁 | 性别：${data.gender === 'female' ? '女性' : '男性'}</p>
               </div>
             </div>
@@ -296,7 +302,7 @@
                 <span class="mr-2 text-gray-600">📅</span>测评信息
               </h4>
               <div class="text-sm text-gray-600 space-y-1">
-                <p>测评时间：${fmtTime(data.ts)}</p>
+                <p>测评时间：${formatTime(data.timestamp || data.ts)}</p>
                 <p>答题详情：${answerDetails}</p>
               </div>
             </div>
@@ -337,7 +343,7 @@
           <h3 class="text-xl font-semibold text-primary mb-2">无法显示测评结果</h3>
           <p class="text-gray-500 mb-6">请重新进行测评以获取结果</p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onclick="window.location.href='assessment-test.html?type=bmi'" class="btn-primary text-white px-6 py-3 rounded-lg">
+            <button onclick="window.location.href='BMI测评页面.html'" class="btn-primary text-white px-6 py-3 rounded-lg">
               <span class="mr-2">⚖️</span>BMI测评
             </button>
             <button onclick="window.location.href='assessment-test.html?type=anxiety'" class="btn-primary text-white px-6 py-3 rounded-lg">
