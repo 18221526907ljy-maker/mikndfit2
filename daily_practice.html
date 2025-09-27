@@ -836,8 +836,10 @@
 
       const route = practiceRoutes[practiceId];
       if (route) {
+        console.log('跳转到:', route); // 添加调试信息
         window.location.href = route;
       } else {
+        console.log('未找到对应路由:', practiceId); // 添加调试信息
         showToast('练习功能正在开发中...');
       }
     }
