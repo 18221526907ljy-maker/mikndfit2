@@ -776,7 +776,7 @@
       
       grid.innerHTML = filteredPractices.map(practice => `
         <div class="practice-card bg-white rounded-2xl p-6 shadow-sm" 
-             onclick="openPracticeModal('${practice.id}')">
+             onclick="startPractice('${practice.id}')">
           <div class="flex items-start justify-between mb-4">
             <div class="w-12 h-12 rounded-full ${practice.color} flex items-center justify-center">
               <i class="fa ${practice.icon} text-xl"></i>
@@ -823,42 +823,23 @@
       return names[category] || category;
     }
 
-    // 打开练习模态框
-    function openPracticeModal(practiceId) {
-      currentPractice = practiceData.find(p => p.id === practiceId);
-      if (!currentPractice) return;
-      
-      document.getElementById('modalTitle').textContent = currentPractice.title;
-      document.getElementById('modalDescription').textContent = currentPractice.description;
-      document.getElementById('timerDisplay').textContent = formatTime(currentPractice.duration * 60);
-      
-      // 设置练习指导
-      const guideContent = document.getElementById('guideContent');
-      guideContent.innerHTML = `
-        <h4 class="font-medium text-gray-800 mb-2">练习步骤：</h4>
-        <ol class="text-sm space-y-1">
-          ${currentPractice.guide.map((step, index) => 
-            `<li>${index + 1}. ${step}</li>`
-          ).join('')}
-        </ol>
-      `;
-      
-      // 特殊处理呼吸练习
-      if (currentPractice.category === 'breathing') {
-        document.getElementById('breathingGuide').classList.remove('hidden');
-        document.getElementById('practiceGuide').classList.add('hidden');
+    // 开始练习 - 跳转到对应页面
+    function startPractice(practiceId) {
+      const practiceRoutes = {
+        'breathing-4-7-8': 'anxiety-relief.html',
+        'mindful-eating': 'mindful-eating.html',
+        'body-scan': 'anxiety-relief.html?type=body-scan',
+        'loving-kindness': 'anxiety-relief.html?type=self-compassion',
+        'progressive-relaxation': 'anxiety-relief.html?type=progressive-relaxation',
+        'gratitude-reflection': 'anxiety-relief.html?type=gratitude-reflection'
+      };
+
+      const route = practiceRoutes[practiceId];
+      if (route) {
+        window.location.href = route;
       } else {
-        document.getElementById('breathingGuide').classList.add('hidden');
-        document.getElementById('practiceGuide').classList.remove('hidden');
+        showToast('练习功能正在开发中...');
       }
-      
-      // 重置计时器状态
-      remainingTime = currentPractice.duration * 60;
-      isPaused = false;
-      updateTimerDisplay();
-      resetTimerButtons();
-      
-      document.getElementById('practiceModal').classList.remove('hidden');
     }
 
     // 关闭练习模态框
@@ -868,8 +849,8 @@
       currentPractice = null;
     }
 
-    // 开始练习
-    function startPractice() {
+    // 开始练习（原模态框功能）
+    function startPracticeModal() {
       if (isPaused) {
         isPaused = false;
       } else {
@@ -1040,7 +1021,7 @@
     }
 
     // 绑定事件
-    document.getElementById('startBtn').addEventListener('click', startPractice);
+    document.getElementById('startBtn').addEventListener('click', startPracticeModal);
     document.getElementById('pauseBtn').addEventListener('click', pausePractice);
     document.getElementById('stopBtn').addEventListener('click', stopPractice);
     document.getElementById('completeBtn').addEventListener('click', closePracticeModal);
