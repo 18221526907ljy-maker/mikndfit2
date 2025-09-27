@@ -169,11 +169,144 @@
       filter: brightness(1.2);
     }
 
-    /* 放松音效控制 */
+    /* 音频控制样式 */
     .audio-control {
       background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(10px);
       border: 1px solid rgba(74, 97, 87, 0.2);
+    }
+
+    /* 彩带庆祝动画 */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #f0f;
+      animation: confetti-fall 3s linear infinite;
+      z-index: 9999;
+    }
+
+    .confetti:nth-child(1) { 
+      background: #ff6b6b; 
+      left: 10%; 
+      animation-delay: 0s;
+      animation-duration: 3s;
+    }
+    .confetti:nth-child(2) { 
+      background: #4ecdc4; 
+      left: 20%; 
+      animation-delay: 0.5s;
+      animation-duration: 2.5s;
+    }
+    .confetti:nth-child(3) { 
+      background: #45b7d1; 
+      left: 30%; 
+      animation-delay: 1s;
+      animation-duration: 3.5s;
+    }
+    .confetti:nth-child(4) { 
+      background: #f9ca24; 
+      left: 40%; 
+      animation-delay: 0.3s;
+      animation-duration: 2.8s;
+    }
+    .confetti:nth-child(5) { 
+      background: #f0932b; 
+      left: 50%; 
+      animation-delay: 0.7s;
+      animation-duration: 3.2s;
+    }
+    .confetti:nth-child(6) { 
+      background: #eb4d4b; 
+      left: 60%; 
+      animation-delay: 1.2s;
+      animation-duration: 2.7s;
+    }
+    .confetti:nth-child(7) { 
+      background: #6c5ce7; 
+      left: 70%; 
+      animation-delay: 0.2s;
+      animation-duration: 3.1s;
+    }
+    .confetti:nth-child(8) { 
+      background: #a29bfe; 
+      left: 80%; 
+      animation-delay: 0.9s;
+      animation-duration: 2.9s;
+    }
+    .confetti:nth-child(9) { 
+      background: #fd79a8; 
+      left: 90%; 
+      animation-delay: 1.5s;
+      animation-duration: 3.3s;
+    }
+    .confetti:nth-child(10) { 
+      background: #00b894; 
+      left: 15%; 
+      animation-delay: 0.4s;
+      animation-duration: 2.6s;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      10% {
+        transform: translateY(-90vh) rotate(36deg);
+        opacity: 1;
+      }
+      20% {
+        transform: translateY(-80vh) rotate(72deg);
+        opacity: 1;
+      }
+      30% {
+        transform: translateY(-70vh) rotate(108deg);
+        opacity: 1;
+      }
+      40% {
+        transform: translateY(-60vh) rotate(144deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-50vh) rotate(180deg);
+        opacity: 1;
+      }
+      60% {
+        transform: translateY(-40vh) rotate(216deg);
+        opacity: 1;
+      }
+      70% {
+        transform: translateY(-30vh) rotate(252deg);
+        opacity: 1;
+      }
+      80% {
+        transform: translateY(-20vh) rotate(288deg);
+        opacity: 0.8;
+      }
+      90% {
+        transform: translateY(-10vh) rotate(324deg);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* 彩带的不同形状 */
+    .confetti.square {
+      border-radius: 0;
+    }
+    .confetti.circle {
+      border-radius: 50%;
+    }
+    .confetti.triangle {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 10px solid;
     }
   </style>
 </head>
@@ -184,7 +317,7 @@
     <div class="max-w-4xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <a href="practice.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+          <a href="daily_practice.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
             <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
             <span class="font-medium">返回练习</span>
           </a>
@@ -498,6 +631,90 @@
       }, 3000);
     }
 
+    // 彩带庆祝动画
+    function showConfettiCelebration() {
+      // 创建彩带容器
+      const confettiContainer = document.createElement('div');
+      confettiContainer.style.position = 'fixed';
+      confettiContainer.style.top = '0';
+      confettiContainer.style.left = '0';
+      confettiContainer.style.width = '100%';
+      confettiContainer.style.height = '100%';
+      confettiContainer.style.pointerEvents = 'none';
+      confettiContainer.style.zIndex = '9999';
+      
+      // 创建多个彩带
+      const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7', '#a29bfe', '#fd79a8', '#00b894'];
+      const shapes = ['square', 'circle', 'triangle'];
+      
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = `confetti ${shapes[Math.floor(Math.random() * shapes.length)]}`;
+        
+        // 随机位置和颜色
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        
+        // 随机大小
+        const size = Math.random() * 8 + 4;
+        confetti.style.width = size + 'px';
+        confetti.style.height = size + 'px';
+        
+        // 三角形特殊处理
+        if (confetti.classList.contains('triangle')) {
+          confetti.style.borderBottomColor = confetti.style.backgroundColor;
+          confetti.style.backgroundColor = 'transparent';
+        }
+        
+        confettiContainer.appendChild(confetti);
+      }
+      
+      document.body.appendChild(confettiContainer);
+      
+      // 4秒后清除彩带
+      setTimeout(() => {
+        if (document.body.contains(confettiContainer)) {
+          document.body.removeChild(confettiContainer);
+        }
+      }, 4000);
+      
+      // 播放庆祝音效（如果支持）
+      playSuccessSound();
+    }
+
+    // 播放成功音效
+    function playSuccessSound() {
+      try {
+        // 创建简单的成功音效
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // 创建音符序列（C大调和弦）
+        const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+        
+        notes.forEach((freq, index) => {
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          
+          oscillator.frequency.value = freq;
+          oscillator.type = 'sine';
+          
+          gainNode.gain.setValueAtTime(0, audioContext.currentTime + index * 0.1);
+          gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + index * 0.1 + 0.05);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + index * 0.1 + 0.3);
+          
+          oscillator.start(audioContext.currentTime + index * 0.1);
+          oscillator.stop(audioContext.currentTime + index * 0.1 + 0.3);
+        });
+      } catch (error) {
+        console.log('Audio not supported');
+      }
+    }
+
     // 情绪选择处理
     function initMoodSelection() {
       document.querySelectorAll('.mood-option').forEach(option => {
@@ -612,6 +829,7 @@
     // 完成呼吸练习
     function completeBreathingExercise() {
       savePracticeRecord('4-7-8呼吸法', 'breathing', 5);
+      showConfettiCelebration(); // 🎉 添加彩带庆祝
       closeExerciseModal();
       showToast('呼吸练习完成！感觉如何？');
     }
@@ -664,6 +882,7 @@
     // 完成接地练习
     function completeGroundingExercise() {
       savePracticeRecord('5-4-3-2-1接地技术', 'mindful', 3);
+      showConfettiCelebration(); // 🎉 添加彩带庆祝
       closeExerciseModal();
       showToast('接地练习完成！你现在感觉更加平静和专注了。');
     }
@@ -738,6 +957,7 @@
     // 完成肌肉放松练习
     function completeMuscleRelaxation() {
       savePracticeRecord('渐进式肌肉放松', 'body', 12);
+      showConfettiCelebration(); // 🎉 添加彩带庆祝
       closeExerciseModal();
       showToast('肌肉放松练习完成！身体是否感觉更加放松？');
     }
@@ -815,6 +1035,7 @@
     // 完成正念呼吸练习
     function completeMindfulBreathing() {
       savePracticeRecord('正念呼吸冥想', 'mindful', 3);
+      showConfettiCelebration(); // 🎉 添加彩带庆祝
       closeExerciseModal();
       showToast('正念冥想完成！你现在感觉如何？');
     }
@@ -935,65 +1156,6 @@
           }
         }
       });
-    }
-
-    // 练习完成后的反馈
-    function showCompletionFeedback() {
-      const modal = document.createElement('div');
-      modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4';
-      modal.style.background = 'rgba(0,0,0,0.8)';
-      
-      modal.innerHTML = `
-        <div class="bg-white rounded-2xl p-6 max-w-sm w-full text-center">
-          <div class="text-6xl mb-4">🎉</div>
-          <h3 class="text-xl font-semibold text-primary mb-4">练习完成！</h3>
-          
-          <div class="space-y-3 mb-6">
-            <div class="text-sm text-gray-600">现在感觉如何？</div>
-            <div class="grid grid-cols-4 gap-2">
-              <button class="feedback-btn p-2 rounded-lg border" data-feeling="better">
-                <div class="text-2xl">😊</div>
-                <div class="text-xs">更好了</div>
-              </button>
-              <button class="feedback-btn p-2 rounded-lg border" data-feeling="calm">
-                <div class="text-2xl">😌</div>
-                <div class="text-xs">平静</div>
-              </button>
-              <button class="feedback-btn p-2 rounded-lg border" data-feeling="relaxed">
-                <div class="text-2xl">😴</div>
-                <div class="text-xs">放松</div>
-              </button>
-              <button class="feedback-btn p-2 rounded-lg border" data-feeling="same">
-                <div class="text-2xl">😐</div>
-                <div class="text-xs">没变化</div>
-              </button>
-            </div>
-          </div>
-          
-          <button onclick="this.closest('.fixed').remove()" class="btn-primary text-white px-6 py-2 rounded-lg">
-            完成
-          </button>
-        </div>
-      `;
-      
-      // 反馈按钮点击事件
-      modal.querySelectorAll('.feedback-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const feeling = btn.dataset.feeling;
-          // 可以保存用户反馈用于改进练习
-          localStorage.setItem('lastPracticeFeedback', feeling);
-          btn.classList.add('border-primary', 'bg-blue-50');
-        });
-      });
-      
-      document.body.appendChild(modal);
-      
-      // 3秒后自动关闭
-      setTimeout(() => {
-        if (document.body.contains(modal)) {
-          modal.remove();
-        }
-      }, 10000);
     }
 
     // 页面初始化
