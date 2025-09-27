@@ -386,7 +386,7 @@
             全部练习
           </button>
           <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-600 font-medium transition-all" data-category="breathing">
-            呼吸冥想
+            呼吸练习
           </button>
           <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-600 font-medium transition-all" data-category="body">
             身体觉察
@@ -394,14 +394,11 @@
           <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-600 font-medium transition-all" data-category="mindful">
             正念练习
           </button>
-          <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-600 font-medium transition-all" data-category="emotion">
-            情绪调节
-          </button>
         </div>
       </div>
 
       <!-- 练习卡片网格 -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6" id="practiceGrid">
+      <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto" id="practiceGrid">
         <!-- 练习卡片将通过JavaScript动态生成 -->
       </div>
 
@@ -477,7 +474,7 @@
         title: '4-7-8 呼吸法',
         description: '快速缓解焦虑的呼吸技巧',
         category: 'breathing',
-        duration: 5,
+        duration: 3,
         difficulty: '简单',
         icon: 'fa-wind',
         color: 'bg-blue-100 text-blue-600',
@@ -491,24 +488,6 @@
         benefits: ['减轻焦虑', '改善睡眠', '降低压力']
       },
       {
-        id: 'body-scan',
-        title: '身体扫描冥想',
-        description: '全身放松，释放紧张感',
-        category: 'body',
-        duration: 10,
-        difficulty: '中等',
-        icon: 'fa-user',
-        color: 'bg-green-100 text-green-600',
-        guide: [
-          '找一个安静的地方躺下',
-          '从脚趾开始，逐步感受身体各部位',
-          '注意任何紧张或不适的感觉',
-          '深呼吸，让紧张的部位放松',
-          '慢慢扫描到头顶'
-        ],
-        benefits: ['身体觉察', '深度放松', '改善睡眠']
-      },
-      {
         id: 'mindful-eating',
         title: '正念饮食练习',
         description: '与食物建立健康关系',
@@ -516,7 +495,7 @@
         duration: 15,
         difficulty: '简单',
         icon: 'fa-apple',
-        color: 'bg-yellow-100 text-yellow-600',
+        color: 'bg-green-100 text-green-600',
         guide: [
           '选择一小份食物（如几颗葡萄干）',
           '仔细观察食物的颜色、形状、质地',
@@ -527,58 +506,40 @@
         benefits: ['改善与食物的关系', '减少暴食', '增强感恩']
       },
       {
-        id: 'loving-kindness',
-        title: '自我慈悲练习',
-        description: '培养对自己的善意',
-        category: 'emotion',
-        duration: 8,
-        difficulty: '中等',
-        icon: 'fa-heart',
-        color: 'bg-pink-100 text-pink-600',
-        guide: [
-          '舒适地坐着，闭上眼睛',
-          '将手放在心脏位置',
-          '对自己说："愿我快乐，愿我健康"',
-          '感受这些话语的温暖',
-          '扩展到身体的其他部位'
-        ],
-        benefits: ['提升自尊', '减少自我批评', '增强幸福感']
-      },
-      {
-        id: 'progressive-relaxation',
-        title: '渐进式肌肉放松',
-        description: '系统性释放身体紧张',
+        id: 'body-scan',
+        title: '身体扫描冥想',
+        description: '全身放松，释放紧张感',
         category: 'body',
-        duration: 12,
+        duration: 10,
         difficulty: '中等',
-        icon: 'fa-bed',
+        icon: 'fa-user',
         color: 'bg-purple-100 text-purple-600',
         guide: [
-          '从脚部肌肉开始',
-          '用力收紧肌肉5秒钟',
-          '然后完全放松',
-          '感受紧张和放松的对比',
-          '逐步向上到头部'
+          '找一个安静的地方躺下',
+          '从脚趾开始，逐步感受身体各部位',
+          '注意任何紧张或不适的感觉',
+          '深呼吸，让紧张的部位放松',
+          '慢慢扫描到头顶'
         ],
-        benefits: ['深度放松', '缓解肌肉紧张', '改善睡眠']
+        benefits: ['身体觉察', '深度放松', '改善睡眠']
       },
       {
-        id: 'gratitude-reflection',
-        title: '身体感恩练习',
-        description: '感谢身体的功能和服务',
+        id: 'grounding-5-4-3-2-1',
+        title: '5-4-3-2-1 接地技术',
+        description: '通过感官快速回到当下',
         category: 'mindful',
-        duration: 7,
+        duration: 3,
         difficulty: '简单',
-        icon: 'fa-smile-o',
-        color: 'bg-orange-100 text-orange-600',
+        icon: 'fa-eye',
+        color: 'bg-yellow-100 text-yellow-600',
         guide: [
-          '想想身体今天为你做了什么',
-          '感谢双脚带你到想去的地方',
-          '感谢双手帮你完成各种任务',
-          '感谢身体的每一个功能',
-          '用温暖的话语对身体表达感激'
+          '找到5样你能看到的东西',
+          '找到4样你能触摸的东西',
+          '找到3种你能听到的声音',
+          '找到2种你能闻到的气味',
+          '找到1种你能尝到的味道'
         ],
-        benefits: ['增强身体接纳', '提升感恩心', '改善身体形象']
+        benefits: ['快速接地', '缓解焦虑', '提升专注']
       }
     ];
 
@@ -815,10 +776,9 @@
     // 获取分类名称
     function getCategoryName(category) {
       const names = {
-        'breathing': '呼吸冥想',
+        'breathing': '呼吸练习',
         'body': '身体觉察', 
-        'mindful': '正念练习',
-        'emotion': '情绪调节'
+        'mindful': '正念练习'
       };
       return names[category] || category;
     }
@@ -829,9 +789,7 @@
         'breathing-4-7-8': 'anxiety_relief.html',
         'mindful-eating': 'mindful_eating.html',
         'body-scan': 'anxiety_relief.html?type=body-scan',
-        'loving-kindness': 'anxiety_relief.html?type=self-compassion',
-        'progressive-relaxation': 'anxiety_relief.html?type=progressive-relaxation',
-        'gratitude-reflection': 'anxiety_relief.html?type=gratitude-reflection'
+        'grounding-5-4-3-2-1': 'anxiety_relief.html?type=grounding'
       };
 
       const route = practiceRoutes[practiceId];
