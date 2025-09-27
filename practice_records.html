@@ -1,104 +1,4 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>练习记录 - MindFit</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-  
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#4A6157",
-            secondary: "#F7F6F2", 
-            accent: "#2E2E2E",
-            mint: "#8FD9A8",
-            light: "#FAFAFA",
-            white: "#FFFFFF",
-            content: "#444444",
-            gray: "#666666",
-            lightGray: "#777777",
-          },
-        },
-      },
-    };
-  </script>
-  
-  <style>
-    /* 页面加载动画 */
-    .page-content {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* 统计卡片 */
-    .stat-card {
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .stat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 25px rgba(74, 97, 87, 0.15);
-    }
-
-    /* 记录卡片 */
-    .record-card {
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: pointer;
-    }
-
-    .record-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(74, 97, 87, 0.1);
-    }
-
-    /* 按钮样式 */
-    .btn-primary {
-      background: linear-gradient(135deg, #4A6157, #8FD9A8);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 4px 20px rgba(74, 97, 87, 0.2);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 8px 30px rgba(74, 97, 87, 0.3);
-    }
-
-    .btn-secondary {
-      border: 2px solid #4A6157;
-      color: #4A6157;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .btn-secondary:hover {
-      background: #8FD9A8;
-      border-color: #8FD9A8;
-      color: white;
-      transform: translateY(-2px);
-    }
-
-    /* 图表容器 */
-    .chart-container {
-      position: relative;
-      height: 300px;
-    }
-
-    /* 日历热力图 */
+/* 日历热力图 */
     .calendar-heatmap {
       display: grid;
       grid-template-columns: repeat(7, 1fr);
@@ -175,6 +75,153 @@
     .tag-mindful { background: rgba(245, 158, 11, 0.1); color: #d97706; }
     .tag-emotion { background: rgba(236, 72, 153, 0.1); color: #be185d; }
 
+    /* 彩带庆祝动画 */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #f0f;
+      animation: confetti-fall 3s linear infinite;
+      z-index: 9999;
+    }
+
+    .confetti:nth-child(1) { 
+      background: #ff6b6b; 
+      left: 10%; 
+      animation-delay: 0s;
+      animation-duration: 3s;
+    }
+    .confetti:nth-child(2) { 
+      background: #4ecdc4; 
+      left: 20%; 
+      animation-delay: 0.5s;
+      animation-duration: 2.5s;
+    }
+    .confetti:nth-child(3) { 
+      background: #45b7d1; 
+      left: 30%; 
+      animation-delay: 1s;
+      animation-duration: 3.5s;
+    }
+    .confetti:nth-child(4) { 
+      background: #f9ca24; 
+      left: 40%; 
+      animation-delay: 0.3s;
+      animation-duration: 2.8s;
+    }
+    .confetti:nth-child(5) { 
+      background: #f0932b; 
+      left: 50%; 
+      animation-delay: 0.7s;
+      animation-duration: 3.2s;
+    }
+    .confetti:nth-child(6) { 
+      background: #eb4d4b; 
+      left: 60%; 
+      animation-delay: 1.2s;
+      animation-duration: 2.7s;
+    }
+    .confetti:nth-child(7) { 
+      background: #6c5ce7; 
+      left: 70%; 
+      animation-delay: 0.2s;
+      animation-duration: 3.1s;
+    }
+    .confetti:nth-child(8) { 
+      background: #a29bfe; 
+      left: 80%; 
+      animation-delay: 0.9s;
+      animation-duration: 2.9s;
+    }
+    .confetti:nth-child(9) { 
+      background: #fd79a8; 
+      left: 90%; 
+      animation-delay: 1.5s;
+      animation-duration: 3.3s;
+    }
+    .confetti:nth-child(10) { 
+      background: #00b894; 
+      left: 15%; 
+      animation-delay: 0.4s;
+      animation-duration: 2.6s;
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+      }
+      10% {
+        transform: translateY(-90vh) rotate(36deg);
+        opacity: 1;
+      }
+      20% {
+        transform: translateY(-80vh) rotate(72deg);
+        opacity: 1;
+      }
+      30% {
+        transform: translateY(-70vh) rotate(108deg);
+        opacity: 1;
+      }
+      40% {
+        transform: translateY(-60vh) rotate(144deg);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-50vh) rotate(180deg);
+        opacity: 1;
+      }
+      60% {
+        transform: translateY(-40vh) rotate(216deg);
+        opacity: 1;
+      }
+      70% {
+        transform: translateY(-30vh) rotate(252deg);
+        opacity: 1;
+      }
+      80% {
+        transform: translateY(-20vh) rotate(288deg);
+        opacity: 0.8;
+      }
+      90% {
+        transform: translateY(-10vh) rotate(324deg);
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* 彩带的不同形状 */
+    .confetti.square {
+      border-radius: 0;
+    }
+    .confetti.circle {
+      border-radius: 50%;
+    }
+    .confetti.triangle {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 10px solid;
+    }
+
+    /* 成就徽章闪烁效果 */
+    @keyframes achievement-glow {
+      0%, 100% { 
+        box-shadow: 0 0 5px rgba(74, 97, 87, 0.3);
+      }
+      50% { 
+        box-shadow: 0 0 20px rgba(74, 97, 87, 0.6);
+      }
+    }
+
+    .achievement-badge {
+      animation: achievement-glow 2s ease-in-out infinite;
+    }
+
     /* 空状态 */
     .empty-state {
       opacity: 0.7;
@@ -188,7 +235,7 @@
     <div class="max-w-6xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <a href="practice.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+          <a href="daily_practice.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
             <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
             <span class="font-medium">返回练习</span>
           </a>
@@ -300,6 +347,19 @@
                 <span class="text-sm">呼吸冥想</span>
               </div>
               <div class="flex items-center">
+                <span class="text-sm font-medium mr-2" id="breathingCount">0</span>
+                <div class="w-16 h-2 bg-gray-200 rounded-full">
+                  <div id="breathingBar" class="h-2 bg-blue-500 rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-4 h-4 rounded bg-green-500 mr-3"></div>
+                <span class="text-sm">身体觉察</span>
+              </div>
+              <div class="flex items-center">
                 <span class="text-sm font-medium mr-2" id="bodyCount">0</span>
                 <div class="w-16 h-2 bg-gray-200 rounded-full">
                   <div id="bodyBar" class="h-2 bg-green-500 rounded-full" style="width: 0%"></div>
@@ -382,7 +442,7 @@
               <div class="text-6xl mb-4">📊</div>
               <h3 class="text-lg font-semibold text-gray-700 mb-2">还没有练习记录</h3>
               <p class="text-gray-500 mb-6">开始你的第一次练习，建立健康的习惯</p>
-              <a href="practice.html" class="btn-primary text-white px-6 py-3 rounded-lg inline-block">
+              <a href="daily_practice.html" class="btn-primary text-white px-6 py-3 rounded-lg inline-block">
                 开始练习
               </a>
             </div>
@@ -461,6 +521,139 @@
       setTimeout(() => {
         toast.classList.remove('show');
       }, 3000);
+    }
+
+    // 彩带庆祝动画
+    function showConfettiCelebration() {
+      // 创建彩带容器
+      const confettiContainer = document.createElement('div');
+      confettiContainer.style.position = 'fixed';
+      confettiContainer.style.top = '0';
+      confettiContainer.style.left = '0';
+      confettiContainer.style.width = '100%';
+      confettiContainer.style.height = '100%';
+      confettiContainer.style.pointerEvents = 'none';
+      confettiContainer.style.zIndex = '9999';
+      
+      // 创建多个彩带
+      const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7', '#a29bfe', '#fd79a8', '#00b894'];
+      const shapes = ['square', 'circle', 'triangle'];
+      
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = `confetti ${shapes[Math.floor(Math.random() * shapes.length)]}`;
+        
+        // 随机位置和颜色
+        confetti.style.left = Math.random() * 100 + '%';
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.animationDelay = Math.random() * 2 + 's';
+        confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        
+        // 随机大小
+        const size = Math.random() * 8 + 4;
+        confetti.style.width = size + 'px';
+        confetti.style.height = size + 'px';
+        
+        // 三角形特殊处理
+        if (confetti.classList.contains('triangle')) {
+          confetti.style.borderBottomColor = confetti.style.backgroundColor;
+          confetti.style.backgroundColor = 'transparent';
+        }
+        
+        confettiContainer.appendChild(confetti);
+      }
+      
+      document.body.appendChild(confettiContainer);
+      
+      // 4秒后清除彩带
+      setTimeout(() => {
+        if (document.body.contains(confettiContainer)) {
+          document.body.removeChild(confettiContainer);
+        }
+      }, 4000);
+      
+      // 播放庆祝音效（如果支持）
+      playSuccessSound();
+    }
+
+    // 播放成功音效
+    function playSuccessSound() {
+      try {
+        // 创建简单的成功音效
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        
+        // 创建音符序列（C大调和弦）
+        const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+        
+        notes.forEach((freq, index) => {
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          
+          oscillator.frequency.value = freq;
+          oscillator.type = 'sine';
+          
+          gainNode.gain.setValueAtTime(0, audioContext.currentTime + index * 0.1);
+          gainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + index * 0.1 + 0.05);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + index * 0.1 + 0.3);
+          
+          oscillator.start(audioContext.currentTime + index * 0.1);
+          oscillator.stop(audioContext.currentTime + index * 0.1 + 0.3);
+        });
+      } catch (error) {
+        console.log('Audio not supported');
+      }
+    }
+
+    // 检查成就并庆祝
+    function checkAchievements() {
+      const total = practiceHistory.length;
+      const streak = calculateStreak();
+      const milestones = [1, 5, 10, 20, 30, 50, 100];
+      
+      // 检查练习次数里程碑
+      if (milestones.includes(total)) {
+        showAchievementAlert(total, 'practice');
+      }
+      
+      // 检查连续天数里程碑
+      const streakMilestones = [3, 7, 14, 30, 60, 100];
+      if (streakMilestones.includes(streak)) {
+        showAchievementAlert(streak, 'streak');
+      }
+    }
+
+    // 显示成就提醒
+    function showAchievementAlert(number, type) {
+      const messages = {
+        practice: {
+          1: '🎉 完成首次练习！',
+          5: '🌟 已完成5次练习！',
+          10: '🏆 练习达人！完成10次练习',
+          20: '💎 坚持不懈！完成20次练习',
+          30: '🔥 练习专家！完成30次练习',
+          50: '👑 练习大师！完成50次练习',
+          100: '🚀 练习传奇！完成100次练习！'
+        },
+        streak: {
+          3: '🔥 连续3天坚持练习！',
+          7: '⭐ 一周连续练习！太棒了！',
+          14: '💪 两周连续练习！习惯正在养成',
+          30: '🏆 一个月连续练习！你太厉害了！',
+          60: '👑 两个月连续练习！练习大师！',
+          100: '🌟 100天连续练习！传奇成就！'
+        }
+      };
+      
+      const message = messages[type][number];
+      if (message) {
+        showConfettiCelebration();
+        setTimeout(() => {
+          showToast(message);
+        }, 500);
+      }
     }
 
     // 加载练习数据
@@ -880,6 +1073,11 @@
       const streak = calculateStreak();
       const thisWeek = calculateThisWeek();
       
+      // 🎉 如果数据很优秀，显示庆祝动画
+      if (total >= 10 || streak >= 7) {
+        showConfettiCelebration();
+      }
+      
       const text = `我在MindFit上已经完成了${total}次练习，连续${streak}天坚持，本周练习${thisWeek}次！正念练习让我更加关注身心健康。`;
       
       if (navigator.share) {
@@ -963,6 +1161,9 @@
       initMonthNavigation();
       initFiltersAndSort();
       
+      // 检查成就
+      checkAchievements();
+      
       // 欢迎提示
       setTimeout(() => {
         if (practiceHistory.length === 0) {
@@ -975,17 +1176,107 @@
   </script>
 
 </body>
-</html>breathingCount">0</span>
-                <div class="w-16 h-2 bg-gray-200 rounded-full">
-                  <div id="breathingBar" class="h-2 bg-blue-500 rounded-full" style="width: 0%"></div>
-                </div>
-              </div>
-            </div>
-            
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <div class="w-4 h-4 rounded bg-green-500 mr-3"></div>
-                <span class="text-sm">身体觉察</span>
-              </div>
-              <div class="flex items-center">
-                <span class="text-sm font-medium mr-2" id="
+</html><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>练习记录 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4A6157",
+            secondary: "#F7F6F2", 
+            accent: "#2E2E2E",
+            mint: "#8FD9A8",
+            light: "#FAFAFA",
+            white: "#FFFFFF",
+            content: "#444444",
+            gray: "#666666",
+            lightGray: "#777777",
+          },
+        },
+      },
+    };
+  </script>
+  
+  <style>
+    /* 页面加载动画 */
+    .page-content {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 统计卡片 */
+    .stat-card {
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 25px rgba(74, 97, 87, 0.15);
+    }
+
+    /* 记录卡片 */
+    .record-card {
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+    }
+
+    .record-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(74, 97, 87, 0.1);
+    }
+
+    /* 按钮样式 */
+    .btn-primary {
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 4px 20px rgba(74, 97, 87, 0.2);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 30px rgba(74, 97, 87, 0.3);
+    }
+
+    .btn-secondary {
+      border: 2px solid #4A6157;
+      color: #4A6157;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .btn-secondary:hover {
+      background: #8FD9A8;
+      border-color: #8FD9A8;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* 图表容器 */
+    .chart-container {
+      position: relative;
+      height: 300px;
+    }
+
+    /* 日历热力图 */
+    .calendar-heatmap {
+      display: grid;
+      grid-template-columns: repeat(7, 1
