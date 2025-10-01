@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>思维记录 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4A6157",
+            secondary: "#F7F6F2", 
+            accent: "#2E2E2E",
+            mint: "#8FD9A8",
+          },
+        },
+      },
+    };
+  </script>
+  
+  <style>
+    .step-indicator {
+      transition: all 0.3s ease;
+    }
+    
+    .step-indicator.active {
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      color: white;
+    }
+    
+    .step-indicator.completed {
+      background: #8FD9A8;
+      color: white;
+    }
+
+    .form-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .form-section.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .distortion-chip {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .distortion-chip:hover {
+      transform: scale(1.05);
+    }
+
+    .distortion-chip.selected {
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      color: white;
+      border-color: #4A6157;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 8px;
+      border-radius: 4px;
+      background: #e5e7eb;
+      outline: none;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #4A6157;
+      cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #4A6157;
+      cursor: pointer;
+      border: none;
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.4s ease;
+      box-shadow: 0 8px 32px rgba(74, 97, 87, 0.3);
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+
+<body class="bg-secondary font-sans min-h-screen">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
+    <div class="max-w-4xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <a href="cbt_tools.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+            <span class="font-medium">返回工具</span>
+          </a>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-pencil text-white text-sm"></i>
+          </div>
+          <span class="text-lg font-bold text-primary">思维记录</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <div class="flex items-center">
+      <span class="mr-2">✓</span>
+      <span id="toastMessage"></span>
+    </div>
+  </div>
+
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    
+    <!-- 步骤指示器 -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <div class="step-indicator active w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium">
+            1
+          </div>
+          <span class="text-sm font-medium text-gray-700">情境与想法</span>
+        </div>
+        <div class="flex-1 h-px bg-gray-300 mx-4"></div>
+        
+        <div class="flex items-center space-x-2">
+          <div class="step-indicator w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium text-gray-600">
+            2
+          </div>
+          <span class="text-sm text-gray-500">情绪与扭曲</span>
+        </div>
+        <div class="flex-1 h-px bg-gray-300 mx-4"></div>
+        
+        <div class="flex items-center space-x-2">
+          <div class="step-indicator w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium text-gray-600">
+            3
+          </div>
+          <span class="text-sm text-gray-500">挑战与替代</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 表单区域 -->
+    <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
+      
+      <!-- 步骤 1: 情境与想法 -->
+      <div id="step1" class="form-section active">
+        <h2 class="text-2xl font-bold text-primary mb-6">记录情境与想法</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-map-marker text-primary mr-1"></i>
+              发生了什么？（情境描述）
+            </label>
+            <textarea 
+              id="situation" 
+              rows="3" 
+              class="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-primary focus:border-primary"
+              placeholder="例如：看到社交媒体上的完美身材照片..."
+            ></textarea>
+            <p class="text-xs text-gray-500 mt-1">描述具体的时间、地点、人物和事件</p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-comment text-primary mr-1"></i>
+              当时的想法是什么？（负面想法）
+            </label>
+            <textarea 
+              id="negativeThought" 
+              rows="4" 
+              class="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-primary focus:border-primary"
+              placeholder="例如：我永远不可能有那样的身材，我太胖了..."
+            ></textarea>
+            <p class="text-xs text-gray-500 mt-1">写下脑海中自动浮现的想法，不要评判</p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              你相信这个想法的程度
+            </label>
+            <div class="flex items-center space-x-4">
+              <span class="text-sm text-gray-600 whitespace-nowrap">不相信</span>
+              <input 
+                type="range" 
+                id="beliefBefore" 
+                min="0" 
+                max="10" 
+                value="5" 
+                class="slider flex-1"
+              />
+              <span class="text-sm text-gray-600 whitespace-nowrap">完全相信</span>
+            </div>
+            <div class="text-center mt-2">
+              <span class="text-2xl font-bold text-primary" id="beliefBeforeValue">5</span>
+              <span class="text-sm text-gray-600">/10</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-end mt-8">
+          <button onclick="goToStep(2)" class="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-mint transition-colors">
+            下一步 →
+          </button>
+        </div>
+      </div>
+
+      <!-- 步骤 2: 情绪与扭曲 -->
+      <div id="step2" class="form-section">
+        <h2 class="text-2xl font-bold text-primary mb-6">识别情绪与认知扭曲</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+              <i class="fa fa-heart text-primary mr-1"></i>
+              你感到了什么情绪？（可多选）
+            </label>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <label class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary transition-colors">
+                <input type="checkbox" name="emotion" value="焦虑" class="mr-2">
+                <span class="text-sm">😰 焦虑</span>
+              </label>
+              <label class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary transition-colors">
+                <input type="checkbox" name="emotion" value="难过" class="mr-2">
+                <span class="text-sm">😢 难过</span>
+              </label>
+              <label class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary transition-colors">
+                <input type="checkbox" name="emotion" value="愤怒" class="mr-2">
+                <span class="text-sm">😠 愤怒</span>
+              </label>
+              <label class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary transition-colors">
+                <input type="checkbox" name="emotion" value="羞愧" class="mr-2">
+                <span class="text-sm">😳 羞愧</span>
+              </label>
+              <label class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary transition-colors">
+                <input type="checkbox" name="emotion" value="恐惧" class="mr-2">
+                <span class="text-sm">😨 恐惧</span>
+              </label>
+              <label class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary transition-colors">
+                <input type="checkbox" name="emotion" value="失望" class="mr-2">
+                <span class="text-sm">😔 失望</span>
+              </label>
+              <label class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-primary transition-colors">
+                <input type="checkbox" name="emotion" value="嫉妒" class="mr-2">
+                <span class="text-sm">😒 嫉妒</span>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              情绪强度
+            </label>
+            <div class="flex items-center space-x-4">
+              <span class="text-sm text-gray-600 whitespace-nowrap">轻微</span>
+              <input 
+                type="range" 
+                id="emotionIntensity" 
+                min="1" 
+                max="10" 
+                value="5" 
+                class="slider flex-1"
+              />
+              <span class="text-sm text-gray-600 whitespace-nowrap">强烈</span>
+            </div>
+            <div class="text-center mt-2">
+              <span class="text-2xl font-bold text-primary" id="emotionIntensityValue">5</span>
+              <span class="text-sm text-gray-600">/10</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+              <i class="fa fa-eye text-primary mr-1"></i>
+              识别认知扭曲类型（可多选）
+            </label>
+            <div class="space-y-2">
+              <div class="distortion-chip border-2 border-gray-200 rounded-lg p-3" onclick="toggleDistortion(this, '非黑即白')">
+                <div class="flex items-start">
+                  <input type="checkbox" name="distortion" value="非黑即白" class="mr-3 mt-1">
+                  <div>
+                    <div class="font-medium text-gray-800">非黑即白思维</div>
+                    <div class="text-xs text-gray-600">只看到极端，没有中间地带（如"我完全失败了"）</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="distortion-chip border-2 border-gray-200 rounded-lg p-3" onclick="toggleDistortion(this, '灾难化')">
+                <div class="flex items-start">
+                  <input type="checkbox" name="distortion" value="灾难化" class="mr-3 mt-1">
+                  <div>
+                    <div class="font-medium text-gray-800">灾难化</div>
+                    <div class="text-xs text-gray-600">预期最坏的结果（如"这会毁掉一切"）</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="distortion-chip border-2 border-gray-200 rounded-lg p-3" onclick="toggleDistortion(this, '过度概括')">
+                <div class="flex items-start">
+                  <input type="checkbox" name="distortion" value="过度概括" class="mr-3 mt-1">
+                  <div>
+                    <div class="font-medium text-gray-800">过度概括</div>
+                    <div class="text-xs text-gray-600">从单一事件得出普遍结论（如"我永远都..."）</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="distortion-chip border-2 border-gray-200 rounded-lg p-3" onclick="toggleDistortion(this, '读心术')">
+                <div class="flex items-start">
+                  <input type="checkbox" name="distortion" value="读心术" class="mr-3 mt-1">
+                  <div>
+                    <div class="font-medium text-gray-800">读心术</div>
+                    <div class="text-xs text-gray-600">认为知道别人的想法（如"他们一定觉得我很丑"）</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="distortion-chip border-2 border-gray-200 rounded-lg p-3" onclick="toggleDistortion(this, '标签化')">
+                <div class="flex items-start">
+                  <input type="checkbox" name="distortion" value="标签化" class="mr-3 mt-1">
+                  <div>
+                    <div class="font-medium text-gray-800">标签化</div>
+                    <div class="text-xs text-gray-600">给自己贴负面标签（如"我就是个失败者"）</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-8">
+          <button onclick="goToStep(1)" class="border-2 border-primary text-primary px-8 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors">
+            ← 上一步
+          </button>
+          <button onclick="goToStep(3)" class="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-mint transition-colors">
+            下一步 →
+          </button>
+        </div>
+      </div>
+
+      <!-- 步骤 3: 挑战与替代 -->
+      <div id="step3" class="form-section">
+        <h2 class="text-2xl font-bold text-primary mb-6">挑战想法，寻找替代</h2>
+        
+        <div class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-check-circle text-primary mr-1"></i>
+              支持这个想法的证据
+            </label>
+            <textarea 
+              id="evidenceFor" 
+              rows="3" 
+              class="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-primary focus:border-primary"
+              placeholder="客观事实，而非感觉或猜测..."
+            ></textarea>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-times-circle text-primary mr-1"></i>
+              反对这个想法的证据
+            </label>
+            <textarea 
+              id="evidenceAgainst" 
+              rows="3" 
+              class="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-primary focus:border-primary"
+              placeholder="有什么证据表明这个想法可能不完全正确？"
+            ></textarea>
+            <p class="text-xs text-gray-500 mt-1">提示：朋友会怎么看待这件事？有没有被忽略的积极因素？</p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-lightbulb-o text-primary mr-1"></i>
+              更理性、平衡的替代想法
+            </label>
+            <textarea 
+              id="alternativeThought" 
+              rows="4" 
+              class="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-primary focus:border-primary"
+              placeholder="考虑所有证据后，一个更平衡的想法是..."
+            ></textarea>
+            <p class="text-xs text-gray-500 mt-1">写一个更客观、更有帮助的想法</p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              你相信替代想法的程度
+            </label>
+            <div class="flex items-center space-x-4">
+              <span class="text-sm text-gray-600 whitespace-nowrap">不相信</span>
+              <input 
+                type="range" 
+                id="beliefAfter" 
+                min="0" 
+                max="10" 
+                value="5" 
+                class="slider flex-1"
+              />
+              <span class="text-sm text-gray-600 whitespace-nowrap">完全相信</span>
+            </div>
+            <div class="text-center mt-2">
+              <span class="text-2xl font-bold text-primary" id="beliefAfterValue">5</span>
+              <span class="text-sm text-gray-600">/10</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              现在的情绪强度
+            </label>
+            <div class="flex items-center space-x-4">
+              <span class="text-sm text-gray-600 whitespace-nowrap">轻微</span>
+              <input 
+                type="range" 
+                id="emotionAfter" 
+                min="1" 
+                max="10" 
+                value="5" 
+                class="slider flex-1"
+              />
+              <span class="text-sm text-gray-600 whitespace-nowrap">强烈</span>
+            </div>
+            <div class="text-center mt-2">
+              <span class="text-2xl font-bold text-primary" id="emotionAfterValue">5</span>
+              <span class="text-sm text-gray-600">/10</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-8">
+          <button onclick="goToStep(2)" class="border-2 border-primary text-primary px-8 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors">
+            ← 上一步
+          </button>
+          <button onclick="saveRecord()" class="bg-primary text-white px-8 py-3 rounded-lg font-medium hover:bg-mint transition-colors">
+            <i class="fa fa-save mr-2"></i>保存记录
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    let currentStep = 1;
+
+    // Toast 提示
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // 切换步骤
+    function goToStep(step) {
+      // 验证当前步骤
+      if (step > currentStep) {
+        if (!validateStep(currentStep)) {
+          return;
+        }
+      }
+
+      // 隐藏当前步骤
+      document.getElementById(`step${currentStep}`).classList.remove('active');
+      
+      // 更新步骤指示器
+      document.querySelectorAll('.step-indicator').forEach((indicator, index) => {
+        indicator.classList.remove('active', 'completed');
+        if (index + 1 < step) {
+          indicator.classList.add('completed');
+        } else if (index + 1 === step) {
+          indicator.classList.add('active');
+        }
+      });
+
+      // 显示新步骤
+      currentStep = step;
+      setTimeout(() => {
+        document.getElementById(`step${step}`).classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 100);
+    }
+
+    // 验证步骤
+    function validateStep(step) {
+      if (step === 1) {
+        const situation = document.getElementById('situation').value.trim();
+        const negativeThought = document.getElementById('negativeThought').value.trim();
+        
+        if (!situation) {
+          showToast('请描述发生的情境');
+          return false;
+        }
+        if (!negativeThought) {
+          showToast('请写下你的负面想法');
+          return false;
+        }
+      } else if (step === 2) {
+        const emotions = Array.from(document.querySelectorAll('input[name="emotion"]:checked'));
+        if (emotions.length === 0) {
+          showToast('请至少选择一种情绪');
+          return false;
+        }
+      }
+      return true;
+    }
+
+    // 切换认知扭曲选择
+    function toggleDistortion(element, value) {
+      const checkbox = element.querySelector('input[type="checkbox"]');
+      checkbox.checked = !checkbox.checked;
+      element.classList.toggle('selected', checkbox.checked);
+    }
+
+    // 滑块值更新
+    document.getElementById('beliefBefore').addEventListener('input', (e) => {
+      document.getElementById('beliefBeforeValue').textContent = e.target.value;
+    });
+
+    document.getElementById('emotionIntensity').addEventListener('input', (e) => {
+      document.getElementById('emotionIntensityValue').textContent = e.target.value;
+    });
+
+    document.getElementById('beliefAfter').addEventListener('input', (e) => {
+      document.getElementById('beliefAfterValue').textContent = e.target.value;
+    });
+
+    document.getElementById('emotionAfter').addEventListener('input', (e) => {
+      document.getElementById('emotionAfterValue').textContent = e.target.value;
+    });
+
+    // 保存记录
+    function saveRecord() {
+      // 验证第3步
+      const alternativeThought = document.getElementById('alternativeThought').value.trim();
+      if (!alternativeThought) {
+        showToast('请写下替代想法');
+        return;
+      }
+
+      // 收集所有数据
+      const record = {
+        id: Date.now(),
+        date: new Date().toISOString(),
+        situation: document.getElementById('situation').value,
+        negativeThought: document.getElementById('negativeThought').value,
+        beliefBefore: parseInt(document.getElementById('beliefBefore').value),
+        emotions: Array.from(document.querySelectorAll('input[name="emotion"]:checked')).map(el => el.value),
+        emotionIntensity: parseInt(document.getElementById('emotionIntensity').value),
+        distortionTypes: Array.from(document.querySelectorAll('input[name="distortion"]:checked')).map(el => el.value),
+        evidenceFor: document.getElementById('evidenceFor').value,
+        evidenceAgainst: document.getElementById('evidenceAgainst').value,
+        alternativeThought: document.getElementById('alternativeThought').value,
+        beliefAfter: parseInt(document.getElementById('beliefAfter').value),
+        emotionAfter: parseInt(document.getElementById('emotionAfter').value)
+      };
+
+      // 保存到 localStorage
+      try {
+        const records = JSON.parse(localStorage.getItem('thoughtRecords') || '[]');
+        records.push(record);
+        localStorage.setItem('thoughtRecords', JSON.stringify(records));
+        
+        showToast('思维记录已保存！');
+        
+        // 2秒后跳转
+        setTimeout(() => {
+          window.location.href = 'cbt_tools.html';
+        }, 2000);
+      } catch (error) {
+        console.error('保存失败:', error);
+        showToast('保存失败，请重试');
+      }
+    }
+
+    // 页面加载
+    document.addEventListener('DOMContentLoaded', () => {
+      showToast('开始记录你的想法和情绪');
+    });
+  </script>
+
+</body>
+</html>
