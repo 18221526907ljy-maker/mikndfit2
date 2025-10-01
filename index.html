@@ -278,7 +278,7 @@
           <a href="daily_practice.html" class="text-content hover:text-primary transition-colors font-medium">练习</a>
           <a href="practice_records.html" class="text-content hover:text-primary transition-colors font-medium">记录</a>
           <a href="body-neutrality.html" class="text-content hover:text-primary transition-colors font-medium">理论</a>
-          <a href="#" class="text-content hover:text-primary transition-colors font-medium">个人中心</a>
+           <a href="profile.html" class="text-content hover:text-primary transition-colors font-medium">个人中心</a>
         </div>
       </div>
     </div>
@@ -292,8 +292,8 @@
           <i class="fa fa-heartbeat text-white text-xs"></i>
         </div>
         <span class="text-lg font-bold text-primary">MindFit</span>
-      </div>
-      <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center">
+        <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center cursor-pointer" 
+         onclick="window.location.href='profile.html'">
         <i class="fa fa-user text-white text-xs"></i>
       </div>
     </div>
@@ -675,10 +675,11 @@
         <i class="fa fa-chart-line text-lg mb-1"></i>
         <span class="text-xs">记录</span>
       </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500">
-        <i class="fa fa-user text-lg mb-1"></i>
-        <span class="text-xs">我的</span>
-      </button>
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500" 
+            onclick="window.location.href='profile.html'">
+      <i class="fa fa-user text-lg mb-1"></i>
+      <span class="text-xs">我的</span>
+    </button>
     </div>
   </nav>
 
