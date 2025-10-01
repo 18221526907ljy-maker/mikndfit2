@@ -27,7 +27,6 @@
   </script>
   
   <style>
-    /* 页面加载动画 */
     .page-content {
       opacity: 0;
       transform: translateY(30px);
@@ -45,7 +44,6 @@
       }
     }
 
-    /* 按钮样式优化 */
     .btn-primary {
       background: linear-gradient(135deg, #4A6157, #8FD9A8);
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -70,13 +68,11 @@
       transform: translateY(-2px);
     }
 
-    /* 进度条动画 */
     .progress-bar {
       transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       background: linear-gradient(90deg, #4A6157, #8FD9A8);
     }
 
-    /* 答案选项优化 */
     .answer-option {
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       border: 2px solid #e5e7eb;
@@ -95,7 +91,6 @@
       transform: translateX(8px);
     }
 
-    /* Toast 优化 */
     .toast {
       position: fixed;
       top: 20px;
@@ -114,7 +109,6 @@
       transform: translateX(0);
     }
 
-    /* 问题切换动画 */
     .question-container {
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
@@ -221,6 +215,9 @@
     </div>
   </main>
 
+  <!-- 数据管理器 -->
+  <script src="js/data-manager.js"></script>
+
   <script>
     // 身材焦虑测评题目
     const BODY_ANXIETY_QUESTIONS = [
@@ -265,7 +262,6 @@
         return;
       }
 
-      // 添加切换动画
       const questionContainer = document.getElementById('questionCard');
       questionContainer.classList.add('changing');
 
@@ -348,7 +344,7 @@
       }
     }
 
-    // 完成测评
+    // ⭐ 修复后的完成测评函数
     function completeAssessment() {
       const totalScore = bodyAnxietyAnswers.reduce((sum, score) => sum + score, 0);
       const maxScore = BODY_ANXIETY_QUESTIONS.length * 4;
@@ -357,11 +353,32 @@
       // 生成建议
       const advice = generateBodyAnxietyAdvice(totalScore, percentage);
 
-      // 将建议编码为URL参数（与现有result.html兼容）
-      const adviceStr = encodeURIComponent(advice.join(",,"));
+      // ⭐ 保存到数据管理器
+      dataManager.addAssessment('anxiety', {
+        score: totalScore,
+        percentage: percentage,
+        answers: bodyAnxietyAnswers,
+        totalQuestions: BODY_ANXIETY_QUESTIONS.length,
+        maxScore: maxScore
+      });
+
+      // 准备结果数据
+      const resultData = {
+        totalScore: totalScore,
+        percentage: percentage,
+        answers: bodyAnxietyAnswers,
+        advice: advice,
+        timestamp: Date.now()
+      };
+
+      // ⭐ 使用 sessionStorage 传递数据到结果页
+      sessionStorage.setItem('assessment_result', JSON.stringify({
+        type: 'anxiety',
+        data: resultData
+      }));
       
-      // 跳转到正确的结果页面
-      window.location.href = `assessment-result.html?advice=${adviceStr}`;
+      // 跳转到结果页
+      window.location.href = 'assessment-result.html?type=anxiety';
     }
 
     // 生成身材焦虑建议
@@ -369,20 +386,65 @@
       const advice = [];
       
       if (percentage >= 75) {
-        advice.push("⛈ 高度焦虑：你当前的身材焦虑程度较高，建议优先考虑专业心理支持，配合自我调节练习。");
-        advice.push("🧘 今日小任务：进行一次 10 分钟的身体扫描冥想，关注身体的功能而非外貌。尝试对镜子中的自己说一句鼓励的话。");
+        advice.push({
+          icon: '⛈',
+          title: '高度焦虑',
+          content: '你当前的身材焦虑程度较高，建议优先考虑专业心理支持，配合自我调节练习。',
+          color: 'text-red-600'
+        });
+        advice.push({
+          icon: '🧘',
+          title: '今日小任务',
+          content: '进行一次 10 分钟的身体扫描冥想，关注身体的功能而非外貌。尝试对镜子中的自己说一句鼓励的话。',
+          color: 'text-gray-600'
+        });
       } else if (percentage >= 50) {
-        advice.push("🌧 中度焦虑：你对身材有一定程度的焦虑，建议尝试身体中立练习和正念技巧。");
-        advice.push("📝 今日小任务：写下 3 条你身体的功能性优点，例如\"我的身体让我可以自由行走\"、\"我的手可以拥抱他人\"。");
+        advice.push({
+          icon: '🌧',
+          title: '中度焦虑',
+          content: '你对身材有一定程度的焦虑，建议尝试身体中立练习和正念技巧。',
+          color: 'text-orange-600'
+        });
+        advice.push({
+          icon: '📝',
+          title: '今日小任务',
+          content: '写下 3 条你身体的功能性优点，例如"我的身体让我可以自由行走"、"我的手可以拥抱他人"。',
+          color: 'text-gray-600'
+        });
       } else if (percentage >= 25) {
-        advice.push("🌤 轻度焦虑：你偶尔会对身材感到担忧，这很正常。建议保持积极的身体意识。");
-        advice.push("🌿 今日小任务：每日 1 次正念呼吸（约 3 分钟），并练习自我肯定语：\"我接纳现在的自己\"。");
+        advice.push({
+          icon: '🌤',
+          title: '轻度焦虑',
+          content: '你偶尔会对身材感到担忧，这很正常。建议保持积极的身体意识。',
+          color: 'text-yellow-600'
+        });
+        advice.push({
+          icon: '🌿',
+          title: '今日小任务',
+          content: '每日 1 次正念呼吸（约 3 分钟），并练习自我肯定语："我接纳现在的自己"。',
+          color: 'text-gray-600'
+        });
       } else {
-        advice.push("🌟 状态良好：你对身材保持着健康的态度，继续保持这种平衡的心态。");
-        advice.push("💫 今日小任务：分享你的积极心态，帮助身边的人建立健康的身体观念。可以推荐一个身体中立的理念给朋友。");
+        advice.push({
+          icon: '🌟',
+          title: '状态良好',
+          content: '你对身材保持着健康的态度，继续保持这种平衡的心态。',
+          color: 'text-green-600'
+        });
+        advice.push({
+          icon: '💫',
+          title: '今日小任务',
+          content: '分享你的积极心态，帮助身边的人建立健康的身体观念。可以推荐一个身体中立的理念给朋友。',
+          color: 'text-gray-600'
+        });
       }
 
-      advice.push("📘 推荐阅读: <a href='body-neutrality.html' target='_blank'>身体中立入门指南</a> — 学习如何建立更健康的身体关系。");
+      advice.push({
+        icon: '📘',
+        title: '推荐阅读',
+        content: '身体中立入门指南 — 学习如何建立更健康的身体关系。',
+        color: 'text-blue-600'
+      });
       
       return advice;
     }
@@ -421,19 +483,6 @@
 
     // 页面加载完成后初始化
     document.addEventListener('DOMContentLoaded', function() {
-      // 检查是否有传入的测评类型参数
-      const urlParams = new URLSearchParams(window.location.search);
-      const testType = urlParams.get('type');
-      
-      // 根据测评类型调整页面（如果需要支持多种测评类型）
-      if (testType === 'bmi') {
-        // 如果是BMI测评，可以重定向到BMI测评页面
-        // 或者在这里实现BMI测评逻辑
-        window.location.href = 'bmi-assessment.html';
-        return;
-      }
-      
-      // 默认进行身材焦虑测评
       initAssessment();
       showToast('开始测评，请根据实际情况如实回答');
     });
