@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人中心 - MindFit</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .profile-header {
+      background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
+      padding: 40px 20px;
+      text-align: center;
+      color: white;
+    }
+    .avatar-wrapper {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      color: #0d9488;
+      border: 4px solid rgba(255,255,255,0.3);
+    }
+    .avatar-edit {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 32px;
+      height: 32px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .profile-info {
+      margin-bottom: 20px;
+    }
+    .profile-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .profile-stats {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: bold;
+      display: block;
+    }
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+    .section {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #0d9488;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid #f0f0f0;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+    .menu-item:hover {
+      background: #f8fafc;
+      padding-left: 8px;
+      padding-right: 8px;
+      border-radius: 8px;
+    }
+    .menu-item-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .menu-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .achievement-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .achievement-card {
+      text-align: center;
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .achievement-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(13,148,136,0.2);
+    }
+    .achievement-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    .achievement-icon.locked {
+      opacity: 0.3;
+      filter: grayscale(1);
+    }
+    .achievement-name {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 500;
+    }
+    .badge {
+      background: #fee2e2;
+      color: #dc2626;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    
+    @media (max-width: 768px) {
+      .achievement-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .profile-header {
+        padding: 30px 20px;
+      }
+      .avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body class="bg-secondary">
+
+  <!-- 顶部导航 -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
+    <div class="max-w-4xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <a href="index.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+            <span class="font-medium">返回首页</span>
+          </a>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-user text-white text-sm"></i>
+          </div>
+          <span class="text-lg font-bold text-primary">个人中心</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="max-w-4xl mx-auto pb-20 md:pb-8">
+
+    <!-- 个人信息头部 -->
+    <div class="profile-header">
+      <div class="avatar-wrapper">
+        <div class="avatar">
+          <i class="fa fa-user"></i>
+        </div>
+        <div class="avatar-edit" onclick="editAvatar()">
+          <i class="fa fa-camera text-primary text-sm"></i>
+        </div>
+      </div>
+      
+      <div class="profile-info">
+        <div class="profile-name" id="userName">MindFit用户</div>
+        <div style="opacity: 0.9; font-size: 14px;">加入时间: <span id="joinDate">2024年1月</span></div>
+      </div>
+
+      <div class="profile-stats">
+        <div class="stat-item">
+          <span class="stat-value" id="practiceCount">0</span>
+          <span class="stat-label">练习次数</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="streakCount">0</span>
+          <span class="stat-label">连续天数</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value" id="achievementCount">0</span>
+          <span class="stat-label">成就徽章</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="px-4 py-6">
+
+      <!-- 我的成就 -->
+      <div class="section">
+        <div class="section-title">
+          <i class="fa fa-trophy"></i>
+          我的成就
+        </div>
+        <div class="achievement-grid">
+          <div class="achievement-card" onclick="showToast('完成首次练习解锁')">
+            <div class="achievement-icon" id="badge-first">🎯</div>
+            <div class="achievement-name">初次尝试</div>
+          </div>
+          <div class="achievement-card" onclick="showToast('连续练习7天解锁')">
+            <div class="achievement-icon locked" id="badge-week">🔥</div>
+            <div class="achievement-name">坚持一周</div>
+          </div>
+          <div class="achievement-card" onclick="showToast('完成10次练习解锁')">
+            <div class="achievement-icon locked" id="badge-ten">⭐</div>
+            <div class="achievement-name">练习达人</div>
+          </div>
+          <div class="achievement-card" onclick="showToast('完成所有CBT工具解锁')">
+            <div class="achievement-icon locked" id="badge-cbt">🧠</div>
+            <div class="achievement-name">CBT专家</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 我的数据 -->
+      <div class="section">
+        <div class="section-title">
+          <i class="fa fa-bar-chart"></i>
+          我的数据
+        </div>
+        <div class="menu-item" onclick="window.location.href='practice_records.html'">
+          <div class="menu-item-left">
+            <div class="menu-icon" style="background: #dbeafe; color: #3b82f6;">
+              <i class="fa fa-history"></i>
+            </div>
+            <span>练习记录</span>
+          </div>
+          <i class="fa fa-chevron-right text-gray-400"></i>
+        </div>
+        <div class="menu-item" onclick="window.location.href='self-assessment.html'">
+          <div class="menu-item-left">
+            <div class="menu-icon" style="background: #f3e8ff; color: #a855f7;">
+              <i class="fa fa-clipboard"></i>
+            </div>
+            <span>测评记录</span>
+          </div>
+          <i class="fa fa-chevron-right text-gray-400"></i>
+        </div>
+        <div class="menu-item" onclick="window.location.href='cbt_tools.html'">
+          <div class="menu-item-left">
+            <div class="menu-icon" style="background: #dcfce7; color: #16a34a;">
+              <i class="fa fa-brain"></i>
+            </div>
+            <span>CBT记录</span>
+          </div>
+          <i class="fa fa-chevron-right text-gray-400"></i>
+        </div>
+      </div>
+
+      <!-- 设置与帮助 -->
+      <div class="section">
+        <div class="section-title">
+          <i class="fa fa-cog"></i>
+          设置与帮助
+        </div>
+        <div class="menu-item" onclick="editProfile()">
+          <div class="menu-item-left">
+            <div class="menu-icon" style="background: #fef3c7; color: #f59e0b;">
+              <i class="fa fa-edit"></i>
+            </div>
+            <span>编辑资料</span>
+          </div>
+          <i class="fa fa-chevron-right text-gray-400"></i>
+        </div>
+        <div class="menu-item" onclick="showNotificationSettings()">
+          <div class="menu-item-left">
+            <div class="menu-icon" style="background: #fce7f3; color: #ec4899;">
+              <i class="fa fa-bell"></i>
+            </div>
+            <span>通知设置</span>
+          </div>
+          <i class="fa fa-chevron-right text-gray-400"></i>
+        </div>
+        <div class="menu-item" onclick="showPrivacySettings()">
+          <div class="menu-item-left">
+            <div class="menu-icon" style="background: #e0e7ff; color: #6366f1;">
+              <i class="fa fa-lock"></i>
+            </div>
+            <span>隐私设置</span>
+          </div>
+          <i class="fa fa-chevron-right text-gray-400"></i>
+        </div>
+        <div class="menu-item" onclick="showFeedback()">
+          <div class="menu-item-left">
+            <div class="menu-icon" style="background: #d1fae5; color: #10b981;">
+              <i class="fa fa-comment"></i>
+            </div>
+            <span>意见反馈</span>
+          </div>
+          <i class="fa fa-chevron-right text-gray-400"></i>
+        </div>
+        <div class="menu-item" onclick="showAbout()">
+          <div class="menu-item-left">
+            <div class="menu-icon" style="background: #e5e7eb; color: #6b7280;">
+              <i class="fa fa-info-circle"></i>
+            </div>
+            <span>关于我们</span>
+          </div>
+          <i class="fa fa-chevron-right text-gray-400"></i>
+        </div>
+      </div>
+
+      <!-- 退出登录 -->
+      <div class="section">
+        <div class="menu-item" onclick="logout()" style="color: #dc2626;">
+          <div class="menu-item-left">
+            <div class="menu-icon" style="background: #fee2e2; color: #dc2626;">
+              <i class="fa fa-sign-out"></i>
+            </div>
+            <span>退出登录</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <div class="flex items-center">
+      <span class="mr-2">✓</span>
+      <span id="toastMessage"></span>
+    </div>
+  </div>
+
+  <!-- 移动端底部导航 -->
+  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
+    <div class="flex justify-around py-2">
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="window.location.href='index.html'">
+        <i class="fa fa-home text-lg mb-1"></i>
+        <span class="text-xs">首页</span>
+      </button>
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="window.location.href='self-assessment.html'">
+        <i class="fa fa-clipboard text-lg mb-1"></i>
+        <span class="text-xs">测评</span>
+      </button>
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="window.location.href='daily_practice.html'">
+        <i class="fa fa-leaf text-lg mb-1"></i>
+        <span class="text-xs">练习</span>
+      </button>
+      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="window.location.href='practice_records.html'">
+        <i class="fa fa-chart-line text-lg mb-1"></i>
+        <span class="text-xs">记录</span>
+      </button>
+      <button class="flex flex-col items-center py-2 px-3 text-primary">
+        <i class="fa fa-user text-lg mb-1"></i>
+        <span class="text-xs font-medium">我的</span>
+      </button>
+    </div>
+  </nav>
+
+  <script>
+    // Toast 提示功能
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+
+    // 数据库操作
+    const DB_KEY = "mindfit_db_v1";
+
+    function loadDB() {
+      try {
+        const raw = localStorage.getItem(DB_KEY);
+        return raw ? JSON.parse(raw) : {
+          practiceHistory: [],
+          streak: { count: 0, lastDate: "" },
+          badges: {},
+          userName: "MindFit用户",
+          joinDate: new Date().toISOString()
+        };
+      } catch (e) {
+        return {
+          practiceHistory: [],
+          streak: { count: 0, lastDate: "" },
+          badges: {},
+          userName: "MindFit用户",
+          joinDate: new Date().toISOString()
+        };
+      }
+    }
+
+    function saveDB(db) {
+      localStorage.setItem(DB_KEY, JSON.stringify(db));
+    }
+
+    // 加载用户数据
+    function loadUserData() {
+      const db = loadDB();
+      
+      // 设置用户名
+      document.getElementById('userName').textContent = db.userName || 'MindFit用户';
+      
+      // 设置加入时间
+      const joinDate = new Date(db.joinDate || Date.now());
+      document.getElementById('joinDate').textContent = 
+        `${joinDate.getFullYear()}年${joinDate.getMonth() + 1}月`;
+      
+      // 设置练习次数
+      document.getElementById('practiceCount').textContent = 
+        db.practiceHistory?.length || 0;
+      
+      // 设置连续天数
+      document.getElementById('streakCount').textContent = 
+        db.streak?.count || 0;
+      
+      // 设置成就数量
+      const achievementCount = Object.values(db.badges || {}).filter(Boolean).length;
+      document.getElementById('achievementCount').textContent = achievementCount;
+      
+      // 更新徽章状态
+      updateBadges(db.badges || {});
+    }
+
+    // 更新徽章显示
+    function updateBadges(badges) {
+      if (badges.firstPractice) {
+        document.getElementById('badge-first').classList.remove('locked');
+      }
+      if (badges.weekStreak) {
+        document.getElementById('badge-week').classList.remove('locked');
+      }
+      if (badges.tenPractices) {
+        document.getElementById('badge-ten').classList.remove('locked');
+      }
+      if (badges.cbtMaster) {
+        document.getElementById('badge-cbt').classList.remove('locked');
+      }
+    }
+
+    // 编辑头像
+    function editAvatar() {
+      showToast('头像上传功能开发中...');
+    }
+
+    // 编辑资料
+    function editProfile() {
+      const db = loadDB();
+      const newName = prompt('请输入新的昵称:', db.userName || 'MindFit用户');
+      if (newName && newName.trim()) {
+        db.userName = newName.trim();
+        saveDB(db);
+        document.getElementById('userName').textContent = newName.trim();
+        showToast('昵称修改成功!');
+      }
+    }
+
+    // 通知设置
+    function showNotificationSettings() {
+      showToast('通知设置功能开发中...');
+    }
+
+    // 隐私设置
+    function showPrivacySettings() {
+      showToast('隐私设置功能开发中...');
+    }
+
+    // 意见反馈
+    function showFeedback() {
+      const feedback = prompt('请输入您的意见或建议:');
+      if (feedback && feedback.trim()) {
+        showToast('感谢您的反馈!我们会认真考虑');
+      }
+    }
+
+    // 关于我们
+    function showAbout() {
+      alert('MindFit - 身心健康管理平台\n\n版本: 1.0.0\n\n帮助用户科学管理身心健康,告别身材焦虑');
+    }
+
+    // 退出登录
+    function logout() {
+      if (confirm('确定要退出登录吗?')) {
+        // 这里可以添加清除用户会话的逻辑
+        showToast('已退出登录');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+      }
+    }
+
+    // 页面加载时初始化
+    document.addEventListener('DOMContentLoaded', () => {
+      loadUserData();
+      showToast('欢迎回来!');
+    });
+  </script>
+
+</body>
+</html>
