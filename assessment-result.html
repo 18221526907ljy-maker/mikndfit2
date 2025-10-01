@@ -15,11 +15,6 @@
             secondary: "#F7F6F2", 
             accent: "#2E2E2E",
             mint: "#8FD9A8",
-            light: "#FAFAFA",
-            white: "#FFFFFF",
-            content: "#444444",
-            gray: "#666666",
-            lightGray: "#777777",
           },
         },
       },
@@ -58,7 +53,7 @@
 
     .btn-primary {
       background: linear-gradient(135deg, #4A6157, #8FD9A8);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: all 0.3s ease;
       box-shadow: 0 4px 20px rgba(74, 97, 87, 0.2);
     }
     
@@ -70,7 +65,7 @@
     .btn-secondary {
       border: 2px solid #4A6157;
       color: #4A6157;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: all 0.3s ease;
     }
     
     .btn-secondary:hover {
@@ -90,7 +85,7 @@
       border-radius: 12px;
       z-index: 1000;
       transform: translateX(120%);
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: transform 0.4s ease;
       box-shadow: 0 8px 32px rgba(74, 97, 87, 0.3);
     }
 
@@ -101,7 +96,6 @@
 </head>
 
 <body class="bg-secondary font-sans min-h-screen">
-  <!-- 顶部导航 -->
   <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
     <div class="max-w-4xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
@@ -121,7 +115,6 @@
     </div>
   </nav>
 
-  <!-- Toast 提示 -->
   <div id="toast" class="toast">
     <div class="flex items-center">
       <span class="mr-2">✓</span>
@@ -136,12 +129,10 @@
       <p class="text-content text-lg">根据你的回答生成的个性化建议</p>
     </div>
 
-    <!-- 结果内容区域 -->
     <div id="resultContent" class="space-y-6 mb-8">
       <!-- 动态插入结果内容 -->
     </div>
 
-    <!-- 操作按钮 -->
     <div class="flex flex-col md:flex-row gap-4">
       <button onclick="retakeTest()" class="flex-1 btn-primary text-white py-3 rounded-lg font-medium">
         <span class="mr-2">🔄</span>重新测评
@@ -156,8 +147,10 @@
 
   </main>
 
+  <!-- 数据管理器 -->
+  <script src="js/data-manager.js"></script>
+
   <script>
-    // 格式化时间为精准时间
     const formatTime = (timestamp) => {
       const date = new Date(timestamp);
       const year = date.getFullYear();
@@ -169,18 +162,14 @@
       return `${year}-${month}-${day} ${hours}:${minutes}`;
     };
 
-    // Toast 提示功能
     function showToast(message) {
       const toast = document.getElementById('toast');
       const toastMessage = document.getElementById('toastMessage');
       toastMessage.textContent = message;
       toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+      setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    // 获取URL参数
     function getURLParameter(name) {
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(name);
@@ -245,7 +234,7 @@
                 <span class="mr-2">📅</span>测评信息
               </h4>
               <div class="text-sm text-gray-600 space-y-1">
-                <p>测评时间：${formatTime(data.timestamp || data.ts)}</p>
+                <p>测评时间：${formatTime(data.timestamp || Date.now())}</p>
                 <p>身高：${data.height}cm | 体重：${data.weight}kg | 年龄：${data.age}岁 | 性别：${data.gender === 'female' ? '女性' : '男性'}</p>
               </div>
             </div>
@@ -255,7 +244,6 @@
     }
 
     function displayBodyAnxietyResult(data) {
-      // 确定焦虑等级颜色
       let levelColor = 'text-green-600';
       let levelBg = 'bg-green-100 border-green-200';
       if (data.percentage >= 75) {
@@ -269,7 +257,6 @@
         levelBg = 'bg-yellow-100 border-yellow-200';
       }
 
-      // 生成建议HTML
       const adviceHTML = data.advice.map(item => `
         <div class="advice-item rounded-lg p-4">
           <h4 class="font-semibold text-primary mb-2">
@@ -279,7 +266,6 @@
         </div>
       `).join('');
 
-      // 生成答题详情
       const answerDetails = data.answers.map((answer, index) => `第${index + 1}题: ${answer}分`).join(' | ');
 
       const resultContent = document.getElementById('resultContent');
@@ -302,7 +288,7 @@
                 <span class="mr-2 text-gray-600">📅</span>测评信息
               </h4>
               <div class="text-sm text-gray-600 space-y-1">
-                <p>测评时间：${formatTime(data.timestamp || data.ts)}</p>
+                <p>测评时间：${formatTime(data.timestamp || Date.now())}</p>
                 <p>答题详情：${answerDetails}</p>
               </div>
             </div>
@@ -322,7 +308,6 @@
           url: url
         }).catch(console.error);
       } else {
-        // 复制链接到剪贴板
         if (navigator.clipboard) {
           navigator.clipboard.writeText(url).then(() => {
             showToast('结果链接已复制到剪贴板');
@@ -335,7 +320,6 @@
       }
     }
 
-    // 显示错误状态
     function showErrorState() {
       document.getElementById('resultContent').innerHTML = `
         <div class="text-center py-12">
@@ -354,26 +338,26 @@
       `;
     }
 
-    // 页面初始化
+    // ⭐ 修复后的页面初始化
     document.addEventListener('DOMContentLoaded', function() {
       let data = null;
       let typeParam = null;
 
-      // 1. 优先从sessionStorage获取数据
+      // 1. 优先从 sessionStorage 获取数据
       const resultFromStorage = sessionStorage.getItem('assessment_result');
       if (resultFromStorage) {
         try {
           const result = JSON.parse(resultFromStorage);
           data = result.data;
           typeParam = result.type;
-          // 清理sessionStorage中的数据
+          // 清理 sessionStorage 中的数据
           sessionStorage.removeItem('assessment_result');
         } catch (error) {
           console.error('解析sessionStorage数据失败:', error);
         }
       }
       
-      // 2. 如果sessionStorage没有数据，尝试从URL参数获取
+      // 2. 如果 sessionStorage 没有数据，尝试从 URL 参数获取
       if (!data) {
         const dataParam = getURLParameter('data');
         typeParam = getURLParameter('type');
