@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CBT自助工具 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4A6157",
+            secondary: "#F7F6F2", 
+            accent: "#2E2E2E",
+            mint: "#8FD9A8",
+          },
+        },
+      },
+    };
+  </script>
+  
+  <style>
+    .tool-card {
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+    }
+    
+    .tool-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(74, 97, 87, 0.15);
+    }
+
+    .tool-card:active {
+      transform: translateY(-4px) scale(0.98);
+    }
+
+    .record-item {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .record-item:hover {
+      background: linear-gradient(135deg, rgba(74, 97, 87, 0.05), rgba(143, 217, 168, 0.05));
+      transform: translateX(4px);
+    }
+
+    .page-content {
+      opacity: 0;
+      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.4s ease;
+      box-shadow: 0 8px 32px rgba(74, 97, 87, 0.3);
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .badge-high { background: rgba(239, 68, 68, 0.1); color: #dc2626; }
+    .badge-medium { background: rgba(251, 146, 60, 0.1); color: #ea580c; }
+    .badge-low { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
+  </style>
+</head>
+
+<body class="bg-secondary font-sans min-h-screen">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <a href="index.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+            <span class="font-medium">返回首页</span>
+          </a>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-brain text-white text-sm"></i>
+          </div>
+          <span class="text-lg font-bold text-primary">CBT工具</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <div class="flex items-center">
+      <span class="mr-2">✓</span>
+      <span id="toastMessage"></span>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="page-content">
+      
+      <!-- 页面标题 -->
+      <div class="text-center mb-8">
+        <h1 class="text-3xl md:text-4xl font-bold text-primary mb-2">CBT 自助工具</h1>
+        <p class="text-content text-lg">认知行为疗法工具，帮助你识别和改变负面思维模式</p>
+      </div>
+
+      <!-- 介绍卡片 -->
+      <div class="bg-gradient-to-r from-blue-50 to-green-50 rounded-2xl p-6 mb-8 border border-blue-100">
+        <div class="flex items-start space-x-4">
+          <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+            <i class="fa fa-lightbulb-o text-white text-xl"></i>
+          </div>
+          <div>
+            <h3 class="font-semibold text-primary mb-2">什么是CBT？</h3>
+            <p class="text-sm text-gray-700 leading-relaxed">
+              认知行为疗法（CBT）是一种科学有效的心理治疗方法。它帮助我们识别并改变不合理的思维模式，
+              从而改善情绪和行为。通过记录和分析自己的想法，你可以学会用更理性、平衡的方式看待问题。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 工具卡片 -->
+      <div class="grid md:grid-cols-3 gap-6 mb-12">
+        
+        <!-- 思维记录 -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm" onclick="window.location.href='thought_record.html'">
+          <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-pencil text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-2">思维记录</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            记录负面想法，识别认知扭曲，用理性思维替代
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500" id="thoughtCount">0 条记录</span>
+            <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-mint transition-colors">
+              开始记录 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 情绪日记 -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm" onclick="window.location.href='emotion_diary.html'">
+          <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-heart text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-2">情绪日记</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            追踪每日情绪变化，识别情绪触发点和模式
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500" id="emotionCount">0 条记录</span>
+            <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-mint transition-colors">
+              记录情绪 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 行为实验 -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm" onclick="showComingSoon()">
+          <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-flask text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-2">行为实验</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            测试负面预期，用实际经验挑战焦虑想法
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500">即将推出</span>
+            <button class="bg-gray-200 text-gray-500 px-4 py-2 rounded-lg text-sm font-medium">
+              敬请期待
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 最近的记录 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-semibold text-primary">最近的记录</h2>
+          <button onclick="refreshRecords()" class="text-primary hover:text-mint transition-colors">
+            <i class="fa fa-refresh"></i>
+          </button>
+        </div>
+
+        <div id="recentRecords">
+          <!-- 动态加载 -->
+        </div>
+
+        <!-- 空状态 -->
+        <div id="emptyState" class="text-center py-12 hidden">
+          <div class="text-6xl mb-4">📝</div>
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">还没有记录</h3>
+          <p class="text-gray-500 mb-6">开始你的第一次思维记录，建立更健康的思维模式</p>
+          <button onclick="window.location.href='thought_record.html'" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-mint transition-colors">
+            开始记录
+          </button>
+        </div>
+      </div>
+
+      <!-- 使用技巧 -->
+      <div class="mt-8 bg-white rounded-2xl p-6 shadow-sm">
+        <h3 class="font-semibold text-primary mb-4">💡 使用技巧</h3>
+        <div class="space-y-3 text-sm text-gray-600">
+          <div class="flex items-start">
+            <span class="text-mint mr-2">✓</span>
+            <span>每天花5-10分钟记录，效果最佳</span>
+          </div>
+          <div class="flex items-start">
+            <span class="text-mint mr-2">✓</span>
+            <span>在情绪强烈时记录，更容易识别负面想法</span>
+          </div>
+          <div class="flex items-start">
+            <span class="text-mint mr-2">✓</span>
+            <span>定期回顾记录，观察自己的进步</span>
+          </div>
+          <div class="flex items-start">
+            <span class="text-mint mr-2">✓</span>
+            <span>不要强求完美，记录本身就是练习</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // Toast 提示
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // 即将推出提示
+    function showComingSoon() {
+      showToast('此功能即将推出，敬请期待！');
+    }
+
+    // 加载记录统计
+    function loadStats() {
+      try {
+        const thoughtRecords = JSON.parse(localStorage.getItem('thoughtRecords') || '[]');
+        const emotionDiary = JSON.parse(localStorage.getItem('emotionDiary') || '[]');
+        
+        document.getElementById('thoughtCount').textContent = `${thoughtRecords.length} 条记录`;
+        document.getElementById('emotionCount').textContent = `${emotionDiary.length} 条记录`;
+        
+        loadRecentRecords(thoughtRecords, emotionDiary);
+      } catch (error) {
+        console.error('加载统计失败:', error);
+      }
+    }
+
+    // 加载最近的记录
+    function loadRecentRecords(thoughtRecords, emotionDiary) {
+      const container = document.getElementById('recentRecords');
+      const emptyState = document.getElementById('emptyState');
+      
+      // 合并所有记录并排序
+      const allRecords = [
+        ...thoughtRecords.map(r => ({ ...r, type: 'thought' })),
+        ...emotionDiary.map(r => ({ ...r, type: 'emotion' }))
+      ].sort((a, b) => b.id - a.id).slice(0, 5);
+      
+      if (allRecords.length === 0) {
+        container.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      
+      container.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      
+      container.innerHTML = allRecords.map(record => {
+        if (record.type === 'thought') {
+          return renderThoughtRecord(record);
+        } else {
+          return renderEmotionRecord(record);
+        }
+      }).join('');
+    }
+
+    // 渲染思维记录
+    function renderThoughtRecord(record) {
+      const date = new Date(record.id);
+      const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+      const timeStr = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+      
+      const intensityBadge = record.emotionIntensity >= 7 ? 'badge-high' : 
+                             record.emotionIntensity >= 4 ? 'badge-medium' : 'badge-low';
+      
+      return `
+        <div class="record-item p-4 border-b border-gray-100 last:border-0" onclick="window.location.href='thought_record.html?view=${record.id}'">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <i class="fa fa-pencil text-blue-600 text-sm"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">思维记录</div>
+                <div class="text-xs text-gray-500">${dateStr} ${timeStr}</div>
+              </div>
+            </div>
+            <span class="badge ${intensityBadge}">
+              强度 ${record.emotionIntensity}/10
+            </span>
+          </div>
+          <p class="text-sm text-gray-600 line-clamp-2 ml-10">
+            ${record.negativeThought}
+          </p>
+        </div>
+      `;
+    }
+
+    // 渲染情绪记录
+    function renderEmotionRecord(record) {
+      const date = new Date(record.id);
+      const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+      const timeStr = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+      
+      const intensityBadge = record.intensity >= 7 ? 'badge-high' : 
+                             record.intensity >= 4 ? 'badge-medium' : 'badge-low';
+      
+      return `
+        <div class="record-item p-4 border-b border-gray-100 last:border-0" onclick="window.location.href='emotion_diary.html?view=${record.id}'">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                <span class="text-lg">${record.emoji || '💭'}</span>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">情绪日记</div>
+                <div class="text-xs text-gray-500">${dateStr} ${timeStr}</div>
+              </div>
+            </div>
+            <span class="badge ${intensityBadge}">
+              强度 ${record.intensity}/10
+            </span>
+          </div>
+          <p class="text-sm text-gray-600 line-clamp-2 ml-10">
+            ${record.emotionLabel}: ${record.trigger || '无触发事件'}
+          </p>
+        </div>
+      `;
+    }
+
+    // 刷新记录
+    function refreshRecords() {
+      loadStats();
+      showToast('已刷新记录列表');
+    }
+
+    // 页面加载
+    document.addEventListener('DOMContentLoaded', () => {
+      loadStats();
+      
+      setTimeout(() => {
+        showToast('欢迎使用CBT自助工具！');
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>
