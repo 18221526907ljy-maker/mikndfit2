@@ -7,184 +7,498 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="style.css">
   <style>
+    body {
+      background: linear-gradient(to bottom right, #f0f4f8, #e3f2fd);
+      min-height: 100vh;
+    }
+
+    /* 页面加载动画 */
+    .page-content {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 头部区域 - 克制优雅 */
     .profile-header {
-      background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%);
-      padding: 40px 20px;
-      text-align: center;
-      color: white;
-    }
-    .avatar-wrapper {
+      background: linear-gradient(135deg, rgba(74,97,87,0.08), rgba(143,217,168,0.08));
+      padding: 48px 24px 32px;
       position: relative;
-      display: inline-block;
-      margin-bottom: 16px;
+      overflow: hidden;
     }
+
+    .profile-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -50%;
+      width: 200%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 20%, rgba(143,217,168,0.1), transparent 50%);
+      animation: drift 20s linear infinite;
+    }
+
+    @keyframes drift {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(50%); }
+    }
+
+    /* 头像 */
+    .avatar-section {
+      position: relative;
+      text-align: center;
+      margin-bottom: 24px;
+      z-index: 1;
+    }
+
+    .avatar-wrapper {
+      display: inline-block;
+      position: relative;
+    }
+
     .avatar {
-      width: 100px;
-      height: 100px;
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
-      background: white;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(10px);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 40px;
-      color: #0d9488;
-      border: 4px solid rgba(255,255,255,0.3);
+      font-size: 36px;
+      color: #4A6157;
+      border: 3px solid rgba(255,255,255,0.8);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .avatar-edit {
+
+    .avatar:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 40px rgba(74,97,87,0.15);
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-upload {
       position: absolute;
       bottom: 0;
       right: 0;
       width: 32px;
       height: 32px;
-      background: white;
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(74,97,87,0.25);
+      transition: all 0.3s;
+      border: 3px solid white;
     }
-    .profile-info {
-      margin-bottom: 20px;
+
+    .avatar-upload:hover {
+      transform: scale(1.1);
     }
-    .profile-name {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 8px;
+
+    .avatar-upload input {
+      display: none;
     }
-    .profile-stats {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 20px;
-    }
-    .stat-item {
+
+    /* 用户信息 */
+    .user-info {
       text-align: center;
+      position: relative;
+      z-index: 1;
     }
-    .stat-value {
+
+    .user-name {
       font-size: 24px;
-      font-weight: bold;
+      font-weight: 600;
+      color: #4A6157;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .user-meta {
+      font-size: 13px;
+      color: #666666;
+      margin-bottom: 12px;
+    }
+
+    .user-motto {
+      font-size: 14px;
+      color: #777777;
+      font-style: italic;
+      max-width: 300px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* 统计卡片 - 玻璃态 */
+    .stats-container {
+      padding: 0 24px;
+      margin-top: 32px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .stat-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
       display: block;
     }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: #4A6157;
+      margin-bottom: 4px;
+      display: block;
+    }
+
     .stat-label {
-      font-size: 14px;
-      opacity: 0.9;
-      margin-top: 4px;
+      font-size: 12px;
+      color: #777777;
+      display: block;
     }
-    .section {
-      background: white;
+
+    .stat-progress {
+      margin-top: 10px;
+      height: 3px;
+      background: rgba(74,97,87,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .stat-progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #4A6157, #8FD9A8);
+      transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    /* 每日名言 */
+    .daily-quote {
+      margin: 32px 24px 24px;
+      padding: 20px 24px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
       border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 16px;
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+      position: relative;
     }
+
+    .quote-icon {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 16px;
+      box-shadow: 0 4px 12px rgba(74,97,87,0.2);
+    }
+
+    .quote-text {
+      font-size: 14px;
+      color: #666666;
+      line-height: 1.8;
+      text-align: center;
+      font-style: italic;
+    }
+
+    /* 成长曲线 */
+    .growth-section {
+      margin: 24px;
+      padding: 24px;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
     .section-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #0d9488;
-      margin-bottom: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #4A6157;
       display: flex;
       align-items: center;
       gap: 8px;
     }
+
+    .chart-period-select {
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(74,97,87,0.2);
+      background: rgba(255,255,255,0.9);
+      color: #4A6157;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .chart-period-select:hover {
+      border-color: #8FD9A8;
+    }
+
+    .chart-container {
+      height: 180px;
+      position: relative;
+      background: linear-gradient(to bottom, rgba(143,217,168,0.05), transparent);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .chart-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 成就徽章 */
+    .achievements-section {
+      margin: 24px 0;
+      padding: 24px 0;
+    }
+
+    .achievements-header {
+      padding: 0 24px 16px;
+    }
+
+    .achievements-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 0 24px 16px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .achievements-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .achievements-scroll::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.03);
+    }
+
+    .achievements-scroll::-webkit-scrollbar-thumb {
+      background: rgba(74,97,87,0.2);
+      border-radius: 2px;
+    }
+
+    .achievement-card {
+      min-width: 120px;
+      scroll-snap-align: start;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .achievement-card.unlocked {
+      background: rgba(143,217,168,0.15);
+      border-color: rgba(143,217,168,0.4);
+    }
+
+    .achievement-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    .achievement-icon {
+      font-size: 40px;
+      margin-bottom: 12px;
+      display: block;
+      transition: transform 0.3s;
+    }
+
+    .achievement-card.locked .achievement-icon {
+      filter: grayscale(1);
+      opacity: 0.3;
+    }
+
+    .achievement-card.unlocked .achievement-icon {
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .achievement-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #4A6157;
+      margin-bottom: 4px;
+    }
+
+    .achievement-desc {
+      font-size: 11px;
+      color: #777777;
+      line-height: 1.4;
+    }
+
+    /* 内容区域 */
+    .content-section {
+      margin: 24px;
+      padding: 20px;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px) saturate(160%);
+      border: 1px solid rgba(255,255,255,0.8);
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+    }
+
+    .content-section .section-title {
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(74,97,87,0.1);
+    }
+
+    /* 菜单项 */
     .menu-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0;
-      border-bottom: 1px solid #f0f0f0;
+      padding: 14px;
+      border-radius: 10px;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      margin-bottom: 6px;
     }
-    .menu-item:last-child {
-      border-bottom: none;
-    }
+
     .menu-item:hover {
-      background: #f8fafc;
-      padding-left: 8px;
-      padding-right: 8px;
-      border-radius: 8px;
+      background: rgba(74,97,87,0.05);
+      transform: translateX(4px);
     }
+
     .menu-item-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
     }
+
     .menu-icon {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 18px;
-    }
-    .achievement-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-top: 16px;
-    }
-    .achievement-card {
-      text-align: center;
-      padding: 16px;
-      background: #f8fafc;
-      border-radius: 12px;
-      cursor: pointer;
+      background: rgba(74,97,87,0.08);
+      color: #4A6157;
       transition: all 0.3s;
     }
-    .achievement-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(13,148,136,0.2);
+
+    .menu-item:hover .menu-icon {
+      background: rgba(143,217,168,0.2);
+      transform: scale(1.05);
     }
-    .achievement-icon {
-      font-size: 32px;
-      margin-bottom: 8px;
+
+    .menu-item-content {
+      flex: 1;
     }
-    .achievement-icon.locked {
-      opacity: 0.3;
-      filter: grayscale(1);
-    }
-    .achievement-name {
-      font-size: 12px;
-      color: #64748b;
+
+    .menu-item-title {
+      font-size: 14px;
       font-weight: 500;
+      color: #4A6157;
+      margin-bottom: 2px;
     }
-    .badge {
-      background: #fee2e2;
-      color: #dc2626;
-      padding: 4px 12px;
-      border-radius: 12px;
+
+    .menu-item-desc {
       font-size: 12px;
-      font-weight: 600;
+      color: #777777;
     }
-    
+
+    .menu-arrow {
+      color: #c0c0c0;
+      font-size: 14px;
+      transition: transform 0.3s;
+    }
+
+    .menu-item:hover .menu-arrow {
+      transform: translateX(4px);
+    }
+
     @media (max-width: 768px) {
-      .achievement-grid {
-        grid-template-columns: repeat(3, 1fr);
+      .stats-grid {
+        gap: 8px;
       }
-      .profile-header {
-        padding: 30px 20px;
+      .stat-card {
+        padding: 16px 12px;
       }
-      .avatar {
-        width: 80px;
-        height: 80px;
-        font-size: 32px;
+      .achievement-card {
+        min-width: 110px;
       }
     }
   </style>
 </head>
-<body class="bg-secondary">
+<body>
 
   <!-- 顶部导航 -->
   <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
     <div class="max-w-4xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <a href="index.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
-            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
-            <span class="font-medium">返回首页</span>
-          </a>
-        </div>
+        <!-- 左侧：返回按钮 -->
+        <a href="index.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+          <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+          <span class="font-medium">返回首页</span>
+        </a>
+        <!-- 右侧：标题 -->
         <div class="flex items-center space-x-2">
           <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
             <i class="fa fa-user text-white text-sm"></i>
@@ -195,168 +509,239 @@
     </div>
   </nav>
 
-  <main class="max-w-4xl mx-auto pb-20 md:pb-8">
+  <main class="max-w-4xl mx-auto pb-20 md:pb-8 page-content">
 
     <!-- 个人信息头部 -->
     <div class="profile-header">
-      <div class="avatar-wrapper">
-        <div class="avatar">
-          <i class="fa fa-user"></i>
-        </div>
-        <div class="avatar-edit" onclick="editAvatar()">
-          <i class="fa fa-camera text-primary text-sm"></i>
+      <div class="avatar-section">
+        <div class="avatar-wrapper">
+          <div class="avatar" id="avatarDisplay">
+            <i class="fa fa-user"></i>
+          </div>
+          <label class="avatar-upload">
+            <i class="fa fa-camera text-white text-sm"></i>
+            <input type="file" id="avatarInput" accept="image/*">
+          </label>
         </div>
       </div>
       
-      <div class="profile-info">
-        <div class="profile-name" id="userName">MindFit用户</div>
-        <div style="opacity: 0.9; font-size: 14px;">加入时间: <span id="joinDate">2024年1月</span></div>
+      <div class="user-info">
+        <div class="user-name" id="userName">MindFit用户</div>
+        <div class="user-meta">
+          加入 <span id="joinDate">2024年1月</span> · 已坚持 <span id="joinDays">0</span> 天
+        </div>
+        <div class="user-motto" id="userMotto">"每一次尝试，都是成长的开始"</div>
       </div>
+    </div>
 
-      <div class="profile-stats">
-        <div class="stat-item">
+    <!-- 统计卡片 -->
+    <div class="stats-container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-icon">📊</span>
           <span class="stat-value" id="practiceCount">0</span>
           <span class="stat-label">练习次数</span>
+          <div class="stat-progress">
+            <div class="stat-progress-bar" id="practiceProgress" style="width: 0%"></div>
+          </div>
         </div>
-        <div class="stat-item">
+        <div class="stat-card">
+          <span class="stat-icon">🔥</span>
           <span class="stat-value" id="streakCount">0</span>
           <span class="stat-label">连续天数</span>
+          <div class="stat-progress">
+            <div class="stat-progress-bar" id="streakProgress" style="width: 0%"></div>
+          </div>
         </div>
-        <div class="stat-item">
+        <div class="stat-card">
+          <span class="stat-icon">🏆</span>
           <span class="stat-value" id="achievementCount">0</span>
           <span class="stat-label">成就徽章</span>
+          <div class="stat-progress">
+            <div class="stat-progress-bar" id="badgeProgress" style="width: 0%"></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="px-4 py-6">
+    <!-- 每日励志 -->
+    <div class="daily-quote">
+      <div class="quote-icon">
+        <i class="fa fa-quote-left"></i>
+      </div>
+      <div class="quote-text" id="dailyQuote">
+        "接纳自己的不完美，才能发现真正的美好。"
+      </div>
+    </div>
 
-      <!-- 我的成就 -->
-      <div class="section">
+    <!-- 个人成长曲线 -->
+    <div class="growth-section">
+      <div class="section-header">
+        <div class="section-title">
+          <i class="fa fa-line-chart"></i>
+          <span>练习趋势</span>
+        </div>
+        <select id="chartPeriod" class="chart-period-select">
+          <option value="7">近7天</option>
+          <option value="14">近14天</option>
+          <option value="30">近30天</option>
+        </select>
+      </div>
+      <div class="chart-container">
+        <svg class="chart-svg" id="growthChart"></svg>
+      </div>
+    </div>
+
+    <!-- 成就徽章 -->
+    <div class="achievements-section">
+      <div class="achievements-header">
         <div class="section-title">
           <i class="fa fa-trophy"></i>
-          我的成就
-        </div>
-        <div class="achievement-grid">
-          <div class="achievement-card" onclick="showToast('完成首次练习解锁')">
-            <div class="achievement-icon" id="badge-first">🎯</div>
-            <div class="achievement-name">初次尝试</div>
-          </div>
-          <div class="achievement-card" onclick="showToast('连续练习7天解锁')">
-            <div class="achievement-icon locked" id="badge-week">🔥</div>
-            <div class="achievement-name">坚持一周</div>
-          </div>
-          <div class="achievement-card" onclick="showToast('完成10次练习解锁')">
-            <div class="achievement-icon locked" id="badge-ten">⭐</div>
-            <div class="achievement-name">练习达人</div>
-          </div>
-          <div class="achievement-card" onclick="showToast('完成所有CBT工具解锁')">
-            <div class="achievement-icon locked" id="badge-cbt">🧠</div>
-            <div class="achievement-name">CBT专家</div>
-          </div>
+          <span>成就徽章</span>
         </div>
       </div>
-
-      <!-- 我的数据 -->
-      <div class="section">
-        <div class="section-title">
-          <i class="fa fa-bar-chart"></i>
-          我的数据
+      <div class="achievements-scroll">
+        <div class="achievement-card" id="badge-first" onclick="showBadgeDetail('first')">
+          <span class="achievement-icon">🎯</span>
+          <div class="achievement-name">初次尝试</div>
+          <div class="achievement-desc">完成首次练习</div>
         </div>
-        <div class="menu-item" onclick="window.location.href='practice_records.html'">
-          <div class="menu-item-left">
-            <div class="menu-icon" style="background: #dbeafe; color: #3b82f6;">
-              <i class="fa fa-history"></i>
-            </div>
-            <span>练习记录</span>
-          </div>
-          <i class="fa fa-chevron-right text-gray-400"></i>
+        <div class="achievement-card locked" id="badge-week" onclick="showBadgeDetail('week')">
+          <span class="achievement-icon">🔥</span>
+          <div class="achievement-name">坚持一周</div>
+          <div class="achievement-desc">连续7天</div>
         </div>
-        <div class="menu-item" onclick="window.location.href='self-assessment.html'">
-          <div class="menu-item-left">
-            <div class="menu-icon" style="background: #f3e8ff; color: #a855f7;">
-              <i class="fa fa-clipboard"></i>
-            </div>
-            <span>测评记录</span>
-          </div>
-          <i class="fa fa-chevron-right text-gray-400"></i>
+        <div class="achievement-card locked" id="badge-ten" onclick="showBadgeDetail('ten')">
+          <span class="achievement-icon">⭐</span>
+          <div class="achievement-name">练习达人</div>
+          <div class="achievement-desc">完成10次</div>
         </div>
-        <div class="menu-item" onclick="window.location.href='cbt_tools.html'">
-          <div class="menu-item-left">
-            <div class="menu-icon" style="background: #dcfce7; color: #16a34a;">
-              <i class="fa fa-brain"></i>
-            </div>
-            <span>CBT记录</span>
-          </div>
-          <i class="fa fa-chevron-right text-gray-400"></i>
+        <div class="achievement-card locked" id="badge-month" onclick="showBadgeDetail('month')">
+          <span class="achievement-icon">💪</span>
+          <div class="achievement-name">月度冠军</div>
+          <div class="achievement-desc">连续30天</div>
+        </div>
+        <div class="achievement-card locked" id="badge-cbt" onclick="showBadgeDetail('cbt')">
+          <span class="achievement-icon">🧠</span>
+          <div class="achievement-name">CBT专家</div>
+          <div class="achievement-desc">完成CBT工具</div>
+        </div>
+        <div class="achievement-card locked" id="badge-master" onclick="showBadgeDetail('master')">
+          <span class="achievement-icon">👑</span>
+          <div class="achievement-name">身心大师</div>
+          <div class="achievement-desc">完成100次</div>
         </div>
       </div>
+    </div>
 
-      <!-- 设置与帮助 -->
-      <div class="section">
-        <div class="section-title">
-          <i class="fa fa-cog"></i>
-          设置与帮助
-        </div>
-        <div class="menu-item" onclick="editProfile()">
-          <div class="menu-item-left">
-            <div class="menu-icon" style="background: #fef3c7; color: #f59e0b;">
-              <i class="fa fa-edit"></i>
-            </div>
-            <span>编辑资料</span>
+    <!-- 我的数据 -->
+    <div class="content-section">
+      <div class="section-title">
+        <i class="fa fa-bar-chart"></i>
+        <span>我的数据</span>
+      </div>
+      <div class="menu-item" onclick="window.location.href='practice_records.html'">
+        <div class="menu-item-left">
+          <div class="menu-icon">
+            <i class="fa fa-history"></i>
           </div>
-          <i class="fa fa-chevron-right text-gray-400"></i>
-        </div>
-        <div class="menu-item" onclick="showNotificationSettings()">
-          <div class="menu-item-left">
-            <div class="menu-icon" style="background: #fce7f3; color: #ec4899;">
-              <i class="fa fa-bell"></i>
-            </div>
-            <span>通知设置</span>
+          <div class="menu-item-content">
+            <div class="menu-item-title">练习记录</div>
+            <div class="menu-item-desc">查看完整练习历史</div>
           </div>
-          <i class="fa fa-chevron-right text-gray-400"></i>
         </div>
-        <div class="menu-item" onclick="showPrivacySettings()">
-          <div class="menu-item-left">
-            <div class="menu-icon" style="background: #e0e7ff; color: #6366f1;">
-              <i class="fa fa-lock"></i>
-            </div>
-            <span>隐私设置</span>
+        <i class="fa fa-chevron-right menu-arrow"></i>
+      </div>
+      <div class="menu-item" onclick="window.location.href='self-assessment.html'">
+        <div class="menu-item-left">
+          <div class="menu-icon">
+            <i class="fa fa-clipboard"></i>
           </div>
-          <i class="fa fa-chevron-right text-gray-400"></i>
+          <div class="menu-item-content">
+            <div class="menu-item-title">测评记录</div>
+            <div class="menu-item-desc">查看历史测评结果</div>
+          </div>
         </div>
-        <div class="menu-item" onclick="showFeedback()">
-          <div class="menu-item-left">
-            <div class="menu-icon" style="background: #d1fae5; color: #10b981;">
-              <i class="fa fa-comment"></i>
-            </div>
-            <span>意见反馈</span>
+        <i class="fa fa-chevron-right menu-arrow"></i>
+      </div>
+      <div class="menu-item" onclick="window.location.href='cbt_tools.html'">
+        <div class="menu-item-left">
+          <div class="menu-icon">
+            <i class="fa fa-brain"></i>
           </div>
-          <i class="fa fa-chevron-right text-gray-400"></i>
+          <div class="menu-item-content">
+            <div class="menu-item-title">CBT记录</div>
+            <div class="menu-item-desc">查看思维和情绪记录</div>
+          </div>
         </div>
-        <div class="menu-item" onclick="showAbout()">
-          <div class="menu-item-left">
-            <div class="menu-icon" style="background: #e5e7eb; color: #6b7280;">
-              <i class="fa fa-info-circle"></i>
-            </div>
-            <span>关于我们</span>
+        <i class="fa fa-chevron-right menu-arrow"></i>
+      </div>
+    </div>
+
+    <!-- 设置与帮助 -->
+    <div class="content-section">
+      <div class="section-title">
+        <i class="fa fa-cog"></i>
+        <span>设置与帮助</span>
+      </div>
+      <div class="menu-item" onclick="editProfile()">
+        <div class="menu-item-left">
+          <div class="menu-icon">
+            <i class="fa fa-edit"></i>
           </div>
-          <i class="fa fa-chevron-right text-gray-400"></i>
+          <div class="menu-item-content">
+            <div class="menu-item-title">编辑资料</div>
+            <div class="menu-item-desc">修改昵称和个性签名</div>
+          </div>
+        </div>
+        <i class="fa fa-chevron-right menu-arrow"></i>
+      </div>
+      <div class="menu-item" onclick="showSettings()">
+        <div class="menu-item-left">
+          <div class="menu-icon">
+            <i class="fa fa-bell"></i>
+          </div>
+          <div class="menu-item-content">
+            <div class="menu-item-title">提醒设置</div>
+            <div class="menu-item-desc">练习提醒和通知</div>
+          </div>
+        </div>
+        <i class="fa fa-chevron-right menu-arrow"></i>
+      </div>
+      <div class="menu-item" onclick="showFeedback()">
+        <div class="menu-item-left">
+          <div class="menu-icon">
+            <i class="fa fa-comment"></i>
+          </div>
+          <div class="menu-item-content">
+            <div class="menu-item-title">意见反馈</div>
+            <div class="menu-item-desc">告诉我们你的建议</div>
+          </div>
+        </div>
+        <i class="fa fa-chevron-right menu-arrow"></i>
+      </div>
+      <div class="menu-item" onclick="showAbout()">
+        <div class="menu-item-left">
+          <div class="menu-icon">
+            <i class="fa fa-info-circle"></i>
+          </div>
+          <div class="menu-item-content">
+            <div class="menu-item-title">关于MindFit</div>
+            <div class="menu-item-desc">了解我们的故事</div>
+          </div>
+        </div>
+        <i class="fa fa-chevron-right menu-arrow"></i>
+      </div>
+    </div>
+
+    <!-- 退出登录 -->
+    <div class="content-section">
+      <div class="menu-item" onclick="logout()" style="justify-content: center;">
+        <div style="color: #dc2626; font-weight: 500; font-size: 14px;">
+          <i class="fa fa-sign-out" style="margin-right: 8px;"></i>
+          退出登录
         </div>
       </div>
-
-      <!-- 退出登录 -->
-      <div class="section">
-        <div class="menu-item" onclick="logout()" style="color: #dc2626;">
-          <div class="menu-item-left">
-            <div class="menu-icon" style="background: #fee2e2; color: #dc2626;">
-              <i class="fa fa-sign-out"></i>
-            </div>
-            <span>退出登录</span>
-          </div>
-        </div>
-      </div>
-
     </div>
 
   </main>
@@ -372,7 +757,359 @@
   <!-- 移动端底部导航 -->
   <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
     <div class="flex justify-around py-2">
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="window.location.href='index.html'">
+      <button class="flex flex-col items-center py-2 px-3 text-primary">
+        <i class="fa fa-user text-lg mb-1"></i>
+        <span class="text-xs font-medium">我的</span>
+      </button>
+    </div>
+  </nav>
+
+  <script>
+    const DB_KEY = "mindfit_db_v1";
+    
+    // 励志名言库
+    const quotes = [
+      "接纳自己的不完美，才能发现真正的美好。",
+      "每一次尝试，都是成长的开始。",
+      "身体是心灵的居所，善待它就是善待自己。",
+      "真正的改变，从接纳现在的自己开始。",
+      "你值得拥有健康和快乐，无论你的身材如何。",
+      "坚持不是为了完美，而是为了更好的自己。",
+      "温柔地对待自己，就像对待挚友一样。",
+      "每一天的小进步，都值得庆祝。"
+    ];
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    function loadDB() {
+      try {
+        const raw = localStorage.getItem(DB_KEY);
+        return raw ? JSON.parse(raw) : {
+          practiceHistory: [],
+          streak: { count: 0, lastDate: "" },
+          badges: {},
+          userName: "MindFit用户",
+          userMotto: "每一次尝试，都是成长的开始",
+          joinDate: new Date().toISOString(),
+          avatarUrl: null
+        };
+      } catch (e) {
+        return {
+          practiceHistory: [],
+          streak: { count: 0, lastDate: "" },
+          badges: {},
+          userName: "MindFit用户",
+          userMotto: "每一次尝试，都是成长的开始",
+          joinDate: new Date().toISOString(),
+          avatarUrl: null
+        };
+      }
+    }
+
+    function saveDB(db) {
+      localStorage.setItem(DB_KEY, JSON.stringify(db));
+    }
+
+    // 加载用户数据
+    function loadUserData() {
+      const db = loadDB();
+      
+      document.getElementById('userName').textContent = db.userName || 'MindFit用户';
+      document.getElementById('userMotto').textContent = db.userMotto || quotes[0];
+      
+      const joinDate = new Date(db.joinDate || Date.now());
+      const today = new Date();
+      const daysDiff = Math.floor((today - joinDate) / (1000 * 60 * 60 * 24));
+      
+      document.getElementById('joinDate').textContent = 
+        `${joinDate.getFullYear()}年${joinDate.getMonth() + 1}月`;
+      document.getElementById('joinDays').textContent = daysDiff;
+      
+      const practiceCount = db.practiceHistory?.length || 0;
+      document.getElementById('practiceCount').textContent = practiceCount;
+      const practicePercent = Math.min((practiceCount / 50) * 100, 100);
+      setTimeout(() => {
+        document.getElementById('practiceProgress').style.width = practicePercent + '%';
+      }, 500);
+      
+      const streakCount = db.streak?.count || 0;
+      document.getElementById('streakCount').textContent = streakCount;
+      const streakPercent = Math.min((streakCount / 30) * 100, 100);
+      setTimeout(() => {
+        document.getElementById('streakProgress').style.width = streakPercent + '%';
+      }, 700);
+      
+      const achievementCount = Object.values(db.badges || {}).filter(Boolean).length;
+      document.getElementById('achievementCount').textContent = achievementCount;
+      const badgePercent = Math.min((achievementCount / 6) * 100, 100);
+      setTimeout(() => {
+        document.getElementById('badgeProgress').style.width = badgePercent + '%';
+      }, 900);
+      
+      updateBadges(db.badges || {}, practiceCount, streakCount);
+      
+      if (db.avatarUrl) {
+        document.getElementById('avatarDisplay').innerHTML = `<img src="${db.avatarUrl}" alt="头像">`;
+      }
+      
+      drawGrowthChart(db.practiceHistory || []);
+    }
+
+    function updateBadges(badges, practiceCount, streakCount) {
+      if (badges.firstPractice || practiceCount > 0) {
+        document.getElementById('badge-first').classList.remove('locked');
+        document.getElementById('badge-first').classList.add('unlocked');
+      }
+      
+      if (badges.weekStreak || streakCount >= 7) {
+        document.getElementById('badge-week').classList.remove('locked');
+        document.getElementById('badge-week').classList.add('unlocked');
+      }
+      
+      if (badges.tenPractices || practiceCount >= 10) {
+        document.getElementById('badge-ten').classList.remove('locked');
+        document.getElementById('badge-ten').classList.add('unlocked');
+      }
+      
+      if (badges.monthStreak || streakCount >= 30) {
+        document.getElementById('badge-month').classList.remove('locked');
+        document.getElementById('badge-month').classList.add('unlocked');
+      }
+      
+      if (badges.cbtMaster) {
+        document.getElementById('badge-cbt').classList.remove('locked');
+        document.getElementById('badge-cbt').classList.add('unlocked');
+      }
+      
+      if (badges.master || practiceCount >= 100) {
+        document.getElementById('badge-master').classList.remove('locked');
+        document.getElementById('badge-master').classList.add('unlocked');
+      }
+    }
+
+    function drawGrowthChart(practiceHistory) {
+      const svg = document.getElementById('growthChart');
+      const period = parseInt(document.getElementById('chartPeriod').value);
+      
+      const today = new Date();
+      const dates = [];
+      const counts = {};
+      
+      for (let i = period - 1; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - i);
+        const dateStr = date.toISOString().split('T')[0];
+        dates.push(dateStr);
+        counts[dateStr] = 0;
+      }
+      
+      practiceHistory.forEach(practice => {
+        const dateStr = practice.date?.split('T')[0];
+        if (counts.hasOwnProperty(dateStr)) {
+          counts[dateStr]++;
+        }
+      });
+      
+      const values = dates.map(date => counts[date]);
+      const maxValue = Math.max(...values, 3);
+      
+      const width = svg.clientWidth || 400;
+      const height = svg.clientHeight || 160;
+      const padding = { top: 10, right: 10, bottom: 25, left: 35 };
+      const chartWidth = width - padding.left - padding.right;
+      const chartHeight = height - padding.top - padding.bottom;
+      
+      svg.innerHTML = '';
+      
+      // 网格线
+      for (let i = 0; i <= 3; i++) {
+        const y = padding.top + (chartHeight / 3) * i;
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', padding.left);
+        line.setAttribute('y1', y);
+        line.setAttribute('x2', padding.left + chartWidth);
+        line.setAttribute('y2', y);
+        line.setAttribute('stroke', 'rgba(74,97,87,0.1)');
+        line.setAttribute('stroke-width', '1');
+        svg.appendChild(line);
+        
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', padding.left - 8);
+        text.setAttribute('y', y + 4);
+        text.setAttribute('text-anchor', 'end');
+        text.setAttribute('font-size', '11');
+        text.setAttribute('fill', '#999');
+        text.textContent = Math.round(maxValue * (3 - i) / 3);
+        svg.appendChild(text);
+      }
+      
+      // 数据点
+      const points = values.map((value, index) => {
+        const x = padding.left + (chartWidth / (values.length - 1)) * index;
+        const y = padding.top + chartHeight - (value / maxValue) * chartHeight;
+        return { x, y, value };
+      });
+      
+      // 平滑曲线
+      let pathD = `M ${points[0].x} ${points[0].y}`;
+      for (let i = 1; i < points.length; i++) {
+        const prevPoint = points[i - 1];
+        const currentPoint = points[i];
+        const controlX = (prevPoint.x + currentPoint.x) / 2;
+        pathD += ` Q ${controlX} ${prevPoint.y}, ${currentPoint.x} ${currentPoint.y}`;
+      }
+      
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', pathD);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#4A6157');
+      path.setAttribute('stroke-width', '2.5');
+      path.setAttribute('stroke-linecap', 'round');
+      svg.appendChild(path);
+      
+      // 数据点圆圈
+      points.forEach((point, index) => {
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle.setAttribute('cx', point.x);
+        circle.setAttribute('cy', point.y);
+        circle.setAttribute('r', '4');
+        circle.setAttribute('fill', '#8FD9A8');
+        circle.setAttribute('stroke', 'white');
+        circle.setAttribute('stroke-width', '2');
+        circle.style.cursor = 'pointer';
+        
+        circle.addEventListener('mouseenter', function() {
+          this.setAttribute('r', '6');
+          showToast(`${dates[index]}: ${point.value}次练习`);
+        });
+        circle.addEventListener('mouseleave', function() {
+          this.setAttribute('r', '4');
+        });
+        
+        svg.appendChild(circle);
+        
+        // X轴标签
+        if (index % Math.ceil(values.length / 5) === 0 || index === values.length - 1) {
+          const dateLabel = new Date(dates[index]).getDate() + '日';
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.setAttribute('x', point.x);
+          text.setAttribute('y', height - 8);
+          text.setAttribute('text-anchor', 'middle');
+          text.setAttribute('font-size', '10');
+          text.setAttribute('fill', '#999');
+          text.textContent = dateLabel;
+          svg.appendChild(text);
+        }
+      });
+    }
+
+    // 头像上传
+    document.getElementById('avatarInput').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 2 * 1024 * 1024) {
+          showToast('图片大小不能超过2MB');
+          return;
+        }
+        
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          const db = loadDB();
+          db.avatarUrl = event.target.result;
+          saveDB(db);
+          
+          document.getElementById('avatarDisplay').innerHTML = 
+            `<img src="${event.target.result}" alt="头像">`;
+          showToast('头像上传成功!');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    function editProfile() {
+      const db = loadDB();
+      const newName = prompt('请输入新的昵称:', db.userName || 'MindFit用户');
+      if (newName && newName.trim()) {
+        db.userName = newName.trim();
+        
+        const newMotto = prompt('请输入你的个性签名:', db.userMotto || quotes[0]);
+        if (newMotto && newMotto.trim()) {
+          db.userMotto = newMotto.trim();
+          document.getElementById('userMotto').textContent = newMotto.trim();
+        }
+        
+        saveDB(db);
+        document.getElementById('userName').textContent = newName.trim();
+        showToast('资料修改成功!');
+      }
+    }
+
+    function showBadgeDetail(badgeType) {
+      const badges = {
+        'first': { name: '初次尝试', desc: '完成首次练习即可解锁' },
+        'week': { name: '坚持一周', desc: '连续练习7天解锁' },
+        'ten': { name: '练习达人', desc: '累计完成10次练习' },
+        'month': { name: '月度冠军', desc: '连续练习30天解锁' },
+        'cbt': { name: 'CBT专家', desc: '完成所有CBT工具练习' },
+        'master': { name: '身心大师', desc: '累计完成100次练习' }
+      };
+      
+      const badge = badges[badgeType];
+      if (badge) {
+        showToast(`${badge.name}: ${badge.desc}`);
+      }
+    }
+
+    function showSettings() {
+      showToast('提醒设置功能开发中...');
+    }
+
+    function showFeedback() {
+      const feedback = prompt('请输入您的意见或建议:');
+      if (feedback && feedback.trim()) {
+        showToast('感谢您的反馈!我们会认真考虑');
+      }
+    }
+
+    function showAbout() {
+      alert('MindFit - 身心健康管理平台\n\n版本: 1.0.0\n\n帮助用户科学管理身心健康,告别身材焦虑\n\n© 2024 MindFit Team');
+    }
+
+    function logout() {
+      if (confirm('确定要退出登录吗?')) {
+        showToast('已退出登录');
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 1500);
+      }
+    }
+
+    document.getElementById('chartPeriod').addEventListener('change', function() {
+      const db = loadDB();
+      drawGrowthChart(db.practiceHistory || []);
+    });
+
+    function showDailyQuote() {
+      const today = new Date().toDateString();
+      const quoteIndex = Math.abs(today.split('').reduce((a, b) => a + b.charCodeAt(0), 0)) % quotes.length;
+      document.getElementById('dailyQuote').textContent = quotes[quoteIndex];
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadUserData();
+      showDailyQuote();
+      showToast('欢迎回来!');
+    });
+  </script>
+
+</body>
+</html>-2 px-3 text-gray-500" onclick="window.location.href='index.html'">
         <i class="fa fa-home text-lg mb-1"></i>
         <span class="text-xs">首页</span>
       </button>
@@ -388,154 +1125,4 @@
         <i class="fa fa-chart-line text-lg mb-1"></i>
         <span class="text-xs">记录</span>
       </button>
-      <button class="flex flex-col items-center py-2 px-3 text-primary">
-        <i class="fa fa-user text-lg mb-1"></i>
-        <span class="text-xs font-medium">我的</span>
-      </button>
-    </div>
-  </nav>
-
-  <script>
-    // Toast 提示功能
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      const toastMessage = document.getElementById('toastMessage');
-      toastMessage.textContent = message;
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 2000);
-    }
-
-    // 数据库操作
-    const DB_KEY = "mindfit_db_v1";
-
-    function loadDB() {
-      try {
-        const raw = localStorage.getItem(DB_KEY);
-        return raw ? JSON.parse(raw) : {
-          practiceHistory: [],
-          streak: { count: 0, lastDate: "" },
-          badges: {},
-          userName: "MindFit用户",
-          joinDate: new Date().toISOString()
-        };
-      } catch (e) {
-        return {
-          practiceHistory: [],
-          streak: { count: 0, lastDate: "" },
-          badges: {},
-          userName: "MindFit用户",
-          joinDate: new Date().toISOString()
-        };
-      }
-    }
-
-    function saveDB(db) {
-      localStorage.setItem(DB_KEY, JSON.stringify(db));
-    }
-
-    // 加载用户数据
-    function loadUserData() {
-      const db = loadDB();
-      
-      // 设置用户名
-      document.getElementById('userName').textContent = db.userName || 'MindFit用户';
-      
-      // 设置加入时间
-      const joinDate = new Date(db.joinDate || Date.now());
-      document.getElementById('joinDate').textContent = 
-        `${joinDate.getFullYear()}年${joinDate.getMonth() + 1}月`;
-      
-      // 设置练习次数
-      document.getElementById('practiceCount').textContent = 
-        db.practiceHistory?.length || 0;
-      
-      // 设置连续天数
-      document.getElementById('streakCount').textContent = 
-        db.streak?.count || 0;
-      
-      // 设置成就数量
-      const achievementCount = Object.values(db.badges || {}).filter(Boolean).length;
-      document.getElementById('achievementCount').textContent = achievementCount;
-      
-      // 更新徽章状态
-      updateBadges(db.badges || {});
-    }
-
-    // 更新徽章显示
-    function updateBadges(badges) {
-      if (badges.firstPractice) {
-        document.getElementById('badge-first').classList.remove('locked');
-      }
-      if (badges.weekStreak) {
-        document.getElementById('badge-week').classList.remove('locked');
-      }
-      if (badges.tenPractices) {
-        document.getElementById('badge-ten').classList.remove('locked');
-      }
-      if (badges.cbtMaster) {
-        document.getElementById('badge-cbt').classList.remove('locked');
-      }
-    }
-
-    // 编辑头像
-    function editAvatar() {
-      showToast('头像上传功能开发中...');
-    }
-
-    // 编辑资料
-    function editProfile() {
-      const db = loadDB();
-      const newName = prompt('请输入新的昵称:', db.userName || 'MindFit用户');
-      if (newName && newName.trim()) {
-        db.userName = newName.trim();
-        saveDB(db);
-        document.getElementById('userName').textContent = newName.trim();
-        showToast('昵称修改成功!');
-      }
-    }
-
-    // 通知设置
-    function showNotificationSettings() {
-      showToast('通知设置功能开发中...');
-    }
-
-    // 隐私设置
-    function showPrivacySettings() {
-      showToast('隐私设置功能开发中...');
-    }
-
-    // 意见反馈
-    function showFeedback() {
-      const feedback = prompt('请输入您的意见或建议:');
-      if (feedback && feedback.trim()) {
-        showToast('感谢您的反馈!我们会认真考虑');
-      }
-    }
-
-    // 关于我们
-    function showAbout() {
-      alert('MindFit - 身心健康管理平台\n\n版本: 1.0.0\n\n帮助用户科学管理身心健康,告别身材焦虑');
-    }
-
-    // 退出登录
-    function logout() {
-      if (confirm('确定要退出登录吗?')) {
-        // 这里可以添加清除用户会话的逻辑
-        showToast('已退出登录');
-        setTimeout(() => {
-          window.location.href = 'index.html';
-        }, 1500);
-      }
-    }
-
-    // 页面加载时初始化
-    document.addEventListener('DOMContentLoaded', () => {
-      loadUserData();
-      showToast('欢迎回来!');
-    });
-  </script>
-
-</body>
-</html>
+      <button class="flex flex-col items-center py
