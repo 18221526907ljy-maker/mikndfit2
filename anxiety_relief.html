@@ -725,100 +725,39 @@ function showConfettiCelebration() {
   playSuccessSound();
 }
       
-     // 彩带庆祝动画 - 修复版 (从上往下掉落)
-function showConfettiCelebration() {
-  const confettiContainer = document.createElement('div');
-  confettiContainer.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 9999;
-    overflow: hidden;
-  `;
-  
-  const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7', '#a29bfe', '#fd79a8', '#00b894'];
-  const shapes = ['square', 'circle', 'triangle'];
-  const confettiCount = 80;
-  
-  for (let i = 0; i < confettiCount; i++) {
-    const confetti = document.createElement('div');
-    const shape = shapes[Math.floor(Math.random() * shapes.length)];
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    const size = Math.random() * 10 + 6;
-    const startX = Math.random() * 100;
-    const endX = startX + (Math.random() * 40 - 20);
-    const duration = Math.random() * 2 + 3;
-    const delay = Math.random() * 0.5;
-    const rotation = Math.random() * 360;
+    // 播放成功音效
+function playSuccessSound() {
+  try {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const notes = [
+      { freq: 523.25, time: 0 },
+      { freq: 659.25, time: 0.1 },
+      { freq: 783.99, time: 0.2 },
+      { freq: 1046.5, time: 0.3 }
+    ];
     
-    confetti.style.cssText = `
-      position: absolute;
-      top: -20px;
-      left: ${startX}%;
-      width: ${size}px;
-      height: ${size}px;
-      opacity: 1;
-      pointer-events: none;
-    `;
-    
-    if (shape === 'square') {
-      confetti.style.backgroundColor = color;
-      confetti.style.borderRadius = '2px';
-    } else if (shape === 'circle') {
-      confetti.style.backgroundColor = color;
-      confetti.style.borderRadius = '50%';
-    } else if (shape === 'triangle') {
-      confetti.style.width = '0';
-      confetti.style.height = '0';
-      confetti.style.borderLeft = `${size/2}px solid transparent`;
-      confetti.style.borderRight = `${size/2}px solid transparent`;
-      confetti.style.borderBottom = `${size}px solid ${color}`;
-    }
-    
-    const animation = confetti.animate([
-      {
-        transform: `translateY(0) translateX(0) rotate(${rotation}deg)`,
-        opacity: 1
-      },
-      {
-        transform: `translateY(50vh) translateX(${(endX - startX) / 2}vw) rotate(${rotation + 180}deg)`,
-        opacity: 1,
-        offset: 0.5
-      },
-      {
-        transform: `translateY(100vh) translateX(${endX - startX}vw) rotate(${rotation + 360}deg)`,
-        opacity: 0.8
-      }
-    ], {
-      duration: duration * 1000,
-      delay: delay * 1000,
-      easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      fill: 'forwards'
+    notes.forEach(note => {
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.value = note.freq;
+      oscillator.type = 'sine';
+      
+      const startTime = audioContext.currentTime + note.time;
+      gainNode.gain.setValueAtTime(0, startTime);
+      gainNode.gain.linearRampToValueAtTime(0.2, startTime + 0.01);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + 0.3);
+      
+      oscillator.start(startTime);
+      oscillator.stop(startTime + 0.3);
     });
-    
-    animation.onfinish = () => {
-      if (confetti.parentNode) {
-        confetti.parentNode.removeChild(confetti);
-      }
-    };
-    
-    confettiContainer.appendChild(confetti);
+  } catch (error) {
+    console.log('音效播放失败:', error);
   }
-  
-  document.body.appendChild(confettiContainer);
-  
-  setTimeout(() => {
-    if (document.body.contains(confettiContainer)) {
-      document.body.removeChild(confettiContainer);
-    }
-  }, 6000);
-  
-  playSuccessSound();
 }
-
     // 情绪选择处理
     function initMoodSelection() {
       document.querySelectorAll('.mood-option').forEach(option => {
