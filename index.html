@@ -378,7 +378,8 @@
     <section class="py-6 md:py-20 bg-gray-50">
       <div class="max-w-7xl mx-auto">
         
-        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
+
+      
           <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4 green-accent-line">身体中立知识库</h2>
           <p class="text-content text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
         </div>
@@ -473,7 +474,6 @@
     <section class="py-6 md:py-20 bg-light">
       <div class="max-w-4xl mx-auto">
         
-        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
           <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4">个性化推荐</h2>
           <p class="text-content text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
         </div>
@@ -753,7 +753,7 @@ function navigateToCBTTools() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            if (entry.target.classList.contains('scroll-fade-in')) {
+            
               entry.target.classList.add('animate-in');
             } else if (entry.target.classList.contains('knowledge-card')) {
               const delay = parseInt(entry.target.dataset.delay) || 0;
@@ -769,7 +769,7 @@ function navigateToCBTTools() {
       });
       
       // 监听所有需要滚动动画的元素
-      document.querySelectorAll('.scroll-fade-in, .knowledge-card').forEach(el => {
+   
         observer.observe(el);
       });
     }
