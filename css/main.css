@@ -1,0 +1,34 @@
+/* MindFit 主样式文件 - 统一导入所有模块 */
+
+/* 1. 基础样式 */
+@import url('base/variables.css');
+@import url('base/reset.css');
+
+/* 2. 组件样式 */
+@import url('components/buttons.css');
+@import url('components/cards.css');
+
+/* 3. 通用样式 */
+body {
+  font-family: var(--font-primary);
+  background: var(--gray-50);
+  color: var(--gray-900);
+}
+
+/* 容器 */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+/* 页面内边距 */
+.page-content {
+  padding: var(--spacing-xl) 0;
+}
+
+/* 工具类 */
+.text-center { text-align: center; }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mt-lg { margin-top: var(--spacing-lg); }
