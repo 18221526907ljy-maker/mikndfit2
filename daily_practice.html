@@ -468,79 +468,156 @@
 
   <script>
     // 练习数据
-    const practiceData = [
-      {
-        id: 'breathing-4-7-8',
-        title: '4-7-8 呼吸法',
-        description: '快速缓解焦虑的呼吸技巧',
-        category: 'breathing',
-        duration: 3,
-        difficulty: '简单',
-        icon: 'fa-wind',
-        color: 'bg-blue-100 text-blue-600',
-        guide: [
-          '找一个舒适的姿势坐下或躺下',
-          '用鼻子吸气4秒',
-          '屏住呼吸7秒', 
-          '用嘴呼气8秒',
-          '重复这个循环3-4次'
-        ],
-        benefits: ['减轻焦虑', '改善睡眠', '降低压力']
+   // ============================================
+// MindFit 练习数据 - 扩展版
+// 在 daily_practice.html 的 <script> 中
+// 用这段代码替换原有的 practiceData 定义
+// ============================================
+
+const practiceData = [
+  {
+    id: 'breathing-4-7-8',
+    title: '4-7-8 呼吸法',
+    description: '快速缓解焦虑的呼吸技巧',
+    category: 'breathing',
+    duration: 5,  // 改为标准版时长
+    difficulty: '简单',
+    icon: 'fa-wind',
+    color: 'bg-blue-100 text-blue-600',
+    
+    // ⬇️ 优化后的指导语（符合身体中立）
+    guide: [
+      '找一个让身体舒服的姿势',
+      '用鼻子缓慢吸气，数4秒',
+      '温柔地屏住呼吸，数7秒',
+      '用嘴慢慢呼气，数8秒',
+      '重复几次，不需要完美，只需要陪伴自己'
+    ],
+    
+    benefits: ['快速降低焦虑', '激活副交感神经', '改善睡眠质量'],
+    
+    // ===== 新增字段 =====
+    versions: {
+      quick: { 
+        duration: 2, 
+        label: '快速版', 
+        tag: '⚡ 2分钟',
+        scenes: ['紧急缓解', '会议前', '考试前']
       },
-      {
-        id: 'mindful-eating',
-        title: '正念饮食练习',
-        description: '与食物建立健康关系',
-        category: 'mindful',
-        duration: 15,
-        difficulty: '简单',
-        icon: 'fa-apple',
-        color: 'bg-green-100 text-green-600',
-        guide: [
-          '选择一小份食物（如几颗葡萄干）',
-          '仔细观察食物的颜色、形状、质地',
-          '闻一下食物的香味',
-          '慢慢咀嚼，感受味道和口感的变化',
-          '注意吞咽的感觉'
-        ],
-        benefits: ['改善与食物的关系', '减少暴食', '增强感恩']
+      standard: { 
+        duration: 5, 
+        label: '标准版', 
+        tag: '🌟 5分钟',
+        scenes: ['日常练习', '睡前放松', '早晨唤醒']
       },
-      {
-        id: 'body-scan',
-        title: '身体扫描冥想',
-        description: '全身放松，释放紧张感',
-        category: 'body',
-        duration: 10,
-        difficulty: '中等',
-        icon: 'fa-user',
-        color: 'bg-purple-100 text-purple-600',
-        guide: [
-          '找一个安静的地方躺下',
-          '从脚趾开始，逐步感受身体各部位',
-          '注意任何紧张或不适的感觉',
-          '深呼吸，让紧张的部位放松',
-          '慢慢扫描到头顶'
-        ],
-        benefits: ['身体觉察', '深度放松', '改善睡眠']
-      },
-      {
-        id: 'grounding-5-4-3-2-1',
-        title: '5-4-3-2-1 接地技术',
-        description: '通过感官快速回到当下',
-        category: 'mindful',
-        duration: 3,
-        difficulty: '简单',
-        icon: 'fa-eye',
-        color: 'bg-yellow-100 text-yellow-600',
-        guide: [
-          '找到5样你能看到的东西',
-          '找到4样你能触摸的东西',
-          '找到3种你能听到的声音',
-          '找到2种你能闻到的气味',
-          '找到1种你能尝到的味道'
-        ],
-        benefits: ['快速接地', '缓解焦虑', '提升专注']
+      deep: { 
+        duration: 8, 
+        label: '深度版', 
+        tag: '🧘 8分钟',
+        scenes: ['周末放松', '深度冥想', '睡眠准备']
       }
+    },
+    bodyNeutralNote: '你的呼吸系统每天自动工作，每次呼吸都是身体在照顾你',
+    scenes: ['办公室', '睡前', '焦虑时']
+  },
+  
+  {
+    id: 'mindful-eating',
+    title: '正念饮食练习',
+    description: '与食物建立健康关系',
+    category: 'mindful',
+    duration: 5,  // 从15改为5
+    difficulty: '简单',
+    icon: 'fa-apple',
+    color: 'bg-green-100 text-green-600',
+    
+    // ⬇️ 优化后的指导语
+    guide: [
+      '选择一小份食物',
+      '用30秒观察它的颜色、形状、质地',
+      '闻一闻，注意身体的反应',
+      '放入口中，慢慢咀嚼，感受味道如何变化',
+      '感受吞咽，食物如何滋养你的身体',
+      '感谢这份食物和你的身体'
+    ],
+    
+    benefits: ['改善与食物的关系', '减少无意识进食', '增强身体觉察'],
+    
+    // ===== 新增字段 =====
+    versions: {
+      quick: { 
+        duration: 3, 
+        label: '快速版', 
+        tag: '⚡ 3分钟',
+        scenes: ['一口食物', '零食时间', '初次尝试']
+      },
+      standard: { 
+        duration: 5, 
+        label: '标准版', 
+        tag: '🌟 5分钟',
+        scenes: ['小份零食', '水果', '日常练习']
+      },
+      deep: { 
+        duration: 10, 
+        label: '深度版', 
+        tag: '🧘 10分钟',
+        scenes: ['正餐', '周末', '深度练习']
+      }
+    },
+    bodyNeutralNote: '食物是能量而非敌人，你的身体知道它需要什么',
+    scenes: ['用餐时', '独处时', '想吃零食时']
+  },
+  
+  {
+    id: 'body-scan',
+    title: '身体扫描冥想',
+    description: '全身放松，释放紧张感',
+    category: 'body',
+    duration: 7,  // 从10改为7
+    difficulty: '中等',
+    icon: 'fa-user',
+    color: 'bg-purple-100 text-purple-600',
+    
+    // ⬇️ 优化后的指导语
+    guide: [
+      '找一个让你感到安全的地方躺下',
+      '从脚趾开始，温柔地注意身体的每个部位',
+      '如果感觉到紧张，只是看见它，不需要改变',
+      '每个感受都是身体在和你对话',
+      '慢慢移动到头部，感谢身体的陪伴'
+    ],
+    
+    benefits: ['增强身体觉察', '改善睡眠', '减轻慢性疼痛'],
+    
+    // ===== 新增字段 =====
+    versions: {
+      quick: { 
+        duration: 5, 
+        label: '快速版', 
+        tag: '⚡ 5分钟',
+        scenes: ['工作间隙', '快速放松', '初学者']
+      },
+      standard: { 
+        duration: 7, 
+        label: '标准版', 
+        tag: '🌟 7分钟',
+        scenes: ['日常练习', '午休', '睡前']
+      },
+      deep: { 
+        duration: 10, 
+        label: '深度版', 
+        tag: '🧘 10分钟',
+        scenes: ['深度放松', '周末', '睡眠准备']
+      }
+    },
+    bodyNeutralNote: '扫描是倾听身体的方式，不是寻找问题，而是温柔地陪伴',
+    scenes: ['睡前', '午休', '感觉紧张时']
+  }
+  
+  // ⚠️ 注意：如果你的 practiceData 还有其他练习，
+  // 可以保持原样，或者按照上面的模式添加新字段
+  // 新字段是可选的，不加也不会影响功能
+];
     ];
 
     // 全局变量
