@@ -40,9 +40,14 @@
   </script>
   
   <style>
-  
+    .hero-gradient { background: #F7F6F2; }
     
-   
+    /* === 页面加载动画 === */
+    .hero-content {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: heroFadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+    }
     
     .hero-image {
       opacity: 0;
@@ -50,7 +55,12 @@
       animation: heroImageIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
     }
     
-   
+    @keyframes heroFadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
     
     @keyframes heroImageIn {
       to {
@@ -59,8 +69,69 @@
       }
     }
     
+    /* === 功能卡片动画 === */
+    .feature-card {
+      opacity: 0;
+      transform: scale(0.92) translateY(20px);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform, opacity;
+    }
+    
+    .feature-card.animate-in {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    
+    .glass-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      will-change: transform, box-shadow;
+      cursor: pointer;
+    }
+    
+    .glass-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+    }
+    
+    .glass-card:active {
+      transform: translateY(-3px) scale(0.98);
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    /* 移动端功能卡片 */
+    .mobile-feature-card {
+      opacity: 0;
+      transform: scale(0.92) translateY(20px);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform, opacity, box-shadow;
+      cursor: pointer;
+    }
+    
+    .mobile-feature-card.animate-in {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+    
+    .mobile-feature-card:active {
+      transform: translateY(-2px) scale(0.98);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
     /* === 滚动触发动画 === */
-   
+    .scroll-fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    .scroll-fade-in.animate-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
     
     .knowledge-card {
       opacity: 0;
@@ -378,8 +449,7 @@
     <section class="py-6 md:py-20 bg-gray-50">
       <div class="max-w-7xl mx-auto">
         
-
-      
+        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
           <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4 green-accent-line">身体中立知识库</h2>
           <p class="text-content text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
         </div>
@@ -474,6 +544,7 @@
     <section class="py-6 md:py-20 bg-light">
       <div class="max-w-4xl mx-auto">
         
+        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
           <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4">个性化推荐</h2>
           <p class="text-content text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
         </div>
@@ -753,7 +824,7 @@ function navigateToCBTTools() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            
+            if (entry.target.classList.contains('scroll-fade-in')) {
               entry.target.classList.add('animate-in');
             } else if (entry.target.classList.contains('knowledge-card')) {
               const delay = parseInt(entry.target.dataset.delay) || 0;
@@ -769,7 +840,7 @@ function navigateToCBTTools() {
       });
       
       // 监听所有需要滚动动画的元素
-   
+      document.querySelectorAll('.scroll-fade-in, .knowledge-card').forEach(el => {
         observer.observe(el);
       });
     }
@@ -1001,4 +1072,3 @@ function navigateToCBTTools() {
 
 </body>
 </html>
-
