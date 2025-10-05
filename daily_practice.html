@@ -378,31 +378,7 @@
           </div>
         </div>
       </div>
-<!-- ========== 智能推荐区域 ========== -->
-<!-- 在分类筛选按钮的上方插入这段代码 -->
 
-<div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl p-6 mb-8 text-white shadow-lg">
-  <div class="flex items-center justify-between mb-3">
-    <h3 class="text-xl font-bold flex items-center">
-      <i class="fa fa-magic mr-2"></i>
-      <span>为你推荐</span>
-    </h3>
-    <button onclick="refreshRecommendations()" 
-            class="text-white/80 hover:text-white text-sm transition-all">
-      <i class="fa fa-refresh mr-1"></i>换一批
-    </button>
-  </div>
-  
-  <p id="recommendMessage" class="text-white/90 text-sm mb-4">
-    💚 给自己几分钟的关爱时间
-  </p>
-  
-  <div id="recommendCards" class="grid grid-cols-1 md:grid-cols-3 gap-3">
-    <!-- 动态生成推荐卡片 -->
-  </div>
-</div>
-
-<!-- ========== 以下是原有的分类筛选按钮 ========== -->
       <!-- 练习分类 -->
       <div class="mb-8">
         <div class="flex flex-wrap gap-3 justify-center">
@@ -1152,7 +1128,7 @@ function playSuccessSound() {
       generateWeekCalendar();
       renderPracticeCards();
       initCategoryFilter();
- renderSmartRecommendations();       
+      
       // 欢迎提示
       setTimeout(() => {
         showToast('欢迎来到日常练习！选择一个练习开始吧');
@@ -1166,64 +1142,6 @@ function playSuccessSound() {
         e.returnValue = '练习进行中，确定要离开吗？';
       }
     });
-    // ========================================
-// 智能推荐相关函数
-// 在 </script> 之前添加这些函数
-// ========================================
-
-/**
- * 渲染智能推荐
- */
-function renderSmartRecommendations() {
-  const hour = new Date().getHours();
-  let message = '💚 给自己几分钟的关爱时间';
-  
-  // 根据时间段生成推荐文案
-  if (hour >= 6 && hour < 12) {
-    message = '☀️ 早安！用几分钟温柔地唤醒身体';
-  } else if (hour >= 12 && hour < 18) {
-    message = '🌤️ 下午好，给自己充个电';
-  } else if (hour >= 18 && hour < 23) {
-    message = '🌙 辛苦一天了，温柔地照顾自己';
-  }
-  
-  document.getElementById('recommendMessage').textContent = message;
-  
-  // 简单推荐逻辑：随机选3个
-  const shuffled = [...practiceData].sort(() => Math.random() - 0.5);
-  const recommendations = shuffled.slice(0, 3);
-  
-  const container = document.getElementById('recommendCards');
-  container.innerHTML = recommendations.map(practice => `
-    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 cursor-pointer hover:bg-white/20 transition-all"
-         onclick="startPractice('${practice.id}')">
-      <div class="flex items-center mb-2">
-        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
-          <i class="fa ${practice.icon} text-white"></i>
-        </div>
-        <h4 class="font-semibold text-white">${practice.title}</h4>
-      </div>
-      <p class="text-sm text-white/80 mb-2">${practice.description}</p>
-      ${practice.versions ? `
-        <div class="flex gap-1 flex-wrap">
-          ${Object.values(practice.versions).map(v => 
-            `<span class="text-xs px-2 py-1 bg-white/20 rounded">${v.tag}</span>`
-          ).join('')}
-        </div>
-      ` : `
-        <span class="text-xs text-white/80">${practice.duration}分钟</span>
-      `}
-    </div>
-  `).join('');
-}
-
-/**
- * 刷新推荐
- */
-function refreshRecommendations() {
-  renderSmartRecommendations();
-  showToast('已为你刷新推荐！');
-}
   </script>
 
 </body>
