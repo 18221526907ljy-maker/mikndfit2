@@ -1166,6 +1166,64 @@ function playSuccessSound() {
         e.returnValue = '练习进行中，确定要离开吗？';
       }
     });
+    // ========================================
+// 智能推荐相关函数
+// 在 </script> 之前添加这些函数
+// ========================================
+
+/**
+ * 渲染智能推荐
+ */
+function renderSmartRecommendations() {
+  const hour = new Date().getHours();
+  let message = '💚 给自己几分钟的关爱时间';
+  
+  // 根据时间段生成推荐文案
+  if (hour >= 6 && hour < 12) {
+    message = '☀️ 早安！用几分钟温柔地唤醒身体';
+  } else if (hour >= 12 && hour < 18) {
+    message = '🌤️ 下午好，给自己充个电';
+  } else if (hour >= 18 && hour < 23) {
+    message = '🌙 辛苦一天了，温柔地照顾自己';
+  }
+  
+  document.getElementById('recommendMessage').textContent = message;
+  
+  // 简单推荐逻辑：随机选3个
+  const shuffled = [...practiceData].sort(() => Math.random() - 0.5);
+  const recommendations = shuffled.slice(0, 3);
+  
+  const container = document.getElementById('recommendCards');
+  container.innerHTML = recommendations.map(practice => `
+    <div class="bg-white/10 backdrop-blur-sm rounded-xl p-4 cursor-pointer hover:bg-white/20 transition-all"
+         onclick="startPractice('${practice.id}')">
+      <div class="flex items-center mb-2">
+        <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
+          <i class="fa ${practice.icon} text-white"></i>
+        </div>
+        <h4 class="font-semibold text-white">${practice.title}</h4>
+      </div>
+      <p class="text-sm text-white/80 mb-2">${practice.description}</p>
+      ${practice.versions ? `
+        <div class="flex gap-1 flex-wrap">
+          ${Object.values(practice.versions).map(v => 
+            `<span class="text-xs px-2 py-1 bg-white/20 rounded">${v.tag}</span>`
+          ).join('')}
+        </div>
+      ` : `
+        <span class="text-xs text-white/80">${practice.duration}分钟</span>
+      `}
+    </div>
+  `).join('');
+}
+
+/**
+ * 刷新推荐
+ */
+function refreshRecommendations() {
+  renderSmartRecommendations();
+  showToast('已为你刷新推荐！');
+}
   </script>
 
 </body>
