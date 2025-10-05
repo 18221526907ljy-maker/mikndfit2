@@ -1215,6 +1215,130 @@ function renderPracticeCards(category = 'all') {
         e.returnValue = '练习进行中，确定要离开吗？';
       }
     });
+    // ========================================
+// 时长选择相关函数
+// ========================================
+
+let selectedPracticeId = null;
+
+/**
+ * 打开时长选择器
+ */
+function openVersionSelector(practiceId) {
+  const practice = practiceData.find(p => p.id === practiceId);
+  if (!practice) {
+    console.error('未找到练习:', practiceId);
+    return;
+  }
+  
+  selectedPracticeId = practiceId;
+  
+  // 设置标题
+  document.getElementById('versionModalTitle').textContent = practice.title;
+  document.getElementById('versionModalSubtitle').textContent = practice.description;
+  
+  // 生成版本按钮
+  const buttonsContainer = document.getElementById('versionButtons');
+  
+  if (practice.versions) {
+    // 有多个版本
+    buttonsContainer.innerHTML = Object.entries(practice.versions).map(([key, version]) => `
+      <button onclick="selectVersionAndStart('${key}', ${version.duration})"
+              class="w-full p-4 rounded-xl border-2 transition-all text-left hover:border-primary hover:bg-primary/5 ${
+                key === 'standard' ? 'border-primary bg-primary/5' : 'border-gray-200'
+              }">
+        <div class="flex items-center justify-between">
+          <div class="flex-1">
+            <div class="font-semibold text-gray-800 mb-1">${version.label}</div>
+            <div class="text-sm text-gray-600">${version.duration}分钟 · ${version.scenes.join('、')}</div>
+          </div>
+          <div class="text-2xl ml-3">
+            ${key === 'quick' ? '⚡' : key === 'standard' ? '🌟' : '🧘'}
+          </div>
+        </div>
+      </button>
+    `).join('');
+  } else {
+    // 只有一个默认时长
+    buttonsContainer.innerHTML = `
+      <button onclick="selectVersionAndStart('standard', ${practice.duration})"
+              class="w-full p-4 rounded-xl border-2 border-primary bg-primary/5 text-left">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">开始练习</div>
+            <div class="text-sm text-gray-600">${practice.duration}分钟</div>
+          </div>
+          <div class="text-2xl">🌟</div>
+        </div>
+      </button>
+    `;
+  }
+  
+  // 显示身体中立提示
+  const bodyNeutralContainer = document.getElementById('versionBodyNeutral');
+  const bodyNeutralText = document.getElementById('versionBodyNeutralText');
+  
+  if (practice.bodyNeutralNote) {
+    bodyNeutralText.textContent = practice.bodyNeutralNote;
+    bodyNeutralContainer.classList.remove('hidden');
+  } else {
+    bodyNeutralContainer.classList.add('hidden');
+  }
+  
+  // 显示模态框
+  const modal = document.getElementById('versionModal');
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+
+/**
+ * 选择版本并开始练习
+ */
+function selectVersionAndStart(versionKey, duration) {
+  console.log('✅ 选择版本:', versionKey, '时长:', duration);
+  
+  // 保存选择到 sessionStorage
+  sessionStorage.setItem('selectedVersion', versionKey);
+  sessionStorage.setItem('selectedDuration', duration);
+  
+  // 关闭模态框
+  closeVersionModal();
+  
+  // 显示提示
+  showToast(`已选择 ${versionKey === 'quick' ? '快速版' : versionKey === 'standard' ? '标准版' : '深度版'} (${duration}分钟)`);
+  
+  // 延迟跳转，让用户看到提示
+  setTimeout(() => {
+    startPractice(selectedPracticeId);
+  }, 500);
+}
+
+/**
+ * 关闭时长选择器
+ */
+function closeVersionModal(event) {
+  // 如果是点击背景关闭，检查事件目标
+  if (event && event.target.id !== 'versionModal') {
+    return;
+  }
+  
+  const modal = document.getElementById('versionModal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+  selectedPracticeId = null;
+}
+
+/**
+ * ESC键关闭模态框
+ */
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('versionModal');
+    if (!modal.classList.contains('hidden')) {
+      closeVersionModal();
+    }
+  }
+});
   </script>
 
 </body>
