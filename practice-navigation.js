@@ -1,31 +1,29 @@
 /**
  * MindFit 练习导航管理器
  * 处理所有练习页面的跳转逻辑
- * 版本: 1.0.0
+ * 版本: 2.0.0 - 更新路由映射
  */
 
-// 练习路由映射
+// ============================================
+// 练习路由映射 - 更新版
+// ============================================
 const PRACTICE_ROUTES = {
+  // ========== 当前5个练习 ==========
+  
   // 呼吸练习
-  'breathing-4-7-8': 'anxiety_relief.html',
-  'breathing-box': 'anxiety_relief.html?type=box-breathing',
-  'breathing-alternate': 'anxiety_relief.html?type=alternate',
+  'breathing-4-7-8': 'anxiety_relief.html?type=breathing-4-7-8',
   
   // 身体觉察
   'body-scan': 'anxiety_relief.html?type=body-scan',
-  'progressive-relaxation': 'anxiety_relief.html?type=muscle-relaxation',
-  'muscle-relaxation': 'anxiety_relief.html?type=muscle-relaxation',
   
   // 正念练习
-  'mindful-eating': 'mindful_eating.html',
-  'mindful-breathing': 'anxiety_relief.html?type=mindful',
+  'mindful-eating': 'mindful_eating.html',  // 有独立页面
+  'mindful-breathing': 'anxiety_relief.html?type=mindful-breathing',
   'grounding-5-4-3-2-1': 'anxiety_relief.html?type=grounding',
-  'grounding': 'anxiety_relief.html?type=grounding',
   
-  // 情绪调节
-  'emotion-regulation': 'anxiety_relief.html?type=emotion',
-  'gratitude-practice': 'anxiety_relief.html?type=gratitude',
-  'self-compassion': 'anxiety_relief.html?type=self-compassion'
+  // ========== 备用路由（如果以后添加练习） ==========
+  // 'breathing-box': 'anxiety_relief.html?type=box-breathing',
+  // 'progressive-relaxation': 'anxiety_relief.html?type=muscle-relaxation',
 };
 
 /**
@@ -45,6 +43,11 @@ function startPractice(practiceId) {
     if (typeof showToast === 'function') {
       showToast('正在打开练习页面...');
     }
+    
+    // ===== 新增：保存选择的版本到 sessionStorage =====
+    const selectedVersion = sessionStorage.getItem('selectedVersion') || 'standard';
+    const selectedDuration = sessionStorage.getItem('selectedDuration');
+    console.log('📍 选择的版本:', selectedVersion, '时长:', selectedDuration);
     
     // 跳转
     setTimeout(() => {
@@ -287,5 +290,5 @@ window.PracticeNavigation = {
   routes: PRACTICE_ROUTES
 };
 
-console.log('🎯 练习导航管理器已加载');
-console.log('可用练习数量:', Object.keys(PRACTICE_ROUTES).length);
+console.log('🎯 练习导航管理器已加载 v2.0');
+console.log('✅ 可用练习:', Object.keys(PRACTICE_ROUTES));
