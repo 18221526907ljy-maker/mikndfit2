@@ -898,8 +898,8 @@ function renderPracticeCards(category = 'all') {
     : practiceData.filter(p => p.category === category);
   
   grid.innerHTML = filteredPractices.map(practice => `
-    <div class="practice-card bg-white rounded-2xl p-6 shadow-sm" 
-         onclick="startPractice('${practice.id}')">
+   <div class="practice-card bg-white rounded-2xl p-6 shadow-sm" 
+     onclick="openVersionSelector('${practice.id}')">
       
       <!-- 顶部图标和分类 -->
       <div class="flex items-start justify-between mb-4">
