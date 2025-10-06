@@ -980,9 +980,30 @@
     }
 
     // 页面初始化
-    document.addEventListener('DOMContentLoaded', () => {
-      initMoodSelection();
-    });
+    // 页面初始化
+document.addEventListener('DOMContentLoaded', () => {
+  initMoodSelection();
+  
+  // 检查URL参数自动打开对应练习
+  const urlParams = new URLSearchParams(window.location.search);
+  const practiceType = urlParams.get('type');
+  
+  if (practiceType) {
+    console.log('📍 从URL参数启动练习:', practiceType);
+    
+    setTimeout(() => {
+      if (practiceType === 'breathing-4-7-8' || practiceType.includes('breathing')) {
+        startBreathingExercise();
+      } else if (practiceType === 'grounding' || practiceType === 'grounding-5-4-3-2-1') {
+        startGroundingExercise();
+      } else if (practiceType === 'body-scan' || practiceType === 'muscle') {
+        startMuscleRelaxation();
+      } else if (practiceType === 'mindful-breathing' || practiceType === 'mindful') {
+        startMindfulBreathing();
+      }
+    }, 500);
+  }
+});
   </script>
 </body>
 </html>
