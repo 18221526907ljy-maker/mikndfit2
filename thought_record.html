@@ -475,6 +475,263 @@
   </main>
 
   <script>
+    // ========================================
+// 查看模式功能 - 添加到script标签开头
+// ========================================
+
+// 检查是否为查看模式
+const urlParams = new URLSearchParams(window.location.search);
+const viewRecordId = urlParams.get('view');
+let isViewMode = false;
+let currentViewRecord = null;
+
+// 页面加载时检查模式
+document.addEventListener('DOMContentLoaded', () => {
+  if (viewRecordId) {
+    loadViewMode(viewRecordId);
+  } else {
+    showToast('开始记录你的想法和情绪');
+  }
+});
+
+// 加载查看模式
+function loadViewMode(recordId) {
+  isViewMode = true;
+  
+  // 从localStorage加载记录
+  const records = JSON.parse(localStorage.getItem('thoughtRecords') || '[]');
+  currentViewRecord = records.find(r => r.id === parseInt(recordId));
+  
+  if (!currentViewRecord) {
+    showToast('未找到该记录');
+    setTimeout(() => {
+      window.location.href = 'cbt_tools.html';
+    }, 2000);
+    return;
+  }
+  
+  // 切换到查看模式UI
+  switchToViewMode();
+  
+  // 填充数据
+  populateViewData();
+  
+  showToast('正在查看历史记录');
+}
+
+// 切换到查看模式UI
+function switchToViewMode() {
+  // 隐藏步骤指示器
+  const stepIndicator = document.querySelector('.bg-white.rounded-2xl.p-6.shadow-sm.mb-8');
+  if (stepIndicator) {
+    stepIndicator.style.display = 'none';
+  }
+  
+  // 修改页面标题
+  const pageTitle = document.querySelector('.text-primary.font-bold');
+  if (pageTitle) {
+    pageTitle.textContent = '思维记录详情';
+  }
+  
+  // 禁用所有输入
+  document.querySelectorAll('input, textarea, button[onclick*="save"]').forEach(el => {
+    if (el.tagName === 'BUTTON') {
+      el.style.display = 'none';
+    } else {
+      el.disabled = true;
+      el.style.opacity = '0.7';
+      el.style.cursor = 'not-allowed';
+    }
+  });
+  
+  // 显示所有步骤
+  document.querySelectorAll('.form-section').forEach(section => {
+    section.classList.remove('hidden');
+    section.classList.add('active');
+  });
+  
+  // 隐藏"下一步"按钮
+  document.querySelectorAll('button[onclick*="nextStep"], button[onclick*="prevStep"]').forEach(btn => {
+    btn.style.display = 'none';
+  });
+  
+  // 添加操作按钮
+  addViewModeButtons();
+}
+
+// 填充查看数据
+function populateViewData() {
+  const record = currentViewRecord;
+  
+  // 填充第1步数据
+  document.getElementById('situation').value = record.situation || '';
+  document.getElementById('negativeThought').value = record.negativeThought || '';
+  document.getElementById('beliefBefore').value = record.beliefBefore || 5;
+  document.getElementById('beliefBeforeValue').textContent = record.beliefBefore || 5;
+  
+  // 填充情绪选择
+  if (record.emotions && record.emotions.length > 0) {
+    record.emotions.forEach(emotion => {
+      const checkbox = document.querySelector(`input[value="${emotion}"]`);
+      if (checkbox) {
+        checkbox.checked = true;
+        checkbox.parentElement.classList.add('selected');
+      }
+    });
+  }
+  
+  document.getElementById('emotionIntensity').value = record.emotionIntensity || 5;
+  document.getElementById('emotionIntensityValue').textContent = record.emotionIntensity || 5;
+  
+  // 填充认知扭曲
+  if (record.distortionTypes && record.distortionTypes.length > 0) {
+    record.distortionTypes.forEach(distortion => {
+      const checkbox = document.querySelector(`input[value="${distortion}"]`);
+      if (checkbox) {
+        checkbox.checked = true;
+        checkbox.parentElement.classList.add('selected');
+      }
+    });
+  }
+  
+  // 填充第3步数据
+  document.getElementById('evidenceFor').value = record.evidenceFor || '';
+  document.getElementById('evidenceAgainst').value = record.evidenceAgainst || '';
+  document.getElementById('alternativeThought').value = record.alternativeThought || '';
+  document.getElementById('beliefAfter').value = record.beliefAfter || 5;
+  document.getElementById('beliefAfterValue').textContent = record.beliefAfter || 5;
+  document.getElementById('emotionAfter').value = record.emotionAfter || 5;
+  document.getElementById('emotionAfterValue').textContent = record.emotionAfter || 5;
+}
+
+// 添加查看模式的操作按钮
+function addViewModeButtons() {
+  const formSection = document.querySelector('.bg-white.rounded-2xl.p-6.md\\:p-8.shadow-sm');
+  
+  // 创建按钮容器
+  const buttonContainer = document.createElement('div');
+  buttonContainer.className = 'flex gap-4 mt-8 pt-6 border-t border-gray-200';
+  buttonContainer.innerHTML = `
+    <button onclick="window.location.href='cbt_tools.html'" 
+            class="flex-1 border-2 border-primary text-primary py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors">
+      <i class="fa fa-arrow-left mr-2"></i>返回列表
+    </button>
+    <button onclick="editRecord()" 
+            class="flex-1 bg-primary text-white py-3 rounded-lg font-medium hover:bg-mint transition-colors">
+      <i class="fa fa-edit mr-2"></i>编辑记录
+    </button>
+    <button onclick="deleteRecord()" 
+            class="border-2 border-red-500 text-red-500 px-6 py-3 rounded-lg font-medium hover:bg-red-500 hover:text-white transition-colors">
+      <i class="fa fa-trash"></i>
+    </button>
+  `;
+  
+  // 添加到表单底部
+  formSection.appendChild(buttonContainer);
+  
+  // 添加记录信息
+  const infoBar = document.createElement('div');
+  const recordDate = new Date(currentViewRecord.id);
+  infoBar.className = 'bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 text-sm text-blue-800';
+  infoBar.innerHTML = `
+    <div class="flex items-center justify-between">
+      <div>
+        <i class="fa fa-clock-o mr-2"></i>
+        记录时间：${recordDate.toLocaleString('zh-CN')}
+      </div>
+      <div>
+        ID: ${currentViewRecord.id}
+      </div>
+    </div>
+  `;
+  
+  formSection.insertBefore(infoBar, formSection.firstChild);
+}
+
+// 编辑记录
+function editRecord() {
+  if (confirm('确定要编辑这条记录吗？')) {
+    // 移除查看模式，启用编辑
+    isViewMode = false;
+    
+    // 启用所有输入
+    document.querySelectorAll('input, textarea').forEach(el => {
+      el.disabled = false;
+      el.style.opacity = '1';
+      el.style.cursor = 'auto';
+    });
+    
+    // 显示保存按钮
+    const saveBtn = document.querySelector('button[onclick*="saveRecord"]');
+    if (saveBtn) {
+      saveBtn.style.display = 'block';
+      saveBtn.textContent = '保存修改';
+      // 修改保存函数，使其更新而非新增
+      saveBtn.setAttribute('onclick', 'updateRecord()');
+    }
+    
+    showToast('已进入编辑模式');
+  }
+}
+
+// 更新记录
+function updateRecord() {
+  // 收集数据（与saveRecord相同的逻辑）
+  const updatedRecord = {
+    id: currentViewRecord.id, // 保持原ID
+    date: currentViewRecord.date, // 保持原日期
+    situation: document.getElementById('situation').value,
+    negativeThought: document.getElementById('negativeThought').value,
+    beliefBefore: parseInt(document.getElementById('beliefBefore').value),
+    emotions: Array.from(document.querySelectorAll('input[name="emotion"]:checked')).map(el => el.value),
+    emotionIntensity: parseInt(document.getElementById('emotionIntensity').value),
+    distortionTypes: Array.from(document.querySelectorAll('input[name="distortion"]:checked')).map(el => el.value),
+    evidenceFor: document.getElementById('evidenceFor').value,
+    evidenceAgainst: document.getElementById('evidenceAgainst').value,
+    alternativeThought: document.getElementById('alternativeThought').value,
+    beliefAfter: parseInt(document.getElementById('beliefAfter').value),
+    emotionAfter: parseInt(document.getElementById('emotionAfter').value),
+    updatedAt: new Date().toISOString() // 添加更新时间
+  };
+  
+  try {
+    const records = JSON.parse(localStorage.getItem('thoughtRecords') || '[]');
+    const index = records.findIndex(r => r.id === currentViewRecord.id);
+    
+    if (index !== -1) {
+      records[index] = updatedRecord;
+      localStorage.setItem('thoughtRecords', JSON.stringify(records));
+      showToast('记录已更新！');
+      
+      setTimeout(() => {
+        window.location.href = 'cbt_tools.html';
+      }, 1500);
+    }
+  } catch (error) {
+    console.error('更新失败:', error);
+    showToast('更新失败，请重试');
+  }
+}
+
+// 删除记录
+function deleteRecord() {
+  if (confirm('确定要删除这条记录吗？此操作无法撤销。')) {
+    try {
+      const records = JSON.parse(localStorage.getItem('thoughtRecords') || '[]');
+      const filteredRecords = records.filter(r => r.id !== currentViewRecord.id);
+      localStorage.setItem('thoughtRecords', JSON.stringify(filteredRecords));
+      
+      showToast('记录已删除');
+      
+      setTimeout(() => {
+        window.location.href = 'cbt_tools.html';
+      }, 1500);
+    } catch (error) {
+      console.error('删除失败:', error);
+      showToast('删除失败，请重试');
+    }
+  }
+}
     let currentStep = 1;
 
     // Toast 提示
