@@ -565,17 +565,90 @@
           </div>
         </div>
 
-        <!-- 其他练习界面保持不变... -->
+        <!-- 接地技术界面 -->
         <div id="groundingInterface" class="hidden">
-          <!-- 接地技术界面代码保持原样 -->
+          <h3 class="text-xl font-semibold text-primary mb-4">5-4-3-2-1 接地技术</h3>
+          
+          <div class="text-lg font-medium text-primary mb-4" id="groundingStep">找到5样你能看到的东西</div>
+          <div class="text-sm text-gray-600 mb-6" id="groundingDescription">仔细观察周围环境，说出5样你能看到的物品</div>
+          
+          <div class="space-y-3 mb-6">
+            <div class="grounding-item bg-blue-50 p-3 rounded-lg flex items-center">
+              <span class="text-2xl mr-3">👀</span>
+              <span>5样看到的东西</span>
+            </div>
+            <div class="grounding-item bg-green-50 p-3 rounded-lg flex items-center">
+              <span class="text-2xl mr-3">🤲</span>
+              <span>4样触摸的东西</span>
+            </div>
+            <div class="grounding-item bg-yellow-50 p-3 rounded-lg flex items-center">
+              <span class="text-2xl mr-3">👂</span>
+              <span>3种听到的声音</span>
+            </div>
+            <div class="grounding-item bg-purple-50 p-3 rounded-lg flex items-center">
+              <span class="text-2xl mr-3">👃</span>
+              <span>2种闻到的气味</span>
+            </div>
+            <div class="grounding-item bg-pink-50 p-3 rounded-lg flex items-center">
+              <span class="text-2xl mr-3">👅</span>
+              <span>1种尝到的味道</span>
+            </div>
+          </div>
+          
+          <div class="flex space-x-3">
+            <button id="groundingNext" class="btn-primary text-white px-4 py-2 rounded-lg">下一步</button>
+            <button onclick="closeExerciseModal()" class="btn-secondary px-4 py-2 rounded-lg">结束</button>
+          </div>
         </div>
 
+        <!-- 肌肉放松界面 -->
         <div id="muscleInterface" class="hidden">
-          <!-- 肌肉放松界面代码保持原样 -->
+          <h3 class="text-xl font-semibold text-primary mb-4">渐进式肌肉放松</h3>
+          
+          <div class="text-lg font-medium text-primary mb-2" id="muscleGroup">脚趾和脚部</div>
+          <div class="text-sm text-gray-600 mb-6" id="muscleInstruction">用力收紧脚趾，保持5秒钟</div>
+          
+          <div class="relative w-32 h-32 mx-auto mb-6">
+            <svg class="w-32 h-32 transform -rotate-90">
+              <circle cx="64" cy="64" r="60" stroke="#e5e7eb" stroke-width="4" fill="none"/>
+              <circle id="muscleTimer" cx="64" cy="64" r="60" stroke="#8FD9A8" stroke-width="4" fill="none" 
+                      class="timer-circle"/>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span id="muscleCount" class="text-xl font-bold text-primary">5</span>
+            </div>
+          </div>
+          
+          <div class="flex space-x-3">
+            <button id="muscleStart" class="btn-primary text-white px-4 py-2 rounded-lg">开始收紧</button>
+            <button id="muscleNext" class="btn-secondary px-4 py-2 rounded-lg hidden">下一组</button>
+            <button onclick="closeExerciseModal()" class="btn-secondary px-4 py-2 rounded-lg">结束</button>
+          </div>
         </div>
 
+        <!-- 正念呼吸界面 -->
         <div id="mindfulInterface" class="hidden">
-          <!-- 正念呼吸界面代码保持原样 -->
+          <h3 class="text-xl font-semibold text-primary mb-4">正念呼吸冥想</h3>
+          
+          <div class="text-lg font-medium text-primary mb-2" id="mindfulGuide">找一个舒适的姿势</div>
+          <div class="text-sm text-gray-600 mb-6">专注于你的呼吸，感受空气进出身体</div>
+          
+          <div class="relative w-32 h-32 mx-auto mb-6">
+            <svg class="w-32 h-32 transform -rotate-90">
+              <circle cx="64" cy="64" r="60" stroke="#e5e7eb" stroke-width="4" fill="none"/>
+              <circle id="mindfulTimer" cx="64" cy="64" r="60" stroke="#A855F7" stroke-width="4" fill="none" 
+                      class="timer-circle"/>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span id="mindfulTime" class="text-lg font-bold text-primary">3:00</span>
+            </div>
+          </div>
+          
+          <div class="flex space-x-3">
+            <button id="mindfulStart" class="btn-primary text-white px-4 py-2 rounded-lg">开始冥想</button>
+            <button id="mindfulPause" class="btn-secondary px-4 py-2 rounded-lg hidden">暂停</button>
+            <button onclick="closeExerciseModal()" class="btn-secondary px-4 py-2 rounded-lg">结束</button>
+          </div>
         </div>
 
       </div>
