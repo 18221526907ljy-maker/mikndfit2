@@ -269,6 +269,73 @@
   </main>
 
   <script>
+    // ========================================
+// 查看模式功能 - 添加到script标签开头
+// ========================================
+
+// 检查是否为查看模式
+const urlParams = new URLSearchParams(window.location.search);
+const viewRecordId = urlParams.get('view');
+let isViewMode = false;
+let currentViewRecord = null;
+
+// 页面加载时检查模式
+document.addEventListener('DOMContentLoaded', () => {
+  if (viewRecordId) {
+    loadViewMode(viewRecordId);
+  } else {
+    // 原有的初始化逻辑
+    generateEmotionTrend();
+  }
+});
+
+// 加载查看模式
+function loadViewMode(recordId) {
+  isViewMode = true;
+  
+  // 从localStorage加载记录
+  const records = JSON.parse(localStorage.getItem('emotionDiary') || '[]');
+  currentViewRecord = records.find(r => r.id === parseInt(recordId));
+  
+  if (!currentViewRecord) {
+    showToast('未找到该记录');
+    setTimeout(() => {
+      window.location.href = 'cbt_tools.html';
+    }, 2000);
+    return;
+  }
+  
+  // 切换到查看模式UI
+  switchToViewMode();
+  
+  // 填充数据
+  populateViewData();
+  
+  showToast('正在查看历史记录');
+}
+
+// 切换到查看模式UI
+function switchToViewMode() {
+  // 修改页面标题
+  const pageTitle = document.querySelector('.text-primary.font-bold');
+  if (pageTitle) {
+    pageTitle.innerHTML = '<i class="fa fa-heart mr-2"></i>情绪日记详情';
+  }
+  
+  // 隐藏情绪趋势图
+  const trendSection = document.querySelector('.bg-white.rounded-2xl.p-6.shadow-sm.mb-8');
+  if (trendSection && trendSection.querySelector('#emotionTrend')) {
+    trendSection.style.display = 'none';
+  }
+  
+  // 禁用所有输入
+  document.querySelectorAll('input, textarea, button[onclick*="save"]').forEach(el => {
+    if (el.tagName === 'BUTTON') {
+      el.style.display = 'none';
+    } else {
+      el.disabled = true;
+      el.style.opacity = '0.7';
+      el.style.c
     let selectedEmotion = null;
 
     // Toast 提示
