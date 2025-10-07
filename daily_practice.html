@@ -977,24 +977,7 @@ function renderPracticeCards(category = 'all') {
       return names[category] || category;
     }
 
-    // 开始练习 - 跳转到对应页面
-    function startPractice(practiceId) {
-      const practiceRoutes = {
-        'breathing-4-7-8': 'anxiety_relief.html',
-        'mindful-eating': 'mindful_eating.html',
-        'body-scan': 'anxiety_relief.html?type=body-scan',
-        'grounding-5-4-3-2-1': 'anxiety_relief.html?type=grounding'
-      };
-
-      const route = practiceRoutes[practiceId];
-      if (route) {
-        console.log('跳转到:', route); // 添加调试信息
-        window.location.href = route;
-      } else {
-        console.log('未找到对应路由:', practiceId); // 添加调试信息
-        showToast('练习功能正在开发中...');
-      }
-    }
+   
 
     // 关闭练习模态框
     function closePracticeModal() {
