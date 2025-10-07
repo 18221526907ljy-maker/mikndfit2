@@ -36,17 +36,11 @@
     }
 
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ===== 🎯 优化后的精准4-7-8呼吸动画 ===== */
+    /* ===== 精准4-7-8呼吸动画 ===== */
     .breathing-container {
       position: relative;
       width: 200px;
@@ -54,7 +48,6 @@
       margin: 0 auto;
     }
 
-    /* 主呼吸圆圈 */
     .breathing-circle-enhanced {
       width: 140px;
       height: 140px;
@@ -63,13 +56,10 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      box-shadow: 
-        0 0 30px rgba(74, 97, 87, 0.3),
-        inset 0 0 30px rgba(143, 217, 168, 0.2);
+      box-shadow: 0 0 30px rgba(74, 97, 87, 0.3), inset 0 0 30px rgba(143, 217, 168, 0.2);
       transition: all 0.3s ease;
     }
 
-    /* 外圈脉冲提示 */
     .breathing-ring {
       width: 180px;
       height: 180px;
@@ -88,6 +78,17 @@
       animation: pulse-ready 2s ease-in-out infinite;
     }
 
+    @keyframes pulse-ready {
+      0%, 100% { 
+        transform: translate(-50%, -50%) scale(1);
+        box-shadow: 0 0 30px rgba(74, 97, 87, 0.3);
+      }
+      50% { 
+        transform: translate(-50%, -50%) scale(1.05);
+        box-shadow: 0 0 40px rgba(74, 97, 87, 0.5);
+      }
+    }
+
     /* 吸气阶段 - 4秒 */
     .breathing-circle-enhanced.phase-inhale {
       background: linear-gradient(135deg, #6B8270, #8FD9A8);
@@ -96,6 +97,16 @@
 
     .breathing-ring.phase-inhale {
       animation: ring-expand 4s ease-out forwards;
+    }
+
+    @keyframes breathe-inhale {
+      0% { transform: translate(-50%, -50%) scale(0.85); }
+      100% { transform: translate(-50%, -50%) scale(1.3); }
+    }
+
+    @keyframes ring-expand {
+      0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
+      100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
     }
 
     /* 屏息阶段 - 7秒 */
@@ -108,6 +119,16 @@
       animation: ring-pulse 7s ease-in-out forwards;
     }
 
+    @keyframes breathe-hold {
+      0%, 100% { transform: translate(-50%, -50%) scale(1.3); }
+      50% { transform: translate(-50%, -50%) scale(1.35); }
+    }
+
+    @keyframes ring-pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+      50% { transform: translate(-50%, -50%) scale(1.25); opacity: 1; }
+    }
+
     /* 呼气阶段 - 8秒 */
     .breathing-circle-enhanced.phase-exhale {
       background: linear-gradient(135deg, #8FD9A8, #4A6157);
@@ -118,90 +139,17 @@
       animation: ring-shrink 8s ease-in forwards;
     }
 
-    /* ===== 动画定义 ===== */
-
-    /* 准备阶段脉冲 */
-    @keyframes pulse-ready {
-      0%, 100% { 
-        transform: translate(-50%, -50%) scale(1);
-        box-shadow: 0 0 30px rgba(74, 97, 87, 0.3);
-      }
-      50% { 
-        transform: translate(-50%, -50%) scale(1.05);
-        box-shadow: 0 0 40px rgba(74, 97, 87, 0.5);
-      }
-    }
-
-    /* 吸气动画 - 4秒 */
-    @keyframes breathe-inhale {
-      0% {
-        transform: translate(-50%, -50%) scale(0.85);
-        box-shadow: 0 0 20px rgba(74, 97, 87, 0.2);
-      }
-      100% {
-        transform: translate(-50%, -50%) scale(1.3);
-        box-shadow: 0 0 50px rgba(143, 217, 168, 0.6);
-      }
-    }
-
-    @keyframes ring-expand {
-      0% { 
-        transform: translate(-50%, -50%) scale(0.8);
-        opacity: 0.3;
-      }
-      100% { 
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 0.8;
-      }
-    }
-
-    /* 屏息动画 - 7秒 */
-    @keyframes breathe-hold {
-      0%, 100% {
-        transform: translate(-50%, -50%) scale(1.3);
-        box-shadow: 0 0 50px rgba(143, 217, 168, 0.6);
-      }
-      50% {
-        transform: translate(-50%, -50%) scale(1.35);
-        box-shadow: 0 0 60px rgba(168, 230, 181, 0.7);
-      }
-    }
-
-    @keyframes ring-pulse {
-      0%, 100% { 
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 0.8;
-      }
-      50% { 
-        transform: translate(-50%, -50%) scale(1.25);
-        opacity: 1;
-      }
-    }
-
-    /* 呼气动画 - 8秒 */
     @keyframes breathe-exhale {
-      0% {
-        transform: translate(-50%, -50%) scale(1.3);
-        box-shadow: 0 0 50px rgba(143, 217, 168, 0.6);
-      }
-      100% {
-        transform: translate(-50%, -50%) scale(0.85);
-        box-shadow: 0 0 20px rgba(74, 97, 87, 0.2);
-      }
+      0% { transform: translate(-50%, -50%) scale(1.3); }
+      100% { transform: translate(-50%, -50%) scale(0.85); }
     }
 
     @keyframes ring-shrink {
-      0% { 
-        transform: translate(-50%, -50%) scale(1.2);
-        opacity: 0.8;
-      }
-      100% { 
-        transform: translate(-50%, -50%) scale(0.8);
-        opacity: 0.3;
-      }
+      0% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.3; }
     }
 
-    /* ===== 文字指导样式 ===== */
+    /* 文字指导样式 */
     .breathing-phase-text {
       font-size: 1.5rem;
       font-weight: 700;
@@ -217,18 +165,15 @@
       margin-bottom: 1rem;
     }
 
-    /* 倒计时数字样式 */
     .breathing-countdown {
       font-size: 3rem;
       font-weight: 800;
       color: #4A6157;
-      font-family: 'SF Pro Display', 'Arial', sans-serif;
       text-shadow: 0 2px 10px rgba(74, 97, 87, 0.2);
       transition: all 0.3s ease;
       line-height: 1;
     }
 
-    /* 不同阶段的颜色 */
     .phase-ready .breathing-countdown { color: #6B8270; }
     .phase-inhale .breathing-countdown { color: #8FD9A8; }
     .phase-hold .breathing-countdown { color: #A8E6B5; }
@@ -260,12 +205,10 @@
       background: #4A6157;
     }
 
-    /* ===== 原有的其他样式 ===== */
-
     /* 按钮样式 */
     .btn-primary {
       background: linear-gradient(135deg, #4A6157, #8FD9A8);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: all 0.3s;
       box-shadow: 0 4px 20px rgba(74, 97, 87, 0.2);
     }
     
@@ -277,7 +220,7 @@
     .btn-secondary {
       border: 2px solid #4A6157;
       color: #4A6157;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: all 0.3s;
     }
     
     .btn-secondary:hover {
@@ -287,9 +230,9 @@
       transform: translateY(-2px);
     }
 
-    /* 练习卡片样式 */
+    /* 练习卡片 */
     .exercise-card {
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: all 0.3s;
       cursor: pointer;
     }
     
@@ -299,23 +242,26 @@
       border-color: #8FD9A8 !important;
     }
 
-    /* 情绪选择卡片 */
-    .mood-option {
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: pointer;
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 12px;
+      z-index: 1000;
+      transform: translateX(120%);
+      transition: transform 0.4s;
+      box-shadow: 0 8px 32px rgba(74, 97, 87, 0.3);
     }
 
-    .mood-option:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    .toast.show {
+      transform: translateX(0);
     }
 
-    .mood-option.selected {
-      border-color: #4A6157;
-      background: rgba(143, 217, 168, 0.1);
-    }
-
-    /* 接地技术项目 */
+    /* 接地技术 */
     .grounding-item {
       opacity: 0.5;
       transition: all 0.3s ease;
@@ -333,51 +279,18 @@
       stroke-dashoffset: 377;
       transition: stroke-dashoffset 1s linear;
     }
-
-    /* Toast 样式 */
-    .toast {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: linear-gradient(135deg, #4A6157, #8FD9A8);
-      color: white;
-      padding: 16px 24px;
-      border-radius: 12px;
-      z-index: 1000;
-      transform: translateX(120%);
-      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 8px 32px rgba(74, 97, 87, 0.3);
-    }
-
-    .toast.show {
-      transform: translateX(0);
-    }
-
-    /* 音频控制 */
-    .audio-control {
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(74, 97, 87, 0.2);
-    }
   </style>
 </head>
 
 <body class="bg-secondary font-sans min-h-screen">
   <!-- 顶部导航 -->
-  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <a href="index.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
-            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
-            <span class="font-medium">返回首页</span>
-          </a>
-        </div>
-        <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm font-medium">
-            M
-          </div>
-        </div>
+        <a href="index.html" class="flex items-center text-primary hover:text-mint transition-all">
+          <span class="mr-2">←</span>
+          <span class="font-medium">返回首页</span>
+        </a>
       </div>
     </div>
   </nav>
@@ -390,46 +303,11 @@
         <p class="text-content">3分钟调节身体紧绷，回归此刻</p>
       </div>
 
-      <!-- 当前情绪评估 -->
-      <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
-        <h2 class="text-xl font-semibold text-primary mb-4">现在的感受如何？</h2>
-        <p class="text-gray-600 mb-6">选择最贴近你当前感受的选项，我们会为你推荐合适的练习</p>
-        
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <div class="mood-option text-center p-4 border-2 border-gray-200 rounded-lg" data-mood="anxious">
-            <div class="text-4xl mb-2">😰</div>
-            <div class="text-sm font-medium">很焦虑</div>
-          </div>
-          <div class="mood-option text-center p-4 border-2 border-gray-200 rounded-lg" data-mood="stressed">
-            <div class="text-4xl mb-2">😤</div>
-            <div class="text-sm font-medium">有压力</div>
-          </div>
-          <div class="mood-option text-center p-4 border-2 border-gray-200 rounded-lg" data-mood="tense">
-            <div class="text-4xl mb-2">😬</div>
-            <div class="text-sm font-medium">身体紧张</div>
-          </div>
-          <div class="mood-option text-center p-4 border-2 border-gray-200 rounded-lg" data-mood="overwhelmed">
-            <div class="text-4xl mb-2">😵‍💫</div>
-            <div class="text-sm font-medium">不知所措</div>
-          </div>
-        </div>
-
-        <div id="moodRecommendation" class="hidden bg-blue-50 rounded-lg p-4">
-          <div class="flex items-start">
-            <i class="fa fa-lightbulb text-blue-500 mt-1 mr-3"></i>
-            <div>
-              <div class="font-medium text-blue-800 mb-1">为你推荐</div>
-              <div id="recommendationText" class="text-sm text-blue-700"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <!-- 快速练习选择 -->
       <div class="grid md:grid-cols-2 gap-6 mb-8">
         
         <!-- 4-7-8呼吸法 -->
-        <div class="exercise-card bg-white rounded-2xl p-6 shadow-sm border-2 border-transparent" onclick="startBreathingExercise()">
+        <div class="exercise-card bg-white rounded-2xl p-6 shadow-sm border-2 border-transparent" onclick="openBreathingExercise()">
           <div class="text-center mb-4">
             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
               <i class="fa fa-wind text-blue-600 text-2xl"></i>
@@ -451,7 +329,7 @@
         </div>
 
         <!-- 5-4-3-2-1接地技术 -->
-        <div class="exercise-card bg-white rounded-2xl p-6 shadow-sm border-2 border-transparent" onclick="startGroundingExercise()">
+        <div class="exercise-card bg-white rounded-2xl p-6 shadow-sm border-2 border-transparent" onclick="openGroundingExercise()">
           <div class="text-center mb-4">
             <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
               <i class="fa fa-eye text-green-600 text-2xl"></i>
@@ -474,34 +352,20 @@
 
       </div>
 
-      <!-- 渐进式肌肉放松 -->
+      <!-- 其他练习 -->
       <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
         <div class="text-center mb-6">
           <h3 class="text-xl font-semibold text-primary mb-2">渐进式肌肉放松</h3>
           <p class="text-gray-600">系统性释放身体各部位的紧张</p>
         </div>
         
-        <div class="grid md:grid-cols-2 gap-6">
-          <div>
-            <h4 class="font-medium text-gray-800 mb-3">放松步骤：</h4>
-            <ol class="text-sm text-gray-600 space-y-2">
-              <li>1. 找一个舒适的位置坐下或躺下</li>
-              <li>2. 从脚趾开始，用力收紧肌肉5秒</li>
-              <li>3. 然后完全放松，感受对比</li>
-              <li>4. 逐步向上到头部肌肉</li>
-              <li>5. 最后全身放松，深呼吸</li>
-            </ol>
-          </div>
-          
-          <div class="text-center">
-            <button onclick="startMuscleRelaxation()" class="btn-primary text-white px-6 py-3 rounded-lg">
-              <i class="fa fa-play mr-2"></i>开始放松练习
-            </button>
-          </div>
+        <div class="text-center">
+          <button onclick="openMuscleRelaxation()" class="btn-primary text-white px-6 py-3 rounded-lg">
+            <i class="fa fa-play mr-2"></i>开始放松练习
+          </button>
         </div>
       </div>
 
-      <!-- 正念冥想 -->
       <div class="bg-white rounded-2xl p-6 shadow-sm">
         <div class="text-center mb-6">
           <h3 class="text-xl font-semibold text-primary mb-2">3分钟正念呼吸</h3>
@@ -509,8 +373,8 @@
         </div>
         
         <div class="text-center">
-          <button onclick="startMindfulBreathing()" class="btn-primary text-white px-8 py-4 rounded-lg text-lg">
-            <i class="fa fa-meditation mr-2"></i>开始正念冥想
+          <button onclick="openMindfulBreathing()" class="btn-primary text-white px-8 py-4 rounded-lg text-lg">
+            <i class="fa fa-heart mr-2"></i>开始正念冥想
           </button>
         </div>
       </div>
@@ -523,29 +387,23 @@
     <div class="flex items-center justify-center min-h-screen p-4">
       <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 text-center">
         
-        <!-- ===== 🎯 优化后的呼吸练习界面 ===== -->
+        <!-- 呼吸练习界面 -->
         <div id="breathingInterface" class="hidden">
           <h3 class="text-xl font-semibold text-primary mb-4">4-7-8 呼吸练习</h3>
           
-          <!-- 呼吸动画容器 -->
           <div class="breathing-container mb-6">
             <div class="breathing-circle-enhanced phase-ready"></div>
             <div class="breathing-ring"></div>
           </div>
           
-          <!-- 文字指导 -->
           <div class="text-center mb-6">
             <div class="breathing-phase-text" id="breathingPhase">准备开始</div>
             <div class="breathing-instruction-text" id="breathingInstruction">找一个舒适的姿势，放松身体</div>
             <div class="breathing-countdown" id="breathingCount">3</div>
           </div>
           
-          <!-- 循环进度指示器 -->
-          <div class="cycle-indicator mb-6" id="cycleIndicator">
-            <!-- 动态生成 -->
-          </div>
+          <div class="cycle-indicator mb-6" id="cycleIndicator"></div>
           
-          <!-- 控制按钮 -->
           <div class="flex space-x-3 justify-center">
             <button id="breathingStart" class="btn-primary text-white px-6 py-3 rounded-lg">
               <i class="fa fa-play mr-2"></i>开始练习
@@ -553,12 +411,11 @@
             <button id="breathingPause" class="btn-secondary px-6 py-3 rounded-lg hidden">
               <i class="fa fa-pause mr-2"></i>暂停
             </button>
-            <button onclick="closeExerciseModal()" class="btn-secondary px-6 py-3 rounded-lg">
+            <button onclick="closeModal()" class="btn-secondary px-6 py-3 rounded-lg">
               <i class="fa fa-times mr-2"></i>关闭
             </button>
           </div>
           
-          <!-- 温馨提示 -->
           <div class="mt-6 text-center text-sm text-gray-500">
             <i class="fa fa-info-circle mr-1"></i>
             建议完成3-5个循环，每个循环19秒
@@ -597,7 +454,7 @@
           
           <div class="flex space-x-3">
             <button id="groundingNext" class="btn-primary text-white px-4 py-2 rounded-lg">下一步</button>
-            <button onclick="closeExerciseModal()" class="btn-secondary px-4 py-2 rounded-lg">结束</button>
+            <button onclick="closeModal()" class="btn-secondary px-4 py-2 rounded-lg">结束</button>
           </div>
         </div>
 
@@ -611,8 +468,7 @@
           <div class="relative w-32 h-32 mx-auto mb-6">
             <svg class="w-32 h-32 transform -rotate-90">
               <circle cx="64" cy="64" r="60" stroke="#e5e7eb" stroke-width="4" fill="none"/>
-              <circle id="muscleTimer" cx="64" cy="64" r="60" stroke="#8FD9A8" stroke-width="4" fill="none" 
-                      class="timer-circle"/>
+              <circle id="muscleTimer" cx="64" cy="64" r="60" stroke="#8FD9A8" stroke-width="4" fill="none" class="timer-circle"/>
             </svg>
             <div class="absolute inset-0 flex items-center justify-center">
               <span id="muscleCount" class="text-xl font-bold text-primary">5</span>
@@ -622,7 +478,7 @@
           <div class="flex space-x-3">
             <button id="muscleStart" class="btn-primary text-white px-4 py-2 rounded-lg">开始收紧</button>
             <button id="muscleNext" class="btn-secondary px-4 py-2 rounded-lg hidden">下一组</button>
-            <button onclick="closeExerciseModal()" class="btn-secondary px-4 py-2 rounded-lg">结束</button>
+            <button onclick="closeModal()" class="btn-secondary px-4 py-2 rounded-lg">结束</button>
           </div>
         </div>
 
@@ -636,8 +492,7 @@
           <div class="relative w-32 h-32 mx-auto mb-6">
             <svg class="w-32 h-32 transform -rotate-90">
               <circle cx="64" cy="64" r="60" stroke="#e5e7eb" stroke-width="4" fill="none"/>
-              <circle id="mindfulTimer" cx="64" cy="64" r="60" stroke="#A855F7" stroke-width="4" fill="none" 
-                      class="timer-circle"/>
+              <circle id="mindfulTimer" cx="64" cy="64" r="60" stroke="#A855F7" stroke-width="4" fill="none" class="timer-circle"/>
             </svg>
             <div class="absolute inset-0 flex items-center justify-center">
               <span id="mindfulTime" class="text-lg font-bold text-primary">3:00</span>
@@ -647,7 +502,7 @@
           <div class="flex space-x-3">
             <button id="mindfulStart" class="btn-primary text-white px-4 py-2 rounded-lg">开始冥想</button>
             <button id="mindfulPause" class="btn-secondary px-4 py-2 rounded-lg hidden">暂停</button>
-            <button onclick="closeExerciseModal()" class="btn-secondary px-4 py-2 rounded-lg">结束</button>
+            <button onclick="closeModal()" class="btn-secondary px-4 py-2 rounded-lg">结束</button>
           </div>
         </div>
 
@@ -655,100 +510,53 @@
     </div>
   </div>
 
-  <!-- Toast 提示 -->
+  <!-- Toast -->
   <div id="toast" class="toast"></div>
 
-  <!-- 引入数据管理器 -->
-  <script src="js/data-manager.js"></script>
-
   <script>
-    // 全局变量
-    let currentExercise = null;
+    // ===== 全局变量 =====
     let exerciseTimer = null;
-    let currentMood = null;
 
-    // Toast 提示
+    // ===== Toast 提示 =====
     function showToast(message) {
       const toast = document.getElementById('toast');
       toast.textContent = message;
       toast.classList.add('show');
-      
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+      setTimeout(() => toast.classList.remove('show'), 3000);
     }
 
-    // 保存练习记录
-    function savePracticeRecord(name, category, duration) {
-      if (typeof DataManager !== 'undefined') {
-        DataManager.addPracticeRecord({
-          name: name,
-          category: category,
-          duration: duration,
-          date: new Date().toISOString()
-        });
-      }
-    }
-
-    // 关闭练习模态框
-    function closeExerciseModal() {
+    // ===== 关闭模态框 =====
+    function closeModal() {
       document.getElementById('exerciseModal').classList.add('hidden');
-      document.getElementById('breathingInterface').classList.add('hidden');
-      document.getElementById('groundingInterface').classList.add('hidden');
-      document.getElementById('muscleInterface').classList.add('hidden');
-      document.getElementById('mindfulInterface').classList.add('hidden');
-      
+      document.querySelectorAll('#exerciseModal > div > div > div').forEach(el => {
+        el.classList.add('hidden');
+      });
       if (exerciseTimer) {
         clearInterval(exerciseTimer);
         exerciseTimer = null;
       }
     }
 
-    // ===== 🎯 优化后的4-7-8呼吸练习函数 =====
-    function startBreathingExercise() {
-      currentExercise = 'breathing';
+    // ===== 打开呼吸练习 =====
+    function openBreathingExercise() {
       document.getElementById('exerciseModal').classList.remove('hidden');
       document.getElementById('breathingInterface').classList.remove('hidden');
       
-      // 练习配置
       const config = {
         totalCycles: 5,
         currentCycle: 0,
         isRunning: false,
         isPaused: false,
-        timerInterval: null,
-        currentPhaseIndex: 0
+        timerInterval: null
       };
       
-      // 呼吸阶段配置
       const phases = [
-        { 
-          name: '准备', 
-          instruction: '找一个舒适的姿势，放松身体', 
-          duration: 3,
-          className: 'phase-ready'
-        },
-        { 
-          name: '吸气', 
-          instruction: '通过鼻子慢慢吸气，让空气填满肺部', 
-          duration: 4,
-          className: 'phase-inhale'
-        },
-        { 
-          name: '屏息', 
-          instruction: '温柔地屏住呼吸，感受身体的平静', 
-          duration: 7,
-          className: 'phase-hold'
-        },
-        { 
-          name: '呼气', 
-          instruction: '通过嘴巴慢慢呼气，释放所有紧张', 
-          duration: 8,
-          className: 'phase-exhale'
-        }
+        { name: '准备', instruction: '找一个舒适的姿势，放松身体', duration: 3, className: 'phase-ready' },
+        { name: '吸气', instruction: '通过鼻子慢慢吸气，让空气填满肺部', duration: 4, className: 'phase-inhale' },
+        { name: '屏息', instruction: '温柔地屏住呼吸，感受身体的平静', duration: 7, className: 'phase-hold' },
+        { name: '呼气', instruction: '通过嘴巴慢慢呼气，释放所有紧张', duration: 8, className: 'phase-exhale' }
       ];
       
-      // DOM 元素
       const elements = {
         circle: document.querySelector('.breathing-circle-enhanced'),
         ring: document.querySelector('.breathing-ring'),
@@ -760,18 +568,15 @@
         cycleIndicator: document.getElementById('cycleIndicator')
       };
       
-      // 初始化循环指示器
       function initCycleIndicator() {
         elements.cycleIndicator.innerHTML = '';
         for (let i = 0; i < config.totalCycles; i++) {
           const dot = document.createElement('div');
           dot.className = 'cycle-dot';
-          dot.dataset.cycle = i;
           elements.cycleIndicator.appendChild(dot);
         }
       }
       
-      // 更新循环指示器
       function updateCycleIndicator() {
         const dots = elements.cycleIndicator.querySelectorAll('.cycle-dot');
         dots.forEach((dot, index) => {
@@ -785,17 +590,14 @@
         });
       }
       
-      // 更新界面显示
       function updateDisplay(phase, count) {
         elements.phaseText.textContent = phase.name;
         elements.instructionText.textContent = phase.instruction;
         elements.countText.textContent = count;
-        
         elements.circle.className = `breathing-circle-enhanced ${phase.className}`;
         elements.ring.className = `breathing-ring ${phase.className}`;
       }
       
-      // 执行单个阶段
       function executePhase(phaseIndex) {
         return new Promise((resolve) => {
           const phase = phases[phaseIndex];
@@ -817,21 +619,19 @@
         });
       }
       
-      // 执行完整循环
       async function executeCycle() {
         config.currentCycle++;
         updateCycleIndicator();
         
         if (config.currentCycle === 1) {
-          await executePhase(0); // 准备阶段
+          await executePhase(0);
         }
         
-        await executePhase(1); // 吸气 4秒
-        await executePhase(2); // 屏息 7秒
-        await executePhase(3); // 呼气 8秒
+        await executePhase(1);
+        await executePhase(2);
+        await executePhase(3);
       }
       
-      // 开始练习
       async function startPractice() {
         if (config.isRunning) return;
         
@@ -851,7 +651,8 @@
           }
           
           if (config.currentCycle >= config.totalCycles) {
-            completeBreathingExercise();
+            updateDisplay({ name: '完成！', instruction: '做得很好！你完成了5个完整循环', className: 'phase-ready' }, '✓');
+            showToast('呼吸练习完成！感觉如何？');
           }
           
         } catch (error) {
@@ -859,7 +660,6 @@
         }
       }
       
-      // 暂停/继续
       function togglePause() {
         config.isPaused = !config.isPaused;
         
@@ -871,139 +671,211 @@
         }
       }
       
-      // 停止练习
-      function stopPractice() {
-        config.isRunning = false;
-        clearInterval(config.timerInterval);
-        
-        elements.startBtn.classList.remove('hidden');
-        elements.pauseBtn.classList.add('hidden');
-      }
-      
-      // 完成练习
-      function completeBreathingExercise() {
-        stopPractice();
-        
-        updateDisplay(
-          { name: '完成！', instruction: '做得很好！你完成了5个完整循环', className: 'phase-ready' },
-          '✓'
-        );
-        
-        savePracticeRecord('4-7-8呼吸法', 'breathing', 2);
-        
-        setTimeout(() => {
-          showToast('呼吸练习完成！感觉如何？');
-          
-          setTimeout(() => {
-            if (confirm('练习完成！是否记录本次练习的感受？')) {
-              closeExerciseModal();
-            } else {
-              closeExerciseModal();
-            }
-          }, 3000);
-        }, 500);
-      }
-      
-      // 初始化
       initCycleIndicator();
       updateCycleIndicator();
       
-      // 绑定事件
       elements.startBtn.onclick = startPractice;
       elements.pauseBtn.onclick = togglePause;
       
-      // 显示初始状态
       updateDisplay(phases[0], phases[0].duration);
     }
 
-    // ===== 其他练习函数（保持原样）=====
-    
-    // 5-4-3-2-1接地技术
-    function startGroundingExercise() {
-      currentExercise = 'grounding';
+    // ===== 打开接地技术 =====
+    function openGroundingExercise() {
       document.getElementById('exerciseModal').classList.remove('hidden');
       document.getElementById('groundingInterface').classList.remove('hidden');
       
-      showToast('接地技术帮助你回到当下此刻');
+      let currentStep = 0;
+      const steps = [
+        { count: 5, sense: '看', description: '仔细观察周围环境，说出5样你能看到的物品' },
+        { count: 4, sense: '触摸', description: '感受4样你能触摸到的东西的质地' },
+        { count: 3, sense: '听', description: '专注聆听3种不同的声音' },
+        { count: 2, sense: '闻', description: '注意2种你能闻到的气味' },
+        { count: 1, sense: '尝', description: '感受1种你能尝到的味道' }
+      ];
+      
+      function updateStep() {
+        if (currentStep >= steps.length) {
+          showToast('接地练习完成！你现在感觉更加平静和专注了。');
+          closeModal();
+          return;
+        }
+        
+        const step = steps[currentStep];
+        document.getElementById('groundingStep').textContent = `找到${step.count}样你能${step.sense}的东西`;
+        document.getElementById('groundingDescription').textContent = step.description;
+        
+        document.querySelectorAll('.grounding-item').forEach((item, index) => {
+          if (index === currentStep) {
+            item.classList.add('active');
+          } else if (index < currentStep) {
+            item.style.opacity = '1';
+            item.style.background = '#d1fae5';
+          }
+        });
+      }
+      
+      document.getElementById('groundingNext').onclick = () => {
+        currentStep++;
+        updateStep();
+      };
+      
+      updateStep();
     }
 
-    // 渐进式肌肉放松
-    function startMuscleRelaxation() {
-      currentExercise = 'muscle';
+    // ===== 打开肌肉放松 =====
+    function openMuscleRelaxation() {
       document.getElementById('exerciseModal').classList.remove('hidden');
       document.getElementById('muscleInterface').classList.remove('hidden');
       
-      showToast('肌肉放松练习开始');
+      let currentGroup = 0;
+      const muscleGroups = [
+        { name: '脚趾和脚部', instruction: '用力收紧脚趾，感受紧张' },
+        { name: '小腿肌肉', instruction: '收紧小腿肌肉，保持紧张' },
+        { name: '大腿肌肉', instruction: '用力收紧大腿前后肌肉' },
+        { name: '臀部肌肉', instruction: '收紧臀部，感受肌肉紧张' },
+        { name: '腹部肌肉', instruction: '收紧腹部，像做仰卧起坐' },
+        { name: '双手和手臂', instruction: '握拳并收紧手臂肌肉' },
+        { name: '肩膀', instruction: '耸肩向上，感受肩膀紧张' },
+        { name: '面部肌肉', instruction: '紧闭眼睛，收紧面部肌肉' }
+      ];
+      
+      function updateMuscleGroup() {
+        if (currentGroup >= muscleGroups.length) {
+          showToast('肌肉放松练习完成！身体是否感觉更加放松？');
+          closeModal();
+          return;
+        }
+        
+        const group = muscleGroups[currentGroup];
+        document.getElementById('muscleGroup').textContent = group.name;
+        document.getElementById('muscleInstruction').textContent = group.instruction;
+        
+        document.getElementById('muscleStart').classList.remove('hidden');
+        document.getElementById('muscleNext').classList.add('hidden');
+      }
+      
+      function startMuscleTimer() {
+        let timeLeft = 5;
+        document.getElementById('muscleCount').textContent = timeLeft;
+        document.getElementById('muscleStart').classList.add('hidden');
+        
+        const timer = setInterval(() => {
+          timeLeft--;
+          document.getElementById('muscleCount').textContent = timeLeft;
+          
+          const progress = (5 - timeLeft) / 5;
+          const circumference = 2 * Math.PI * 60;
+          const offset = circumference - (progress * circumference);
+          document.getElementById('muscleTimer').style.strokeDashoffset = offset;
+          
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            document.getElementById('muscleInstruction').textContent = '现在放松，感受紧张和放松的对比';
+            document.getElementById('muscleNext').classList.remove('hidden');
+          }
+        }, 1000);
+        
+        exerciseTimer = timer;
+      }
+      
+      document.getElementById('muscleStart').onclick = startMuscleTimer;
+      document.getElementById('muscleNext').onclick = () => {
+        currentGroup++;
+        updateMuscleGroup();
+      };
+      
+      updateMuscleGroup();
     }
 
-    // 正念呼吸冥想
-    function startMindfulBreathing() {
-      currentExercise = 'mindful';
+    // ===== 打开正念呼吸 =====
+    function openMindfulBreathing() {
       document.getElementById('exerciseModal').classList.remove('hidden');
       document.getElementById('mindfulInterface').classList.remove('hidden');
       
-      showToast('正念呼吸冥想开始');
-    }
-
-    // 情绪选择处理
-    function initMoodSelection() {
-      document.querySelectorAll('.mood-option').forEach(option => {
-        option.addEventListener('click', () => {
-          document.querySelectorAll('.mood-option').forEach(opt => {
-            opt.classList.remove('selected', 'border-primary');
-            opt.classList.add('border-gray-200');
-          });
-          
-          option.classList.add('selected', 'border-primary');
-          option.classList.remove('border-gray-200');
-          
-          currentMood = option.dataset.mood;
-          showMoodRecommendation(currentMood);
-        });
-      });
-    }
-
-    // 显示情绪推荐
-    function showMoodRecommendation(mood) {
-      const recommendations = {
-        anxious: '建议先尝试4-7-8呼吸法，快速缓解焦虑感，然后进行正念呼吸巩固效果。',
-        stressed: '推荐渐进式肌肉放松，释放身体紧张，配合深呼吸调节压力。',
-        tense: '适合从肌肉放松开始，然后用5-4-3-2-1技术回到当下。',
-        overwhelmed: '建议使用5-4-3-2-1接地技术，帮助你重新聚焦和定位。'
-      };
+      let timeLeft = 180;
+      let isRunning = false;
       
-      const recommendationEl = document.getElementById('moodRecommendation');
-      const textEl = document.getElementById('recommendationText');
+      const guides = [
+        '找一个舒适的姿势，闭上眼睛',
+        '注意你的呼吸，不需要改变它',
+        '感受空气进入鼻腔的感觉',
+        '注意胸部和腹部的起伏',
+        '当思绪飘走时，温柔地回到呼吸',
+        '继续专注于呼吸的感觉',
+        '感受每次呼吸带来的平静',
+        '准备结束，慢慢睁开眼睛'
+      ];
       
-      textEl.textContent = recommendations[mood];
-      recommendationEl.classList.remove('hidden');
-    }
-
-    // 页面初始化
-    // 页面初始化
-document.addEventListener('DOMContentLoaded', () => {
-  initMoodSelection();
-  
-  // 检查URL参数自动打开对应练习
-  const urlParams = new URLSearchParams(window.location.search);
-  const practiceType = urlParams.get('type');
-  
-  if (practiceType) {
-    console.log('📍 从URL参数启动练习:', practiceType);
-    
-    setTimeout(() => {
-      if (practiceType === 'breathing-4-7-8' || practiceType.includes('breathing')) {
-        startBreathingExercise();
-      } else if (practiceType === 'grounding' || practiceType === 'grounding-5-4-3-2-1') {
-        startGroundingExercise();
-      } else if (practiceType === 'body-scan' || practiceType === 'muscle') {
-        startMuscleRelaxation();
-      } else if (practiceType === 'mindful-breathing' || practiceType === 'mindful') {
-        startMindfulBreathing();
+      let currentGuideIndex = 0;
+      
+      function updateGuide() {
+        if (currentGuideIndex < guides.length) {
+          document.getElementById('mindfulGuide').textContent = guides[currentGuideIndex];
+          currentGuideIndex++;
+        }
       }
-    }, 500);
-  }
-});
+      
+      function startMindfulTimer() {
+        isRunning = true;
+        document.getElementById('mindfulStart').classList.add('hidden');
+        document.getElementById('mindfulPause').classList.remove('hidden');
+        
+        const guideInterval = setInterval(updateGuide, 25000);
+        
+        const timer = setInterval(() => {
+          timeLeft--;
+          const minutes = Math.floor(timeLeft / 60);
+          const seconds = timeLeft % 60;
+          document.getElementById('mindfulTime').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+          
+          const progress = (180 - timeLeft) / 180;
+          const circumference = 2 * Math.PI * 60;
+          const offset = circumference - (progress * circumference);
+          document.getElementById('mindfulTimer').style.strokeDashoffset = offset;
+          
+          if (timeLeft <= 0) {
+            clearInterval(timer);
+            clearInterval(guideInterval);
+            showToast('正念冥想完成！感受内心的平静。');
+            closeModal();
+          }
+        }, 1000);
+        
+        exerciseTimer = timer;
+        updateGuide();
+      }
+      
+      document.getElementById('mindfulStart').onclick = startMindfulTimer;
+      document.getElementById('mindfulPause').onclick = () => {
+        clearInterval(exerciseTimer);
+        isRunning = false;
+        document.getElementById('mindfulStart').classList.remove('hidden');
+        document.getElementById('mindfulPause').classList.add('hidden');
+      };
+    }
+
+    // ===== URL参数自动打开练习 =====
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const practiceType = urlParams.get('type');
+      
+      if (practiceType) {
+        console.log('📍 从URL参数启动练习:', practiceType);
+        
+        setTimeout(() => {
+          if (practiceType === 'breathing-4-7-8' || practiceType.includes('breathing')) {
+            openBreathingExercise();
+          } else if (practiceType === 'grounding' || practiceType === 'grounding-5-4-3-2-1') {
+            openGroundingExercise();
+          } else if (practiceType === 'body-scan' || practiceType === 'muscle') {
+            openMuscleRelaxation();
+          } else if (practiceType === 'mindful-breathing' || practiceType === 'mindful') {
+            openMindfulBreathing();
+          }
+        }, 500);
+      }
+    });
   </script>
 </body>
 </html>
