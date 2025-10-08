@@ -605,39 +605,4 @@
   </script>
 
 </body>
-</html><div class="flex items-start justify-between mb-2">
-            <div class="flex items-center space-x-2">
-              <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-                <i class="fa fa-user-circle text-green-600 text-sm"></i>
-              </div>
-              <div>
-                <div class="font-medium text-gray-800">身体意象重构</div>
-                <div class="text-xs text-gray-500">${dateStr} ${timeStr}</div>
-              </div>
-            </div>
-            <span class="badge ${changeBadge}">
-              ${beliefChange > 0 ? '↓' : '↑'} ${Math.abs(beliefChange)} 分
-            </span>
-          </div>
-          <p class="text-sm text-gray-600 line-clamp-2 ml-10">
-            ${record.negativeThought}
-          </p>
-        </div>
-      `;
-    }
-
-    // 渲染社交媒体记录
-    function renderSocialMediaRecord(record) {
-      const date = new Date(record.id);
-      const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
-      const timeStr = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-      
-      const platformNames = {
-        'instagram': 'Instagram',
-        'xiaohongshu': '小红书',
-        'douyin': '抖音',
-        'weibo': '微博'
-      };
-      
-      return `
-        <div class="record-item p-4 border-b border-gray-100 last:border-0">
+</html>
