@@ -166,6 +166,27 @@
   </main>
 
   <script>
+    // ✨ 新增:页面加载时触发卡片动画
+  document.addEventListener('DOMContentLoaded', function() {
+    // 等待资源加载
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        animatePracticeCards();
+        updateDailyStats(); // 原有的统计更新函数
+      }, 100);
+    });
+  });
+
+  // ✨ 新增:练习卡片动画函数
+  function animatePracticeCards() {
+    const cards = document.querySelectorAll('.practice-card');
+    
+    cards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add('animate-in');
+      }, index * 100); // 每张卡片延迟 100ms,形成层叠效果
+    });
+  }
     // ============================================
     // 练习数据 - 完整版本(15个练习)
     // ============================================
