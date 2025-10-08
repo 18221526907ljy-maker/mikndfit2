@@ -1,4 +1,197 @@
-placeholder="例如: 一碗拉面、两块蛋糕、一杯奶茶、薯片一包..."
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>饮食与情绪日志 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+  <style>
+    .meal-type-btn {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .meal-type-btn.selected {
+      background: #4A6157;
+      color: white;
+      transform: scale(1.05);
+    }
+    
+    .emotion-chip {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .emotion-chip:hover {
+      transform: translateY(-2px);
+    }
+    
+    .emotion-chip.selected {
+      background: #4A6157;
+      color: white;
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 14px;
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+    
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .tab-btn {
+      transition: all 0.3s ease;
+    }
+    
+    .tab-btn.active {
+      background: #4A6157;
+      color: white;
+    }
+
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4A6157",
+            mint: "#8FD9A8",
+            accent: "#2E2E2E"
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-gray-50">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <a href="cbt_tools.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+            <span class="font-medium">返回工具箱</span>
+          </a>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-cutlery text-white text-sm"></i>
+          </div>
+          <span class="text-lg font-bold text-primary">饮食情绪日志</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <div class="flex items-center">
+      <span class="mr-2">✓</span>
+      <span id="toastMessage"></span>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    
+    <!-- 标签切换 -->
+    <div class="bg-white rounded-2xl p-2 shadow-sm mb-8 flex gap-2">
+      <button id="recordTab" class="tab-btn active flex-1 px-6 py-3 rounded-lg font-medium" onclick="switchTab('record')">
+        <i class="fa fa-plus-circle mr-2"></i>
+        新增记录
+      </button>
+      <button id="reportTab" class="tab-btn flex-1 px-6 py-3 rounded-lg font-medium bg-gray-100 text-gray-600" onclick="switchTab('report')">
+        <i class="fa fa-bar-chart mr-2"></i>
+        周报告
+      </button>
+      <button id="historyTab" class="tab-btn flex-1 px-6 py-3 rounded-lg font-medium bg-gray-100 text-gray-600" onclick="switchTab('history')">
+        <i class="fa fa-history mr-2"></i>
+        历史记录
+      </button>
+    </div>
+
+    <!-- 记录表单 -->
+    <div id="recordSection" class="space-y-6">
+      
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-primary mb-2">记录饮食与情绪</h2>
+        <p class="text-sm text-gray-600 mb-6">
+          💚 食物无罪恶感,记录是为了了解自己,而不是限制自己
+        </p>
+
+        <div class="space-y-6">
+          
+          <!-- 用餐类型 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+              <i class="fa fa-clock-o text-primary mr-2"></i>
+              用餐类型
+            </label>
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'breakfast')">
+                <div class="text-2xl mb-1">🌅</div>
+                <div class="text-sm">早餐</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'lunch')">
+                <div class="text-2xl mb-1">☀️</div>
+                <div class="text-sm">午餐</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'dinner')">
+                <div class="text-2xl mb-1">🌙</div>
+                <div class="text-sm">晚餐</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'snack')">
+                <div class="text-2xl mb-1">🍪</div>
+                <div class="text-sm">零食</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'drink')">
+                <div class="text-2xl mb-1">🥤</div>
+                <div class="text-sm">饮料</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'other')">
+                <div class="text-2xl mb-1">🍽️</div>
+                <div class="text-sm">其他</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- 食物描述 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-apple text-primary mr-2"></i>
+              吃了什么？(简单描述即可)
+            </label>
+            <textarea 
+              id="foodDescription" 
+              rows="2" 
+              class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary focus:border-transparent"
+              placeholder="例如: 一碗拉面、两块蛋糕、一杯奶茶、薯片一包..."
             ></textarea>
           </div>
 
@@ -782,196 +975,4 @@ placeholder="例如: 一碗拉面、两块蛋糕、一杯奶茶、薯片一包..
   </script>
 
 </body>
-</html><!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>饮食与情绪日志 - MindFit</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-  
-  <style>
-    .meal-type-btn {
-      transition: all 0.3s ease;
-      cursor: pointer;
-    }
-    
-    .meal-type-btn.selected {
-      background: #4A6157;
-      color: white;
-      transform: scale(1.05);
-    }
-    
-    .emotion-chip {
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-    
-    .emotion-chip:hover {
-      transform: translateY(-2px);
-    }
-    
-    .emotion-chip.selected {
-      background: #4A6157;
-      color: white;
-    }
-    
-    .toast {
-      position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: rgba(0, 0, 0, 0.85);
-      color: white;
-      padding: 12px 24px;
-      border-radius: 25px;
-      font-size: 14px;
-      z-index: 1000;
-      opacity: 0;
-      transition: all 0.4s ease;
-    }
-    
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-    
-    .tab-btn {
-      transition: all 0.3s ease;
-    }
-    
-    .tab-btn.active {
-      background: #4A6157;
-      color: white;
-    }
-
-    .stat-card {
-      transition: all 0.3s ease;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    }
-  </style>
-
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#4A6157",
-            mint: "#8FD9A8",
-            accent: "#2E2E2E"
-          }
-        }
-      }
-    };
-  </script>
-</head>
-
-<body class="bg-gray-50">
-  
-  <!-- 顶部导航 -->
-  <nav class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 py-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <a href="cbt_tools.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
-            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
-            <span class="font-medium">返回工具箱</span>
-          </a>
-        </div>
-        <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-            <i class="fa fa-cutlery text-white text-sm"></i>
-          </div>
-          <span class="text-lg font-bold text-primary">饮食情绪日志</span>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Toast 提示 -->
-  <div id="toast" class="toast">
-    <div class="flex items-center">
-      <span class="mr-2">✓</span>
-      <span id="toastMessage"></span>
-    </div>
-  </div>
-
-  <main class="max-w-6xl mx-auto px-4 py-8">
-    
-    <!-- 标签切换 -->
-    <div class="bg-white rounded-2xl p-2 shadow-sm mb-8 flex gap-2">
-      <button id="recordTab" class="tab-btn active flex-1 px-6 py-3 rounded-lg font-medium" onclick="switchTab('record')">
-        <i class="fa fa-plus-circle mr-2"></i>
-        新增记录
-      </button>
-      <button id="reportTab" class="tab-btn flex-1 px-6 py-3 rounded-lg font-medium bg-gray-100 text-gray-600" onclick="switchTab('report')">
-        <i class="fa fa-bar-chart mr-2"></i>
-        周报告
-      </button>
-      <button id="historyTab" class="tab-btn flex-1 px-6 py-3 rounded-lg font-medium bg-gray-100 text-gray-600" onclick="switchTab('history')">
-        <i class="fa fa-history mr-2"></i>
-        历史记录
-      </button>
-    </div>
-
-    <!-- 记录表单 -->
-    <div id="recordSection" class="space-y-6">
-      
-      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
-        <h2 class="text-2xl font-bold text-primary mb-2">记录饮食与情绪</h2>
-        <p class="text-sm text-gray-600 mb-6">
-          💚 食物无罪恶感,记录是为了了解自己,而不是限制自己
-        </p>
-
-        <div class="space-y-6">
-          
-          <!-- 用餐类型 -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-3">
-              <i class="fa fa-clock-o text-primary mr-2"></i>
-              用餐类型
-            </label>
-            <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
-              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'breakfast')">
-                <div class="text-2xl mb-1">🌅</div>
-                <div class="text-sm">早餐</div>
-              </button>
-              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'lunch')">
-                <div class="text-2xl mb-1">☀️</div>
-                <div class="text-sm">午餐</div>
-              </button>
-              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'dinner')">
-                <div class="text-2xl mb-1">🌙</div>
-                <div class="text-sm">晚餐</div>
-              </button>
-              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'snack')">
-                <div class="text-2xl mb-1">🍪</div>
-                <div class="text-sm">零食</div>
-              </button>
-              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'drink')">
-                <div class="text-2xl mb-1">🥤</div>
-                <div class="text-sm">饮料</div>
-              </button>
-              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'other')">
-                <div class="text-2xl mb-1">🍽️</div>
-                <div class="text-sm">其他</div>
-              </button>
-            </div>
-          </div>
-
-          <!-- 食物描述 -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">
-              <i class="fa fa-apple text-primary mr-2"></i>
-              吃了什么？(简单描述即可)
-            </label>
-            <textarea 
-              id="foodDescription" 
-              rows="2" 
-              class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary focus:border-transparent"
-              placeholder="例如: 一碗拉面、两块蛋糕、
+</html>
