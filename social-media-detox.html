@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>社交媒体清醒练习 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    .phone-shake { animation: phoneShake 0.5s ease-in-out infinite; }
+    @keyframes phoneShake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px) rotate(-5deg); }
+      75% { transform: translateX(5px) rotate(5deg); }
+    }
+    .fade-in { animation: fadeIn 0.8s ease-in; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gentle-pulse { animation: gentlePulse 2s ease-in-out infinite; }
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-cyan-50 via-teal-50 to-blue-50 min-h-screen">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="daily_practice.html" class="text-cyan-600 hover:text-cyan-700">
+        <i class="fas fa-arrow-left mr-2"></i>返回练习
+      </a>
+      <h1 class="text-lg font-semibold text-gray-800">社交媒体清醒练习</h1>
+      <div class="w-20"></div>
+    </div>
+  </nav>
+
+  <!-- 主要内容 -->
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    
+    <!-- 引言卡片 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <div class="text-center mb-6">
+        <div class="phone-shake w-24 h-24 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-mobile-alt text-4xl text-white"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-3">从比较中抽离,回到现实</h2>
+        <p class="text-gray-600 text-lg">3分钟重置被社交媒体影响的自我认知</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <div class="text-center p-4 bg-cyan-50 rounded-xl">
+          <i class="fas fa-clock text-cyan-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">练习时长</div>
+          <div class="text-lg font-semibold text-gray-800">3分钟</div>
+        </div>
+        <div class="text-center p-4 bg-teal-50 rounded-xl">
+          <i class="fas fa-bolt text-teal-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">何时使用</div>
+          <div class="text-lg font-semibold text-gray-800">刷完手机后</div>
+        </div>
+        <div class="text-center p-4 bg-blue-50 rounded-xl">
+          <i class="fas fa-shield-alt text-blue-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">主要效果</div>
+          <div class="text-lg font-semibold text-gray-800">停止自我否定</div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-cyan-50 to-teal-50 rounded-2xl p-6">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center text-lg">
+          <i class="fas fa-exclamation-triangle text-cyan-600 mr-3"></i>
+          这个练习特别适合你,如果...
+        </h3>
+        <ul class="space-y-2 text-gray-700">
+          <li class="flex items-start">
+            <i class="fas fa-check text-cyan-600 mr-2 mt-1"></i>
+            <span>刷Instagram/小红书后觉得自己"不如别人"</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-cyan-600 mr-2 mt-1"></i>
+            <span>看到健身博主/网红后产生身材焦虑</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-cyan-600 mr-2 mt-1"></i>
+            <span>对比完美身材照后想立即节食或过度运动</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-cyan-600 mr-2 mt-1"></i>
+            <span>明知是P图,但还是忍不住自我批评</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 真相揭示 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+        <i class="fas fa-eye-slash text-red-600 mr-3"></i>
+        社交媒体上你看不到的真相
+      </h3>
+      
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-red-50 border-l-4 border-red-400 rounded-r-xl p-4">
+          <div class="font-semibold text-gray-800 mb-2">📸 角度和光线</div>
+          <p class="text-sm text-gray-600">完美自拍需要拍100张,选最好的1张。那99张"失败"的你永远看不到。</p>
+        </div>
+
+        <div class="bg-orange-50 border-l-4 border-orange-400 rounded-r-xl p-4">
+          <div class="font-semibold text-gray-800 mb-2">✨ 滤镜和P图</div>
+          <p class="text-sm text-gray-600">研究显示,90%的网红照片经过修图。那些"完美身材"多数是假的。</p>
+        </div>
+
+        <div class="bg-yellow-50 border-l-4 border-yellow-400 rounded-r-xl p-4">
+          <div class="font-semibold text-gray-800 mb-2">💰 商业利益</div>
+          <p class="text-sm text-gray-600">健身博主靠让你焦虑赚钱。你越觉得"不够好",他们越能卖产品。</p>
+        </div>
+
+        <div class="bg-green-50 border-l-4 border-green-400 rounded-r-xl p-4">
+          <div class="font-semibold text-gray-800 mb-2">⏰ 全职工作</div>
+          <p class="text-sm text-gray-600">网红的"工作"就是拍照。你不需要和把全部时间用于外貌的人比较。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 开始练习按钮 -->
+    <div class="text-center mb-8">
+      <button onclick="startPractice()" class="gentle-pulse bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-16 py-5 rounded-full text-xl font-bold shadow-2xl transition-all transform hover:scale-105">
+        <i class="fas fa-play mr-3"></i>开始3分钟清醒练习
+      </button>
+      <p class="text-sm text-gray-500 mt-4">建议在刷完社交媒体后立即进行</p>
+    </div>
+
+    <!-- 额外建议 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+        <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>
+        长期改善建议
+      </h3>
+      
+      <div class="space-y-4">
+        <div class="flex items-start p-4 bg-blue-50 rounded-xl">
+          <i class="fas fa-user-slash text-blue-600 text-xl mr-4 mt-1"></i>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">取关让你焦虑的账号</div>
+            <div class="text-sm text-gray-600">如果某个账号总让你感觉不好,那就取关。你的心理健康比"关注"更重要。</div>
+          </div>
+        </div>
+
+        <div class="flex items-start p-4 bg-green-50 rounded-xl">
+          <i class="fas fa-clock text-green-600 text-xl mr-4 mt-1"></i>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">设置时间限制</div>
+            <div class="text-sm text-gray-600">使用手机自带的APP使用时长限制功能,每天控制在30分钟内。</div>
+          </div>
+        </div>
+
+        <div class="flex items-start p-4 bg-purple-50 rounded-xl">
+          <i class="fas fa-users text-purple-600 text-xl mr-4 mt-1"></i>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">关注多元化账号</div>
+            <div class="text-sm text-gray-600">关注不同身材、年龄、种族的博主,提醒自己"美"没有单一标准。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 练习模态框 -->
+  <div id="practiceModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8">
+      
+      <!-- 进度显示 -->
+      <div class="text-center mb-6">
+        <div id="stepIndicator" class="text-sm text-gray-500 mb-2">步骤 1/4</div>
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+          <div id="progressBar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-2 rounded-full transition-all duration-500" style="width: 25%"></div>
+        </div>
+      </div>
+
+      <!-- 当前步骤图标 -->
+      <div class="text-center mb-6">
+        <div id="stepIcon" class="w-20 h-20 bg-cyan-100 rounded-full mx-auto mb-4 flex items-center justify-center fade-in">
+          <i class="fas fa-pause-circle text-3xl text-cyan-600"></i>
+        </div>
+      </div>
+
+      <!-- 引导内容 -->
+      <div id="guideContent" class="text-center mb-8 min-h-[200px]">
+        <h3 id="guideTitle" class="text-2xl font-bold text-gray-800 mb-4 fade-in">暂停和觉察</h3>
+        <p id="guideText" class="text-gray-600 leading-relaxed fade-in">
+          放下手机,轻轻闭上眼睛。深呼吸3次,让自己从刚才的刷屏状态中抽离出来...
+        </p>
+      </div>
+
+      <!-- 计时器 -->
+      <div class="text-center mb-6">
+        <div id="timer" class="text-4xl font-bold text-cyan-600">0:00</div>
+        <div class="text-sm text-gray-500 mt-1">本步骤倒计时</div>
+      </div>
+
+      <!-- 控制按钮 -->
+      <div class="flex gap-3">
+        <button onclick="skipStep()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-medium transition-all">
+          <i class="fas fa-forward mr-2"></i>跳过
+        </button>
+        <button id="pauseBtn" onclick="togglePause()" class="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white py-3 rounded-xl font-medium transition-all">
+          <i class="fas fa-pause mr-2"></i>暂停
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 完成模态框 -->
+  <div id="completionModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8">
+      
+      <div class="text-center mb-6">
+        <div class="w-24 h-24 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-check-circle text-5xl text-green-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">✨ 欢迎回到现实!</h3>
+        <p class="text-gray-600">你刚刚从社交媒体的"完美世界"中清醒过来</p>
+      </div>
+
+      <div class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl p-6 mb-6">
+        <h4 class="font-semibold text-gray-800 mb-3">💡 记住这些:</h4>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start">
+            <i class="fas fa-star text-cyan-600 mr-2 mt-1"></i>
+            <span>社交媒体≠现实,那些照片是精心策划的"作品"</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-star text-cyan-600 mr-2 mt-1"></i>
+            <span>你的价值不由点赞数和身材决定</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-star text-cyan-600 mr-2 mt-1"></i>
+            <span>每次刷完手机都可以做这个3分钟练习</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-purple-50 border-2 border-purple-200 rounded-xl p-4 mb-6">
+        <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+          <i class="fas fa-tools text-purple-600 mr-2"></i>
+          想要系统性地改变?
+        </h4>
+        <p class="text-sm text-gray-600 mb-3">
+          试试<strong>"社交媒体影响追踪器"</strong>,可以帮你记录哪些内容最容易触发焦虑,并提供个性化建议。
+        </p>
+        <button onclick="goToTool()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg text-sm font-medium transition-all">
+          <i class="fas fa-arrow-right mr-2"></i>前往深度工具
+        </button>
+      </div>
+
+      <button onclick="closeCompletion()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-medium transition-all">
+        完成并返回
+      </button>
+
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    let timer = null;
+    let remainingSeconds = 0;
+    let isPaused = false;
+    let totalTime = 0;
+
+    const steps = [
+      {
+        title: '暂停和觉察',
+        icon: 'fa-pause-circle',
+        iconColor: 'cyan',
+        text: '放下手机,轻轻闭上眼睛。深呼吸3次,让自己从刚才的刷屏状态中抽离出来。注意此刻的感受:是焦虑?嫉妒?还是自我否定?只是觉察,不做评判。',
+        duration: 45
+      },
+      {
+        title: '现实检验',
+        icon: 'fa-eye',
+        iconColor: 'blue',
+        text: '提醒自己:刚才看到的都是"精选集"。那些照片经过精心挑选、角度调整、滤镜美化。没有人24小时都是完美的。你看到的只是0.1%的瞬间,不是100%的生活。',
+        duration: 45
+      },
+      {
+        title: '价值澄清',
+        icon: 'fa-heart',
+        iconColor: 'pink',
+        text: '在心中默念:我的价值不在于外表。想想3件你真正重要的品质:也许是善良、幽默、聪明、有创造力...这些才是真正定义你的东西,而非体重或长相。',
+        duration: 50
+      },
+      {
+        title: '回归当下',
+        icon: 'fa-home',
+        iconColor: 'green',
+        text: '睁开眼睛,环顾四周。这是真实的世界,有不完美,但真实可触。你的生活不需要滤镜,不需要点赞。深呼吸,微笑,继续你真实而美好的一天。',
+        duration: 40
+      }
+    ];
+
+    function startPractice() {
+      document.getElementById('practiceModal').classList.remove('hidden');
+      currentStep = 0;
+      totalTime = 0;
+      renderStep();
+    }
+
+    function renderStep() {
+      const step = steps[currentStep];
+      
+      // 更新进度
+      const progress = ((currentStep + 1) / steps.length) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('stepIndicator').textContent = `步骤 ${currentStep + 1}/${steps.length}`;
+
+      // 更新图标
+      const iconColors = {
+        cyan: 'bg-cyan-100 text-cyan-600',
+        blue: 'bg-blue-100 text-blue-600',
+        pink: 'bg-pink-100 text-pink-600',
+        green: 'bg-green-100 text-green-600'
+      };
+      
+      const iconDiv = document.getElementById('stepIcon');
+      iconDiv.className = `w-20 h-20 ${iconColors[step.iconColor]} rounded-full mx-auto mb-4 flex items-center justify-center fade-in`;
+      iconDiv.innerHTML = `<i class="fas ${step.icon} text-3xl"></i>`;
+
+      // 更新文字
+      document.getElementById('guideTitle').textContent = step.title;
+      document.getElementById('guideText').textContent = step.text;
+
+      // 开始计时
+      remainingSeconds = step.duration;
+      isPaused = false;
+      updateTimer();
+      startTimer();
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        if (!isPaused && remainingSeconds > 0) {
+          remainingSeconds--;
+          totalTime++;
+          updateTimer();
+          
+          if (remainingSeconds === 0) {
+            nextStep();
+          }
+        }
+      }, 1000);
+    }
+
+    function updateTimer() {
+      const minutes = Math.floor(remainingSeconds / 60);
+      const seconds = remainingSeconds % 60;
+      document.getElementById('timer').textContent = 
+        `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function nextStep() {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        renderStep();
+      } else {
+        completePractice();
+      }
+    }
+
+    function skipStep() {
+      nextStep();
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      const btn = document.getElementById('pauseBtn');
+      btn.innerHTML = isPaused ? 
+        '<i class="fas fa-play mr-2"></i>继续' : 
+        '<i class="fas fa-pause mr-2"></i>暂停';
+    }
+
+    function completePractice() {
+      clearInterval(timer);
+      
+      // 保存练习记录
+      const record = {
+        id: Date.now(),
+        title: '社交媒体清醒练习',
+        category: 'mindful',
+        duration: Math.ceil(totalTime / 60),
+        date: new Date().toISOString(),
+        timestamp: Date.now()
+      };
+
+      const history = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      history.push(record);
+      localStorage.setItem('practiceHistory', JSON.stringify(history));
+
+      // 显示完成界面
+      document.getElementById('practiceModal').classList.add('hidden');
+      document.getElementById('completionModal').classList.remove('hidden');
+    }
+
+    function closeCompletion() {
+      document.getElementById('completionModal').classList.add('hidden');
+      window.location.href = 'daily_practice.html';
+    }
+
+    function goToTool() {
+      // 跳转到深度工具页面
+      window.location.href = 'social-media-tracker.html';
+    }
+  </script>
+
+</body>
+</html>
