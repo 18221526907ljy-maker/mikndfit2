@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>快速平静练习 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    .pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-cyan-50 via-blue-50 to-indigo-50 min-h-screen">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="daily_practice.html" class="text-cyan-600 hover:text-cyan-700">
+        <i class="fas fa-arrow-left mr-2"></i>返回练习
+      </a>
+      <h1 class="text-lg font-semibold text-gray-800">快速平静练习</h1>
+      <div class="w-20"></div>
+    </div>
+  </nav>
+
+  <!-- 主要内容 -->
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    
+    <!-- 紧急提示 -->
+    <div class="bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-3xl shadow-lg p-8 mb-8">
+      <div class="flex items-center mb-4">
+        <i class="fas fa-bolt text-3xl mr-4"></i>
+        <div>
+          <h2 class="text-2xl font-bold mb-1">感到焦虑或压力?</h2>
+          <p class="text-cyan-100">用2-3分钟快速恢复平静</p>
+        </div>
+      </div>
+      <div class="bg-white/20 rounded-xl p-4">
+        <p class="text-sm">这些练习专为紧急情况设计,可以快速激活副交感神经系统,帮你在短时间内恢复冷静。</p>
+      </div>
+    </div>
+
+    <!-- 快速技巧选择 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <h3 class="text-xl font-semibold text-gray-800 mb-6 text-center">选择一个快速技巧</h3>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        
+        <!-- 3分钟呼吸空间 -->
+        <div class="border-2 border-cyan-200 rounded-2xl p-6 hover:border-cyan-400 hover:bg-cyan-50 transition-all cursor-pointer" onclick="startTechnique('breathing-space')">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-wind text-xl"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-gray-800">3分钟呼吸空间</h4>
+              <p class="text-xs text-gray-500">最经典的快速平静技巧</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-3">通过觉察-呼吸-扩展三步骤,快速从压力中抽离</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-cyan-600 font-medium">⏱️ 3分钟</span>
+            <span class="text-gray-500">难度: ⭐</span>
+          </div>
+        </div>
+
+        <!-- 5-4-3-2-1接地 -->
+        <div class="border-2 border-blue-200 rounded-2xl p-6 hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer" onclick="startTechnique('grounding')">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-anchor text-xl"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-gray-800">5-4-3-2-1接地法</h4>
+              <p class="text-xs text-gray-500">应对焦虑发作</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-3">用五感将注意力拉回当下,打断焦虑循环</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-blue-600 font-medium">⏱️ 2-3分钟</span>
+            <span class="text-gray-500">难度: ⭐</span>
+          </div>
+        </div>
+
+        <!-- 盒式呼吸 -->
+        <div class="border-2 border-indigo-200 rounded-2xl p-6 hover:border-indigo-400 hover:bg-indigo-50 transition-all cursor-pointer" onclick="startTechnique('box-breathing')">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-square text-xl"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-gray-800">盒式呼吸</h4>
+              <p class="text-xs text-gray-500">军队和运动员常用</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-3">吸4-屏4-呼4-屏4的节奏,极速降压</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-indigo-600 font-medium">⏱️ 2分钟</span>
+            <span class="text-gray-500">难度: ⭐</span>
+          </div>
+        </div>
+
+        <!-- 冷水技巧 -->
+        <div class="border-2 border-teal-200 rounded-2xl p-6 hover:border-teal-400 hover:bg-teal-50 transition-all cursor-pointer" onclick="startTechnique('cold-water')">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mr-4">
+              <i class="fas fa-snowflake text-xl"></i>
+            </div>
+            <div>
+              <h4 class="font-bold text-gray-800">冷水刺激法</h4>
+              <p class="text-xs text-gray-500">激活生理平静反应</p>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-3">用冷水洗脸或握冰块,快速激活副交感神经</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-teal-600 font-medium">⏱️ 1-2分钟</span>
+            <span class="text-gray-500">需要: 冷水/冰</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 使用提示 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+        <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>
+        使用建议
+      </h3>
+      <ul class="space-y-3 text-sm text-gray-700">
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-cyan-600 mr-3 mt-1"></i>
+          <span><strong>何时使用:</strong> 感到焦虑、恐慌、压力过大、思绪混乱时</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-cyan-600 mr-3 mt-1"></i>
+          <span><strong>不需要完美:</strong> 即使只做到一半也有效果,不要给自己压力</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-cyan-600 mr-3 mt-1"></i>
+          <span><strong>随时随地:</strong> 这些练习可以在任何地方进行,包括办公室、地铁上</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-cyan-600 mr-3 mt-1"></i>
+          <span><strong>持续练习:</strong> 平时多练习,紧急时更容易使用</span>
+        </li>
+      </ul>
+    </div>
+
+  </main>
+
+  <!-- 练习模态框 -->
+  <div id="practiceModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8">
+      
+      <div id="modalContent">
+        <!-- 动态内容 -->
+      </div>
+
+      <div class="flex gap-3 mt-6">
+        <button onclick="closeModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-medium transition-all">
+          关闭
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const techniques = {
+      'breathing-space': {
+        title: '3分钟呼吸空间',
+        duration: 180,
+        steps: [
+          { time: 0, phase: 1, text: '第一步:觉察', detail: '闭上眼睛,问自己:此刻我的身体、思绪、情绪是什么状态?' },
+          { time: 60, phase: 2, text: '第二步:聚焦呼吸', detail: '将全部注意力放在呼吸上,感受每一次吸气和呼气...' },
+          { time: 120, phase: 3, text: '第三步:扩展觉察', detail: '将觉察扩展到整个身体,感受身体与呼吸的连接...' }
+        ]
+      },
+      'grounding': {
+        title: '5-4-3-2-1接地法',
+        duration: 150,
+        steps: [
+          { time: 0, text: '找5样你能看到的东西', detail: '环顾四周,说出5样物品的名称...' },
+          { time: 30, text: '找4样你能触摸的东西', detail: '触摸桌子、衣服、椅子...感受它们的质地...' },
+          { time: 60, text: '找3种你能听到的声音', detail: '仔细聆听,也许是空调声、远处的谈话...' },
+          { time: 90, text: '找2样你能闻到的气味', detail: '可以是咖啡香、衣服的味道...' },
+          { time: 120, text: '找1样你能尝到的味道', detail: '舌头上有什么味道?也许可以喝口水...' }
+        ]
+      },
+      'box-breathing': {
+        title: '盒式呼吸',
+        duration: 120,
+        steps: [
+          { time: 0, text: '吸气 - 4秒', detail: '缓慢用鼻子吸气,数4秒...' },
+          { time: 4, text: '屏息 - 4秒', detail: '轻轻屏住呼吸,数4秒...' },
+          { time: 8, text: '呼气 - 4秒', detail: '用嘴慢慢呼气,数4秒...' },
+          { time: 12, text: '屏息 - 4秒', detail: '再次屏住呼吸,数4秒...' }
+        ],
+        repeat: true
+      },
+      'cold-water': {
+        title: '冷水刺激法',
+        duration: 90,
+        steps: [
+          { time: 0, text: '准备冷水', detail: '打开水龙头,让水变凉(不需要冰冷)' },
+          { time: 20, text: '洗脸或手腕', detail: '用冷水轻拍脸部或将手腕放在冷水下30秒' },
+          { time: 60, text: '深呼吸', detail: '感受冷水的刺激,配合深呼吸,让身体放松...' }
+        ]
+      }
+    };
+
+    let currentTechnique = null;
+    let timer = null;
+    let remainingSeconds = 0;
+
+    function startTechnique(techniqueId) {
+      currentTechnique = techniques[techniqueId];
+      remainingSeconds = currentTechnique.duration;
+      
+      document.getElementById('practiceModal').classList.remove('hidden');
+      renderTechniqueContent();
+      startTimer();
+    }
+
+    function renderTechniqueContent() {
+      const content = `
+        <div class="text-center mb-6">
+          <h3 class="text-xl font-bold text-gray-800 mb-2">${currentTechnique.title}</h3>
+          <div id="timeDisplay" class="text-4xl font-bold text-cyan-600">${formatTime(remainingSeconds)}</div>
+        </div>
+        
+        <div id="currentStep" class="bg-gradient-to-r from-cyan-50 to-blue-50 rounded-2xl p-6 mb-6 min-h-[150px]">
+          <div class="text-lg font-semibold text-gray-800 mb-3"></div>
+          <p class="text-gray-600"></p>
+        </div>
+        
+        <div class="pulse-slow w-16 h-16 bg-cyan-500 rounded-full mx-auto"></div>
+      `;
+      
+      document.getElementById('modalContent').innerHTML = content;
+      updateStep();
+    }
+
+    function startTimer() {
+      timer = setInterval(() => {
+        remainingSeconds--;
+        document.getElementById('timeDisplay').textContent = formatTime(remainingSeconds);
+        updateStep();
+        
+        if (remainingSeconds <= 0) {
+          completePractice();
+        }
+      }, 1000);
+    }
+
+    function updateStep() {
+      const elapsed = currentTechnique.duration - remainingSeconds;
+      const currentStep = currentTechnique.steps.filter(s => s.time <= elapsed).pop();
+      
+      if (currentStep) {
+        const stepEl = document.getElementById('currentStep');
+        stepEl.querySelector('.text-lg').textContent = currentStep.text;
+        stepEl.querySelector('.text-gray-600').textContent = currentStep.detail;
+      }
+    }
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function completePractice() {
+      clearInterval(timer);
+      savePracticeRecord();
+      alert('✅ 练习完成!感觉好一些了吗?');
+      closeModal();
+    }
+
+    function closeModal() {
+      clearInterval(timer);
+      document.getElementById('practiceModal').classList.add('hidden');
+    }
+
+    function savePracticeRecord() {
+      const record = {
+        id: Date.now(),
+        title: currentTechnique.title,
+        category: 'breathing',
+        duration: Math.ceil(currentTechnique.duration / 60),
+        date: new Date().toISOString(),
+        timestamp: Date.now()
+      };
+
+      const history = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      history.push(record);
+      localStorage.setItem('practiceHistory', JSON.stringify(history));
+    }
+  </script>
+
+</body>
+</html>
