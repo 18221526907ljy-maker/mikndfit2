@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>无罪感饮食练习 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    .food-float { animation: foodFloat 3s ease-in-out infinite; }
+    @keyframes foodFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+    .fade-in { animation: fadeIn 0.8s ease-in; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gentle-pulse { animation: gentlePulse 2s ease-in-out infinite; }
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-green-50 via-lime-50 to-yellow-50 min-h-screen">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="daily_practice.html" class="text-green-600 hover:text-green-700">
+        <i class="fas fa-arrow-left mr-2"></i>返回练习
+      </a>
+      <h1 class="text-lg font-semibold text-gray-800">无罪感饮食练习</h1>
+      <div class="w-20"></div>
+    </div>
+  </nav>
+
+  <!-- 主要内容 -->
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    
+    <!-- 引言卡片 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <div class="text-center mb-6">
+        <div class="food-float w-24 h-24 bg-gradient-to-br from-green-400 to-lime-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-utensils text-4xl text-white"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-3">食物是中性的,没有"作弊餐"</h2>
+        <p class="text-gray-600 text-lg">5分钟学会享受食物,而非恐惧它</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <div class="text-center p-4 bg-green-50 rounded-xl">
+          <i class="fas fa-clock text-green-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">练习时长</div>
+          <div class="text-lg font-semibold text-gray-800">5分钟</div>
+        </div>
+        <div class="text-center p-4 bg-lime-50 rounded-xl">
+          <i class="fas fa-calendar-day text-lime-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">何时使用</div>
+          <div class="text-lg font-semibold text-gray-800">饮食前/后</div>
+        </div>
+        <div class="text-center p-4 bg-yellow-50 rounded-xl">
+          <i class="fas fa-heart text-yellow-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">主要效果</div>
+          <div class="text-lg font-semibold text-gray-800">减少罪恶感</div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-green-50 to-lime-50 rounded-2xl p-6">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center text-lg">
+          <i class="fas fa-exclamation-circle text-green-600 mr-3"></i>
+          这个练习特别适合你,如果...
+        </h3>
+        <ul class="space-y-2 text-gray-700">
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+            <span>吃"不健康"食物后感到强烈罪恶感</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+            <span>把食物分为"好食物"和"坏食物"</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+            <span>经常因为吃了什么而自责或惩罚自己</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-green-600 mr-2 mt-1"></i>
+            <span>想建立更健康、更自由的饮食关系</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 打破二元思维 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+        <i class="fas fa-ban text-red-600 mr-3"></i>
+        打破"好vs坏"的二元思维
+      </h3>
+      
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6">
+          <h4 class="font-bold text-red-700 mb-4 text-center">❌ 有害的饮食思维</h4>
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-start">
+              <i class="fas fa-times-circle text-red-500 mr-2 mt-1"></i>
+              <span>"沙拉是好的,蛋糕是坏的"</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-times-circle text-red-500 mr-2 mt-1"></i>
+              <span>"我今天吃了蛋糕,我作弊了"</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-times-circle text-red-500 mr-2 mt-1"></i>
+              <span>"我需要通过运动'惩罚'自己"</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-times-circle text-red-500 mr-2 mt-1"></i>
+              <span>"吃了碳水化合物,我会变胖"</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6">
+          <h4 class="font-bold text-green-700 mb-4 text-center">✅ 健康的饮食思维</h4>
+          <ul class="space-y-2 text-sm text-gray-700">
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+              <span>"所有食物都能提供能量和营养"</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+              <span>"我今天吃了蛋糕,享受了美味"</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+              <span>"运动是庆祝身体,不是惩罚"</span>
+            </li>
+            <li class="flex items-start">
+              <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+              <span>"平衡和多样性比'完美'更重要"</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 border-l-4 border-blue-400 rounded-r-xl p-4">
+        <p class="text-sm text-gray-700">
+          <i class="fas fa-lightbulb text-blue-600 mr-2"></i>
+          <strong>核心理念:</strong> 食物没有道德属性。吃蛋糕不会让你成为"坏人",吃沙拉不会让你成为"好人"。食物就是食物,它存在是为了滋养和愉悦你,而非评判你。
+        </p>
+      </div>
+    </div>
+
+    <!-- 开始练习按钮 -->
+    <div class="text-center mb-8">
+      <div class="mb-4">
+        <p class="text-gray-600 mb-2">选择练习时机:</p>
+        <div class="flex gap-3 justify-center flex-wrap">
+          <button onclick="startPractice('before')" class="bg-green-100 hover:bg-green-200 text-green-700 px-6 py-3 rounded-xl font-medium transition-all">
+            <i class="fas fa-clock mr-2"></i>饮食前
+          </button>
+          <button onclick="startPractice('during')" class="bg-lime-100 hover:bg-lime-200 text-lime-700 px-6 py-3 rounded-xl font-medium transition-all">
+            <i class="fas fa-utensils mr-2"></i>饮食中
+          </button>
+          <button onclick="startPractice('after')" class="bg-yellow-100 hover:bg-yellow-200 text-yellow-700 px-6 py-3 rounded-xl font-medium transition-all">
+            <i class="fas fa-check mr-2"></i>饮食后
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 常见罪恶感场景 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+        <i class="fas fa-question-circle text-purple-600 mr-3"></i>
+        常见罪恶感场景应对
+      </h3>
+      
+      <div class="space-y-4">
+        <details class="bg-purple-50 rounded-xl p-4">
+          <summary class="font-semibold text-gray-800 cursor-pointer">
+            场景1: "我吃了甜食/油炸食品,感觉很糟糕"
+          </summary>
+          <p class="text-sm text-gray-600 mt-3 pl-4">
+            <strong>应对:</strong> 提醒自己,这只是一餐/一次零食,不会改变你的整体健康。你的身体很聪明,会处理各种食物。享受当下,然后继续正常饮食。
+          </p>
+        </details>
+
+        <details class="bg-purple-50 rounded-xl p-4">
+          <summary class="font-semibold text-gray-800 cursor-pointer">
+            场景2: "我吃多了,需要节食/运动补偿"
+          </summary>
+          <p class="text-sm text-gray-600 mt-3 pl-4">
+            <strong>应对:</strong> 吃多了是正常的,每个人都会。不需要"补偿"或"惩罚"。下一餐正常吃,听从身体的饥饿信号,而非大脑的罪恶感。
+          </p>
+        </details>
+
+        <details class="bg-purple-50 rounded-xl p-4">
+          <summary class="font-semibold text-gray-800 cursor-pointer">
+            场景3: "别人都在减肥/节食,我应该也这样"
+          </summary>
+          <p class="text-sm text-gray-600 mt-3 pl-4">
+            <strong>应对:</strong> 每个人的身体和需求不同。饮食文化常常有害且不科学。相信你的身体,它知道自己需要什么。
+          </p>
+        </details>
+
+        <details class="bg-purple-50 rounded-xl p-4">
+          <summary class="font-semibold text-gray-800 cursor-pointer">
+            场景4: "我一整天都在想食物,我是不是有问题?"
+          </summary>
+          <p class="text-sm text-gray-600 mt-3 pl-4">
+            <strong>应对:</strong> 过度限制会导致食物执念。当你给自己"吃的自由",食物会失去神秘感,执念会减少。这是正常的生理和心理反应。
+          </p>
+        </details>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 练习模态框 -->
+  <div id="practiceModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8">
+      
+      <!-- 进度显示 -->
+      <div class="text-center mb-6">
+        <div id="stepIndicator" class="text-sm text-gray-500 mb-2">步骤 1/4</div>
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+          <div id="progressBar" class="bg-gradient-to-r from-green-500 to-lime-500 h-2 rounded-full transition-all duration-500" style="width: 25%"></div>
+        </div>
+      </div>
+
+      <!-- 当前步骤图标 -->
+      <div class="text-center mb-6">
+        <div id="stepIcon" class="w-20 h-20 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center fade-in">
+          <i class="fas fa-heart text-3xl text-green-600"></i>
+        </div>
+      </div>
+
+      <!-- 引导内容 -->
+      <div id="guideContent" class="text-center mb-8 min-h-[200px]">
+        <h3 id="guideTitle" class="text-2xl font-bold text-gray-800 mb-4 fade-in">觉察饥饿</h3>
+        <p id="guideText" class="text-gray-600 leading-relaxed fade-in">
+          停下来,问问自己:我真的饿吗?还是因为无聊、焦虑、习惯?无论答案是什么,都没关系,只是觉察。
+        </p>
+      </div>
+
+      <!-- 计时器 -->
+      <div class="text-center mb-6">
+        <div id="timer" class="text-4xl font-bold text-green-600">0:00</div>
+        <div class="text-sm text-gray-500 mt-1">本步骤倒计时</div>
+      </div>
+
+      <!-- 控制按钮 -->
+      <div class="flex gap-3">
+        <button onclick="skipStep()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-medium transition-all">
+          <i class="fas fa-forward mr-2"></i>跳过
+        </button>
+        <button id="pauseBtn" onclick="togglePause()" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-3 rounded-xl font-medium transition-all">
+          <i class="fas fa-pause mr-2"></i>暂停
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 完成模态框 -->
+  <div id="completionModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8">
+      
+      <div class="text-center mb-6">
+        <div class="w-24 h-24 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-check-circle text-5xl text-green-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">🎉 练习完成!</h3>
+        <p class="text-gray-600">你刚刚练习了无罪感饮食</p>
+      </div>
+
+      <div class="bg-gradient-to-r from-green-50 to-lime-50 rounded-2xl p-6 mb-6">
+        <h4 class="font-semibold text-gray-800 mb-3">💡 记住这些:</h4>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start">
+            <i class="fas fa-star text-green-600 mr-2 mt-1"></i>
+            <span>食物没有道德属性,吃什么不会定义你的价值</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-star text-green-600 mr-2 mt-1"></i>
+            <span>身体会自我调节,一餐吃多/少都不会改变整体健康</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-star text-green-600 mr-2 mt-1"></i>
+            <span>享受食物是人的权利,不需要"赚取"或"补偿"</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-purple-50 border-2 border-purple-200 rounded-xl p-4 mb-6">
+        <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+          <i class="fas fa-tools text-purple-600 mr-2"></i>
+          想要更深入的改变?
+        </h4>
+        <p class="text-sm text-gray-600 mb-3">
+          试试<strong>"饮食与情绪日志"</strong>,可以帮你识别情绪化进食模式,建立更健康的饮食关系。
+        </p>
+        <button onclick="goToTool()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg text-sm font-medium transition-all">
+          <i class="fas fa-arrow-right mr-2"></i>前往深度工具
+        </button>
+      </div>
+
+      <button onclick="closeCompletion()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-medium transition-all">
+        完成并返回
+      </button>
+
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    let timer = null;
+    let remainingSeconds = 0;
+    let isPaused = false;
+    let totalTime = 0;
+    let practiceMode = 'before'; // before, during, after
+
+    const stepsByMode = {
+      before: [
+        {
+          title: '觉察饥饿',
+          icon: 'fa-heart',
+          iconColor: 'green',
+          text: '停下来,问问自己:我真的饿吗?还是因为无聊、焦虑、习惯?无论答案是什么,都没关系,只是觉察。',
+          duration: 40
+        },
+        {
+          title: '释放期待',
+          icon: 'fa-unlock',
+          iconColor: 'lime',
+          text: '提醒自己:这不是"作弊餐"或"奖励"。食物就是食物,它存在是为了滋养你。你不需要"赚取"吃的权利。',
+          duration: 50
+        },
+        {
+          title: '设定意图',
+          icon: 'fa-bullseye',
+          iconColor: 'yellow',
+          text: '在心中默念:我允许自己享受这餐食物。我会专注品尝,而非评判自己。吃完后,我会温柔地对待自己。',
+          duration: 50
+        },
+        {
+          title: '开始享用',
+          icon: 'fa-smile',
+          iconColor: 'green',
+          text: '深呼吸,微笑。准备好享受食物了。记住:无论吃什么,都不会改变你的价值。',
+          duration: 40
+        }
+      ],
+      
+      during: [
+        {
+          title: '放慢速度',
+          icon: 'fa-pause',
+          iconColor: 'green',
+          text: '吃到一半,暂停几秒钟。观察食物的颜色、闻闻香味、感受质地。吃得慢一些,让大脑有时间接收满足的信号。',
+          duration: 50
+        },
+        {
+          title: '专注当下',
+          icon: 'fa-eye',
+          iconColor: 'lime',
+          text: '把注意力带回到食物上。如果思绪飘到"我不该吃这个"、"我要胖了",温柔地提醒自己:现在只需要专注于品尝。',
+          duration: 50
+        },
+        {
+          title: '感受身体',
+          icon: 'fa-heart-pulse',
+          iconColor: 'yellow',
+          text: '问问身体:我现在的饱腹感如何?还需要更多食物吗?尊重身体的信号,无论是继续吃还是停下来。',
+          duration: 40
+        },
+        {
+          title: '享受过程',
+          icon: 'fa-smile',
+          iconColor: 'green',
+          text: '提醒自己:吃东西是可以享受的。不需要在脑海中计算卡路里或感到内疚。此刻,只是享受。',
+          duration: 40
+        }
+      ],
+      
+      after: [
+        {
+          title: '感谢身体',
+          icon: 'fa-hands-praying',
+          iconColor: 'green',
+          text: '感谢你的身体和这顿食物。你的胃会消化它,转化为能量,滋养你的细胞。这是身体自然的工作,不需要你担心。',
+          duration: 50
+        },
+        {
+          title: '放下评判',
+          icon: 'fa-feather',
+          iconColor: 'lime',
+          text: '如果罪恶感冒出来,想象把它写在一片叶子上,看着它飘走。对自己说:"我吃了食物,就这样。我不需要补偿或惩罚自己。"',
+          duration: 60
+        },
+        {
+          title: '继续生活',
+          icon: 'fa-forward',
+          iconColor: 'yellow',
+          text: '这只是一餐,不会定义你的一天、一周、或你的健康。下一餐正常吃,听从身体的信号。你的身体知道如何平衡。',
+          duration: 50
+        },
+        {
+          title: '自我关怀',
+          icon: 'fa-heart',
+          iconColor: 'green',
+          text: '对自己说一句温柔的话:"我值得享受食物。""我的价值不由吃什么决定。""我对自己很温柔。"',
+          duration: 20
+        }
+      ]
+    };
+
+    function startPractice(mode) {
+      practiceMode = mode;
+      document.getElementById('practiceModal').classList.remove('hidden');
+      currentStep = 0;
+      totalTime = 0;
+      renderStep();
+    }
+
+    function renderStep() {
+      const steps = stepsByMode[practiceMode];
+      const step = steps[currentStep];
+      
+      // 更新进度
+      const progress = ((currentStep + 1) / steps.length) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('stepIndicator').textContent = `步骤 ${currentStep + 1}/${steps.length}`;
+
+      // 更新图标
+      const iconColors = {
+        green: 'bg-green-100 text-green-600',
+        lime: 'bg-lime-100 text-lime-600',
+        yellow: 'bg-yellow-100 text-yellow-600'
+      };
+      
+      const iconDiv = document.getElementById('stepIcon');
+      iconDiv.className = `w-20 h-20 ${iconColors[step.iconColor]} rounded-full mx-auto mb-4 flex items-center justify-center fade-in`;
+      iconDiv.innerHTML = `<i class="fas ${step.icon} text-3xl"></i>`;
+
+      // 更新文字
+      document.getElementById('guideTitle').textContent = step.title;
+      document.getElementById('guideText').textContent = step.text;
+
+      // 开始计时
+      remainingSeconds = step.duration;
+      isPaused = false;
+      updateTimer();
+      startTimer();
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        if (!isPaused && remainingSeconds > 0) {
+          remainingSeconds--;
+          totalTime++;
+          updateTimer();
+          
+          if (remainingSeconds === 0) {
+            nextStep();
+          }
+        }
+      }, 1000);
+    }
+
+    function updateTimer() {
+      const minutes = Math.floor(remainingSeconds / 60);
+      const seconds = remainingSeconds % 60;
+      document.getElementById('timer').textContent = 
+        `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function nextStep() {
+      const steps = stepsByMode[practiceMode];
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        renderStep();
+      } else {
+        completePractice();
+      }
+    }
+
+    function skipStep() {
+      nextStep();
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      const btn = document.getElementById('pauseBtn');
+      btn.innerHTML = isPaused ? 
+        '<i class="fas fa-play mr-2"></i>继续' : 
+        '<i class="fas fa-pause mr-2"></i>暂停';
+    }
+
+    function completePractice() {
+      clearInterval(timer);
+      
+      // 保存练习记录
+      const modeNames = {
+        before: '饮食前',
+        during: '饮食中',
+        after: '饮食后'
+      };
+      
+      const record = {
+        id: Date.now(),
+        title: `无罪感饮食练习(${modeNames[practiceMode]})`,
+        category: 'mindful',
+        duration: Math.ceil(totalTime / 60),
+        date: new Date().toISOString(),
+        timestamp: Date.now()
+      };
+
+      const history = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      history.push(record);
+      localStorage.setItem('practiceHistory', JSON.stringify(history));
+
+      // 显示完成界面
+      document.getElementById('practiceModal').classList.add('hidden');
+      document.getElementById('completionModal').classList.remove('hidden');
+    }
+
+    function closeCompletion() {
+      document.getElementById('completionModal').classList.add('hidden');
+      window.location.href = 'daily_practice.html';
+    }
+
+    function goToTool() {
+      // 跳转到深度工具页面
+      window.location.href = 'eating-emotion-log.html';
+    }
+  </script>
+
+</body>
+</html>
