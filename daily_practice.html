@@ -1,79 +1,209 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>日常练习 - MindFit</title>
+  
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   
   <style>
+    :root {
+      --primary: #4A6157;
+      --mint: #8FD9A8;
+      --accent: #2E2E2E;
+      --secondary: #F7F6F2;
+      --content: #666666;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 
+                   'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e8f5e9 100%);
+      color: var(--content);
+      min-height: 100vh;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: var(--mint);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(74, 97, 87, 0.3);
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+      color: var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
     .practice-card {
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition: all 0.3s ease;
       cursor: pointer;
+      border: 2px solid transparent;
     }
-    
+
     .practice-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      border-color: var(--mint);
     }
-    
+
+    .practice-tag {
+      background: rgba(143, 217, 168, 0.15);
+      color: var(--primary);
+    }
+
+    .filter-btn.bg-primary {
+      background: var(--primary);
+    }
+
+    .filter-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .modal {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+      animation: modalSlideIn 0.3s ease;
+    }
+
+    @keyframes modalSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .timer-circle {
+      stroke-dasharray: 283;
+      stroke-dashoffset: 283;
+      transition: stroke-dashoffset 1s linear;
+      stroke-linecap: round;
+    }
+
+    .breathing-circle {
+      animation: breathe 4s ease-in-out infinite;
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+
     .toast {
       position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: rgba(0, 0, 0, 0.85);
+      top: 20px;
+      right: 20px;
+      background: var(--primary);
       color: white;
       padding: 12px 24px;
-      border-radius: 25px;
-      font-size: 14px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
       z-index: 1000;
-      opacity: 0;
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    
+
     .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
+      transform: translateX(0);
     }
-    
-    .filter-btn.active {
-      background: #4A6157;
+
+    .page-content {
+      opacity: 0;
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    .week-day {
+      transition: all 0.3s ease;
+    }
+
+    .week-day.completed {
+      background: var(--mint);
       color: white;
+    }
+
+    .week-day.today {
+      border: 2px solid var(--primary);
+      font-weight: bold;
+    }
+
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
 
-<body class="bg-gray-50">
-  
-  <!-- Toast 提示 -->
-  <div id="toast" class="toast"></div>
-
-  <!-- 顶部导航 -->
-  <nav class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-4">
+<body>
+  <!-- 导航栏 -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-50 backdrop-blur-md bg-white/90">
+    <div class="max-w-6xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
-            <i class="fa fa-leaf text-white"></i>
-          </div>
-          <div>
-            <h1 class="text-xl font-bold text-primary">日常练习</h1>
-            <p class="text-xs text-gray-500">选择适合当前场景的练习</p>
-          </div>
+          <a href="index.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+            <span class="font-medium">返回首页</span>
+          </a>
         </div>
-        <a href="index.html" class="text-gray-600 hover:text-primary">
-          <i class="fa fa-home text-xl"></i>
-        </a>
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-leaf text-white text-sm"></i>
+          </div>
+          <span class="text-lg font-bold text-primary">MindFit</span>
+        </div>
       </div>
     </div>
   </nav>
 
-  <main class="max-w-7xl mx-auto px-4 py-8">
-    <div class="container">
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <div class="flex items-center">
+      <span class="mr-2">✓</span>
+      <span id="toastMessage"></span>
+    </div>
+  </div>
 
-      <!-- 今日进度卡片 -->
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="page-content">
+      
+      <!-- 页面标题 -->
+      <div class="text-center mb-8">
+        <h1 class="text-2xl md:text-3xl font-bold text-primary mb-2">日常练习</h1>
+        <p class="text-content">在日常生活中培养身体觉察，温柔对待你的身体</p>
+      </div>
+
+      <!-- 今日进度 -->
       <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-xl font-semibold text-primary">今日练习进度</h2>
@@ -81,17 +211,30 @@
         </div>
         
         <div class="grid md:grid-cols-3 gap-6">
+          <!-- 本周连续天数 -->
           <div class="text-center">
             <div class="text-3xl font-bold text-primary mb-2" id="streakDays">0</div>
             <div class="text-sm text-gray-600">连续天数</div>
           </div>
+          
+          <!-- 今日完成 -->
           <div class="text-center">
             <div class="text-3xl font-bold text-mint mb-2" id="todayCompleted">0</div>
             <div class="text-sm text-gray-600">今日完成</div>
           </div>
+          
+          <!-- 本周总计 -->
           <div class="text-center">
             <div class="text-3xl font-bold text-accent mb-2" id="weekTotal">0</div>
             <div class="text-sm text-gray-600">本周总计</div>
+          </div>
+        </div>
+
+        <!-- 本周日历 -->
+        <div class="mt-6">
+          <div class="text-sm font-medium text-gray-700 mb-3">本周练习记录</div>
+          <div class="grid grid-cols-7 gap-2" id="weekCalendar">
+            <!-- 动态生成 -->
           </div>
         </div>
       </div>
@@ -99,11 +242,8 @@
       <!-- 练习分类 -->
       <div class="mb-8">
         <div class="flex flex-wrap gap-3 justify-center">
-          <button class="filter-btn active px-6 py-2 rounded-full bg-primary text-white font-medium transition-all" data-category="all">
+          <button class="filter-btn px-6 py-2 rounded-full bg-primary text-white font-medium transition-all" data-category="all">
             全部练习
-          </button>
-          <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-600 font-medium transition-all" data-category="body-neutral">
-            🌿 身体中立专属
           </button>
           <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-600 font-medium transition-all" data-category="morning">
             🌅 晨间唤醒
@@ -111,8 +251,11 @@
           <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-600 font-medium transition-all" data-category="work">
             💼 工作间隙
           </button>
-          <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-600 font-medium transition-all" data-category="emotion">
-            💫 情绪急救
+          <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-600 font-medium transition-all" data-category="meal">
+            🍎 用餐时刻
+          </button>
+          <button class="filter-btn px-6 py-2 rounded-full bg-gray-200 text-gray-600 font-medium transition-all" data-category="evening">
+            🌙 睡前放松
           </button>
         </div>
       </div>
@@ -125,74 +268,73 @@
     </div>
   </main>
 
+  <!-- 练习模态框 -->
+  <div id="practiceModal" class="modal fixed inset-0 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+      <div class="modal-content bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
+        <div class="text-center mb-6">
+          <h3 id="modalTitle" class="text-xl font-semibold text-primary mb-2">练习标题</h3>
+          <p id="modalDescription" class="text-sm text-gray-600">练习描述</p>
+        </div>
+
+        <!-- 计时器 -->
+        <div class="text-center mb-6">
+          <div class="relative w-32 h-32 mx-auto mb-4">
+            <svg class="w-32 h-32 transform -rotate-90">
+              <circle cx="64" cy="64" r="45" stroke="#e5e7eb" stroke-width="8" fill="none"/>
+              <circle id="timerCircle" cx="64" cy="64" r="45" stroke="#4A6157" stroke-width="8" fill="none" 
+                      class="timer-circle"/>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span id="timerDisplay" class="text-2xl font-bold text-primary">5:00</span>
+            </div>
+          </div>
+          
+          <div class="flex justify-center space-x-4">
+            <button id="startBtn" class="btn-primary text-white px-6 py-2 rounded-lg">
+              <i class="fa fa-play mr-2"></i>开始
+            </button>
+            <button id="pauseBtn" class="btn-secondary px-6 py-2 rounded-lg hidden">
+              <i class="fa fa-pause mr-2"></i>暂停
+            </button>
+            <button id="stopBtn" class="btn-secondary px-6 py-2 rounded-lg">
+              <i class="fa fa-stop mr-2"></i>停止
+            </button>
+          </div>
+        </div>
+
+        <!-- 练习指导 -->
+        <div id="practiceGuide" class="bg-gray-50 rounded-lg p-4 mb-6">
+          <div class="text-sm text-gray-600" id="guideContent">
+            <!-- 动态内容 -->
+          </div>
+        </div>
+
+        <!-- 呼吸指导 (特殊) -->
+        <div id="breathingGuide" class="hidden text-center mb-6">
+          <div class="breathing-circle w-20 h-20 bg-mint rounded-full mx-auto mb-4"></div>
+          <div class="text-lg font-medium text-primary" id="breathInstruction">准备开始</div>
+          <div class="text-sm text-gray-500 mt-2">跟随圆圈的节奏呼吸</div>
+        </div>
+
+        <div class="flex space-x-3">
+          <button onclick="closePracticeModal()" class="flex-1 btn-secondary py-3 rounded-lg">
+            关闭
+          </button>
+          <button id="completeBtn" class="flex-1 btn-primary text-white py-3 rounded-lg hidden">
+            完成练习
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ============================================
-    // 练习数据 - 完整版本(15个练习)
+    // 练习数据 - 场景化重构
     // ============================================
     const practiceData = [
-      // ========== 身体中立专属练习(5个) ==========
-      {
-        id: 'mirror-kindness',
-        title: '镜子友善练习',
-        description: '用温柔的眼光看自己',
-        category: 'body-neutral',
-        duration: 5,
-        difficulty: '简单',
-        icon: 'fa-user-circle',
-        color: 'bg-blue-100 text-blue-600',
-        link: 'mirror-kindness.html',
-        benefits: ['减少自我批评', '建立友善视角', '身体接纳']
-      },
-      {
-        id: 'social-media-detox',
-        title: '社交媒体清醒',
-        description: '从比较中抽离,回到现实',
-        category: 'body-neutral',
-        duration: 3,
-        difficulty: '简单',
-        icon: 'fa-mobile',
-        color: 'bg-cyan-100 text-cyan-600',
-        link: 'social-media-detox.html',
-        benefits: ['摆脱比较', '现实检验', '价值澄清']
-      },
-      {
-        id: 'mindful-eating-light',
-        title: '无罪感饮食',
-        description: '食物无道德属性',
-        category: 'body-neutral',
-        duration: 5,
-        difficulty: '简单',
-        icon: 'fa-cutlery',
-        color: 'bg-green-100 text-green-600',
-        link: 'mindful-eating-light.html',
-        benefits: ['减少罪恶感', '正念进食', '享受食物']
-      },
-      {
-        id: 'exercise-mindset',
-        title: '运动心态转换',
-        description: '庆祝身体而非惩罚',
-        category: 'body-neutral',
-        duration: 3,
-        difficulty: '简单',
-        icon: 'fa-heartbeat',
-        color: 'bg-orange-100 text-orange-600',
-        link: 'exercise-mindset.html',
-        benefits: ['改变运动动机', '减少惩罚心态', '享受运动']
-      },
-      {
-        id: 'body-dialogue',
-        title: '身体部位对话',
-        description: '与身体和解',
-        category: 'body-neutral',
-        duration: 5,
-        difficulty: '简单',
-        icon: 'fa-heart',
-        color: 'bg-pink-100 text-pink-600',
-        link: 'body-dialogue.html',
-        benefits: ['与身体和解', '感恩身体', '减少对抗']
-      },
-
-      // ========== 通用练习(10个) ==========
+      // ========== 晨间唤醒 ==========
       {
         id: 'morning-breathing',
         title: '晨间觉醒呼吸',
@@ -202,218 +344,321 @@
         difficulty: '简单',
         icon: 'fa-sun-o',
         color: 'bg-yellow-100 text-yellow-600',
-        link: 'morning-breathing.html',
+        bodyNeutralNote: '感谢身体给你新的一天，每一次呼吸都是身体在迎接清晨',
+        guide: [
+          '找一个让身体舒服的姿势',
+          '温柔地深呼吸，感受空气进入身体',
+          '想象呼吸带来新的能量',
+          '重复5-10次，不需要完美',
+          '感谢身体给你新的一天'
+        ],
         benefits: ['温柔唤醒', '提升专注', '开启活力']
       },
+
       {
         id: 'morning-stretch',
-        title: '晨间拉伸',
+        title: '温柔身体觉察',
         description: '感受身体的每个部分',
         category: 'morning',
         duration: 7,
         difficulty: '简单',
         icon: 'fa-hand-peace-o',
         color: 'bg-green-100 text-green-600',
-        link: 'morning-stretch.html',
+        bodyNeutralNote: '身体陪伴你度过每一天，它值得你温柔的关注',
+        guide: [
+          '坐下或躺下，闭上眼睛',
+          '从头到脚扫描身体',
+          '注意每个部位的感受',
+          '不需要改变，只是观察',
+          '感谢身体的陪伴'
+        ],
         benefits: ['身体觉察', '温柔对待', '建立连接']
       },
+
+      // ========== 工作间隙 ==========
       {
         id: 'work-breathing',
         title: '办公室呼吸练习',
-        description: '短暂休息,照顾疲惫的身体',
+        description: '短暂休息，照顾疲惫的身体',
         category: 'work',
         duration: 3,
         difficulty: '简单',
         icon: 'fa-coffee',
         color: 'bg-blue-100 text-blue-600',
-        link: 'work-breathing.html',
+        bodyNeutralNote: '工作时身体一直在支持你，给它几分钟的关注吧',
+        guide: [
+          '坐在椅子上，双脚平放',
+          '闭上眼睛，深呼吸',
+          '感受呼吸带来的放松',
+          '重复3-5次',
+          '感谢身体的支持'
+        ],
         benefits: ['快速恢复', '释放压力', '提升效率']
       },
+
       {
-        id: 'evening-relax',
-        title: '晚间放松',
-        description: '温柔地结束一天',
+        id: 'desk-body-scan',
+        title: '坐姿身体扫描',
+        description: '释放久坐带来的紧绷感',
+        category: 'work',
+        duration: 5,
+        difficulty: '简单',
+        icon: 'fa-laptop',
+        color: 'bg-indigo-100 text-indigo-600',
+        bodyNeutralNote: '身体承载了一天的工作，感谢它的坚持',
+        guide: [
+          '坐直，双脚平放地面',
+          '注意颈部、肩膀的感受',
+          '温柔地转动肩膀',
+          '深呼吸，释放紧张',
+          '感谢身体的承载'
+        ],
+        benefits: ['缓解紧张', '改善姿势', '恢复活力']
+      },
+
+      // ========== 用餐时刻 ==========
+      {
+        id: 'mindful-eating',
+        title: '正念饮食练习',
+        description: '感受食物如何滋养你的身体',
+        category: 'meal',
+        duration: 5,
+        difficulty: '简单',
+        icon: 'fa-apple',
+        color: 'bg-green-100 text-green-600',
+        bodyNeutralNote: '食物是能量，不是敌人。你的身体知道它需要什么',
+        guide: [
+          '选择一小份食物',
+          '观察它的颜色、形状',
+          '闻一闻它的香味',
+          '慢慢品尝，感受味道',
+          '感谢食物滋养你的身体'
+        ],
+        benefits: ['建立健康关系', '享受食物', '减少焦虑']
+      },
+
+      {
+        id: 'gratitude-eating',
+        title: '感恩饮食',
+        description: '感谢身体的消化和吸收能力',
+        category: 'meal',
+        duration: 3,
+        difficulty: '简单',
+        icon: 'fa-heart-o',
+        color: 'bg-pink-100 text-pink-600',
+        bodyNeutralNote: '你的消化系统每天都在默默工作，将食物转化为能量',
+        guide: [
+          '在用餐前暂停一下',
+          '感谢食物的来源',
+          '感谢身体的消化能力',
+          '慢慢享受每一口',
+          '用心体会滋养的感觉'
+        ],
+        benefits: ['培养感恩', '减少评判', '温柔对待']
+      },
+
+      // ========== 睡前放松 ==========
+      {
+        id: 'evening-body-scan',
+        title: '睡前身体扫描',
+        description: '温柔地结束一天，感谢身体的陪伴',
         category: 'evening',
         duration: 10,
         difficulty: '简单',
         icon: 'fa-moon-o',
         color: 'bg-purple-100 text-purple-600',
-        link: 'evening-relax.html',
+        bodyNeutralNote: '身体陪你度过了一整天，现在让它好好休息',
+        guide: [
+          '躺在床上，闭上眼睛',
+          '从头到脚扫描身体',
+          '感谢每个部位的工作',
+          '释放一天的紧张',
+          '让身体慢慢放松入睡'
+        ],
         benefits: ['改善睡眠', '深度放松', '感恩身体']
       },
+
       {
-        id: 'gratitude-practice',
-        title: '感恩练习',
-        description: '感谢身体的陪伴',
-        category: 'emotion',
-        duration: 5,
-        difficulty: '简单',
-        icon: 'fa-gift',
-        color: 'bg-pink-100 text-pink-600',
-        link: 'gratitude-practice.html',
-        benefits: ['培养感恩', '积极心态', '幸福感提升']
-      },
-      {
-        id: 'walking-meditation',
-        title: '行走冥想',
-        description: '在行走中觉察',
-        category: 'emotion',
-        duration: 10,
-        difficulty: '简单',
-        icon: 'fa-street-view',
-        color: 'bg-teal-100 text-teal-600',
-        link: 'walking-meditation.html',
-        benefits: ['身心合一', '当下觉察', '压力释放']
-      },
-      {
-        id: 'self-compassion',
-        title: '自我慈悲',
-        description: '像对待朋友一样对待自己',
-        category: 'emotion',
-        duration: 8,
-        difficulty: '中等',
-        icon: 'fa-heart-o',
-        color: 'bg-rose-100 text-rose-600',
-        link: 'self-compassion.html',
-        benefits: ['自我接纳', '减少批判', '内在和平']
-      },
-      {
-        id: 'quick-calm',
-        title: '快速平静',
-        description: '紧急情况下的情绪急救',
-        category: 'emotion',
-        duration: 3,
-        difficulty: '简单',
-        icon: 'fa-bolt',
-        color: 'bg-red-100 text-red-600',
-        link: 'quick-calm.html',
-        benefits: ['快速冷静', '应急处理', '恢复理智']
-      },
-      {
-        id: 'sleep-preparation',
-        title: '睡前放松',
-        description: '为优质睡眠做准备',
+        id: 'evening-breathing',
+        title: '睡前呼吸冥想',
+        description: '用呼吸带你进入安静的夜晚',
         category: 'evening',
-        duration: 12,
+        duration: 7,
         difficulty: '简单',
         icon: 'fa-bed',
         color: 'bg-indigo-100 text-indigo-600',
-        link: 'sleep-preparation.html',
-        benefits: ['助眠', '深度放松', '改善睡眠质量']
+        bodyNeutralNote: '每一次呼吸都在告诉身体：现在可以放松了',
+        guide: [
+          '躺下，找到舒适的姿势',
+          '慢慢深呼吸',
+          '感受呼吸的节奏',
+          '让思绪随呼吸流动',
+          '慢慢进入放松状态'
+        ],
+        benefits: ['助眠', '平静心绪', '释放压力']
       },
+
       {
-        id: 'energy-boost',
-        title: '能量提升',
-        description: '快速恢复精力',
-        category: 'work',
-        duration: 5,
-        difficulty: '简单',
-        icon: 'fa-flash',
-        color: 'bg-amber-100 text-amber-600',
-        link: 'energy-boost.html',
-        benefits: ['恢复活力', '提升专注', '战胜疲惫']
+        id: 'progressive-relaxation',
+        title: '渐进式肌肉放松',
+        description: '逐步释放身体各部位的紧张',
+        category: 'evening',
+        duration: 12,
+        difficulty: '中等',
+        icon: 'fa-smile-o',
+        color: 'bg-blue-100 text-blue-600',
+        bodyNeutralNote: '紧张和放松都是身体的自然状态，学会倾听它们',
+        guide: [
+          '躺下，从脚开始',
+          '先紧绷，然后放松',
+          '慢慢移动到全身',
+          '感受紧张与放松的对比',
+          '最后全身深度放松'
+        ],
+        benefits: ['深度放松', '缓解紧张', '改善睡眠']
       }
     ];
 
     // 全局变量
     let practiceHistory = [];
+    let currentPractice = null;
+    let practiceTimer = null;
+    let remainingTime = 0;
+    let isPaused = false;
 
-    // ============================================
-    // 核心功能
-    // ============================================
-
-    // 渲染练习卡片
-    function renderPracticeCards(filterCategory = 'all') {
-      const grid = document.getElementById('practiceGrid');
-      grid.innerHTML = '';
-      
-      const filteredPractices = filterCategory === 'all' 
-        ? practiceData 
-        : practiceData.filter(p => p.category === filterCategory);
-      
-      filteredPractices.forEach(practice => {
-        const card = createPracticeCard(practice);
-        grid.appendChild(card);
-      });
-    }
-
-    // 创建练习卡片
-    function createPracticeCard(practice) {
-      const card = document.createElement('div');
-      card.className = 'practice-card bg-white rounded-2xl p-6 shadow-sm';
-      card.onclick = () => startPractice(practice);
-      
-      card.innerHTML = `
-        <div class="flex items-start justify-between mb-4">
-          <div class="w-12 h-12 ${practice.color} rounded-xl flex items-center justify-center">
-            <i class="fa ${practice.icon} text-2xl"></i>
-          </div>
-          <span class="text-xs bg-gray-100 px-3 py-1 rounded-full text-gray-600">
-            ${practice.duration}分钟
-          </span>
-        </div>
-        
-        <h3 class="text-lg font-bold text-gray-800 mb-2">${practice.title}</h3>
-        <p class="text-sm text-gray-600 mb-4">${practice.description}</p>
-        
-        <div class="flex flex-wrap gap-2 mb-4">
-          ${practice.benefits.map(benefit => 
-            `<span class="text-xs bg-gray-50 px-2 py-1 rounded text-gray-600">${benefit}</span>`
-          ).join('')}
-        </div>
-        
-        <div class="flex items-center justify-between text-xs text-gray-500">
-          <span><i class="fa fa-signal mr-1"></i>${practice.difficulty}</span>
-          <span class="text-primary font-medium">开始练习 →</span>
-        </div>
-      `;
-      
-      return card;
-    }
-
-    // 开始练习
-    function startPractice(practice) {
-      showToast(`正在打开 ${practice.title}...`);
-      
-      // 记录练习开始
-      const startRecord = {
-        practiceId: practice.id,
-        startTime: Date.now()
-      };
-      sessionStorage.setItem('currentPractice', JSON.stringify(startRecord));
-      
-      // 延迟跳转以显示提示
-      setTimeout(() => {
-        window.location.href = practice.link;
-      }, 500);
-    }
-
-    // 显示Toast提示
+    // Toast提示
     function showToast(message) {
       const toast = document.getElementById('toast');
-      toast.textContent = message;
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
       toast.classList.add('show');
-      
       setTimeout(() => {
         toast.classList.remove('show');
-      }, 2500);
+      }, 3000);
     }
 
-    // ============================================
-    // 统计功能
-    // ============================================
+    // 格式化时间
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
 
     // 加载练习历史
     function loadPracticeHistory() {
-      try {
-        const history = localStorage.getItem('practiceHistory');
-        practiceHistory = history ? JSON.parse(history) : [];
-      } catch (e) {
-        practiceHistory = [];
+      const stored = localStorage.getItem('practiceHistory');
+      if (stored) {
+        try {
+          practiceHistory = JSON.parse(stored);
+        } catch (e) {
+          console.error('加载历史失败:', e);
+          practiceHistory = [];
+        }
       }
     }
 
-    // 更新今日统计
+    // 彩带庆祝动画
+    function showConfettiCelebration() {
+      const confettiContainer = document.createElement('div');
+      confettiContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+      `;
+      document.body.appendChild(confettiContainer);
+
+      const colors = ['#4A6157', '#8FD9A8', '#FFD700', '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE'];
+      const confettiCount = 80;
+      const shapes = ['square', 'circle', 'triangle'];
+
+      for (let i = 0; i < confettiCount; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          const shape = shapes[Math.floor(Math.random() * shapes.length)];
+          const size = Math.random() * 10 + 5;
+          const left = Math.random() * 100;
+          const animationDuration = Math.random() * 3 + 2;
+          const delay = Math.random() * 0.5;
+          const rotation = Math.random() * 360;
+          const horizontalDrift = (Math.random() - 0.5) * 100;
+
+          confetti.style.cssText = `
+            position: absolute;
+            left: ${left}%;
+            top: -20px;
+            width: ${size}px;
+            height: ${size}px;
+            background-color: ${colors[Math.floor(Math.random() * colors.length)]};
+            opacity: 0.8;
+            animation: confettiFall ${animationDuration}s ease-in forwards;
+            animation-delay: ${delay}s;
+            transform: rotate(${rotation}deg);
+            ${shape === 'circle' ? 'border-radius: 50%;' : ''}
+            ${shape === 'triangle' ? `
+              width: 0;
+              height: 0;
+              background-color: transparent;
+              border-left: ${size/2}px solid transparent;
+              border-right: ${size/2}px solid transparent;
+              border-bottom: ${size}px solid ${colors[Math.floor(Math.random() * colors.length)]};
+            ` : ''}
+          `;
+
+          const keyframes = `
+            @keyframes confettiFall {
+              0% {
+                transform: translateY(0) translateX(0) rotate(${rotation}deg);
+                opacity: 1;
+              }
+              100% {
+                transform: translateY(100vh) translateX(${horizontalDrift}px) rotate(${rotation + 720}deg);
+                opacity: 0;
+              }
+            }
+          `;
+
+          const style = document.createElement('style');
+          style.textContent = keyframes;
+          document.head.appendChild(style);
+
+          confettiContainer.appendChild(confetti);
+        }, i * 30);
+      }
+
+      setTimeout(() => {
+        confettiContainer.remove();
+      }, 5000);
+
+      try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        
+        notes.forEach((freq, index) => {
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          
+          oscillator.frequency.value = freq;
+          oscillator.type = 'sine';
+          
+          gainNode.gain.setValueAtTime(0.3, audioContext.currentTime + index * 0.1);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + index * 0.1 + 0.3);
+          
+          oscillator.start(audioContext.currentTime + index * 0.1);
+          oscillator.stop(audioContext.currentTime + index * 0.1 + 0.3);
+        });
+      } catch (error) {
+        console.log('Audio not supported');
+      }
+    }
+
+    // 更新今日数据
     function updateTodayStats() {
       const today = new Date().toDateString();
       const todayPractices = practiceHistory.filter(p => 
@@ -423,52 +668,323 @@
       document.getElementById('todayCompleted').textContent = todayPractices.length;
       
       // 计算连续天数
-      const streak = calculateStreak();
-      document.getElementById('streakDays').textContent = streak;
-      
-      // 本周总计
-      const weekTotal = calculateWeekTotal();
-      document.getElementById('weekTotal').textContent = weekTotal;
-    }
-
-    // 计算连续天数
-    function calculateStreak() {
-      if (practiceHistory.length === 0) return 0;
-      
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
       let streak = 0;
-      let currentDate = new Date(today);
+      const currentDate = new Date();
       
-      for (let i = 0; i < 365; i++) {
-        const dateStr = currentDate.toDateString();
+      for (let i = 0; i < 30; i++) {
+        const checkDate = new Date(currentDate);
+        checkDate.setDate(checkDate.getDate() - i);
+        const dateStr = checkDate.toDateString();
+        
         const hasPractice = practiceHistory.some(p => 
           new Date(p.date).toDateString() === dateStr
         );
         
         if (hasPractice) {
           streak++;
-        } else if (i > 0) {
+        } else {
           break;
         }
-        
-        currentDate.setDate(currentDate.getDate() - 1);
       }
       
-      return streak;
+      document.getElementById('streakDays').textContent = streak;
+      
+      // 本周总计
+      const weekStart = new Date();
+      weekStart.setDate(weekStart.getDate() - weekStart.getDay());
+      const weekPractices = practiceHistory.filter(p => 
+        new Date(p.date) >= weekStart
+      );
+      
+      document.getElementById('weekTotal').textContent = weekPractices.length;
     }
 
-    // 计算本周总数
-    function calculateWeekTotal() {
-      const now = new Date();
-      const startOfWeek = new Date(now);
-      startOfWeek.setDate(now.getDate() - now.getDay());
-      startOfWeek.setHours(0, 0, 0, 0);
+    // 生成本周日历
+    function generateWeekCalendar() {
+      const calendar = document.getElementById('weekCalendar');
+      const today = new Date();
+      const weekStart = new Date(today);
+      weekStart.setDate(today.getDate() - today.getDay());
       
-      return practiceHistory.filter(p => 
-        new Date(p.date) >= startOfWeek
-      ).length;
+      const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+      
+      calendar.innerHTML = '';
+      
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(weekStart);
+        date.setDate(weekStart.getDate() + i);
+        
+        const hasPractice = practiceHistory.some(p => 
+          new Date(p.date).toDateString() === date.toDateString()
+        );
+        
+        const isToday = date.toDateString() === today.toDateString();
+        
+        const dayEl = document.createElement('div');
+        dayEl.className = `week-day text-center p-2 rounded-lg text-sm font-medium 
+          ${hasPractice ? 'completed' : 'bg-gray-100 text-gray-500'}
+          ${isToday ? 'today' : ''}`;
+        
+        dayEl.innerHTML = `
+          <div>${weekDays[i]}</div>
+          <div class="text-xs mt-1">${date.getDate()}</div>
+        `;
+        
+        calendar.appendChild(dayEl);
+      }
+    }
+
+    // 渲染练习卡片
+    function renderPracticeCards(category = 'all') {
+      const grid = document.getElementById('practiceGrid');
+      const filteredPractices = category === 'all' 
+        ? practiceData 
+        : practiceData.filter(p => p.category === category);
+      
+      grid.innerHTML = filteredPractices.map(practice => `
+        <div class="practice-card bg-white rounded-2xl p-6 shadow-sm" 
+             onclick="startPractice('${practice.id}')">
+          <div class="flex items-start justify-between mb-4">
+            <div class="w-12 h-12 rounded-full ${practice.color} flex items-center justify-center">
+              <i class="fa ${practice.icon} text-xl"></i>
+            </div>
+            <div class="practice-tag px-3 py-1 rounded-full text-xs font-medium">
+              ${practice.difficulty}
+            </div>
+          </div>
+          
+          <h3 class="text-lg font-semibold text-primary mb-2">${practice.title}</h3>
+          <p class="text-sm text-gray-600 mb-4">${practice.description}</p>
+          
+          <div class="flex items-center justify-between text-sm text-gray-500 mb-4">
+            <div class="flex items-center">
+              <i class="fa fa-clock-o mr-1"></i>
+              <span>${practice.duration} 分钟</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fa fa-tag mr-1"></i>
+              <span>${getCategoryName(practice.category)}</span>
+            </div>
+          </div>
+
+          ${practice.bodyNeutralNote ? `
+            <div class="pt-3 border-t border-green-100 bg-green-50 rounded-lg p-3">
+              <div class="flex items-start">
+                <i class="fa fa-heart text-green-600 text-sm mr-2 mt-1"></i>
+                <p class="text-xs text-green-700 font-medium leading-relaxed">${practice.bodyNeutralNote}</p>
+              </div>
+            </div>
+          ` : ''}
+          
+          <div class="mt-4 pt-4 border-t border-gray-100">
+            <div class="text-xs text-gray-500 mb-2">主要效果：</div>
+            <div class="flex flex-wrap gap-1">
+              ${practice.benefits.slice(0, 2).map(benefit => 
+                `<span class="bg-gray-100 text-gray-600 px-2 py-1 rounded text-xs">${benefit}</span>`
+              ).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // 获取分类名称
+    function getCategoryName(category) {
+      const names = {
+        'morning': '晨间唤醒',
+        'work': '工作间隙',
+        'meal': '用餐时刻',
+        'evening': '睡前放松'
+      };
+      return names[category] || category;
+    }
+
+    // 开始练习
+    function startPractice(practiceId) {
+      currentPractice = practiceData.find(p => p.id === practiceId);
+      if (!currentPractice) return;
+      
+      // 显示模态框
+      document.getElementById('modalTitle').textContent = currentPractice.title;
+      document.getElementById('modalDescription').textContent = currentPractice.description;
+      document.getElementById('timerDisplay').textContent = formatTime(currentPractice.duration * 60);
+      
+      // 显示指导内容
+      const guideContent = document.getElementById('guideContent');
+      guideContent.innerHTML = currentPractice.guide.map((step, index) => 
+        `<div class="mb-2"><strong>${index + 1}.</strong> ${step}</div>`
+      ).join('');
+      
+      // 重置状态
+      remainingTime = currentPractice.duration * 60;
+      isPaused = false;
+      document.getElementById('startBtn').classList.remove('hidden');
+      document.getElementById('pauseBtn').classList.add('hidden');
+      document.getElementById('completeBtn').classList.add('hidden');
+      
+      // 显示模态框
+      document.getElementById('practiceModal').classList.remove('hidden');
+    }
+
+    // 关闭练习模态框
+    function closePracticeModal() {
+      document.getElementById('practiceModal').classList.add('hidden');
+      stopPractice();
+      currentPractice = null;
+    }
+
+    // 开始练习（模态框内）
+    function startPracticeModal() {
+      if (isPaused) {
+        isPaused = false;
+      } else {
+        remainingTime = currentPractice.duration * 60;
+      }
+      
+      document.getElementById('startBtn').classList.add('hidden');
+      document.getElementById('pauseBtn').classList.remove('hidden');
+      
+      if (currentPractice.category === 'morning' || currentPractice.id.includes('breathing')) {
+        startBreathingGuide();
+      }
+      
+      practiceTimer = setInterval(() => {
+        remainingTime--;
+        updateTimerDisplay();
+        
+        if (remainingTime <= 0) {
+          completePractice();
+        }
+      }, 1000);
+    }
+
+    // 暂停练习
+    function pausePractice() {
+      isPaused = true;
+      clearInterval(practiceTimer);
+      
+      document.getElementById('startBtn').classList.remove('hidden');
+      document.getElementById('pauseBtn').classList.add('hidden');
+      
+      if (currentPractice.category === 'morning' || currentPractice.id.includes('breathing')) {
+        stopBreathingGuide();
+      }
+    }
+
+    // 停止练习
+    function stopPractice() {
+      clearInterval(practiceTimer);
+      isPaused = false;
+      remainingTime = currentPractice ? currentPractice.duration * 60 : 0;
+      
+      document.getElementById('startBtn').classList.remove('hidden');
+      document.getElementById('pauseBtn').classList.add('hidden');
+      document.getElementById('completeBtn').classList.add('hidden');
+      
+      if (currentPractice && (currentPractice.category === 'morning' || currentPractice.id.includes('breathing'))) {
+        stopBreathingGuide();
+      }
+    }
+
+    // 完成练习
+    function completePractice() {
+      clearInterval(practiceTimer);
+      
+      // 记录练习历史
+      practiceHistory.push({
+        id: currentPractice.id,
+        title: currentPractice.title,
+        category: currentPractice.category,
+        date: new Date().toISOString(),
+        duration: currentPractice.duration
+      });
+      
+      localStorage.setItem('practiceHistory', JSON.stringify(practiceHistory));
+      
+      // 更新统计
+      updateTodayStats();
+      generateWeekCalendar();
+      
+      // 显示完成按钮
+      document.getElementById('completeBtn').classList.remove('hidden');
+      document.getElementById('startBtn').classList.add('hidden');
+      document.getElementById('pauseBtn').classList.add('hidden');
+      
+      // 🎉 显示彩带庆祝动画
+      showConfettiCelebration();
+      
+      showToast(`恭喜完成《${currentPractice.title}》练习！`);
+      
+      if (currentPractice.category === 'morning' || currentPractice.id.includes('breathing')) {
+        stopBreathingGuide();
+      }
+    }
+
+    // 更新计时器显示
+    function updateTimerDisplay() {
+      document.getElementById('timerDisplay').textContent = formatTime(remainingTime);
+      
+      // 更新圆形进度条
+      const totalTime = currentPractice.duration * 60;
+      const progress = (totalTime - remainingTime) / totalTime;
+      const circumference = 2 * Math.PI * 45;
+      const strokeDashoffset = circumference - (progress * circumference);
+      
+      document.getElementById('timerCircle').style.strokeDashoffset = strokeDashoffset;
+    }
+
+    // 呼吸指导相关
+    let breathingInterval = null;
+
+    function startBreathingGuide() {
+      const phases = [
+        { text: '准备...', duration: 2 },
+        { text: '慢慢吸气...', duration: 4 },
+        { text: '屏住呼吸...', duration: 7 },
+        { text: '慢慢呼气...', duration: 8 }
+      ];
+      
+      let currentPhaseIndex = 0;
+      let phaseTime = 0;
+      
+      const instruction = document.getElementById('breathInstruction');
+      
+      breathingInterval = setInterval(() => {
+        const phase = phases[currentPhaseIndex];
+        instruction.textContent = `${phase.text} (${phase.duration - phaseTime})`;
+        
+        phaseTime++;
+        
+        if (phaseTime >= phase.duration) {
+          phaseTime = 0;
+          currentPhaseIndex = (currentPhaseIndex + 1) % phases.length;
+        }
+      }, 1000);
+    }
+
+    function stopBreathingGuide() {
+      clearInterval(breathingInterval);
+      document.getElementById('breathInstruction').textContent = '练习暂停';
+    }
+
+    // 分类过滤
+    function initCategoryFilter() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          // 更新按钮样式
+          document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('bg-primary', 'text-white');
+            b.classList.add('bg-gray-200', 'text-gray-600');
+          });
+          
+          btn.classList.remove('bg-gray-200', 'text-gray-600');
+          btn.classList.add('bg-primary', 'text-white');
+          
+          // 过滤练习
+          const category = btn.dataset.category;
+          renderPracticeCards(category);
+        });
+      });
     }
 
     // 设置今日日期
@@ -484,63 +1000,48 @@
         today.toLocaleDateString('zh-CN', options);
     }
 
-    // ============================================
-    // 分类过滤
-    // ============================================
+    // 绑定事件
+    document.getElementById('startBtn').addEventListener('click', startPracticeModal);
+    document.getElementById('pauseBtn').addEventListener('click', pausePractice);
+    document.getElementById('stopBtn').addEventListener('click', stopPractice);
+    document.getElementById('completeBtn').addEventListener('click', closePracticeModal);
 
-    function initCategoryFilter() {
-      const filterBtns = document.querySelectorAll('.filter-btn');
-      
-      filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          // 移除所有active类
-          filterBtns.forEach(b => {
-            b.classList.remove('active');
-            b.classList.remove('bg-primary', 'text-white');
-            b.classList.add('bg-gray-200', 'text-gray-600');
-          });
-          
-          // 添加active类到当前按钮
-          btn.classList.add('active');
-          btn.classList.remove('bg-gray-200', 'text-gray-600');
-          btn.classList.add('bg-primary', 'text-white');
-          
-          // 渲染对应分类的卡片
-          const category = btn.dataset.category;
-          renderPracticeCards(category);
-        });
-      });
-    }
+    // 点击模态框背景关闭
+    document.getElementById('practiceModal').addEventListener('click', (e) => {
+      if (e.target.id === 'practiceModal') {
+        closePracticeModal();
+      }
+    });
 
-    // ============================================
+    // ESC键关闭模态框
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !document.getElementById('practiceModal').classList.contains('hidden')) {
+        closePracticeModal();
+      }
+    });
+
     // 页面初始化
-    // ============================================
-
     document.addEventListener('DOMContentLoaded', () => {
       loadPracticeHistory();
       setTodayDate();
       updateTodayStats();
+      generateWeekCalendar();
       renderPracticeCards();
       initCategoryFilter();
       
       // 欢迎提示
       setTimeout(() => {
-        showToast('欢迎来到日常练习！选择一个适合的练习开始吧 🌿');
+        showToast('欢迎来到日常练习！选择一个适合当前场景的练习开始吧');
       }, 1000);
     });
 
-    // Tailwind配置
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#4A6157",
-            mint: "#8FD9A8",
-            accent: "#2E2E2E"
-          }
-        }
+    // 防止页面刷新时丢失进行中的练习
+    window.addEventListener('beforeunload', (e) => {
+      if (practiceTimer) {
+        e.preventDefault();
+        e.returnValue = '练习进行中，确定要离开吗？';
       }
-    };
+    });
   </script>
 
 </body>
