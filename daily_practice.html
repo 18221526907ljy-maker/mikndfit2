@@ -17,30 +17,6 @@
       transform: translateY(-8px);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
     }
-     .page-content {
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
-  }
-  
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* ✨ 新增:练习卡片渐入动画 */
-  .practice-card {
-    opacity: 0;
-    transform: scale(0.92) translateY(20px);
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-  
-  .practice-card.animate-in {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
     
     .toast {
       position: fixed;
@@ -95,23 +71,7 @@
   </nav>
 
   <main class="max-w-7xl mx-auto px-4 py-8">
-    <div class="container page-content">
-
-    <!-- 今日进度卡片 -->
-    <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
-      ...
-    </div>
-
-    <!-- 练习卡片网格 -->
-    <div class="grid md:grid-cols-3 gap-6">
-      <!-- 每个练习卡片保持原样 -->
-      <div class="practice-card bg-white rounded-2xl p-6 shadow-sm" ...>
-        ...
-      </div>
-    </div>
-
-  </div>
-</main>
+    <div class="container">
 
       <!-- 今日进度卡片 -->
       <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
@@ -166,27 +126,6 @@
   </main>
 
   <script>
-    // ✨ 新增:页面加载时触发卡片动画
-  document.addEventListener('DOMContentLoaded', function() {
-    // 等待资源加载
-    window.addEventListener('load', function() {
-      setTimeout(() => {
-        animatePracticeCards();
-        updateDailyStats(); // 原有的统计更新函数
-      }, 100);
-    });
-  });
-
-  // ✨ 新增:练习卡片动画函数
-  function animatePracticeCards() {
-    const cards = document.querySelectorAll('.practice-card');
-    
-    cards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add('animate-in');
-      }, index * 100); // 每张卡片延迟 100ms,形成层叠效果
-    });
-  }
     // ============================================
     // 练习数据 - 完整版本(15个练习)
     // ============================================
