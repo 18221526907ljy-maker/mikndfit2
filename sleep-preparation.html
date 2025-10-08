@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>睡前放松练习 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { 
+      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460);
+    }
+    .star { 
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 1; }
+    }
+    .moon {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+  </style>
+</head>
+<body class="min-h-screen text-white relative overflow-hidden">
+  
+  <!-- 星空背景 -->
+  <div id="stars"></div>
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-indigo-900/30 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="daily_practice.html" class="text-indigo-200 hover:text-white">
+        <i class="fas fa-arrow-left mr-2"></i>返回练习
+      </a>
+      <h1 class="text-lg font-semibold">睡前放松练习</h1>
+      <div class="w-20"></div>
+    </div>
+  </nav>
+
+  <!-- 主要内容 -->
+  <main class="max-w-4xl mx-auto px-4 py-8 relative z-10">
+    
+    <!-- 欢迎卡片 -->
+    <div class="bg-indigo-900/50 backdrop-blur-md rounded-3xl shadow-2xl p-8 mb-8 border border-indigo-700/30">
+      <div class="text-center mb-6">
+        <div class="moon w-24 h-24 bg-gradient-to-br from-yellow-200 to-yellow-400 rounded-full mx-auto mb-6 flex items-center justify-center shadow-2xl">
+          <i class="fas fa-moon text-4xl text-indigo-900"></i>
+        </div>
+        <h2 class="text-3xl font-bold mb-2">晚安,准备休息了吗?</h2>
+        <p class="text-indigo-200">让身心进入深度放松,为优质睡眠做准备</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="text-center p-4 bg-indigo-800/50 rounded-xl">
+          <i class="fas fa-clock text-yellow-400 text-2xl mb-2"></i>
+          <div class="text-sm text-indigo-200">建议时长</div>
+          <div class="text-lg font-semibold">10-15分钟</div>
+        </div>
+        <div class="text-center p-4 bg-indigo-800/50 rounded-xl">
+          <i class="fas fa-bed text-yellow-400 text-2xl mb-2"></i>
+          <div class="text-sm text-indigo-200">最佳时间</div>
+          <div class="text-lg font-semibold">睡前30分钟</div>
+        </div>
+        <div class="text-center p-4 bg-indigo-800/50 rounded-xl">
+          <i class="fas fa-heart text-yellow-400 text-2xl mb-2"></i>
+          <div class="text-sm text-indigo-200">主要效果</div>
+          <div class="text-lg font-semibold">改善睡眠</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 睡前准备提示 -->
+    <div class="bg-indigo-900/50 backdrop-blur-md rounded-3xl shadow-2xl p-8 mb-8 border border-indigo-700/30">
+      <h3 class="text-xl font-semibold mb-4 flex items-center">
+        <i class="fas fa-lightbulb text-yellow-400 mr-3"></i>
+        睡眠准备建议
+      </h3>
+      <ul class="space-y-3 text-sm text-indigo-200">
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-yellow-400 mr-3 mt-1"></i>
+          <span>关闭或调暗所有灯光,营造舒适的睡眠环境</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-yellow-400 mr-3 mt-1"></i>
+          <span>将手机调至勿扰模式,放在够不到的地方</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-yellow-400 mr-3 mt-1"></i>
+          <span>躺在床上,找一个最舒服的姿势</span>
+        </li>
+        <li class="flex items-start">
+          <i class="fas fa-check-circle text-yellow-400 mr-3 mt-1"></i>
+          <span>可以播放轻柔的背景音乐或白噪音</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- 选择练习 -->
+    <div class="bg-indigo-900/50 backdrop-blur-md rounded-3xl shadow-2xl p-8 mb-8 border border-indigo-700/30">
+      <h3 class="text-xl font-semibold mb-6 text-center">选择你的睡前练习</h3>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        
+        <button onclick="startPractice('body-scan')" class="p-6 border-2 border-yellow-400/50 bg-indigo-800/50 rounded-2xl hover:bg-indigo-700/50 transition-all text-left">
+          <div class="flex items-center mb-3">
+            <i class="fas fa-user text-yellow-400 text-2xl mr-3"></i>
+            <div class="text-lg font-semibold">身体扫描放松</div>
+          </div>
+          <p class="text-sm text-indigo-200 mb-3">从头到脚逐步放松每个部位</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-yellow-400 font-medium">⏱️ 12分钟</span>
+            <span class="text-indigo-300">推荐 ⭐</span>
+          </div>
+        </button>
+
+        <button onclick="startPractice('breath-counting')" class="p-6 border-2 border-indigo-400/50 bg-indigo-800/50 rounded-2xl hover:bg-indigo-700/50 transition-all text-left">
+          <div class="flex items-center mb-3">
+            <i class="fas fa-wind text-yellow-400 text-2xl mr-3"></i>
+            <div class="text-lg font-semibold">数息助眠</div>
+          </div>
+          <p class="text-sm text-indigo-200 mb-3">通过数呼吸让思绪平静下来</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-yellow-400 font-medium">⏱️ 10分钟</span>
+            <span class="text-indigo-300">适合思绪活跃时</span>
+          </div>
+        </button>
+
+        <button onclick="startPractice('visualization')" class="p-6 border-2 border-indigo-400/50 bg-indigo-800/50 rounded-2xl hover:bg-indigo-700/50 transition-all text-left">
+          <div class="flex items-center mb-3">
+            <i class="fas fa-cloud text-yellow-400 text-2xl mr-3"></i>
+            <div class="text-lg font-semibold">平静想象</div>
+          </div>
+          <p class="text-sm text-indigo-200 mb-3">想象宁静的场景帮助入睡</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-yellow-400 font-medium">⏱️ 8分钟</span>
+            <span class="text-indigo-300">最放松</span>
+          </div>
+        </button>
+
+        <button onclick="startPractice('gratitude-sleep')" class="p-6 border-2 border-indigo-400/50 bg-indigo-800/50 rounded-2xl hover:bg-indigo-700/50 transition-all text-left">
+          <div class="flex items-center mb-3">
+            <i class="fas fa-heart text-yellow-400 text-2xl mr-3"></i>
+            <div class="text-lg font-semibold">感恩入眠</div>
+          </div>
+          <p class="text-sm text-indigo-200 mb-3">带着感恩的心情进入梦乡</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-yellow-400 font-medium">⏱️ 5分钟</span>
+            <span class="text-indigo-300">最温暖</span>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 练习模态框 -->
+  <div id="practiceModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-indigo-900/90 backdrop-blur-md rounded-3xl shadow-2xl max-w-md w-full p-8 border border-indigo-700/50">
+      
+      <div class="text-center mb-8">
+        <div id="practiceTitle" class="text-2xl font-bold mb-2"></div>
+        <div id="timeDisplay" class="text-5xl font-bold text-yellow-400 mb-2">12:00</div>
+        <div class="text-sm text-indigo-300">保持放松,随时可以睡着</div>
+      </div>
+
+      <div id="currentGuide" class="bg-indigo-800/50 rounded-2xl p-6 mb-8 min-h-[120px]">
+        <p class="text-indigo-100 text-center leading-relaxed"></p>
+      </div>
+
+      <div class="flex justify-center mb-6">
+        <div class="w-16 h-16 bg-yellow-400/20 rounded-full flex items-center justify-center">
+          <i class="fas fa-moon text-3xl text-yellow-400"></i>
+        </div>
+      </div>
+
+      <button onclick="endPractice()" class="w-full bg-indigo-700/50 hover:bg-indigo-600/50 text-white py-3 rounded-xl font-medium transition-all">
+        <i class="fas fa-check mr-2"></i>结束练习
+      </button>
+
+    </div>
+  </div>
+
+  <script>
+    // 生成星空
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 100; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.width = Math.random() * 3 + 'px';
+      star.style.height = star.style.width;
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      starsContainer.appendChild(star);
+    }
+
+    let timer = null;
+    let totalSeconds = 0;
+    let remainingSeconds = 0;
+    let currentPractice = null;
+
+    const practices = {
+      'body-scan': {
+        title: '身体扫描放松',
+        duration: 720,
+        guides: [
+          { time: 0, text: '轻轻闭上眼睛,让身体完全放松在床上...' },
+          { time: 60, text: '注意你的头部...额头、眼睛、脸颊...让所有紧张消散...' },
+          { time: 120, text: '放松你的颈部和肩膀...感受它们变得越来越沉重...' },
+          { time: 180, text: '感受你的双臂...从肩膀到手指尖...完全放松...' },
+          { time: 300, text: '注意你的胸部和腹部...随着呼吸轻柔地起伏...' },
+          { time: 420, text: '放松你的臀部和双腿...感受它们沉入床垫...' },
+          { time: 540, text: '最后,放松你的双脚...整个身体都已完全放松...' },
+          { time: 660, text: '享受这份完全的放松...随时可以进入梦乡...' }
+        ]
+      },
+      'breath-counting': {
+        title: '数息助眠',
+        duration: 600,
+        guides: [
+          { time: 0, text: '找一个舒适的姿势,轻轻闭上眼睛...' },
+          { time: 30, text: '开始数你的呼吸...吸气时数1,呼气时数2...' },
+          { time: 120, text: '继续数到10,然后从1重新开始...' },
+          { time: 240, text: '如果忘记数到哪了,温柔地从1重新开始...' },
+          { time: 360, text: '让呼吸变得越来越缓慢...越来越轻柔...' },
+          { time: 480, text: '思绪在慢慢安静...身体在慢慢沉重...' }
+        ]
+      },
+      'visualization': {
+        title: '平静想象',
+        duration: 480,
+        guides: [
+          { time: 0, text: '想象你在一个宁静的海滩...听着温柔的海浪声...' },
+          { time: 90, text: '感受温暖的沙子...微风轻抚脸颊...' },
+          { time: 180, text: '看着天空中缓慢飘过的云朵...' },
+          { time: 270, text: '一切都是那么平静、安全、舒适...' },
+          { time: 360, text: '让这份宁静包围你...带你进入梦乡...' }
+        ]
+      },
+      'gratitude-sleep': {
+        title: '感恩入眠',
+        duration: 300,
+        guides: [
+          { time: 0, text: '回想今天发生的三件好事...' },
+          { time: 60, text: '也许是一个微笑,一句温暖的话,一个小小的成就...' },
+          { time: 120, text: '感谢你的身体陪伴你度过了这一天...' },
+          { time: 180, text: '感谢此刻舒适的床铺和安全的环境...' },
+          { time: 240, text: '带着这份感恩,安心入睡...' }
+        ]
+      }
+    };
+
+    function startPractice(practiceId) {
+      currentPractice = practices[practiceId];
+      totalSeconds = currentPractice.duration;
+      remainingSeconds = totalSeconds;
+
+      document.getElementById('practiceTitle').textContent = currentPractice.title;
+      document.getElementById('practiceModal').classList.remove('hidden');
+      
+      updateDisplay();
+      startTimer();
+    }
+
+    function startTimer() {
+      timer = setInterval(() => {
+        if (remainingSeconds > 0) {
+          remainingSeconds--;
+          updateDisplay();
+          updateGuide();
+        } else {
+          endPractice(true);
+        }
+      }, 1000);
+    }
+
+    function updateDisplay() {
+      const mins = Math.floor(remainingSeconds / 60);
+      const secs = remainingSeconds % 60;
+      document.getElementById('timeDisplay').textContent = 
+        `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function updateGuide() {
+      const elapsed = totalSeconds - remainingSeconds;
+      const guide = currentPractice.guides.filter(g => g.time <= elapsed).pop();
+      
+      if (guide) {
+        document.querySelector('#currentGuide p').textContent = guide.text;
+      }
+    }
+
+    function endPractice(auto = false) {
+      clearInterval(timer);
+      savePracticeRecord();
+      
+      if (!auto) {
+        alert('💤 练习结束,祝你好梦!');
+      }
+      
+      document.getElementById('practiceModal').classList.add('hidden');
+    }
+
+    function savePracticeRecord() {
+      const record = {
+        id: Date.now(),
+        title: currentPractice.title,
+        category: 'body',
+        duration: Math.floor((totalSeconds - remainingSeconds) / 60),
+        date: new Date().toISOString(),
+        timestamp: Date.now()
+      };
+
+      const history = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      history.push(record);
+      localStorage.setItem('practiceHistory', JSON.stringify(history));
+    }
+  </script>
+
+</body>
+</html>
