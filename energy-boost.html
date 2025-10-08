@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>能量提升练习 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    .energy-pulse { animation: energyPulse 1.5s ease-in-out infinite; }
+    @keyframes energyPulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+      50% { transform: scale(1.05); box-shadow: 0 0 40px rgba(251, 191, 36, 0.6); }
+    }
+    .bounce-gentle { animation: bounceGentle 2s ease-in-out infinite; }
+    @keyframes bounceGentle {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-yellow-50 via-amber-50 to-orange-50 min-h-screen">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="daily_practice.html" class="text-amber-600 hover:text-amber-700">
+        <i class="fas fa-arrow-left mr-2"></i>返回练习
+      </a>
+      <h1 class="text-lg font-semibold text-gray-800">能量提升练习</h1>
+      <div class="w-20"></div>
+    </div>
+  </nav>
+
+  <!-- 主要内容 -->
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    
+    <!-- 介绍卡片 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <div class="text-center mb-6">
+        <div class="energy-pulse w-24 h-24 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-bolt text-4xl text-white"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-2">快速充电时刻</h2>
+        <p class="text-gray-600">在疲惫时快速恢复活力和专注力</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <div class="text-center p-4 bg-yellow-50 rounded-xl">
+          <i class="fas fa-clock text-yellow-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">建议时长</div>
+          <div class="text-lg font-semibold text-gray-800">3-5分钟</div>
+        </div>
+        <div class="text-center p-4 bg-amber-50 rounded-xl">
+          <i class="fas fa-battery-full text-amber-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">能量提升</div>
+          <div class="text-lg font-semibold text-gray-800">快速有效</div>
+        </div>
+        <div class="text-center p-4 bg-orange-50 rounded-xl">
+          <i class="fas fa-clock text-orange-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">最佳时间</div>
+          <div class="text-lg font-semibold text-gray-800">下午2-4点</div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-xl p-6">
+        <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
+          <i class="fas fa-info-circle text-yellow-600 mr-2"></i>
+          为什么下午容易疲劳?
+        </h3>
+        <p class="text-sm text-gray-700 leading-relaxed mb-3">
+          人体的生理节律决定了下午2-4点是精力低谷期。此时进行简短的能量练习,比喝咖啡更健康有效!
+        </p>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-yellow-600 mr-2 mt-1"></i>
+            <span>不会像咖啡因那样影响晚上睡眠</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-yellow-600 mr-2 mt-1"></i>
+            <span>同时提升身体和精神的活力</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-yellow-600 mr-2 mt-1"></i>
+            <span>改善大脑供氧,提高工作效率</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 练习选择 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <h3 class="text-xl font-semibold text-gray-800 mb-6 text-center">选择你的充电方式</h3>
+      
+      <div class="grid md:grid-cols-2 gap-6">
+        
+        <!-- 唤醒呼吸 -->
+        <button onclick="startPractice('energizing-breath')" class="p-6 border-2 border-yellow-400 bg-yellow-50 rounded-2xl hover:bg-yellow-100 transition-all text-left group">
+          <div class="flex items-center mb-3">
+            <div class="w-12 h-12 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-wind text-xl"></i>
+            </div>
+            <div>
+              <div class="text-lg font-semibold text-gray-800">唤醒呼吸法</div>
+              <div class="text-xs text-gray-500">快速清醒</div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-3">通过强有力的呼吸快速提升氧气供应</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-yellow-600 font-medium">⏱️ 3分钟</span>
+            <span class="text-gray-500">推荐 ⭐</span>
+          </div>
+        </button>
+
+        <!-- 站立拉伸 -->
+        <button onclick="startPractice('standing-stretch')" class="p-6 border-2 border-amber-200 rounded-2xl hover:border-amber-400 hover:bg-amber-50 transition-all text-left group">
+          <div class="flex items-center mb-3">
+            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-street-view text-xl"></i>
+            </div>
+            <div>
+              <div class="text-lg font-semibold text-gray-800">站立拉伸</div>
+              <div class="text-xs text-gray-500">身体充电</div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-3">简单的站立动作激活全身能量</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-amber-600 font-medium">⏱️ 5分钟</span>
+            <span class="text-gray-500">久坐必备</span>
+          </div>
+        </button>
+
+        <!-- 快速冥想 -->
+        <button onclick="startPractice('focus-meditation')" class="p-6 border-2 border-orange-200 rounded-2xl hover:border-orange-400 hover:bg-orange-50 transition-all text-left group">
+          <div class="flex items-center mb-3">
+            <div class="w-12 h-12 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-brain text-xl"></i>
+            </div>
+            <div>
+              <div class="text-lg font-semibold text-gray-800">专注力冥想</div>
+              <div class="text-xs text-gray-500">思维清醒</div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-3">重置大脑,恢复注意力和清晰思维</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-orange-600 font-medium">⏱️ 4分钟</span>
+            <span class="text-gray-500">工作间隙</span>
+          </div>
+        </button>
+
+        <!-- 冷水激活 -->
+        <button onclick="startPractice('cold-splash')" class="p-6 border-2 border-cyan-200 rounded-2xl hover:border-cyan-400 hover:bg-cyan-50 transition-all text-left group">
+          <div class="flex items-center mb-3">
+            <div class="w-12 h-12 bg-cyan-100 text-cyan-600 rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition-transform">
+              <i class="fas fa-snowflake text-xl"></i>
+            </div>
+            <div>
+              <div class="text-lg font-semibold text-gray-800">冷水激活</div>
+              <div class="text-xs text-gray-500">瞬间清醒</div>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 mb-3">用冷水刺激快速激活神经系统</p>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-cyan-600 font-medium">⏱️ 2分钟</span>
+            <span class="text-gray-500">需要水源</span>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- 额外建议 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+        <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>
+        提升能量的额外建议
+      </h3>
+      <div class="grid md:grid-cols-2 gap-4 text-sm">
+        <div class="flex items-start p-4 bg-yellow-50 rounded-xl">
+          <i class="fas fa-sun text-yellow-600 mr-3 mt-1"></i>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">晒晒太阳</div>
+            <div class="text-gray-600">自然光能抑制褪黑素,让你更清醒</div>
+          </div>
+        </div>
+        <div class="flex items-start p-4 bg-blue-50 rounded-xl">
+          <i class="fas fa-glass-water text-blue-600 mr-3 mt-1"></i>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">补充水分</div>
+            <div class="text-gray-600">脱水会导致疲劳,喝一杯水试试</div>
+          </div>
+        </div>
+        <div class="flex items-start p-4 bg-green-50 rounded-xl">
+          <i class="fas fa-apple-alt text-green-600 mr-3 mt-1"></i>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">健康零食</div>
+            <div class="text-gray-600">坚果、水果能提供稳定能量</div>
+          </div>
+        </div>
+        <div class="flex items-start p-4 bg-purple-50 rounded-xl">
+          <i class="fas fa-walking text-purple-600 mr-3 mt-1"></i>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">走动一下</div>
+            <div class="text-gray-600">2分钟走路比咖啡更提神</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 练习模态框 -->
+  <div id="practiceModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8">
+      
+      <div class="text-center mb-8">
+        <div class="bounce-gentle w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i id="practiceIcon" class="fas fa-bolt text-3xl text-white"></i>
+        </div>
+        <h3 id="practiceTitle" class="text-2xl font-bold text-gray-800 mb-2"></h3>
+        <div id="timeDisplay" class="text-4xl font-bold text-amber-600">3:00</div>
+      </div>
+
+      <div id="currentStep" class="bg-gradient-to-r from-yellow-50 to-amber-50 rounded-2xl p-6 mb-8 min-h-[140px]">
+        <div class="text-center">
+          <div class="font-semibold text-gray-800 text-lg mb-3"></div>
+          <p class="text-gray-600 text-sm leading-relaxed"></p>
+        </div>
+      </div>
+
+      <div class="flex gap-3">
+        <button id="pauseBtn" onclick="togglePause()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-medium transition-
