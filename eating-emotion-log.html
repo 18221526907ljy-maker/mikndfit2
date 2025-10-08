@@ -1,0 +1,977 @@
+placeholder="例如: 一碗拉面、两块蛋糕、一杯奶茶、薯片一包..."
+            ></textarea>
+          </div>
+
+          <!-- 份量感知 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-balance-scale text-primary mr-2"></i>
+              份量感觉
+            </label>
+            <div class="grid grid-cols-3 gap-3">
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectPortion(this, 'less')">
+                <div class="text-2xl mb-1">😌</div>
+                <div class="text-sm">少量</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectPortion(this, 'normal')">
+                <div class="text-2xl mb-1">😊</div>
+                <div class="text-sm">正常</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectPortion(this, 'more')">
+                <div class="text-2xl mb-1">😳</div>
+                <div class="text-sm">较多</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- 饮食前情绪 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+              <i class="fa fa-heart text-primary mr-2"></i>
+              饮食前的情绪 (可多选)
+            </label>
+            <div class="flex flex-wrap gap-2" id="emotionsBefore">
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'before', '平静')">😌 平静</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'before', '开心')">😊 开心</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'before', '焦虑')">😰 焦虑</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'before', '悲伤')">😢 悲伤</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'before', '压力大')">😫 压力大</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'before', '无聊')">😑 无聊</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'before', '孤独')">😔 孤独</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'before', '愤怒')">😠 愤怒</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'before', '疲惫')">😩 疲惫</span>
+            </div>
+          </div>
+
+          <!-- 是否情绪化进食 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+              <i class="fa fa-question-circle text-primary mr-2"></i>
+              这是情绪化进食吗？
+            </label>
+            <div class="grid grid-cols-2 gap-3">
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-4" onclick="selectEmotionalEating(this, false)">
+                <div class="text-2xl mb-2">✅</div>
+                <div class="font-medium mb-1">生理性饥饿</div>
+                <div class="text-xs text-gray-600">我是因为饿了才吃</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-4" onclick="selectEmotionalEating(this, true)">
+                <div class="text-2xl mb-2">💭</div>
+                <div class="font-medium mb-1">情绪化进食</div>
+                <div class="text-xs text-gray-600">我是为了缓解情绪而吃</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- 饮食后情绪 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+              <i class="fa fa-smile-o text-primary mr-2"></i>
+              饮食后的情绪 (可多选)
+            </label>
+            <div class="flex flex-wrap gap-2" id="emotionsAfter">
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'after', '满足')">😋 满足</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'after', '开心')">😊 开心</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'after', '罪恶感')">😔 罪恶感</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'after', '后悔')">😞 后悔</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'after', '羞愧')">😳 羞愧</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'after', '焦虑')">😰 焦虑</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'after', '撑胀')">😵 撑胀</span>
+              <span class="emotion-chip px-3 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleEmotion(this, 'after', '平静')">😌 平静</span>
+            </div>
+          </div>
+
+          <!-- 罪恶感评分 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-heart-o text-primary mr-2"></i>
+              罪恶感程度 (0-10分)
+              <span class="text-lg font-bold text-primary ml-2" id="guiltValue">0</span>
+            </label>
+            <input 
+              type="range" 
+              id="guiltLevel" 
+              min="0" 
+              max="10" 
+              value="0" 
+              class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+              oninput="updateGuiltValue()"
+            />
+            <div class="flex justify-between text-xs text-gray-500 mt-1">
+              <span>完全没有</span>
+              <span>中等</span>
+              <span>非常强烈</span>
+            </div>
+          </div>
+
+          <!-- 额外笔记 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-pencil text-primary mr-2"></i>
+              额外笔记 (可选)
+            </label>
+            <textarea 
+              id="notes" 
+              rows="3" 
+              class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary focus:border-transparent"
+              placeholder="记录任何想法、感受或观察..."
+            ></textarea>
+          </div>
+
+          <!-- 保存按钮 -->
+          <div class="pt-4">
+            <button onclick="saveRecord()" class="w-full bg-primary hover:bg-mint text-white py-4 rounded-lg font-medium transition-colors">
+              <i class="fa fa-save mr-2"></i>
+              保存记录
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 身体中立提醒 -->
+      <div class="bg-gradient-to-r from-green-50 to-blue-50 border-l-4 border-green-500 rounded-lg p-6">
+        <h3 class="font-semibold text-green-900 mb-3">💚 身体中立提醒</h3>
+        <ul class="space-y-2 text-sm text-green-800">
+          <li>• <strong>食物没有"好坏"之分</strong>: 所有食物都能提供能量和营养</li>
+          <li>• <strong>倾听身体信号</strong>: 身体会告诉你什么时候饿,什么时候饱</li>
+          <li>• <strong>记录不是为了限制</strong>: 而是为了理解情绪和饮食的关系</li>
+          <li>• <strong>温柔对待自己</strong>: 情绪化进食是正常的,不需要自责</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 周报告页面 -->
+    <div id="reportSection" class="hidden space-y-6">
+      
+      <!-- 总览卡片 -->
+      <div class="grid md:grid-cols-4 gap-4">
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm">
+          <div class="text-sm text-gray-600 mb-2">本周记录次数</div>
+          <div class="text-3xl font-bold text-primary" id="weekRecords">0</div>
+        </div>
+        
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm">
+          <div class="text-sm text-gray-600 mb-2">情绪化进食</div>
+          <div class="text-3xl font-bold text-orange-600" id="emotionalEatingCount">0</div>
+        </div>
+        
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm">
+          <div class="text-sm text-gray-600 mb-2">平均罪恶感</div>
+          <div class="text-3xl font-bold text-red-600" id="avgGuilt">0</div>
+        </div>
+        
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm">
+          <div class="text-sm text-gray-600 mb-2">罪恶感趋势</div>
+          <div class="text-lg font-bold text-green-600" id="guiltTrend">-</div>
+        </div>
+      </div>
+
+      <!-- 情绪化进食模式 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm">
+        <h3 class="text-xl font-bold text-primary mb-4">
+          <i class="fa fa-pie-chart mr-2"></i>
+          情绪化进食模式
+        </h3>
+        <div id="emotionalPatterns" class="space-y-3">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- 最常触发情绪化进食的情绪 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm">
+        <h3 class="text-xl font-bold text-primary mb-4">
+          <i class="fa fa-heartbeat mr-2"></i>
+          最易触发情绪化进食的情绪
+        </h3>
+        <div id="triggerEmotions" class="space-y-3">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- 进步与建议 -->
+      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+        <h3 class="text-xl font-bold text-purple-900 mb-4">
+          <i class="fa fa-trophy mr-2"></i>
+          本周洞察与建议
+        </h3>
+        <div id="insights" class="space-y-3 text-sm text-purple-800">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 历史记录页面 -->
+    <div id="historySection" class="hidden">
+      <div class="bg-white rounded-2xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl font-bold text-primary">历史记录</h3>
+          <button onclick="clearAllRecords()" class="text-sm text-red-600 hover:text-red-700">
+            <i class="fa fa-trash mr-1"></i>
+            清空所有记录
+          </button>
+        </div>
+        
+        <div id="historyList" class="space-y-4">
+          <!-- 动态生成 -->
+        </div>
+
+        <div id="emptyHistory" class="hidden text-center py-12">
+          <div class="text-6xl mb-4">🍽️</div>
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">还没有记录</h3>
+          <p class="text-gray-500 mb-6">开始记录你的饮食与情绪</p>
+          <button onclick="switchTab('record')" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-mint transition-colors">
+            开始记录
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // ============================================
+    // 全局变量
+    // ============================================
+    
+    let selectedMealType = null;
+    let selectedPortion = null;
+    let selectedEmotionsBefore = [];
+    let selectedEmotionsAfter = [];
+    let isEmotionalEating = null;
+
+    // ============================================
+    // 标签切换
+    // ============================================
+    
+    function switchTab(tab) {
+      // 更新按钮状态
+      ['record', 'report', 'history'].forEach(t => {
+        const btn = document.getElementById(`${t}Tab`);
+        if (t === tab) {
+          btn.classList.add('active');
+          btn.classList.remove('bg-gray-100', 'text-gray-600');
+        } else {
+          btn.classList.remove('active');
+          btn.classList.add('bg-gray-100', 'text-gray-600');
+        }
+      });
+      
+      // 显示对应内容
+      document.getElementById('recordSection').classList.add('hidden');
+      document.getElementById('reportSection').classList.add('hidden');
+      document.getElementById('historySection').classList.add('hidden');
+      
+      document.getElementById(`${tab}Section`).classList.remove('hidden');
+      
+      // 加载数据
+      if (tab === 'report') {
+        loadReport();
+      } else if (tab === 'history') {
+        loadHistory();
+      }
+    }
+
+    // ============================================
+    // 表单交互
+    // ============================================
+    
+    function selectMealType(btn, type) {
+      document.querySelectorAll('.meal-type-btn').forEach(b => {
+        if (b.parentElement === btn.parentElement) {
+          b.classList.remove('selected');
+        }
+      });
+      btn.classList.add('selected');
+      selectedMealType = type;
+    }
+
+    function selectPortion(btn, portion) {
+      document.querySelectorAll('.meal-type-btn').forEach(b => {
+        if (b.parentElement === btn.parentElement) {
+          b.classList.remove('selected');
+        }
+      });
+      btn.classList.add('selected');
+      selectedPortion = portion;
+    }
+
+    function toggleEmotion(chip, timing, emotion) {
+      chip.classList.toggle('selected');
+      
+      const array = timing === 'before' ? selectedEmotionsBefore : selectedEmotionsAfter;
+      const index = array.indexOf(emotion);
+      
+      if (index > -1) {
+        array.splice(index, 1);
+      } else {
+        array.push(emotion);
+      }
+    }
+
+    function selectEmotionalEating(btn, isEmotional) {
+      document.querySelectorAll('.meal-type-btn').forEach(b => {
+        if (b.parentElement === btn.parentElement) {
+          b.classList.remove('selected');
+        }
+      });
+      btn.classList.add('selected');
+      isEmotionalEating = isEmotional;
+    }
+
+    function updateGuiltValue() {
+      const value = document.getElementById('guiltLevel').value;
+      document.getElementById('guiltValue').textContent = value;
+    }
+
+    // ============================================
+    // 保存记录
+    // ============================================
+    
+    function saveRecord() {
+      // 验证必填项
+      if (!selectedMealType) {
+        showToast('请选择用餐类型');
+        return;
+      }
+      
+      const foodDescription = document.getElementById('foodDescription').value.trim();
+      if (!foodDescription) {
+        showToast('请描述吃了什么');
+        return;
+      }
+      
+      if (selectedEmotionsBefore.length === 0) {
+        showToast('请选择饮食前的情绪');
+        return;
+      }
+      
+      if (selectedEmotionsAfter.length === 0) {
+        showToast('请选择饮食后的情绪');
+        return;
+      }
+      
+      if (isEmotionalEating === null) {
+        showToast('请选择是否为情绪化进食');
+        return;
+      }
+      
+      // 创建记录
+      const record = {
+        id: Date.now(),
+        date: new Date().toISOString(),
+        mealType: selectedMealType,
+        foodDescription: foodDescription,
+        portion: selectedPortion || 'normal',
+        emotionsBefore: selectedEmotionsBefore,
+        emotionsAfter: selectedEmotionsAfter,
+        isEmotionalEating: isEmotionalEating,
+        guiltLevel: parseInt(document.getElementById('guiltLevel').value),
+        notes: document.getElementById('notes').value
+      };
+      
+      // 保存到 localStorage
+      try {
+        const records = JSON.parse(localStorage.getItem('eatingEmotionRecords') || '[]');
+        records.push(record);
+        localStorage.setItem('eatingEmotionRecords', JSON.stringify(records));
+        
+        showToast('记录已保存！');
+        
+        // 重置表单
+        setTimeout(() => {
+          resetForm();
+          switchTab('report');
+        }, 1500);
+        
+      } catch (error) {
+        console.error('保存失败:', error);
+        showToast('保存失败，请重试');
+      }
+    }
+
+    // ============================================
+    // 重置表单
+    // ============================================
+    
+    function resetForm() {
+      selectedMealType = null;
+      selectedPortion = null;
+      selectedEmotionsBefore = [];
+      selectedEmotionsAfter = [];
+      isEmotionalEating = null;
+      
+      document.querySelectorAll('.meal-type-btn').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+      
+      document.querySelectorAll('.emotion-chip').forEach(chip => {
+        chip.classList.remove('selected');
+      });
+      
+      document.getElementById('foodDescription').value = '';
+      document.getElementById('guiltLevel').value = 0;
+      document.getElementById('notes').value = '';
+      updateGuiltValue();
+    }
+
+    // ============================================
+    // 加载周报告
+    // ============================================
+    
+    function loadReport() {
+      const records = JSON.parse(localStorage.getItem('eatingEmotionRecords') || '[]');
+      
+      // 获取本周记录
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+      const weekRecords = records.filter(r => new Date(r.date) > weekAgo);
+      
+      if (weekRecords.length === 0) {
+        showEmptyReport();
+        return;
+      }
+      
+      // 本周记录次数
+      document.getElementById('weekRecords').textContent = weekRecords.length;
+      
+      // 情绪化进食次数
+      const emotionalCount = weekRecords.filter(r => r.isEmotionalEating).length;
+      document.getElementById('emotionalEatingCount').textContent = emotionalCount;
+      
+      // 平均罪恶感
+      const avgGuilt = weekRecords.reduce((sum, r) => sum + r.guiltLevel, 0) / weekRecords.length;
+      document.getElementById('avgGuilt').textContent = avgGuilt.toFixed(1);
+      
+      // 罪恶感趋势
+      calculateGuiltTrend(weekRecords);
+      
+      // 情绪化进食模式
+      renderEmotionalPatterns(weekRecords);
+      
+      // 触发情绪
+      renderTriggerEmotions(weekRecords);
+      
+      // 生成洞察
+      generateInsights(weekRecords);
+    }
+
+    function showEmptyReport() {
+      document.getElementById('weekRecords').textContent = '0';
+      document.getElementById('emotionalEatingCount').textContent = '0';
+      document.getElementById('avgGuilt').textContent = '0';
+      document.getElementById('guiltTrend').textContent = '-';
+      document.getElementById('emotionalPatterns').innerHTML = '<p class="text-gray-500">暂无数据</p>';
+      document.getElementById('triggerEmotions').innerHTML = '<p class="text-gray-500">暂无数据</p>';
+      document.getElementById('insights').innerHTML = '<p>开始记录后，这里会显示个性化洞察</p>';
+    }
+
+    function calculateGuiltTrend(weekRecords) {
+      if (weekRecords.length < 3) {
+        document.getElementById('guiltTrend').textContent = '数据不足';
+        return;
+      }
+      
+      // 比较前半周和后半周
+      const mid = Math.floor(weekRecords.length / 2);
+      const firstHalf = weekRecords.slice(0, mid);
+      const secondHalf = weekRecords.slice(mid);
+      
+      const avgFirst = firstHalf.reduce((sum, r) => sum + r.guiltLevel, 0) / firstHalf.length;
+      const avgSecond = secondHalf.reduce((sum, r) => sum + r.guiltLevel, 0) / secondHalf.length;
+      
+      const diff = avgSecond - avgFirst;
+      
+      if (diff < -0.5) {
+        document.getElementById('guiltTrend').textContent = '↓ 下降';
+        document.getElementById('guiltTrend').className = 'text-lg font-bold text-green-600';
+      } else if (diff > 0.5) {
+        document.getElementById('guiltTrend').textContent = '↑ 上升';
+        document.getElementById('guiltTrend').className = 'text-lg font-bold text-red-600';
+      } else {
+        document.getElementById('guiltTrend').textContent = '→ 稳定';
+        document.getElementById('guiltTrend').className = 'text-lg font-bold text-gray-600';
+      }
+    }
+
+    function renderEmotionalPatterns(weekRecords) {
+      const emotionalEating = weekRecords.filter(r => r.isEmotionalEating);
+      const total = weekRecords.length;
+      const emotionalPercent = (emotionalEating.length / total * 100).toFixed(1);
+      
+      const container = document.getElementById('emotionalPatterns');
+      
+      container.innerHTML = `
+        <div class="flex items-center justify-between p-4 bg-orange-50 rounded-lg">
+          <div>
+            <div class="font-medium text-gray-800">情绪化进食占比</div>
+            <div class="text-sm text-gray-600">${emotionalEating.length} / ${total} 次</div>
+          </div>
+          <div class="text-3xl font-bold text-orange-600">${emotionalPercent}%</div>
+        </div>
+        
+        <div class="flex items-center justify-between p-4 bg-green-50 rounded-lg">
+          <div>
+            <div class="font-medium text-gray-800">生理性饥饿进食</div>
+            <div class="text-sm text-gray-600">${total - emotionalEating.length} / ${total} 次</div>
+          </div>
+          <div class="text-3xl font-bold text-green-600">${(100 - parseFloat(emotionalPercent)).toFixed(1)}%</div>
+        </div>
+      `;
+    }
+
+    function renderTriggerEmotions(weekRecords) {
+      const emotionalEating = weekRecords.filter(r => r.isEmotionalEating);
+      
+      if (emotionalEating.length === 0) {
+        document.getElementById('triggerEmotions').innerHTML = '<p class="text-gray-500">本周无情绪化进食记录</p>';
+        return;
+      }
+      
+      // 统计触发情绪
+      const emotionCounts = {};
+      emotionalEating.forEach(r => {
+        r.emotionsBefore.forEach(e => {
+          emotionCounts[e] = (emotionCounts[e] || 0) + 1;
+        });
+      });
+      
+      // 排序
+      const sorted = Object.keys(emotionCounts).sort((a, b) => emotionCounts[b] - emotionCounts[a]);
+      
+      const container = document.getElementById('triggerEmotions');
+      container.innerHTML = sorted.slice(0, 5).map((emotion, i) => {
+        const count = emotionCounts[emotion];
+        const percent = (count / emotionalEating.length * 100).toFixed(1);
+        
+        return `
+          <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
+            <div class="flex items-center">
+              <div class="w-8 h-8 bg-blue-600 rounded-full text-white flex items-center justify-center mr-3 text-sm font-bold">${i + 1}</div>
+              <span class="font-medium text-gray-800">${emotion}</span>
+            </div>
+            <div class="text-right">
+              <div class="text-sm text-gray-600">${count} 次</div>
+              <div class="text-sm font-bold text-blue-600">${percent}%</div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function generateInsights(weekRecords) {
+      const container = document.getElementById('insights');
+      const insights = [];
+      
+      // 罪恶感洞察
+      const avgGuilt = weekRecords.reduce((sum, r) => sum + r.guiltLevel, 0) / weekRecords.length;
+      
+      if (avgGuilt < 3) {
+        insights.push('🎉 <strong>太棒了!</strong> 你本周的罪恶感程度较低,继续保持温柔对待自己');
+      } else if (avgGuilt >= 7) {
+        insights.push('💚 本周罪恶感较高,记住:食物没有道德属性,吃东西不需要自责');
+      }
+      
+      // 情绪化进食洞察
+      const emotionalEating = weekRecords.filter(r => r.isEmotionalEating);
+      const emotionalPercent = emotionalEating.length / weekRecords.length * 100;
+      
+      if (emotionalPercent > 50) {
+        insights.push('⚠️ 本周超过一半的进食是情绪驱动的,考虑寻找其他情绪调节方式');
+        insights.push('💡 建议:感到情绪波动时,先做5分钟"无罪感饮食"练习');
+      } else if (emotionalPercent < 20) {
+        insights.push('✨ 你越来越能区分生理饥饿和情绪需求了,这是很大的进步!');
+      }
+      
+      // 最常触发情绪
+      if (emotionalEating.length > 0) {
+        const emotionCounts = {};
+        emotionalEating.forEach(r => {
+          r.emotionsBefore.forEach(e => {
+            emotionCounts[e] = (emotionCounts[e] || 0) + 1;
+          });
+        });
+        
+        const topEmotion = Object.keys(emotionCounts).reduce((a, b) => 
+          emotionCounts[a] > emotionCounts[b] ? a : b
+        );
+        
+        insights.push(`🔍 "${topEmotion}"是你最常触发情绪化进食的情绪,下次感受到时可以尝试其他应对方式`);
+      }
+      
+      // 饮食后情绪
+      const guiltAfterEating = weekRecords.filter(r => 
+        r.emotionsAfter.includes('罪恶感') || r.emotionsAfter.includes('后悔') || r.emotionsAfter.includes('羞愧')
+      ).length;
+      
+      if (guiltAfterEating > weekRecords.length * 0.3) {
+        insights.push('💭 你在饮食后经常感到罪恶感,这可能加重心理负担。记住:所有食物都可以是健康饮食的一部分');
+      }
+      
+      // 进步鼓励
+      if (weekRecords.length >= 5) {
+        insights.push('📈 你本周坚持记录了' + weekRecords.length + '次,这种自我觉察本身就是巨大的进步!');
+      }
+      
+      // 通用建议
+      insights.push('🌿 配套练习推荐:每天做一次"无罪感饮食"练习,重建与食物的健康关系');
+      
+      container.innerHTML = insights.map(i => `
+        <div class="flex items-start">
+          <span class="mr-2">•</span>
+          <span>${i}</span>
+        </div>
+      `).join('');
+    }
+
+    // ============================================
+    // 加载历史记录
+    // ============================================
+    
+    function loadHistory() {
+      const records = JSON.parse(localStorage.getItem('eatingEmotionRecords') || '[]');
+      const container = document.getElementById('historyList');
+      const emptyState = document.getElementById('emptyHistory');
+      
+      if (records.length === 0) {
+        container.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      
+      container.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      
+      // 按时间倒序
+      const sorted = records.sort((a, b) => b.id - a.id);
+      
+      const mealTypeEmojis = {
+        breakfast: '🌅',
+        lunch: '☀️',
+        dinner: '🌙',
+        snack: '🍪',
+        drink: '🥤',
+        other: '🍽️'
+      };
+      
+      const mealTypeNames = {
+        breakfast: '早餐',
+        lunch: '午餐',
+        dinner: '晚餐',
+        snack: '零食',
+        drink: '饮料',
+        other: '其他'
+      };
+      
+      container.innerHTML = sorted.map(record => {
+        const date = new Date(record.date);
+        const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+        const timeStr = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+        
+        return `
+          <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div class="flex items-start justify-between mb-3">
+              <div class="flex items-center space-x-2">
+                <div class="text-2xl">${mealTypeEmojis[record.mealType] || '🍽️'}</div>
+                <div>
+                  <div class="font-medium text-gray-800">${mealTypeNames[record.mealType] || record.mealType}</div>
+                  <div class="text-xs text-gray-500">${dateStr} ${timeStr}</div>
+                </div>
+              </div>
+              <button onclick="deleteRecord(${record.id})" class="text-red-500 hover:text-red-700 text-sm">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            
+            <div class="mb-3">
+              <div class="text-xs text-gray-600 mb-1">食物:</div>
+              <div class="text-sm text-gray-700">${record.foodDescription}</div>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3 mb-3">
+              <div>
+                <div class="text-xs text-gray-600 mb-1">饮食前:</div>
+                <div class="flex flex-wrap gap-1">
+                  ${record.emotionsBefore.map(e => 
+                    `<span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">${e}</span>`
+                  ).join('')}
+                </div>
+              </div>
+              <div>
+                <div class="text-xs text-gray-600 mb-1">饮食后:</div>
+                <div class="flex flex-wrap gap-1">
+                  ${record.emotionsAfter.map(e => 
+                    `<span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">${e}</span>`
+                  ).join('')}
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-xs ${record.isEmotionalEating ? 'bg-orange-100 text-orange-700' : 'bg-green-100 text-green-700'} px-2 py-1 rounded">
+                ${record.isEmotionalEating ? '💭 情绪化进食' : '✅ 生理性饥饿'}
+              </span>
+              <span class="text-sm font-medium ${
+                record.guiltLevel >= 7 ? 'text-red-600' : 
+                record.guiltLevel >= 4 ? 'text-orange-600' : 'text-green-600'
+              }">罪恶感: ${record.guiltLevel}/10</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ============================================
+    // 删除记录
+    // ============================================
+    
+    function deleteRecord(id) {
+      if (!confirm('确定要删除这条记录吗？')) return;
+      
+      try {
+        const records = JSON.parse(localStorage.getItem('eatingEmotionRecords') || '[]');
+        const filtered = records.filter(r => r.id !== id);
+        localStorage.setItem('eatingEmotionRecords', JSON.stringify(filtered));
+        
+        showToast('记录已删除');
+        loadHistory();
+        
+      } catch (error) {
+        console.error('删除失败:', error);
+        showToast('删除失败，请重试');
+      }
+    }
+
+    function clearAllRecords() {
+      if (!confirm('确定要清空所有记录吗？此操作不可恢复！')) return;
+      
+      try {
+        localStorage.setItem('eatingEmotionRecords', '[]');
+        showToast('所有记录已清空');
+        loadHistory();
+        
+      } catch (error) {
+        console.error('清空失败:', error);
+        showToast('清空失败，请重试');
+      }
+    }
+
+    // ============================================
+    // Toast 提示
+    // ============================================
+    
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // ============================================
+    // 页面加载
+    // ============================================
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      showToast('记录饮食与情绪，建立更健康的关系 💚');
+    });
+  </script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>饮食与情绪日志 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+  <style>
+    .meal-type-btn {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .meal-type-btn.selected {
+      background: #4A6157;
+      color: white;
+      transform: scale(1.05);
+    }
+    
+    .emotion-chip {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .emotion-chip:hover {
+      transform: translateY(-2px);
+    }
+    
+    .emotion-chip.selected {
+      background: #4A6157;
+      color: white;
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 14px;
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+    
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .tab-btn {
+      transition: all 0.3s ease;
+    }
+    
+    .tab-btn.active {
+      background: #4A6157;
+      color: white;
+    }
+
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4A6157",
+            mint: "#8FD9A8",
+            accent: "#2E2E2E"
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-gray-50">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <a href="cbt_tools.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+            <span class="font-medium">返回工具箱</span>
+          </a>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-cutlery text-white text-sm"></i>
+          </div>
+          <span class="text-lg font-bold text-primary">饮食情绪日志</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <div class="flex items-center">
+      <span class="mr-2">✓</span>
+      <span id="toastMessage"></span>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    
+    <!-- 标签切换 -->
+    <div class="bg-white rounded-2xl p-2 shadow-sm mb-8 flex gap-2">
+      <button id="recordTab" class="tab-btn active flex-1 px-6 py-3 rounded-lg font-medium" onclick="switchTab('record')">
+        <i class="fa fa-plus-circle mr-2"></i>
+        新增记录
+      </button>
+      <button id="reportTab" class="tab-btn flex-1 px-6 py-3 rounded-lg font-medium bg-gray-100 text-gray-600" onclick="switchTab('report')">
+        <i class="fa fa-bar-chart mr-2"></i>
+        周报告
+      </button>
+      <button id="historyTab" class="tab-btn flex-1 px-6 py-3 rounded-lg font-medium bg-gray-100 text-gray-600" onclick="switchTab('history')">
+        <i class="fa fa-history mr-2"></i>
+        历史记录
+      </button>
+    </div>
+
+    <!-- 记录表单 -->
+    <div id="recordSection" class="space-y-6">
+      
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-primary mb-2">记录饮食与情绪</h2>
+        <p class="text-sm text-gray-600 mb-6">
+          💚 食物无罪恶感,记录是为了了解自己,而不是限制自己
+        </p>
+
+        <div class="space-y-6">
+          
+          <!-- 用餐类型 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+              <i class="fa fa-clock-o text-primary mr-2"></i>
+              用餐类型
+            </label>
+            <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'breakfast')">
+                <div class="text-2xl mb-1">🌅</div>
+                <div class="text-sm">早餐</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'lunch')">
+                <div class="text-2xl mb-1">☀️</div>
+                <div class="text-sm">午餐</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'dinner')">
+                <div class="text-2xl mb-1">🌙</div>
+                <div class="text-sm">晚餐</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'snack')">
+                <div class="text-2xl mb-1">🍪</div>
+                <div class="text-sm">零食</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'drink')">
+                <div class="text-2xl mb-1">🥤</div>
+                <div class="text-sm">饮料</div>
+              </button>
+              <button class="meal-type-btn border-2 border-gray-200 rounded-lg p-3 text-center" onclick="selectMealType(this, 'other')">
+                <div class="text-2xl mb-1">🍽️</div>
+                <div class="text-sm">其他</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- 食物描述 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-apple text-primary mr-2"></i>
+              吃了什么？(简单描述即可)
+            </label>
+            <textarea 
+              id="foodDescription" 
+              rows="2" 
+              class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary focus:border-transparent"
+              placeholder="例如: 一碗拉面、两块蛋糕、
