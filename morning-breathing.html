@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>晨间觉醒呼吸 - MindFit</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+      background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+      color: #2E2E2E;
+      min-height: 100vh;
+    }
+
+    /* 导航栏 */
+    nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #E0E0E0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-back {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #666;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .nav-back:hover {
+      color: #FFB84D;
+      transform: translateX(-4px);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: #FFB84D;
+    }
+
+    /* 主内容 */
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .practice-stage {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .practice-stage.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 介绍页 */
+    .practice-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .practice-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+
+    .practice-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #FFB84D;
+      margin-bottom: 0.5rem;
+    }
+
+    .practice-description {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+    }
+
+    .practice-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      color: #666;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .info-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .info-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: #FFB84D;
+      margin-bottom: 1rem;
+    }
+
+    .info-card-content {
+      color: #666;
+      line-height: 1.8;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #FFF3E0;
+      color: #FFB84D;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .tips-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .tips-list li {
+      padding-left: 1.5rem;
+      position: relative;
+      margin-bottom: 0.5rem;
+      color: #666;
+    }
+
+    .tips-list li:before {
+      content: '💚';
+      position: absolute;
+      left: 0;
+    }
+
+    .body-neutral-card {
+      background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      gap: 1rem;
+      border: 2px solid #A5D6A7;
+    }
+
+    .body-neutral-card i {
+      color: #66BB6A;
+      font-size: 1.5rem;
+    }
+
+    .body-neutral-card p {
+      color: #2E7D32;
+      line-height: 1.8;
+      font-weight: 500;
+    }
+
+    /* 按钮 */
+    .btn-primary {
+      background: #FFB84D;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: #FFA726;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255, 184, 77, 0.3);
+    }
+
+    .btn-secondary {
+      background: white;
+      color: #2E2E2E;
+      border: 2px solid #E0E0E0;
+      padding: 1rem 2rem;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-secondary:hover {
+      border-color: #FFB84D;
+      background: #FFF3E0;
+    }
+
+    /* 练习页 */
+    .timer-display {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .timer-circle {
+      position: relative;
+      width: 200px;
+      height: 200px;
+    }
+
+    .timer-svg {
+      transform: rotate(-90deg);
+    }
+
+    .timer-bg {
+      fill: none;
+      stroke: #E0E0E0;
+      stroke-width: 8;
+    }
+
+    .timer-progress {
+      fill: none;
+      stroke: #FFB84D;
+      stroke-width: 8;
+      stroke-linecap: round;
+      stroke-dasharray: 565.48;
+      stroke-dashoffset: 565.48;
+      transition: stroke-dashoffset 1s linear;
+    }
+
+    .timer-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #FFB84D;
+    }
+
+    .step-indicator {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .step-indicator span:first-child {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #FFB84D;
+    }
+
+    .step-content {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      min-height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .step-text {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      color: #2E2E2E;
+      text-align: center;
+    }
+
+    .practice-controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .practice-controls button {
+      flex: 1;
+    }
+
+    /* 完成页 */
+    .celebration {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .celebration-icon {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      animation: bounce 1s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .celebration-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #FFB84D;
+      margin-bottom: 0.5rem;
+    }
+
+    .celebration-text {
+      font-size: 1.1rem;
+      color: #666;
+    }
+
+    .feedback-form {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .feedback-question {
+      margin-bottom: 1.5rem;
+    }
+
+    .feedback-question label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .mood-selector {
+      display: flex;
+      justify-content: space-around;
+      gap: 0.5rem;
+    }
+
+    .mood-btn {
+      width: 60px;
+      height: 60px;
+      border: 3px solid #E0E0E0;
+      border-radius: 50%;
+      background: white;
+      font-size: 2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .mood-btn:hover {
+      transform: scale(1.1);
+      border-color: #FFB84D;
+    }
+
+    .mood-btn.selected {
+      border-color: #FFB84D;
+      background: #FFF3E0;
+      transform: scale(1.15);
+    }
+
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #E0E0E0;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    textarea:focus {
+      outline: none;
+      border-color: #FFB84D;
+    }
+
+    .complete-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .btn-text {
+      background: none;
+      border: none;
+      color: #666;
+      cursor: pointer;
+      padding: 0.5rem;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+
+    .btn-text:hover {
+      color: #FFB84D;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #FFB84D;
+      color: white;
+      padding: 1rem 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateX(400px);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    @media (max-width: 768px) {
+      .practice-title {
+        font-size: 1.5rem;
+      }
+      
+      .timer-circle {
+        width: 160px;
+        height: 160px;
+      }
+      
+      .timer-text {
+        font-size: 2rem;
+      }
+      
+      .mood-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 导航栏 -->
+  <nav>
+    <div class="nav-container">
+      <a href="daily_practice.html" class="nav-back">
+        <i class="fa fa-arrow-left"></i>
+        <span>返回练习</span>
+      </a>
+      <div class="nav-brand">
+        <i class="fa fa-leaf"></i>
+        <span>MindFit</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- 主内容 -->
+  <main>
+    <!-- 介绍阶段 -->
+    <div id="intro-stage" class="practice-stage active">
+      <div class="practice-header">
+        <div class="practice-icon">🌅</div>
+        <h1 class="practice-title">晨间觉醒呼吸</h1>
+        <p class="practice-description">用温柔的呼吸唤醒身体，开启充满活力的一天</p>
+        
+        <div class="practice-meta">
+          <span class="meta-item">
+            <i class="fa fa-clock-o"></i>
+            5分钟
+          </span>
+          <span class="meta-item">
+            <i class="fa fa-signal"></i>
+            简单
+          </span>
+        </div>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-card-title">
+          <i class="fa fa-lightbulb-o"></i>
+          为什么有效？
+        </div>
+        <p class="info-card-content">早晨的深呼吸可以增加血液含氧量，激活副交感神经系统，帮助身体从睡眠状态平稳过渡到清醒状态，让你以更好的状态开始新的一天。</p>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-card-title">
+          <i class="fa fa-calendar-check-o"></i>
+          最适合
+        </div>
+        <div class="info-card-content">
+          <span class="tag">• 起床后立即练习</span>
+          <span class="tag">• 开始工作前</span>
+          <span class="tag">• 感觉昏沉时</span>
+          <span class="tag">• 需要提神时</span>
+        </div>
+      </div>
+      
+      <div class="info-card">
+        <div class="info-card-title">
+          <i class="fa fa-heart-o"></i>
+          温馨提示
+        </div>
+        <ul class="tips-list">
+          <li>如果起床后感觉头晕，可以先坐一会儿再开始</li>
+          <li>不需要强求完美的节奏，找到自己舒服的速度就好</li>
+          <li>可以在呼吸时轻轻拉伸脖子和肩膀</li>
+          <li>如果注意力分散了，温柔地把它带回到呼吸上</li>
+        </ul>
+      </div>
+      
+      <div class="body-neutral-card">
+        <i class="fa fa-heart"></i>
+        <p>感谢身体给你新的一天。每一次呼吸都是身体在迎接清晨，不需要完美，只需要温柔地陪伴自己。</p>
+      </div>
+      
+      <button class="btn-primary" onclick="startPractice()">
+        <i class="fa fa-play"></i>
+        开始练习
+      </button>
+    </div>
+
+    <!-- 练习阶段 -->
+    <div id="practice-stage" class="practice-stage">
+      <div class="timer-display">
+        <div class="timer-circle">
+          <svg class="timer-svg" viewBox="0 0 200 200">
+            <circle class="timer-bg" cx="100" cy="100" r="90"></circle>
+            <circle class="timer-progress" id="timer-progress" cx="100" cy="100" r="90"></circle>
+          </svg>
+          <div class="timer-text" id="timer-text">5:00</div>
+        </div>
+      </div>
+      
+      <div class="step-indicator">
+        <span id="current-step">1</span> / <span id="total-steps">8</span>
+      </div>
+      
+      <div class="step-content">
+        <div class="step-text" id="step-text"></div>
+      </div>
+      
+      <div class="practice-controls">
+        <button id="pause-btn" class="btn-secondary" onclick="togglePause()">
+          <i class="fa fa-pause"></i>
+          <span id="pause-text">暂停</span>
+        </button>
+        <button class="btn-primary" onclick="nextStep()">
+          <span id="next-text">下一步</span>
+          <i class="fa fa-arrow-right"></i>
+        </button>
+      </div>
+      
+      <button class="btn-text" onclick="endPractice()" style="width:100%">
+        提前结束
+      </button>
+    </div>
+
+    <!-- 完成阶段 -->
+    <div id="complete-stage" class="practice-stage">
+      <div class="celebration">
+        <div class="celebration-icon">🎉</div>
+        <h2 class="celebration-title">太棒了！</h2>
+        <p class="celebration-text">你完成了《晨间觉醒呼吸》</p>
+      </div>
+      
+      <div class="feedback-form">
+        <div class="feedback-question">
+          <label>练习后的感受如何？</label>
+          <div class="mood-selector">
+            <button class="mood-btn" onclick="selectMood(this, 1)">😟</button>
+            <button class="mood-btn" onclick="selectMood(this, 2)">😐</button>
+            <button class="mood-btn" onclick="selectMood(this, 3)">🙂</button>
+            <button class="mood-btn" onclick="selectMood(this, 4)">😊</button>
+            <button class="mood-btn" onclick="selectMood(this, 5)">😄</button>
+          </div>
+        </div>
+        
+        <div class="feedback-question">
+          <label>简短笔记（可选）</label>
+          <textarea id="practice-notes" placeholder="记录你的感受和想法..."></textarea>
+        </div>
+      </div>
+      
+      <div class="complete-actions">
+        <button class="btn-primary" onclick="saveRecord()">
+          <i class="fa fa-check"></i>
+          保存记录
+        </button>
+        <button class="btn-secondary" onclick="location.reload()">
+          <i class="fa fa-refresh"></i>
+          再练一次
+        </button>
+        <a href="daily_practice.html" class="btn-text">
+          返回练习列表
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // 练习配置
+    const GUIDE_STEPS = [
+      '🛏️ 准备：坐在床边或找一个舒服的位置，让脊椎自然挺直但不紧绷',
+      '👀 觉察：闭上眼睛，感受身体现在的状态。注意：不需要评判好坏',
+      '🌬️ 吸气：通过鼻子缓慢吸气4秒，感受空气进入身体，腹部自然扩张',
+      '⏸️ 停顿：轻轻屏住呼吸2秒，保持放松，不要紧张',
+      '💨 呼气：通过嘴巴慢慢呼气6秒，想象释放昨天的疲惫',
+      '🔄 重复：继续这个节奏（吸4-停2-呼6），进行5-8个循环',
+      '🌅 想象：每次吸气时，想象吸入清晨的新鲜能量和温暖的阳光',
+      '💚 感谢：结束前，把手放在心口，对身体说："谢谢你给我新的一天"'
+    ];
+
+    // 全局变量
+    let currentStep = 0;
+    let isPaused = false;
+    let remainingTime = 300; // 5分钟
+    let timer = null;
+    let selectedMoodValue = null;
+
+    // 开始练习
+    function startPractice() {
+      switchStage('intro-stage', 'practice-stage');
+      currentStep = 0;
+      showStep(0);
+      startTimer();
+      showToast('练习开始，请跟随指导进行');
+    }
+
+    // 显示步骤
+    function showStep(index) {
+      document.getElementById('current-step').textContent = index + 1;
+      document.getElementById('step-text').textContent = GUIDE_STEPS[index];
+      
+      const nextBtn = document.getElementById('next-text');
+      if (index === GUIDE_STEPS.length - 1) {
+        nextBtn.textContent = '完成';
+      } else {
+        nextBtn.textContent = '下一步';
+      }
+    }
+
+    // 下一步
+    function nextStep() {
+      currentStep++;
+      if (currentStep >= GUIDE_STEPS.length) {
+        completePractice();
+      } else {
+        showStep(currentStep);
+      }
+    }
+
+    // 计时器
+    function startTimer() {
+      if (timer) return;
+      timer = setInterval(() => {
+        if (!isPaused && remainingTime > 0) {
+          remainingTime--;
+          updateTimerDisplay();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(remainingTime / 60);
+      const secs = remainingTime % 60;
+      document.getElementById('timer-text').textContent = 
+        `${mins}:${secs.toString().padStart(2, '0')}`;
+      
+      const progress = (300 - remainingTime) / 300;
+      const circumference = 2 * Math.PI * 90;
+      const offset = circumference - (progress * circumference);
+      document.getElementById('timer-progress').style.strokeDashoffset = offset;
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      const pauseBtn = document.getElementById('pause-text');
+      if (isPaused) {
+        pauseBtn.textContent = '继续';
+      } else {
+        pauseBtn.textContent = '暂停';
+      }
+    }
+
+    // 完成练习
+    function completePractice() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      switchStage('practice-stage', 'complete-stage');
+      showConfetti();
+      playSound();
+    }
+
+    // 提前结束
+    function endPractice() {
+      if (confirm('确定要提前结束练习吗？')) {
+        location.href = 'daily_practice.html';
+      }
+    }
+
+    // 选择心情
+    function selectMood(btn, value) {
+      document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedMoodValue = value;
+    }
+
+    // 保存记录
+    function saveRecord() {
+      const notes = document.getElementById('practice-notes').value;
+      const record = {
+        id: Date.now(),
+        title: '晨间觉醒呼吸',
+        category: 'morning',
+        duration: 5,
+        date: new Date().toISOString(),
+        mood: selectedMoodValue,
+        notes: notes.trim()
+      };
+      
+      const history = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      history.push(record);
+      localStorage.setItem('practiceHistory', JSON.stringify(history));
+      
+      showToast('记录已保存！');
+      setTimeout(() => {
+        location.href = 'daily_practice.html';
+      }, 1500);
+    }
+
+    // 切换阶段
+    function switchStage(fromId, toId) {
+      document.getElementById(fromId).classList.remove('active');
+      document.getElementById(toId).classList.add('active');
+    }
+
+    // Toast
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // 彩带
+    function showConfetti() {
+      const colors = ['#FFB84D', '#FFA726', '#FF9800', '#FFD54F', '#FFECB3'];
+      for (let i = 0; i < 50; i++) {
+        const confetti = document.createElement('div');
+        confetti.style.cssText = `
+          position: fixed;
+          left: ${Math.random() * 100}%;
+          top: -20px;
+          width: 10px;
+          height: 10px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          animation: fall ${2 + Math.random() * 2}s ease-in forwards;
+          z-index: 9999;
+        `;
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 5000);
+      }
+    }
+
+    // 音效
+    function playSound() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        [523.25, 659.25, 783.99].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.frequency.value = freq;
+          osc.type = 'sine';
+          gain.gain.setValueAtTime(0.3, ctx.currentTime + i * 0.1);
+          gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.1 + 0.3);
+          osc.start(ctx.currentTime + i * 0.1);
+          osc.stop(ctx.currentTime + i * 0.1 + 0.3);
+        });
+      } catch (e) {}
+    }
+
+    const style = document.createElement('style');
+    style.textContent = '@keyframes fall { to { transform: translateY(100vh) rotate(720deg); opacity: 0; } }';
+    document.head.appendChild(style);
+  </script>
+
+</body>
+</html>
