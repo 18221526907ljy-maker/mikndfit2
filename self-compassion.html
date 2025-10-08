@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自我慈悲练习 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    .heart-pulse { animation: heartbeat 1.5s ease-in-out infinite; }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      10%, 30% { transform: scale(1.1); }
+      20%, 40% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-amber-50 via-yellow-50 to-orange-50 min-h-screen">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="daily_practice.html" class="text-amber-600 hover:text-amber-700">
+        <i class="fas fa-arrow-left mr-2"></i>返回练习
+      </a>
+      <h1 class="text-lg font-semibold text-gray-800">自我慈悲练习</h1>
+      <div class="w-20"></div>
+    </div>
+  </nav>
+
+  <!-- 主要内容 -->
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    
+    <!-- 练习介绍 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <div class="text-center mb-6">
+        <div class="w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-hand-holding-heart text-3xl text-white"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">温柔对待自己</h2>
+        <p class="text-gray-600">学会像对待好朋友一样关爱自己</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <div class="text-center p-4 bg-amber-50 rounded-xl">
+          <i class="fas fa-clock text-amber-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">建议时长</div>
+          <div class="text-lg font-semibold text-gray-800">5-10分钟</div>
+        </div>
+        <div class="text-center p-4 bg-yellow-50 rounded-xl">
+          <i class="fas fa-star text-yellow-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">难度等级</div>
+          <div class="text-lg font-semibold text-gray-800">简单</div>
+        </div>
+        <div class="text-center p-4 bg-orange-50 rounded-xl">
+          <i class="fas fa-seedling text-orange-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">主要效果</div>
+          <div class="text-lg font-semibold text-gray-800">提升自我接纳</div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl p-6 mb-6">
+        <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
+          <i class="fas fa-info-circle text-amber-600 mr-2"></i>
+          什么是自我慈悲?
+        </h3>
+        <p class="text-gray-700 text-sm leading-relaxed mb-3">
+          自我慈悲(Self-Compassion)是指在遇到困难、失败或感到不足时,像对待亲密朋友一样温柔地对待自己,而不是严厉批评或苛责自己。
+        </p>
+        <div class="grid md:grid-cols-3 gap-3 text-sm">
+          <div class="bg-white rounded-lg p-3">
+            <div class="font-semibold text-amber-700 mb-1">自我善待</div>
+            <div class="text-gray-600">温柔而非严厉</div>
+          </div>
+          <div class="bg-white rounded-lg p-3">
+            <div class="font-semibold text-amber-700 mb-1">共同人性</div>
+            <div class="text-gray-600">每个人都会犯错</div>
+          </div>
+          <div class="bg-white rounded-lg p-3">
+            <div class="font-semibold text-amber-700 mb-1">正念觉察</div>
+            <div class="text-gray-600">接纳而非逃避</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-amber-50 border-l-4 border-amber-400 rounded-r-xl p-4">
+        <p class="text-sm text-gray-700">
+          <i class="fas fa-quote-left text-amber-400 mr-2"></i>
+          研究表明,自我慈悲练习可以显著降低焦虑和抑郁水平,提升心理韧性和生活满意度。
+          <i class="fas fa-quote-right text-amber-400 ml-2"></i>
+        </p>
+      </div>
+    </div>
+
+    <!-- 选择练习场景 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <h3 class="text-xl font-semibold text-gray-800 mb-6 text-center">选择你的情况</h3>
+      <div class="grid md:grid-cols-2 gap-4">
+        <button onclick="startPractice('struggle')" class="p-6 border-2 border-amber-400 bg-amber-50 rounded-2xl hover:bg-amber-100 transition-all text-left">
+          <div class="flex items-center mb-3">
+            <i class="fas fa-cloud-rain text-amber-600 text-2xl mr-3"></i>
+            <div class="text-lg font-semibold text-gray-800">正在经历困难</div>
+          </div>
+          <p class="text-sm text-gray-600">感到难过、焦虑或自责时使用</p>
+          <div class="mt-3 text-xs text-amber-600 font-medium">推荐 ⭐</div>
+        </button>
+
+        <button onclick="startPractice('daily')" class="p-6 border-2 border-gray-200 rounded-2xl hover:border-amber-400 hover:bg-amber-50 transition-all text-left">
+          <div class="flex items-center mb-3">
+            <i class="fas fa-sun text-amber-600 text-2xl mr-3"></i>
+            <div class="text-lg font-semibold text-gray-800">日常练习</div>
+          </div>
+          <p class="text-sm text-gray-600">培养自我关爱的习惯</p>
+        </button>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 练习模态框 -->
+  <div id="practiceModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 max-h-[90vh] overflow-y-auto">
+      
+      <div class="text-center mb-8">
+        <div class="heart-pulse w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-heart text-2xl text-white"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">自我慈悲冥想</h3>
+        <p id="scenarioTitle" class="text-gray-600"></p>
+      </div>
+
+      <!-- 引导步骤 -->
+      <div id="guidedSteps" class="space-y-6 mb-8">
+        <!-- 动态生成 -->
+      </div>
+
+      <!-- 计时器 -->
+      <div class="text-center mb-6">
+        <div id="timeDisplay" class="text-3xl font-bold text-amber-600">5:00</div>
+        <div class="text-sm text-gray-500 mt-1">练习时间</div>
+      </div>
+
+      <!-- 慈悲短语 -->
+      <div class="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-2xl p-6 mb-6">
+        <h4 class="font-semibold text-gray-800 mb-4 text-center">慈悲短语(默念或轻声朗读)</h4>
+        <div class="space-y-3 text-center">
+          <p class="text-gray-700 italic">"愿我平安,远离危险"</p>
+          <p class="text-gray-700 italic">"愿我健康,身心安好"</p>
+          <p class="text-gray-700 italic">"愿我快乐,内心喜悦"</p>
+          <p class="text-gray-700 italic">"愿我轻松,自在生活"</p>
+        </div>
+      </div>
+
+      <!-- 控制按钮 -->
+      <div class="flex gap-3">
+        <button id="pauseBtn" onclick="togglePause()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-medium transition-all">
+          <i class="fas fa-pause mr-2"></i>暂停
+        </button>
+        <button onclick="completePractice()" class="flex-1 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white py-3 rounded-xl font-medium transition-all">
+          <i class="fas fa-check mr-2"></i>完成练习
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    let timer = null;
+    let totalSeconds = 300;
+    let remainingSeconds = 300;
+    let isPaused = false;
+    let currentScenario = '';
+
+    const scenarios = {
+      struggle: {
+        title: '困难时刻的自我关爱',
+        steps: [
+          {
+            icon: 'fa-hand-holding-heart',
+            title: '觉察痛苦',
+            content: '轻轻闭上眼睛,承认此刻的痛苦或困难。不需要逃避或否认,只是温柔地觉察它的存在。',
+            time: 60
+          },
+          {
+            icon: 'fa-users',
+            title: '共同人性',
+            content: '提醒自己:痛苦是人生的一部分,每个人都会经历困难。你并不孤单,这不是你的错。',
+            time: 90
+          },
+          {
+            icon: 'fa-heart',
+            title: '自我善待',
+            content: '将手放在心口,感受温暖。对自己说:"这很难,但我值得被温柔对待。"像对待好朋友一样关爱自己。',
+            time: 120
+          },
+          {
+            icon: 'fa-om',
+            title: '慈悲冥想',
+            content: '在心中默念慈悲短语,让这些祝福环绕着你。允许自己被爱和关怀包围。',
+            time: 30
+          }
+        ]
+      },
+      daily: {
+        title: '日常自我慈悲练习',
+        steps: [
+          {
+            icon: 'fa-smile',
+            title: '感恩时刻',
+            content: '想一想今天你做得好的事情,哪怕很小。也许是按时起床,完成了一项任务,或对他人友善。',
+            time: 60
+          },
+          {
+            icon: 'fa-leaf',
+            title: '接纳不完美',
+            content: '承认自己也有不足和局限,这很正常。完美不是目标,成长才是。',
+            time: 90
+          },
+          {
+            icon: 'fa-heart',
+            title: '培养善意',
+            content: '将手放在心口,在心中对自己说:"我值得被爱和关心,包括来自我自己的爱。"',
+            time: 90
+          },
+          {
+            icon: 'fa-seedling',
+            title: '设定意图',
+            content: '为今天或明天设定一个自我关爱的小目标,比如按时休息、好好吃饭,或给自己一些独处时间。',
+            time: 60
+          }
+        ]
+      }
+    };
+
+    function startPractice(scenario) {
+      currentScenario = scenario;
+      const scenarioData = scenarios[scenario];
+      
+      document.getElementById('scenarioTitle').textContent = scenarioData.title;
+      
+      // 生成步骤
+      const stepsContainer = document.getElementById('guidedSteps');
+      stepsContainer.innerHTML = scenarioData.steps.map((step, index) => `
+        <div class="flex gap-4 p-4 bg-amber-50 rounded-xl">
+          <div class="flex-shrink-0 w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center">
+            <i class="fas ${step.icon} text-xl"></i>
+          </div>
+          <div class="flex-1">
+            <h4 class="font-semibold text-gray-800 mb-2">${index + 1}. ${step.title}</h4>
+            <p class="text-sm text-gray-600 leading-relaxed">${step.content}</p>
+            <div class="text-xs text-amber-600 mt-2">约 ${step.time} 秒</div>
+          </div>
+        </div>
+      `).join('');
+
+      totalSeconds = scenarioData.steps.reduce((sum, step) => sum + step.time, 0);
+      remainingSeconds = totalSeconds;
+      
+      document.getElementById('practiceModal').classList.remove('hidden');
+      startTimer();
+    }
+
+    function startTimer() {
+      timer = setInterval(() => {
+        if (!isPaused && remainingSeconds > 0) {
+          remainingSeconds--;
+          updateDisplay();
+          
+          if (remainingSeconds === 0) {
+            completePractice();
+          }
+        }
+      }, 1000);
+    }
+
+    function updateDisplay() {
+      const minutes = Math.floor(remainingSeconds / 60);
+      const seconds = remainingSeconds % 60;
+      document.getElementById('timeDisplay').textContent = 
+        `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      const btn = document.getElementById('pauseBtn');
+      btn.innerHTML = isPaused ? 
+        '<i class="fas fa-play mr-2"></i>继续' : 
+        '<i class="fas fa-pause mr-2"></i>暂停';
+    }
+
+    function completePractice() {
+      clearInterval(timer);
+      savePracticeRecord();
+      alert('💛 练习完成!记住:你值得被温柔对待,尤其是被自己。');
+      document.getElementById('practiceModal').classList.add('hidden');
+    }
+
+    function savePracticeRecord() {
+      const record = {
+        id: Date.now(),
+        title: '自我慈悲练习',
+        category: 'mindful',
+        duration: Math.floor((totalSeconds - remainingSeconds) / 60),
+        date: new Date().toISOString(),
+        timestamp: Date.now()
+      };
+
+      const history = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      history.push(record);
+      localStorage.setItem('practiceHistory', JSON.stringify(history));
+    }
+  </script>
+
+</body>
+</html>
