@@ -1,4 +1,86 @@
-<!DOCTYPE html>
+<!-- 思维记录 -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm" data-category="general" onclick="window.location.href='thought_record.html'">
+          <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-pencil text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-2">思维记录</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            记录负面想法，识别认知扭曲，用理性思维替代
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500" id="thoughtCount">0 条记录</span>
+            <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-mint transition-colors">
+              开始记录 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 情绪日记 -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm" data-category="general" onclick="window.location.href='emotion_diary.html'">
+          <div class="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-heart text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-2">情绪日记</h3>
+          <p class="text-sm text-gray-600 mb-4">
+            追踪每日情绪变化，识别情绪触发点和模式
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500" id="emotionCount">0 条记录</span>
+            <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-mint transition-colors">
+              记录情绪 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 身体中立专属工具 -->
+        
+        <!-- 身体意象认知重构 -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm" data-category="body-neutral" onclick="window.location.href='body-image-reframe.html'">
+          <div class="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-user-circle text-green-600 text-2xl"></i>
+          </div>
+          <div class="flex items-center mb-2">
+            <h3 class="text-xl font-bold text-primary">身体意象重构</h3>
+            <span class="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded">🆕</span>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">
+            系统性识别和改变对身体的负面思维模式
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500" id="bodyImageCount">0 条记录</span>
+            <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-mint transition-colors">
+              开始记录 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 社交媒体影响追踪 -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm" data-category="body-neutral" onclick="window.location.href='social-media-tracker.html'">
+          <div class="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-mobile text-cyan-600 text-2xl"></i>
+          </div>
+          <div class="flex items-center mb-2">
+            <h3 class="text-xl font-bold text-primary">社交媒体追踪</h3>
+            <span class="ml-2 text-xs bg-cyan-100 text-cyan-700 px-2 py-1 rounded">🆕</span>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">
+            记录社交媒体使用后的情绪变化
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500" id="socialMediaCount">0 条记录</span>
+            <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-mint transition-colors">
+              开始追踪 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 饮食情绪日志 -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm" data-category="body-neutral" onclick="window.location.href='eating-emotion-log.html'">
+          <div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-cutlery text-amber-600 text-2xl"></i>
+          </div>
+          <div class="flex items-center mb-2">
+            <h3 class="text-<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
@@ -26,6 +108,7 @@
     .tool-card {
       transition: all 0.3s ease;
       cursor: pointer;
+      /* ✨ 修复:移除初始opacity,由JavaScript控制 */
     }
     
     .tool-card:hover {
@@ -65,7 +148,7 @@
     .badge-medium { background: rgba(249, 115, 22, 0.1); color: #ea580c; }
     .badge-low { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
 
-    /* ✨ 新增:页面加载动画 */
+    /* ✨ 页面加载动画 */
     .page-content {
       opacity: 0;
       transform: translateY(30px);
@@ -79,16 +162,16 @@
       }
     }
     
-    /* ✨ 新增:工具卡片渐入动画 */
-    .tool-card {
+    /* ✨ 工具卡片渐入动画 - 初始隐藏 */
+    .tool-card.will-animate {
       opacity: 0;
       transform: scale(0.92) translateY(20px);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
     .tool-card.animate-in {
       opacity: 1;
       transform: scale(1) translateY(0);
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
   </style>
 </head>
@@ -215,4 +298,409 @@
             系统性识别和改变对身体的负面思维模式
           </p>
           <div class="flex items-center justify-between">
-            <span class="text-xs text-gray-500" id="bodyImageCount">0 条记录
+            <span class="text-xs text-gray-500" id="bodyImageCount">0 条记录</span>
+            <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-mint transition-colors">
+              开始记录 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 社交媒体影响追踪 -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm" data-category="body-neutral" onclick="window.location.href='social-media-tracker.html'">
+          <div class="w-16 h-16 bg-cyan-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-mobile text-cyan-600 text-2xl"></i>
+          </div>
+          <div class="flex items-center mb-2">
+            <h3 class="text-xl font-bold text-primary">社交媒体追踪</h3>
+            <span class="ml-2 text-xs bg-cyan-100 text-cyan-700 px-2 py-1 rounded">🆕</span>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">
+            记录社交媒体使用后的情绪变化
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500" id="socialMediaCount">0 条记录</span>
+            <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-mint transition-colors">
+              开始追踪 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 饮食情绪日志 -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm" data-category="body-neutral" onclick="window.location.href='eating-emotion-log.html'">
+          <div class="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-cutlery text-amber-600 text-2xl"></i>
+          </div>
+          <div class="flex items-center mb-2">
+            <h3 class="text-xl font-bold text-primary">饮食情绪日志</h3>
+            <span class="ml-2 text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded">🆕</span>
+          </div>
+          <p class="text-sm text-gray-600 mb-4">
+            识别情绪化进食模式,建立健康饮食关系
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-500" id="eatingEmotionCount">0 条记录</span>
+            <button class="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-mint transition-colors">
+              记录饮食 →
+            </button>
+          </div>
+        </div>
+
+        <!-- 行为实验(即将推出) -->
+        <div class="tool-card bg-white rounded-2xl p-6 shadow-sm opacity-60" data-category="general">
+          <div class="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4">
+            <i class="fa fa-flask text-gray-400 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-gray-400 mb-2">行为实验</h3>
+          <p class="text-sm text-gray-400 mb-4">
+            测试负面预期，用实际经验挑战焦虑想法
+          </p>
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-gray-400">即将推出</span>
+            <button class="bg-gray-200 text-gray-400 px-4 py-2 rounded-lg text-sm font-medium cursor-not-allowed">
+              敬请期待
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- 最近的记录 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-xl font-semibold text-primary">最近的记录</h2>
+          <button onclick="refreshRecords()" class="text-primary hover:text-mint transition-colors">
+            <i class="fa fa-refresh"></i> 刷新
+          </button>
+        </div>
+
+        <div id="recentRecords">
+          <!-- 动态加载 -->
+        </div>
+
+        <!-- 空状态 -->
+        <div id="emptyState" class="text-center py-12 hidden">
+          <div class="text-6xl mb-4">📝</div>
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">还没有记录</h3>
+          <p class="text-gray-500 mb-6">开始你的第一次记录，建立更健康的思维模式</p>
+          <button onclick="window.location.href='thought_record.html'" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-mint transition-colors">
+            开始记录
+          </button>
+        </div>
+      </div>
+
+      <!-- 配套练习推荐 -->
+      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+        <h3 class="text-xl font-bold text-purple-900 mb-4">
+          <i class="fa fa-lightbulb-o mr-2"></i>
+          💡 配套轻量练习推荐
+        </h3>
+        <p class="text-sm text-purple-800 mb-4">
+          使用深度工具前，先做一次轻量练习可以帮助你更好地准备心态
+        </p>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-white rounded-lg p-4 border border-purple-200">
+            <div class="font-medium text-gray-800 mb-2">🪞 镜子友善练习</div>
+            <p class="text-xs text-gray-600 mb-3">配套:身体意象重构工具</p>
+            <button onclick="window.location.href='mirror-kindness.html'" class="w-full bg-purple-100 hover:bg-purple-200 text-purple-700 py-2 rounded text-sm transition-colors">
+              去练习
+            </button>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 border border-purple-200">
+            <div class="font-medium text-gray-800 mb-2">📱 社交媒体清醒</div>
+            <p class="text-xs text-gray-600 mb-3">配套:社交媒体追踪器</p>
+            <button onclick="window.location.href='social-media-detox.html'" class="w-full bg-purple-100 hover:bg-purple-200 text-purple-700 py-2 rounded text-sm transition-colors">
+              去练习
+            </button>
+          </div>
+          
+          <div class="bg-white rounded-lg p-4 border border-purple-200">
+            <div class="font-medium text-gray-800 mb-2">🍽️ 无罪感饮食</div>
+            <p class="text-xs text-gray-600 mb-3">配套:饮食情绪日志</p>
+            <button onclick="window.location.href='mindful-eating-light.html'" class="w-full bg-purple-100 hover:bg-purple-200 text-purple-700 py-2 rounded text-sm transition-colors">
+              去练习
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 使用技巧 -->
+      <div class="mt-8 bg-white rounded-2xl p-6 shadow-sm">
+        <h3 class="font-semibold text-primary mb-4">💡 使用技巧</h3>
+        <div class="space-y-3 text-sm text-gray-600">
+          <div class="flex items-start">
+            <span class="text-mint mr-2">✓</span>
+            <span>每天花5-10分钟记录，效果最佳</span>
+          </div>
+          <div class="flex items-start">
+            <span class="text-mint mr-2">✓</span>
+            <span>在情绪强烈时记录，更容易识别负面想法</span>
+          </div>
+          <div class="flex items-start">
+            <span class="text-mint mr-2">✓</span>
+            <span>定期回顾记录，观察自己的进步</span>
+          </div>
+          <div class="flex items-start">
+            <span class="text-mint mr-2">✓</span>
+            <span>不要强求完美，记录本身就是练习</span>
+          </div>
+          <div class="flex items-start">
+            <span class="text-mint mr-2">✓</span>
+            <span>配合轻量练习使用，效果更佳</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // ============================================
+    // Toast 提示
+    // ============================================
+    
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // ============================================
+    // 分类过滤
+    // ============================================
+    
+    function initToolFilter() {
+      const filterBtns = document.querySelectorAll('.tool-filter-btn');
+      const toolCards = document.querySelectorAll('.tool-card');
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const category = btn.dataset.category;
+          
+          // 更新按钮状态
+          filterBtns.forEach(b => {
+            b.classList.remove('bg-primary', 'text-white');
+            b.classList.add('bg-gray-200', 'text-gray-600');
+          });
+          btn.classList.remove('bg-gray-200', 'text-gray-600');
+          btn.classList.add('bg-primary', 'text-white');
+          
+          // 过滤卡片
+          toolCards.forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+
+          // 重新触发动画
+          animateToolCards();
+        });
+      });
+    }
+
+    // ============================================
+    // 加载统计
+    // ============================================
+    
+    function loadStats() {
+      try {
+        const thoughtRecords = JSON.parse(localStorage.getItem('thoughtRecords') || '[]');
+        const emotionDiary = JSON.parse(localStorage.getItem('emotionDiary') || '[]');
+        const bodyImageRecords = JSON.parse(localStorage.getItem('bodyImageRecords') || '[]');
+        const socialMediaRecords = JSON.parse(localStorage.getItem('socialMediaRecords') || '[]');
+        const eatingEmotionRecords = JSON.parse(localStorage.getItem('eatingEmotionRecords') || '[]');
+        
+        document.getElementById('thoughtCount').textContent = `${thoughtRecords.length} 条记录`;
+        document.getElementById('emotionCount').textContent = `${emotionDiary.length} 条记录`;
+        document.getElementById('bodyImageCount').textContent = `${bodyImageRecords.length} 条记录`;
+        document.getElementById('socialMediaCount').textContent = `${socialMediaRecords.length} 条记录`;
+        document.getElementById('eatingEmotionCount').textContent = `${eatingEmotionRecords.length} 条记录`;
+        
+        loadRecentRecords(thoughtRecords, emotionDiary, bodyImageRecords, socialMediaRecords, eatingEmotionRecords);
+      } catch (error) {
+        console.error('加载统计失败:', error);
+      }
+    }
+
+    // ============================================
+    // 加载最近的记录
+    // ============================================
+    
+    function loadRecentRecords(thoughtRecords, emotionDiary, bodyImageRecords, socialMediaRecords, eatingEmotionRecords) {
+      const container = document.getElementById('recentRecords');
+      const emptyState = document.getElementById('emptyState');
+      
+      // 合并所有记录并排序
+      const allRecords = [
+        ...thoughtRecords.map(r => ({ ...r, type: 'thought' })),
+        ...emotionDiary.map(r => ({ ...r, type: 'emotion' })),
+        ...bodyImageRecords.map(r => ({ ...r, type: 'body-image' })),
+        ...socialMediaRecords.map(r => ({ ...r, type: 'social-media' })),
+        ...eatingEmotionRecords.map(r => ({ ...r, type: 'eating-emotion' }))
+      ].sort((a, b) => b.id - a.id).slice(0, 8);
+      
+      if (allRecords.length === 0) {
+        container.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      
+      container.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      
+      container.innerHTML = allRecords.map(record => {
+        switch(record.type) {
+          case 'thought': return renderThoughtRecord(record);
+          case 'emotion': return renderEmotionRecord(record);
+          case 'body-image': return renderBodyImageRecord(record);
+          default: return '';
+        }
+      }).join('');
+    }
+
+    // 渲染思维记录
+    function renderThoughtRecord(record) {
+      const date = new Date(record.id);
+      const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+      const timeStr = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+      
+      const intensityBadge = record.emotionIntensity >= 7 ? 'badge-high' : 
+                             record.emotionIntensity >= 4 ? 'badge-medium' : 'badge-low';
+      
+      return `
+        <div class="record-item p-4 border-b border-gray-100 last:border-0">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <i class="fa fa-pencil text-blue-600 text-sm"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">思维记录</div>
+                <div class="text-xs text-gray-500">${dateStr} ${timeStr}</div>
+              </div>
+            </div>
+            <span class="badge ${intensityBadge}">
+              强度 ${record.emotionIntensity}/10
+            </span>
+          </div>
+          <p class="text-sm text-gray-600 line-clamp-2 ml-10">
+            ${record.negativeThought}
+          </p>
+        </div>
+      `;
+    }
+
+    // 渲染情绪日记
+    function renderEmotionRecord(record) {
+      const date = new Date(record.id);
+      const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+      const timeStr = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+      
+      return `
+        <div class="record-item p-4 border-b border-gray-100 last:border-0">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                <i class="fa fa-heart text-purple-600 text-sm"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">情绪日记</div>
+                <div class="text-xs text-gray-500">${dateStr} ${timeStr}</div>
+              </div>
+            </div>
+            <span class="text-xl">${record.emoji}</span>
+          </div>
+          <p class="text-sm text-gray-600 line-clamp-2 ml-10">
+            ${record.emotionLabel} - ${record.trigger || '无特定触发因素'}
+          </p>
+        </div>
+      `;
+    }
+
+    // 渲染身体意象记录
+    function renderBodyImageRecord(record) {
+      const date = new Date(record.date);
+      const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+      const timeStr = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+      
+      const beliefChange = record.beliefBefore - record.beliefAfter;
+      const changeBadge = beliefChange > 0 ? 'badge-low' : beliefChange < 0 ? 'badge-high' : 'badge-medium';
+      
+      return `
+        <div class="record-item p-4 border-b border-gray-100 last:border-0">
+          <div class="flex items-start justify-between mb-2">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                <i class="fa fa-user-circle text-green-600 text-sm"></i>
+              </div>
+              <div>
+                <div class="font-medium text-gray-800">身体意象重构</div>
+                <div class="text-xs text-gray-500">${dateStr} ${timeStr}</div>
+              </div>
+            </div>
+            <span class="badge ${changeBadge}">
+              ${beliefChange > 0 ? '↓' : '↑'} ${Math.abs(beliefChange)} 分
+            </span>
+          </div>
+          <p class="text-sm text-gray-600 line-clamp-2 ml-10">
+            ${record.negativeThought}
+          </p>
+        </div>
+      `;
+    }
+
+    // 刷新记录
+    function refreshRecords() {
+      loadStats();
+      showToast('已刷新记录列表');
+    }
+
+    // ✨ 工具卡片动画函数
+    function animateToolCards() {
+      const cards = document.querySelectorAll('.tool-card:not([style*="display: none"])');
+      
+      // 先给所有卡片添加will-animate类(隐藏状态)
+      cards.forEach(card => {
+        card.classList.add('will-animate');
+        card.classList.remove('animate-in');
+      });
+      
+      // 延迟后依次添加animate-in类(显示动画)
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('animate-in');
+        }, index * 100);
+      });
+    }
+
+    // ============================================
+    // 页面加载 - ✨ 修改:添加动画初始化
+    // ============================================
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      // 先让卡片可见(移除会导致隐藏的类)
+      document.querySelectorAll('.tool-card').forEach(card => {
+        card.classList.remove('will-animate');
+      });
+
+      // 页面加载完成后触发动画
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          animateToolCards();
+          initToolFilter();
+          loadStats();
+          
+          setTimeout(() => {
+            showToast('欢迎使用CBT自助工具箱！');
+          }, 1000);
+        }, 100);
+      });
+    });
+  </script>
+
+</body>
+</html>
