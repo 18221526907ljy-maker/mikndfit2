@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>社交媒体影响追踪器 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+  
+  <style>
+    .platform-card {
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .platform-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .platform-card.selected {
+      border-color: #4A6157;
+      background: #f0f7f4;
+    }
+    
+    .content-type-chip {
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .content-type-chip:hover {
+      transform: scale(1.05);
+    }
+    
+    .content-type-chip.selected {
+      background: #4A6157;
+      color: white;
+    }
+    
+    .toast {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 14px;
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+    
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .tab-btn {
+      transition: all 0.3s ease;
+    }
+    
+    .tab-btn.active {
+      background: #4A6157;
+      color: white;
+    }
+
+    .stat-card {
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4A6157",
+            mint: "#8FD9A8",
+            accent: "#2E2E2E"
+          }
+        }
+      }
+    };
+  </script>
+</head>
+
+<body class="bg-gray-50">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <a href="cbt_tools.html" class="flex items-center text-primary hover:text-mint transition-all duration-300 group">
+            <span class="mr-2 transition-transform group-hover:-translate-x-1">←</span>
+            <span class="font-medium">返回工具箱</span>
+          </a>
+        </div>
+        <div class="flex items-center space-x-2">
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-mobile text-white text-sm"></i>
+          </div>
+          <span class="text-lg font-bold text-primary">社交媒体追踪</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Toast 提示 -->
+  <div id="toast" class="toast">
+    <div class="flex items-center">
+      <span class="mr-2">✓</span>
+      <span id="toastMessage"></span>
+    </div>
+  </div>
+
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    
+    <!-- 标签切换 -->
+    <div class="bg-white rounded-2xl p-2 shadow-sm mb-8 flex gap-2">
+      <button id="recordTab" class="tab-btn active flex-1 px-6 py-3 rounded-lg font-medium" onclick="switchTab('record')">
+        <i class="fa fa-plus-circle mr-2"></i>
+        新增记录
+      </button>
+      <button id="statsTab" class="tab-btn flex-1 px-6 py-3 rounded-lg font-medium bg-gray-100 text-gray-600" onclick="switchTab('stats')">
+        <i class="fa fa-bar-chart mr-2"></i>
+        统计分析
+      </button>
+      <button id="historyTab" class="tab-btn flex-1 px-6 py-3 rounded-lg font-medium bg-gray-100 text-gray-600" onclick="switchTab('history')">
+        <i class="fa fa-history mr-2"></i>
+        历史记录
+      </button>
+    </div>
+
+    <!-- 记录表单 -->
+    <div id="recordSection" class="space-y-6">
+      
+      <div class="bg-white rounded-2xl p-6 md:p-8 shadow-sm">
+        <h2 class="text-2xl font-bold text-primary mb-2">记录触发时刻</h2>
+        <p class="text-sm text-gray-600 mb-6">
+          💡 当你刷社交媒体后感到焦虑、自卑或沮丧时，立即记录下来
+        </p>
+
+        <div class="space-y-6">
+          
+          <!-- 平台选择 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+              <i class="fa fa-mobile text-primary mr-2"></i>
+              在哪个平台上看到的？
+            </label>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div class="platform-card border-2 border-gray-200 rounded-lg p-4 text-center" onclick="selectPlatform(this, 'instagram')">
+                <div class="text-3xl mb-2">📷</div>
+                <div class="text-sm font-medium">Instagram</div>
+              </div>
+              <div class="platform-card border-2 border-gray-200 rounded-lg p-4 text-center" onclick="selectPlatform(this, 'xiaohongshu')">
+                <div class="text-3xl mb-2">📕</div>
+                <div class="text-sm font-medium">小红书</div>
+              </div>
+              <div class="platform-card border-2 border-gray-200 rounded-lg p-4 text-center" onclick="selectPlatform(this, 'douyin')">
+                <div class="text-3xl mb-2">🎵</div>
+                <div class="text-sm font-medium">抖音</div>
+              </div>
+              <div class="platform-card border-2 border-gray-200 rounded-lg p-4 text-center" onclick="selectPlatform(this, 'weibo')">
+                <div class="text-3xl mb-2">🔥</div>
+                <div class="text-sm font-medium">微博</div>
+              </div>
+              <div class="platform-card border-2 border-gray-200 rounded-lg p-4 text-center" onclick="selectPlatform(this, 'bilibili')">
+                <div class="text-3xl mb-2">📺</div>
+                <div class="text-sm font-medium">B站</div>
+              </div>
+              <div class="platform-card border-2 border-gray-200 rounded-lg p-4 text-center" onclick="selectPlatform(this, 'wechat')">
+                <div class="text-3xl mb-2">💬</div>
+                <div class="text-sm font-medium">微信朋友圈</div>
+              </div>
+              <div class="platform-card border-2 border-gray-200 rounded-lg p-4 text-center" onclick="selectPlatform(this, 'facebook')">
+                <div class="text-3xl mb-2">👍</div>
+                <div class="text-sm font-medium">Facebook</div>
+              </div>
+              <div class="platform-card border-2 border-gray-200 rounded-lg p-4 text-center" onclick="selectPlatform(this, 'other')">
+                <div class="text-3xl mb-2">📱</div>
+                <div class="text-sm font-medium">其他</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 内容类型 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">
+              <i class="fa fa-image text-primary mr-2"></i>
+              看到的是什么类型的内容？(可多选)
+            </label>
+            <div class="flex flex-wrap gap-2">
+              <span class="content-type-chip px-4 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleContentType(this, '健身博主')">💪 健身博主</span>
+              <span class="content-type-chip px-4 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleContentType(this, '模特/网红')">👗 模特/网红</span>
+              <span class="content-type-chip px-4 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleContentType(this, '减肥成功案例')">📉 减肥成功案例</span>
+              <span class="content-type-chip px-4 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleContentType(this, '完美身材展示')">✨ 完美身材展示</span>
+              <span class="content-type-chip px-4 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleContentType(this, '饮食打卡')">🥗 饮食打卡</span>
+              <span class="content-type-chip px-4 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleContentType(this, '运动打卡')">🏃 运动打卡</span>
+              <span class="content-type-chip px-4 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleContentType(this, '美妆/穿搭')">💄 美妆/穿搭</span>
+              <span class="content-type-chip px-4 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleContentType(this, '明星/艺人')">⭐ 明星/艺人</span>
+              <span class="content-type-chip px-4 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleContentType(this, '朋友/熟人')">👫 朋友/熟人</span>
+              <span class="content-type-chip px-4 py-2 bg-gray-100 rounded-full text-sm" onclick="toggleContentType(this, '其他')">📌 其他</span>
+            </div>
+          </div>
+
+          <!-- 具体描述 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-file-text text-primary mr-2"></i>
+              具体是什么内容？(可选)
+            </label>
+            <textarea 
+              id="contentDescription" 
+              rows="2" 
+              class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary focus:border-transparent"
+              placeholder="例如: 一个博主分享她的30天减肥成功照片..."
+            ></textarea>
+          </div>
+
+          <!-- 自动化思维 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-comment text-primary mr-2"></i>
+              看完后脑海中出现的想法
+            </label>
+            <textarea 
+              id="automaticThought" 
+              rows="3" 
+              class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary focus:border-transparent"
+              placeholder='例如: "我永远做不到这样"、"我太胖了"、"为什么我不能这么瘦"、"我真失败"...'
+            ></textarea>
+          </div>
+
+          <!-- 情绪评分 -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              <i class="fa fa-heart text-primary mr-2"></i>
+              触发的主要情绪和强度
+            </label>
+            
+            <div class="space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm">😰 焦虑/不安</span>
+                  <span class="text-sm font-bold text-primary" id="anxietyValue">0</span>
+                </div>
+                <input type="range" id="anxiety" min="0" max="10" value="0" class="w-full" oninput="updateEmotionValue('anxiety')">
+              </div>
+              
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm">😞 自卑/羞愧</span>
+                  <span class="text-sm font-bold text-primary" id="shameValue">0</span>
+                </div>
+                <input type="range" id="shame" min="0" max="10" value="0" class="w-full" oninput="updateEmotionValue('shame')">
+              </div>
+              
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm">😠 嫉妒/不满</span>
+                  <span class="text-sm font-bold text-primary" id="envyValue">0</span>
+                </div>
+                <input type="range" id="envy" min="0" max="10" value="0" class="w-full" oninput="updateEmotionValue('envy')">
+              </div>
+              
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm">😢 悲伤/绝望</span>
+                  <span class="text-sm font-bold text-primary" id="sadnessValue">0</span>
+                </div>
+                <input type="range" id="sadness" min="0" max="10" value="0" class="w-full" oninput="updateEmotionValue('sadness')">
+              </div>
+            </div>
+          </div>
+
+          <!-- 保存按钮 -->
+          <div class="pt-4">
+            <button onclick="saveRecord()" class="w-full bg-primary hover:bg-mint text-white py-4 rounded-lg font-medium transition-colors">
+              <i class="fa fa-save mr-2"></i>
+              保存记录
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 小贴士 -->
+      <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-6">
+        <h3 class="font-semibold text-blue-900 mb-3">💡 使用建议</h3>
+        <ul class="space-y-2 text-sm text-blue-800">
+          <li>• <strong>立即记录</strong>: 感到不适的时候马上记录，不要等待</li>
+          <li>• <strong>诚实面对</strong>: 记录真实的想法和感受，不需要美化</li>
+          <li>• <strong>定期回顾</strong>: 一周后查看统计，了解哪些内容最容易触发你</li>
+          <li>• <strong>采取行动</strong>: 根据分析结果，考虑取关或屏蔽特定账号</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 统计分析页面 -->
+    <div id="statsSection" class="hidden space-y-6">
+      
+      <!-- 总览卡片 -->
+      <div class="grid md:grid-cols-4 gap-4">
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm">
+          <div class="text-sm text-gray-600 mb-2">总记录次数</div>
+          <div class="text-3xl font-bold text-primary" id="totalRecords">0</div>
+        </div>
+        
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm">
+          <div class="text-sm text-gray-600 mb-2">本周触发次数</div>
+          <div class="text-3xl font-bold text-orange-600" id="weekRecords">0</div>
+        </div>
+        
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm">
+          <div class="text-sm text-gray-600 mb-2">平均情绪强度</div>
+          <div class="text-3xl font-bold text-red-600" id="avgIntensity">0</div>
+        </div>
+        
+        <div class="stat-card bg-white rounded-xl p-6 shadow-sm">
+          <div class="text-sm text-gray-600 mb-2">最常触发平台</div>
+          <div class="text-lg font-bold text-purple-600" id="topPlatform">-</div>
+        </div>
+      </div>
+
+      <!-- 最易触发的内容类型 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm">
+        <h3 class="text-xl font-bold text-primary mb-4">
+          <i class="fa fa-warning text-orange-500 mr-2"></i>
+          最容易触发焦虑的内容
+        </h3>
+        <div id="topContentTypes" class="space-y-3">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- 平台分布 -->
+      <div class="bg-white rounded-2xl p-6 shadow-sm">
+        <h3 class="text-xl font-bold text-primary mb-4">
+          <i class="fa fa-pie-chart mr-2"></i>
+          各平台触发次数
+        </h3>
+        <div id="platformStats" class="space-y-3">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+      <!-- 个性化建议 -->
+      <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+        <h3 class="text-xl font-bold text-purple-900 mb-4">
+          <i class="fa fa-lightbulb-o mr-2"></i>
+          个性化建议
+        </h3>
+        <div id="recommendations" class="space-y-3 text-sm text-purple-800">
+          <!-- 动态生成 -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 历史记录页面 -->
+    <div id="historySection" class="hidden">
+      <div class="bg-white rounded-2xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-xl font-bold text-primary">历史记录</h3>
+          <button onclick="clearAllRecords()" class="text-sm text-red-600 hover:text-red-700">
+            <i class="fa fa-trash mr-1"></i>
+            清空所有记录
+          </button>
+        </div>
+        
+        <div id="historyList" class="space-y-4">
+          <!-- 动态生成 -->
+        </div>
+
+        <div id="emptyHistory" class="hidden text-center py-12">
+          <div class="text-6xl mb-4">📱</div>
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">还没有记录</h3>
+          <p class="text-gray-500 mb-6">当你刷社交媒体感到不适时，记录下来</p>
+          <button onclick="switchTab('record')" class="bg-primary text-white px-6 py-3 rounded-lg font-medium hover:bg-mint transition-colors">
+            开始记录
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // ============================================
+    // 全局变量
+    // ============================================
+    
+    let selectedPlatform = null;
+    let selectedContentTypes = [];
+
+    // ============================================
+    // 标签切换
+    // ============================================
+    
+    function switchTab(tab) {
+      // 更新按钮状态
+      document.getElementById('recordTab').classList.remove('active');
+      document.getElementById('recordTab').classList.add('bg-gray-100', 'text-gray-600');
+      document.getElementById('statsTab').classList.remove('active');
+      document.getElementById('statsTab').classList.add('bg-gray-100', 'text-gray-600');
+      document.getElementById('historyTab').classList.remove('active');
+      document.getElementById('historyTab').classList.add('bg-gray-100', 'text-gray-600');
+      
+      document.getElementById(`${tab}Tab`).classList.add('active');
+      document.getElementById(`${tab}Tab`).classList.remove('bg-gray-100', 'text-gray-600');
+      
+      // 显示对应内容
+      document.getElementById('recordSection').classList.add('hidden');
+      document.getElementById('statsSection').classList.add('hidden');
+      document.getElementById('historySection').classList.add('hidden');
+      
+      document.getElementById(`${tab}Section`).classList.remove('hidden');
+      
+      // 如果切换到统计或历史，加载数据
+      if (tab === 'stats') {
+        loadStats();
+      } else if (tab === 'history') {
+        loadHistory();
+      }
+    }
+
+    // ============================================
+    // 平台选择
+    // ============================================
+    
+    function selectPlatform(card, platform) {
+      // 清除之前的选择
+      document.querySelectorAll('.platform-card').forEach(c => {
+        c.classList.remove('selected');
+      });
+      
+      // 选中当前平台
+      card.classList.add('selected');
+      selectedPlatform = platform;
+    }
+
+    // ============================================
+    // 内容类型选择
+    // ============================================
+    
+    function toggleContentType(chip, type) {
+      chip.classList.toggle('selected');
+      
+      const index = selectedContentTypes.indexOf(type);
+      if (index > -1) {
+        selectedContentTypes.splice(index, 1);
+      } else {
+        selectedContentTypes.push(type);
+      }
+    }
+
+    // ============================================
+    // 情绪值更新
+    // ============================================
+    
+    function updateEmotionValue(emotion) {
+      const value = document.getElementById(emotion).value;
+      document.getElementById(`${emotion}Value`).textContent = value;
+    }
+
+    // ============================================
+    // 保存记录
+    // ============================================
+    
+    function saveRecord() {
+      // 验证必填项
+      if (!selectedPlatform) {
+        showToast('请选择平台');
+        return;
+      }
+      
+      if (selectedContentTypes.length === 0) {
+        showToast('请选择至少一种内容类型');
+        return;
+      }
+      
+      const automaticThought = document.getElementById('automaticThought').value.trim();
+      if (!automaticThought) {
+        showToast('请写下触发的想法');
+        return;
+      }
+      
+      // 收集情绪数据
+      const emotions = {
+        anxiety: parseInt(document.getElementById('anxiety').value),
+        shame: parseInt(document.getElementById('shame').value),
+        envy: parseInt(document.getElementById('envy').value),
+        sadness: parseInt(document.getElementById('sadness').value)
+      };
+      
+      // 计算平均情绪强度
+      const avgEmotion = (emotions.anxiety + emotions.shame + emotions.envy + emotions.sadness) / 4;
+      
+      // 创建记录
+      const record = {
+        id: Date.now(),
+        date: new Date().toISOString(),
+        platform: selectedPlatform,
+        contentTypes: selectedContentTypes,
+        contentDescription: document.getElementById('contentDescription').value,
+        automaticThought: automaticThought,
+        emotions: emotions,
+        avgEmotion: avgEmotion.toFixed(1)
+      };
+      
+      // 保存到 localStorage
+      try {
+        const records = JSON.parse(localStorage.getItem('socialMediaRecords') || '[]');
+        records.push(record);
+        localStorage.setItem('socialMediaRecords', JSON.stringify(records));
+        
+        showToast('记录已保存！');
+        
+        // 重置表单
+        setTimeout(() => {
+          resetForm();
+          switchTab('stats');
+        }, 1500);
+        
+      } catch (error) {
+        console.error('保存失败:', error);
+        showToast('保存失败，请重试');
+      }
+    }
+
+    // ============================================
+    // 重置表单
+    // ============================================
+    
+    function resetForm() {
+      selectedPlatform = null;
+      selectedContentTypes = [];
+      
+      document.querySelectorAll('.platform-card').forEach(c => {
+        c.classList.remove('selected');
+      });
+      
+      document.querySelectorAll('.content-type-chip').forEach(c => {
+        c.classList.remove('selected');
+      });
+      
+      document.getElementById('contentDescription').value = '';
+      document.getElementById('automaticThought').value = '';
+      
+      document.getElementById('anxiety').value = 0;
+      document.getElementById('shame').value = 0;
+      document.getElementById('envy').value = 0;
+      document.getElementById('sadness').value = 0;
+      
+      updateEmotionValue('anxiety');
+      updateEmotionValue('shame');
+      updateEmotionValue('envy');
+      updateEmotionValue('sadness');
+    }
+
+    // ============================================
+    // 加载统计数据
+    // ============================================
+    
+    function loadStats() {
+      const records = JSON.parse(localStorage.getItem('socialMediaRecords') || '[]');
+      
+      if (records.length === 0) {
+        showEmptyStats();
+        return;
+      }
+      
+      // 总记录次数
+      document.getElementById('totalRecords').textContent = records.length;
+      
+      // 本周记录次数
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+      const weekRecords = records.filter(r => new Date(r.date) > weekAgo);
+      document.getElementById('weekRecords').textContent = weekRecords.length;
+      
+      // 平均情绪强度
+      const avgIntensity = records.reduce((sum, r) => sum + parseFloat(r.avgEmotion), 0) / records.length;
+      document.getElementById('avgIntensity').textContent = avgIntensity.toFixed(1);
+      
+      // 最常触发平台
+      const platformCounts = {};
+      records.forEach(r => {
+        platformCounts[r.platform] = (platformCounts[r.platform] || 0) + 1;
+      });
+      const topPlatform = Object.keys(platformCounts).reduce((a, b) => 
+        platformCounts[a] > platformCounts[b] ? a : b
+      );
+      document.getElementById('topPlatform').textContent = getPlatformName(topPlatform);
+      
+      // 最易触发的内容类型
+      renderTopContentTypes(records);
+      
+      // 平台分布
+      renderPlatformStats(platformCounts, records.length);
+      
+      // 个性化建议
+      generateRecommendations(records);
+    }
+
+    function showEmptyStats() {
+      document.getElementById('totalRecords').textContent = '0';
+      document.getElementById('weekRecords').textContent = '0';
+      document.getElementById('avgIntensity').textContent = '0';
+      document.getElementById('topPlatform').textContent = '-';
+      document.getElementById('topContentTypes').innerHTML = '<p class="text-gray-500">暂无数据</p>';
+      document.getElementById('platformStats').innerHTML = '<p class="text-gray-500">暂无数据</p>';
+      document.getElementById('recommendations').innerHTML = '<p>开始记录后，这里会显示个性化建议</p>';
+    }
+
+    function renderTopContentTypes(records) {
+      const contentCounts = {};
+      const contentEmotions = {};
+      
+      records.forEach(r => {
+        r.contentTypes.forEach(type => {
+          contentCounts[type] = (contentCounts[type] || 0) + 1;
+          contentEmotions[type] = (contentEmotions[type] || 0) + parseFloat(r.avgEmotion);
+        });
+      });
+      
+      // 计算每种内容的平均情绪强度
+      Object.keys(contentEmotions).forEach(type => {
+        contentEmotions[type] = contentEmotions[type] / contentCounts[type];
+      });
+      
+      // 按平均情绪强度排序
+      const sorted = Object.keys(contentEmotions).sort((a, b) => 
+        contentEmotions[b] - contentEmotions[a]
+      );
+      
+      const container = document.getElementById('topContentTypes');
+      container.innerHTML = sorted.slice(0, 5).map(type => `
+        <div class="flex items-center justify-between p-4 bg-orange-50 rounded-lg">
+          <div class="flex items-center">
+            <div class="w-2 h-2 bg-orange-500 rounded-full mr-3"></div>
+            <span class="font-medium text-gray-800">${type}</span>
+          </div>
+          <div class="text-right">
+            <div class="text-sm text-gray-600">${contentCounts[type]} 次触发</div>
+            <div class="text-sm font-bold text-orange-600">平均强度: ${contentEmotions[type].toFixed(1)}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderPlatformStats(platformCounts, total) {
+      const container = document.getElementById('platformStats');
+      
+      const platformNames = {
+        'instagram': 'Instagram',
+        'xiaohongshu': '小红书',
+        'douyin': '抖音',
+        'weibo': '微博',
+        'bilibili': 'B站',
+        'wechat': '微信朋友圈',
+        'facebook': 'Facebook',
+        'other': '其他'
+      };
+      
+      container.innerHTML = Object.keys(platformCounts)
+        .sort((a, b) => platformCounts[b] - platformCounts[a])
+        .map(platform => {
+          const count = platformCounts[platform];
+          const percentage = (count / total * 100).toFixed(1);
+          
+          return `
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-sm font-medium">${platformNames[platform] || platform}</span>
+                <span class="text-sm text-gray-600">${count} 次 (${percentage}%)</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-primary rounded-full h-2" style="width: ${percentage}%"></div>
+              </div>
+            </div>
+          `;
+        }).join('');
+    }
+
+    function generateRecommendations(records) {
+      const container = document.getElementById('recommendations');
+      const recommendations = [];
+      
+      // 基于记录频率的建议
+      if (records.length > 10) {
+        recommendations.push('📊 你已经记录了很多次触发事件，考虑减少刷社交媒体的时间');
+      }
+      
+      // 基于本周频率的建议
+      const weekAgo = new Date();
+      weekAgo.setDate(weekAgo.getDate() - 7);
+      const weekRecords = records.filter(r => new Date(r.date) > weekAgo);
+      
+      if (weekRecords.length > 5) {
+        recommendations.push('⚠️ 本周触发频率较高，建议暂时远离社交媒体');
+      }
+      
+      // 基于平台的建议
+      const platformCounts = {};
+      records.forEach(r => {
+        platformCounts[r.platform] = (platformCounts[r.platform] || 0) + 1;
+      });
+      
+      const topPlatforms = Object.keys(platformCounts)
+        .sort((a, b) => platformCounts[b] - platformCounts[a])
+        .slice(0, 2);
+      
+      if (topPlatforms.length > 0) {
+        recommendations.push(`🚫 建议取关或屏蔽 ${getPlatformName(topPlatforms[0])} 上的特定账号`);
+      }
+      
+      // 基于内容类型的建议
+      const contentCounts = {};
+      records.forEach(r => {
+        r.contentTypes.forEach(type => {
+          contentCounts[type] = (contentCounts[type] || 0) + 1;
+        });
+      });
+      
+      const topContent = Object.keys(contentCounts)
+        .sort((a, b) => contentCounts[b] - contentCounts[a])[0];
+      
+      if (topContent) {
+        recommendations.push(`💭 "${topContent}" 类内容对你影响较大，可以主动避免或调整关注列表`);
+      }
+      
+      // 通用建议
+      recommendations.push('🌿 每次刷完社交媒体后，做一次"社交媒体清醒练习"');
+      recommendations.push('📝 定期回顾这些记录，提醒自己社交媒体的内容不代表真实生活');
+      
+      container.innerHTML = recommendations.map(r => `
+        <div class="flex items-start">
+          <span class="mr-2">•</span>
+          <span>${r}</span>
+        </div>
+      `).join('');
+    }
+
+    function getPlatformName(key) {
+      const names = {
+        'instagram': 'Instagram',
+        'xiaohongshu': '小红书',
+        'douyin': '抖音',
+        'weibo': '微博',
+        'bilibili': 'B站',
+        'wechat': '微信',
+        'facebook': 'Facebook',
+        'other': '其他'
+      };
+      return names[key] || key;
+    }
+
+    // ============================================
+    // 加载历史记录
+    // ============================================
+    
+    function loadHistory() {
+      const records = JSON.parse(localStorage.getItem('socialMediaRecords') || '[]');
+      const container = document.getElementById('historyList');
+      const emptyState = document.getElementById('emptyHistory');
+      
+      if (records.length === 0) {
+        container.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      
+      container.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      
+      // 按时间倒序
+      const sorted = records.sort((a, b) => b.id - a.id);
+      
+      container.innerHTML = sorted.map(record => {
+        const date = new Date(record.date);
+        const dateStr = date.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+        const timeStr = date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+        
+        return `
+          <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div class="flex items-start justify-between mb-3">
+              <div class="flex items-center space-x-2">
+                <div class="text-2xl">📱</div>
+                <div>
+                  <div class="font-medium text-gray-800">${getPlatformName(record.platform)}</div>
+                  <div class="text-xs text-gray-500">${dateStr} ${timeStr}</div>
+                </div>
+              </div>
+              <button onclick="deleteRecord(${record.id})" class="text-red-500 hover:text-red-700 text-sm">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            
+            <div class="mb-3">
+              <div class="text-xs text-gray-600 mb-1">内容类型:</div>
+              <div class="flex flex-wrap gap-1">
+                ${record.contentTypes.map(type => 
+                  `<span class="text-xs bg-gray-100 px-2 py-1 rounded">${type}</span>`
+                ).join('')}
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <div class="text-xs text-gray-600 mb-1">触发的想法:</div>
+              <div class="text-sm text-gray-700">${record.automaticThought}</div>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-gray-600">平均情绪强度</span>
+              <span class="text-sm font-bold ${
+                parseFloat(record.avgEmotion) >= 7 ? 'text-red-600' : 
+                parseFloat(record.avgEmotion) >= 4 ? 'text-orange-600' : 'text-green-600'
+              }">${record.avgEmotion}/10</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ============================================
+    // 删除记录
+    // ============================================
+    
+    function deleteRecord(id) {
+      if (!confirm('确定要删除这条记录吗？')) return;
+      
+      try {
+        const records = JSON.parse(localStorage.getItem('socialMediaRecords') || '[]');
+        const filtered = records.filter(r => r.id !== id);
+        localStorage.setItem('socialMediaRecords', JSON.stringify(filtered));
+        
+        showToast('记录已删除');
+        loadHistory();
+        
+      } catch (error) {
+        console.error('删除失败:', error);
+        showToast('删除失败，请重试');
+      }
+    }
+
+    function clearAllRecords() {
+      if (!confirm('确定要清空所有记录吗？此操作不可恢复！')) return;
+      
+      try {
+        localStorage.setItem('socialMediaRecords', '[]');
+        showToast('所有记录已清空');
+        loadHistory();
+        
+      } catch (error) {
+        console.error('清空失败:', error);
+        showToast('清空失败，请重试');
+      }
+    }
+
+    // ============================================
+    // Toast 提示
+    // ============================================
+    
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toastMessage');
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // ============================================
+    // 页面加载
+    // ============================================
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      showToast('记录触发时刻，了解社交媒体如何影响你');
+    });
+  </script>
+
+</body>
+</html>
