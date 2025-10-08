@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>运动心态转换 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    .runner-move { animation: runnerMove 2s ease-in-out infinite; }
+    @keyframes runnerMove {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(10px); }
+    }
+    .fade-in { animation: fadeIn 0.8s ease-in; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gentle-pulse { animation: gentlePulse 2s ease-in-out infinite; }
+    @keyframes gentlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 min-h-screen">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="daily_practice.html" class="text-orange-600 hover:text-orange-700">
+        <i class="fas fa-arrow-left mr-2"></i>返回练习
+      </a>
+      <h1 class="text-lg font-semibold text-gray-800">运动心态转换</h1>
+      <div class="w-20"></div>
+    </div>
+  </nav>
+
+  <!-- 主要内容 -->
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    
+    <!-- 引言卡片 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <div class="text-center mb-6">
+        <div class="runner-move w-24 h-24 bg-gradient-to-br from-orange-400 to-red-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-running text-4xl text-white"></i>
+        </div>
+        <h2 class="text-3xl font-bold text-gray-800 mb-3">庆祝身体,而非惩罚它</h2>
+        <p class="text-gray-600 text-lg">3分钟重新定义你运动的理由</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <div class="text-center p-4 bg-orange-50 rounded-xl">
+          <i class="fas fa-clock text-orange-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">练习时长</div>
+          <div class="text-lg font-semibold text-gray-800">3分钟</div>
+        </div>
+        <div class="text-center p-4 bg-red-50 rounded-xl">
+          <i class="fas fa-dumbbell text-red-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">何时使用</div>
+          <div class="text-lg font-semibold text-gray-800">运动前/后</div>
+        </div>
+        <div class="text-center p-4 bg-pink-50 rounded-xl">
+          <i class="fas fa-heart text-pink-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">主要效果</div>
+          <div class="text-lg font-semibold text-gray-800">改变动机</div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-orange-50 to-red-50 rounded-2xl p-6">
+        <h3 class="font-bold text-gray-800 mb-3 flex items-center text-lg">
+          <i class="fas fa-exclamation-triangle text-orange-600 mr-3"></i>
+          这个练习特别适合你,如果...
+        </h3>
+        <ul class="space-y-2 text-gray-700">
+          <li class="flex items-start">
+            <i class="fas fa-check text-orange-600 mr-2 mt-1"></i>
+            <span>运动的主要动机是"减肥""燃脂""消耗卡路里"</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-orange-600 mr-2 mt-1"></i>
+            <span>吃多了就强迫自己运动"补偿"</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-orange-600 mr-2 mt-1"></i>
+            <span>运动时脑海中都是"还没瘦""效果不够"</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check text-orange-600 mr-2 mt-1"></i>
+            <span>想建立更健康、更可持续的运动关系</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 心态对比 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+        <i class="fas fa-exchange-alt text-red-600 mr-3"></i>
+        从"惩罚"到"庆祝"的心态转换
+      </h3>
+      
+      <div class="grid md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6">
+          <h4 class="font-bold text-red-700 mb-4 text-center flex items-center justify-center">
+            <i class="fas fa-times-circle mr-2"></i>惩罚性运动
+          </h4>
+          <ul class="space-y-3 text-sm text-gray-700">
+            <li class="bg-white rounded-lg p-3 border-l-4 border-red-400">
+              <div class="font-semibold text-red-700 mb-1">动机</div>
+              "我昨天吃多了,必须跑步消耗掉"
+            </li>
+            <li class="bg-white rounded-lg p-3 border-l-4 border-red-400">
+              <div class="font-semibold text-red-700 mb-1">关注点</div>
+              "消耗了多少卡路里?""瘦了没?"
+            </li>
+            <li class="bg-white rounded-lg p-3 border-l-4 border-red-400">
+              <div class="font-semibold text-red-700 mb-1">感受</div>
+              疲惫、焦虑、永远不够好
+            </li>
+            <li class="bg-white rounded-lg p-3 border-l-4 border-red-400">
+              <div class="font-semibold text-red-700 mb-1">结果</div>
+              容易受伤、放弃、讨厌运动
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6">
+          <h4 class="font-bold text-green-700 mb-4 text-center flex items-center justify-center">
+            <i class="fas fa-check-circle mr-2"></i>庆祝性运动
+          </h4>
+          <ul class="space-y-3 text-sm text-gray-700">
+            <li class="bg-white rounded-lg p-3 border-l-4 border-green-400">
+              <div class="font-semibold text-green-700 mb-1">动机</div>
+              "我想感受身体的力量和活力"
+            </li>
+            <li class="bg-white rounded-lg p-3 border-l-4 border-green-400">
+              <div class="font-semibold text-green-700 mb-1">关注点</div>
+              "我感觉如何?""我享受吗?"
+            </li>
+            <li class="bg-white rounded-lg p-3 border-l-4 border-green-400">
+              <div class="font-semibold text-green-700 mb-1">感受</div>
+              有活力、快乐、为身体骄傲
+            </li>
+            <li class="bg-white rounded-lg p-3 border-l-4 border-green-400">
+              <div class="font-semibold text-green-700 mb-1">结果</div>
+              可持续、享受过程、建立习惯
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 border-l-4 border-blue-400 rounded-r-xl p-4">
+        <p class="text-sm text-gray-700">
+          <i class="fas fa-lightbulb text-blue-600 mr-2"></i>
+          <strong>关键区别:</strong> 惩罚性运动把身体当作"需要改造的敌人",庆祝性运动把身体当作"值得善待的伙伴"。前者不可持续,后者才能长期坚持。
+        </p>
+      </div>
+    </div>
+
+    <!-- 开始练习按钮 -->
+    <div class="text-center mb-8">
+      <div class="mb-4">
+        <p class="text-gray-600 mb-2">选择练习时机:</p>
+        <div class="flex gap-3 justify-center flex-wrap">
+          <button onclick="startPractice('before')" class="bg-orange-100 hover:bg-orange-200 text-orange-700 px-6 py-3 rounded-xl font-medium transition-all">
+            <i class="fas fa-play mr-2"></i>运动前
+          </button>
+          <button onclick="startPractice('after')" class="bg-pink-100 hover:bg-pink-200 text-pink-700 px-6 py-3 rounded-xl font-medium transition-all">
+            <i class="fas fa-check mr-2"></i>运动后
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 健康运动指南 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+        <i class="fas fa-heart-pulse text-purple-600 mr-3"></i>
+        健康运动的5个标志
+      </h3>
+      
+      <div class="space-y-4">
+        <div class="flex items-start p-4 bg-purple-50 rounded-xl">
+          <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0 font-bold">
+            1
+          </div>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">你期待运动,而非恐惧它</div>
+            <div class="text-sm text-gray-600">如果运动让你焦虑或痛苦,说明动机可能有问题。健康的运动应该是你想做的,而非"必须"做的。</div>
+          </div>
+        </div>
+
+        <div class="flex items-start p-4 bg-purple-50 rounded-xl">
+          <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0 font-bold">
+            2
+          </div>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">你能跳过一次而不内疚</div>
+            <div class="text-sm text-gray-600">偶尔休息是正常的。如果错过一次就强烈自责,说明运动可能变成了强迫行为。</div>
+          </div>
+        </div>
+
+        <div class="flex items-start p-4 bg-purple-50 rounded-xl">
+          <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0 font-bold">
+            3
+          </div>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">你选择自己喜欢的运动方式</div>
+            <div class="text-sm text-gray-600">不是所有人都适合跑步或健身房。散步、跳舞、游泳都是很好的运动。选择你享受的,而非"最燃脂"的。</div>
+          </div>
+        </div>
+
+        <div class="flex items-start p-4 bg-purple-50 rounded-xl">
+          <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0 font-bold">
+            4
+          </div>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">你倾听身体的信号</div>
+            <div class="text-sm text-gray-600">累了就休息,痛了就停下。"No pain, no gain"是有害的。尊重身体的极限,避免受伤。</div>
+          </div>
+        </div>
+
+        <div class="flex items-start p-4 bg-purple-50 rounded-xl">
+          <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mr-4 flex-shrink-0 font-bold">
+            5
+          </div>
+          <div>
+            <div class="font-semibold text-gray-800 mb-1">运动后感觉更好,而非更糟</div>
+            <div class="text-sm text-gray-600">健康的运动让你精力充沛、心情愉悦。如果总是筋疲力尽或情绪低落,说明强度或动机需要调整。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 练习模态框 -->
+  <div id="practiceModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8">
+      
+      <!-- 进度显示 -->
+      <div class="text-center mb-6">
+        <div id="stepIndicator" class="text-sm text-gray-500 mb-2">步骤 1/3</div>
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-4">
+          <div id="progressBar" class="bg-gradient-to-r from-orange-500 to-red-500 h-2 rounded-full transition-all duration-500" style="width: 33%"></div>
+        </div>
+      </div>
+
+      <!-- 当前步骤图标 -->
+      <div class="text-center mb-6">
+        <div id="stepIcon" class="w-20 h-20 bg-orange-100 rounded-full mx-auto mb-4 flex items-center justify-center fade-in">
+          <i class="fas fa-question text-3xl text-orange-600"></i>
+        </div>
+      </div>
+
+      <!-- 引导内容 -->
+      <div id="guideContent" class="text-center mb-8 min-h-[200px]">
+        <h3 id="guideTitle" class="text-2xl font-bold text-gray-800 mb-4 fade-in">检视动机</h3>
+        <p id="guideText" class="text-gray-600 leading-relaxed fade-in">
+          问问自己:我为什么要运动?是为了惩罚昨天吃的食物?还是因为我想感受身体的力量?
+        </p>
+      </div>
+
+      <!-- 计时器 -->
+      <div class="text-center mb-6">
+        <div id="timer" class="text-4xl font-bold text-orange-600">0:00</div>
+        <div class="text-sm text-gray-500 mt-1">本步骤倒计时</div>
+      </div>
+
+      <!-- 控制按钮 -->
+      <div class="flex gap-3">
+        <button onclick="skipStep()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-medium transition-all">
+          <i class="fas fa-forward mr-2"></i>跳过
+        </button>
+        <button id="pauseBtn" onclick="togglePause()" class="flex-1 bg-orange-600 hover:bg-orange-700 text-white py-3 rounded-xl font-medium transition-all">
+          <i class="fas fa-pause mr-2"></i>暂停
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 完成模态框 -->
+  <div id="completionModal" class="hidden fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8">
+      
+      <div class="text-center mb-6">
+        <div class="w-24 h-24 bg-green-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-check-circle text-5xl text-green-600"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">💪 练习完成!</h3>
+        <p class="text-gray-600" id="completionMessage">你刚刚重新定义了运动的意义</p>
+      </div>
+
+      <div class="bg-gradient-to-r from-orange-50 to-pink-50 rounded-2xl p-6 mb-6">
+        <h4 class="font-semibold text-gray-800 mb-3">💡 记住这些:</h4>
+        <ul class="space-y-2 text-sm text-gray-700">
+          <li class="flex items-start">
+            <i class="fas fa-star text-orange-600 mr-2 mt-1"></i>
+            <span>运动是庆祝身体能做的事,而非惩罚吃的东西</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-star text-orange-600 mr-2 mt-1"></i>
+            <span>关注感受而非数字,享受过程而非结果</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-star text-orange-600 mr-2 mt-1"></i>
+            <span>身体是伙伴不是敌人,温柔对待它</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-purple-50 border-2 border-purple-200 rounded-xl p-4 mb-6">
+        <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+          <i class="fas fa-tools text-purple-600 mr-2"></i>
+          想要更系统的改变?
+        </h4>
+        <p class="text-sm text-gray-600 mb-3">
+          试试<strong>"运动日志"</strong>,可以帮你追踪运动动机和感受的变化,建立更健康的运动习惯。
+        </p>
+        <button onclick="goToTool()" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-lg text-sm font-medium transition-all">
+          <i class="fas fa-arrow-right mr-2"></i>前往深度工具
+        </button>
+      </div>
+
+      <button onclick="closeCompletion()" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-medium transition-all">
+        完成并返回
+      </button>
+
+    </div>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    let timer = null;
+    let remainingSeconds = 0;
+    let isPaused = false;
+    let totalTime = 0;
+    let practiceMode = 'before'; // before, after
+
+    const stepsByMode = {
+      before: [
+        {
+          title: '检视动机',
+          icon: 'fa-question',
+          iconColor: 'orange',
+          text: '问问自己:我为什么要运动?是为了惩罚昨天吃的食物?还是因为我想感受身体的力量?诚实地觉察你的动机,不做评判。',
+          duration: 50
+        },
+        {
+          title: '重新设定意图',
+          icon: 'fa-bullseye',
+          iconColor: 'red',
+          text: '在心中默念:"我运动是为了庆祝我的身体能做的事。""我的目标是感觉良好,而非达到某个体重。""我选择享受过程,而非强迫自己。"',
+          duration: 60
+        },
+        {
+          title: '开始运动',
+          icon: 'fa-play-circle',
+          iconColor: 'pink',
+          text: '深呼吸,微笑。带着感激和尊重开始运动。提醒自己:今天的运动,无论强度如何、时长多久,都是在善待身体。',
+          duration: 30
+        }
+      ],
+      
+      after: [
+        {
+          title: '感受身体',
+          icon: 'fa-heart-pulse',
+          iconColor: 'orange',
+          text: '运动后,停下来感受身体。注意心跳、呼吸、肌肉的感觉。这是你身体在工作、在强壮、在为你服务的证明。',
+          duration: 40
+        },
+        {
+          title: '庆祝而非评判',
+          icon: 'fa-trophy',
+          iconColor: 'red',
+          text: '不要问"我消耗了多少卡路里?"而是问"我感觉如何?""我享受了吗?"如果答案是积极的,那就是成功,无论你运动了多久。',
+          duration: 50
+        },
+        {
+          title: '感谢身体',
+          icon: 'fa-hands-praying',
+          iconColor: 'pink',
+          text: '对自己说:"谢谢我的身体,能跑/走/跳/拉伸。""我为自己骄傲,因为我善待了身体。"深呼吸,微笑,继续美好的一天。',
+          duration: 50
+        }
+      ]
+    };
+
+    function startPractice(mode) {
+      practiceMode = mode;
+      document.getElementById('practiceModal').classList.remove('hidden');
+      currentStep = 0;
+      totalTime = 0;
+      renderStep();
+    }
+
+    function renderStep() {
+      const steps = stepsByMode[practiceMode];
+      const step = steps[currentStep];
+      
+      // 更新进度
+      const progress = ((currentStep + 1) / steps.length) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('stepIndicator').textContent = `步骤 ${currentStep + 1}/${steps.length}`;
+
+      // 更新图标
+      const iconColors = {
+        orange: 'bg-orange-100 text-orange-600',
+        red: 'bg-red-100 text-red-600',
+        pink: 'bg-pink-100 text-pink-600'
+      };
+      
+      const iconDiv = document.getElementById('stepIcon');
+      iconDiv.className = `w-20 h-20 ${iconColors[step.iconColor]} rounded-full mx-auto mb-4 flex items-center justify-center fade-in`;
+      iconDiv.innerHTML = `<i class="fas ${step.icon} text-3xl"></i>`;
+
+      // 更新文字
+      document.getElementById('guideTitle').textContent = step.title;
+      document.getElementById('guideText').textContent = step.text;
+
+      // 开始计时
+      remainingSeconds = step.duration;
+      isPaused = false;
+      updateTimer();
+      startTimer();
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => {
+        if (!isPaused && remainingSeconds > 0) {
+          remainingSeconds--;
+          totalTime++;
+          updateTimer();
+          
+          if (remainingSeconds === 0) {
+            nextStep();
+          }
+        }
+      }, 1000);
+    }
+
+    function updateTimer() {
+      const minutes = Math.floor(remainingSeconds / 60);
+      const seconds = remainingSeconds % 60;
+      document.getElementById('timer').textContent = 
+        `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function nextStep() {
+      const steps = stepsByMode[practiceMode];
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        renderStep();
+      } else {
+        completePractice();
+      }
+    }
+
+    function skipStep() {
+      nextStep();
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      const btn = document.getElementById('pauseBtn');
+      btn.innerHTML = isPaused ? 
+        '<i class="fas fa-play mr-2"></i>继续' : 
+        '<i class="fas fa-pause mr-2"></i>暂停';
+    }
+
+    function completePractice() {
+      clearInterval(timer);
+      
+      // 保存练习记录
+      const modeNames = {
+        before: '运动前',
+        after: '运动后'
+      };
+      
+      const record = {
+        id: Date.now(),
+        title: `运动心态转换(${modeNames[practiceMode]})`,
+        category: 'mindful',
+        duration: Math.ceil(totalTime / 60),
+        date: new Date().toISOString(),
+        timestamp: Date.now()
+      };
+
+      const history = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      history.push(record);
+      localStorage.setItem('practiceHistory', JSON.stringify(history));
+
+      // 更新完成消息
+      const messages = {
+        before: '你刚刚重新定义了运动的意义',
+        after: '你刚刚庆祝了身体的能力'
+      };
+      document.getElementById('completionMessage').textContent = messages[practiceMode];
+
+      // 显示完成界面
+      document.getElementById('practiceModal').classList.add('hidden');
+      document.getElementById('completionModal').classList.remove('hidden');
+    }
+
+    function closeCompletion() {
+      document.getElementById('completionModal').classList.add('hidden');
+      window.location.href = 'daily_practice.html';
+    }
+
+    function goToTool() {
+      // 跳转到深度工具页面
+      window.location.href = 'exercise-log.html';
+    }
+  </script>
+
+</body>
+</html>
