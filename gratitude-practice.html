@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>感恩练习 - MindFit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+    .fade-in { animation: fadeIn 0.5s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-rose-50 via-pink-50 to-orange-50 min-h-screen">
+  
+  <!-- 顶部导航 -->
+  <nav class="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="daily_practice.html" class="text-rose-600 hover:text-rose-700">
+        <i class="fas fa-arrow-left mr-2"></i>返回练习
+      </a>
+      <h1 class="text-lg font-semibold text-gray-800">感恩练习</h1>
+      <div class="w-20"></div>
+    </div>
+  </nav>
+
+  <!-- 主要内容 -->
+  <main class="max-w-4xl mx-auto px-4 py-8">
+    
+    <!-- 练习介绍 -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+      <div class="text-center mb-6">
+        <div class="w-20 h-20 bg-gradient-to-br from-rose-400 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-heart text-3xl text-white"></i>
+        </div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">每日感恩时光</h2>
+        <p class="text-gray-600">发现生活中的美好瞬间,培养积极心态</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-6">
+        <div class="text-center p-4 bg-rose-50 rounded-xl">
+          <i class="fas fa-clock text-rose-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">建议时长</div>
+          <div class="text-lg font-semibold text-gray-800">3-5分钟</div>
+        </div>
+        <div class="text-center p-4 bg-pink-50 rounded-xl">
+          <i class="fas fa-star text-pink-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">难度等级</div>
+          <div class="text-lg font-semibold text-gray-800">非常简单</div>
+        </div>
+        <div class="text-center p-4 bg-orange-50 rounded-xl">
+          <i class="fas fa-smile text-orange-600 text-2xl mb-2"></i>
+          <div class="text-sm text-gray-600">主要效果</div>
+          <div class="text-lg font-semibold text-gray-800">提升幸福感</div>
+        </div>
+      </div>
+
+      <div class="bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl p-6">
+        <h3 class="font-semibold text-gray-800 mb-3 flex items-center">
+          <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+          为什么要练习感恩?
+        </h3>
+        <ul class="space-y-2 text-gray-700 text-sm">
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-rose-600 mr-2 mt-1"></i>
+            <span>科学研究表明,每天记录感恩能提升30%的幸福感</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-rose-600 mr-2 mt-1"></i>
+            <span>帮助你从负面思维模式中跳出,关注生活中的积极面</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-rose-600 mr-2 mt-1"></i>
+            <span>降低焦虑和抑郁情绪,改善睡眠质量</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-check-circle text-rose-600 mr-2 mt-1"></i>
+            <span>增强人际关系,让你更容易看到他人的善意</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 开始练习按钮 -->
+    <div class="text-center mb-8">
+      <button onclick="startPractice()" class="bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white px-12 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+        <i class="fas fa-play mr-2"></i>开始今天的感恩练习
+      </button>
+    </div>
+
+    <!-- 历史记录 -->
+    <div id="historySection" class="bg-white rounded-3xl shadow-lg p-8">
+      <h3 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
+        <i class="fas fa-book text-rose-600 mr-3"></i>
+        我的感恩日记
+      </h3>
+      <div id="gratitudeHistory" class="space-y-4">
+        <!-- 动态加载 -->
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 练习模态框 -->
+  <div id="practiceModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full p-8 max-h-[90vh] overflow-y-auto">
+      
+      <div class="text-center mb-8">
+        <div class="w-16 h-16 bg-gradient-to-br from-rose-400 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+          <i class="fas fa-heart text-2xl text-white"></i>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-800 mb-2">今天,我感恩的是...</h3>
+        <p class="text-gray-600">至少写下3件让你心怀感激的事情</p>
+      </div>
+
+      <div class="space-y-6 mb-8">
+        <div class="fade-in">
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <span class="text-rose-600 text-lg mr-2">1.</span>第一件事
+          </label>
+          <textarea id="gratitude1" rows="3" 
+                    placeholder="例如:今天同事主动帮我解决了一个技术难题,让我很感动..."
+                    class="w-full border-2 border-gray-200 rounded-xl p-4 focus:border-rose-400 focus:outline-none resize-none"></textarea>
+        </div>
+
+        <div class="fade-in">
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <span class="text-rose-600 text-lg mr-2">2.</span>第二件事
+          </label>
+          <textarea id="gratitude2" rows="3"
+                    placeholder="例如:下午散步时看到了美丽的晚霞,心情变得很平静..."
+                    class="w-full border-2 border-gray-200 rounded-xl p-4 focus:border-rose-400 focus:outline-none resize-none"></textarea>
+        </div>
+
+        <div class="fade-in">
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            <span class="text-rose-600 text-lg mr-2">3.</span>第三件事
+          </label>
+          <textarea id="gratitude3" rows="3"
+                    placeholder="例如:妈妈打电话关心我的身体,虽然有时唠叨但很温暖..."
+                    class="w-full border-2 border-gray-200 rounded-xl p-4 focus:border-rose-400 focus:outline-none resize-none"></textarea>
+        </div>
+      </div>
+
+      <div class="bg-rose-50 rounded-xl p-4 mb-6">
+        <p class="text-sm text-gray-600">
+          <i class="fas fa-info-circle text-rose-600 mr-2"></i>
+          小贴士:可以是很小的事情,比如一杯热茶、一个微笑、顺利的通勤。关键是用心感受那份美好。
+        </p>
+      </div>
+
+      <div class="flex gap-3">
+        <button onclick="closeModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-xl font-medium transition-all">
+          取消
+        </button>
+        <button onclick="saveGratitude()" class="flex-1 bg-gradient-to-r from-rose-500 to-pink-500 hover:from-rose-600 hover:to-pink-600 text-white py-3 rounded-xl font-medium transition-all">
+          <i class="fas fa-save mr-2"></i>保存并完成
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function startPractice() {
+      document.getElementById('practiceModal').classList.remove('hidden');
+      // 清空输入框
+      document.getElementById('gratitude1').value = '';
+      document.getElementById('gratitude2').value = '';
+      document.getElementById('gratitude3').value = '';
+    }
+
+    function closeModal() {
+      document.getElementById('practiceModal').classList.add('hidden');
+    }
+
+    function saveGratitude() {
+      const g1 = document.getElementById('gratitude1').value.trim();
+      const g2 = document.getElementById('gratitude2').value.trim();
+      const g3 = document.getElementById('gratitude3').value.trim();
+
+      if (!g1 || !g2 || !g3) {
+        alert('请至少填写3件感恩的事情');
+        return;
+      }
+
+      const record = {
+        id: Date.now(),
+        date: new Date().toISOString(),
+        gratitudes: [g1, g2, g3]
+      };
+
+      const history = JSON.parse(localStorage.getItem('gratitudeHistory') || '[]');
+      history.unshift(record);
+      localStorage.setItem('gratitudeHistory', JSON.stringify(history));
+
+      // 保存练习记录
+      savePracticeRecord();
+
+      alert('✨ 感恩记录已保存!每天坚持,生活会更美好!');
+      closeModal();
+      loadHistory();
+    }
+
+    function savePracticeRecord() {
+      const record = {
+        id: Date.now(),
+        title: '感恩练习',
+        category: 'mindful',
+        duration: 3,
+        date: new Date().toISOString(),
+        timestamp: Date.now()
+      };
+
+      const history = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
+      history.push(record);
+      localStorage.setItem('practiceHistory', JSON.stringify(history));
+    }
+
+    function loadHistory() {
+      const history = JSON.parse(localStorage.getItem('gratitudeHistory') || '[]');
+      const container = document.getElementById('gratitudeHistory');
+
+      if (history.length === 0) {
+        container.innerHTML = `
+          <div class="text-center text-gray-500 py-8">
+            <i class="fas fa-book-open text-4xl mb-3"></i>
+            <p>还没有记录,开始你的第一次感恩练习吧!</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = history.slice(0, 10).map(item => {
+        const date = new Date(item.date);
+        return `
+          <div class="border-l-4 border-rose-400 bg-rose-50 rounded-r-xl p-4">
+            <div class="flex items-center justify-between mb-3">
+              <div class="text-sm text-gray-600">
+                <i class="far fa-calendar mr-2"></i>
+                ${date.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </div>
+            </div>
+            <div class="space-y-2">
+              ${item.gratitudes.map((g, i) => `
+                <div class="flex items-start">
+                  <span class="text-rose-600 font-semibold mr-2">${i + 1}.</span>
+                  <span class="text-gray-700 text-sm">${g}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 页面加载时显示历史记录
+    window.addEventListener('DOMContentLoaded', loadHistory);
+  </script>
+
+</body>
+</html>
