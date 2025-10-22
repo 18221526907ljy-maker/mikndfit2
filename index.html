@@ -558,27 +558,29 @@
        decoding="async">
 </div>
 
-      <!-- 移动端布局 -->
-<div class="md:hidden px-4">
-  <div class="flex items-center gap-4 mb-6 hero-content">
+<!-- 移动端布局 -->
+<div class="md:hidden" style="padding: 0 1rem;">
+  <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0;">
     <!-- 左侧文案和按钮 -->
-    <div class="flex-1">
-      <h1 class="text-mobile-title font-bold text-primary leading-tight mb-3">
+    <div style="flex: 1; min-width: 0;">
+      <h1 style="font-size: 1.25rem; line-height: 1.3; margin-bottom: 0.5rem; font-weight: bold;" class="text-primary">
         科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
       </h1>
-      <p class="text-mobile-subtitle text-gray leading-relaxed mb-4">
+      <p style="font-size: 0.8125rem; line-height: 1.4; margin-bottom: 0.75rem; color: #666666;">
         平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
       </p>
-      <button class="w-full bg-accent text-white rounded-lg font-semibold h-11 transition-all" onclick="navigateToAssessment()">
+      <button style="width: 100%; height: 40px; font-size: 0.875rem; font-weight: 600; border-radius: 0.5rem; border: none;" 
+              class="bg-accent text-white" 
+              onclick="navigateToAssessment()">
         开始探索
       </button>
     </div>
     
     <!-- 右侧 Logo -->
-    <div class="flex-shrink-0 hero-image hero-image-mobile">
+    <div style="flex-shrink: 0; width: 100px;">
       <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
            alt="MindFit Logo" 
-           class="hero-logo-img-mobile"
+           style="width: 100px; height: 100px; object-fit: cover; border-radius: 0.75rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);"
            loading="lazy"
            decoding="async">
     </div>
