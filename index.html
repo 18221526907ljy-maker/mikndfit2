@@ -559,6 +559,7 @@
 </div>
 
       <!-- 移动端布局 -->
+<!-- 移动端布局 - 注意第一行的 class -->
 <div class="md:hidden px-4">
   <div class="flex items-center gap-4 mb-6 hero-content">
     <!-- 左侧文案和按钮 -->
@@ -575,17 +576,13 @@
     </div>
     
     <!-- 右侧 Logo -->
-    <div class="flex-shrink-0 hero-image hero-image-mobile">
+    <div class="flex-shrink-0 hero-image-mobile" style="width: 120px; height: 120px;">
       <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
            alt="MindFit Logo" 
-           class="hero-logo-img-mobile"
-           loading="lazy"
-           decoding="async">
+           style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
     </div>
   </div>
 </div>
-    </section>
-
     <!-- 主要功能区域 -->
     <section class="py-6 md:py-20">
       <div class="max-w-7xl mx-auto">
