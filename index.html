@@ -8,7 +8,236 @@
   <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
   <!-- Font Awesome -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+  <style>
+/* ========================================
+   Logo 完整优化样式
+   ======================================== */
 
+/* 1. 桌面端 Logo 容器优化 */
+.hero-image-desktop {
+  position: relative;
+  perspective: 1000px;
+}
+
+/* Logo 背景光晕效果 */
+.hero-image-desktop::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(
+    circle at center,
+    rgba(143, 217, 168, 0.15) 0%,
+    rgba(143, 217, 168, 0.08) 40%,
+    rgba(143, 217, 168, 0.02) 70%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: pulse-glow 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+/* Logo 图片本身 */
+.hero-logo-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: float-in 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both,
+             gentle-float 6s ease-in-out 1.5s infinite;
+}
+
+/* Logo 入场动画 */
+@keyframes float-in {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Logo 悬浮呼吸效果 */
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+/* 悬停效果 - 桌面端 */
+.hero-logo-img:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  filter: brightness(1.05);
+}
+
+/* 加载状态占位符 */
+.hero-logo-img[data-loading="true"] {
+  background: linear-gradient(
+    90deg,
+    rgba(143, 217, 168, 0.1) 0%,
+    rgba(143, 217, 168, 0.2) 50%,
+    rgba(143, 217, 168, 0.1) 100%
+  );
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s ease-in-out infinite;
+}
+
+@keyframes loading-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* 2. 移动端 Logo 优化 */
+.hero-image-mobile {
+  position: relative;
+}
+
+/* 移动端光晕效果 */
+.hero-image-mobile::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(
+    circle at center,
+    rgba(143, 217, 168, 0.12) 0%,
+    rgba(143, 217, 168, 0.06) 50%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  animation: pulse-glow-mobile 4s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes pulse-glow-mobile {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.08);
+    opacity: 0.8;
+  }
+}
+
+/* 移动端 Logo 图片 */
+.hero-logo-img-mobile {
+  position: relative;
+  z-index: 1;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  animation: float-in-mobile 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both,
+             gentle-float-mobile 5s ease-in-out 1.2s infinite;
+}
+
+@keyframes float-in-mobile {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes gentle-float-mobile {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* 3. 图片懒加载淡入效果 */
+.hero-logo-img[data-loaded="true"],
+.hero-logo-img-mobile[data-loaded="true"] {
+  animation: fade-in 0.6s ease-out;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 4. 响应式优化 - 平板端 */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hero-logo-img {
+    max-width: 400px;
+  }
+}
+
+/* 5. 性能优化 - 减少动画在低性能设备 */
+@media (prefers-reduced-motion: reduce) {
+  .hero-logo-img,
+  .hero-logo-img-mobile {
+    animation: none !important;
+  }
+  
+  .hero-image-desktop::before,
+  .hero-image-mobile::before {
+    animation: none !important;
+  }
+  
+  .hero-logo-img:hover {
+    transform: none;
+  }
+}
+
+/* 6. 暗黑模式适配 */
+@media (prefers-color-scheme: dark) {
+  .hero-logo-img,
+  .hero-logo-img-mobile {
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.05);
+  }
+  
+  .hero-image-desktop::before {
+    background: radial-gradient(
+      circle at center,
+      rgba(143, 217, 168, 0.1) 0%,
+      rgba(143, 217, 168, 0.05) 40%,
+      transparent 70%
+    );
+  }
+}
+</style>
 <!-- MindFit 模块化样式 -->
 <link rel="stylesheet" href="css/main.css">
   <script>
@@ -323,7 +552,10 @@
             </button>
           </div>
          <div class="flex-1 max-w-lg hero-image">
-  <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" alt="MindFit Logo" class="w-full h-auto rounded-2xl">
+  <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" alt="MindFit Logo" 
+       class="hero-logo-img"
+       loading="lazy"
+       decoding="async">
 </div>
 
         <!-- 移动端布局 -->
@@ -344,7 +576,10 @@
             <!-- 右侧缩小的图片 -->
             <!-- 右侧缩小的图片 -->
 <div class="w-24 h-24 flex-shrink-0 hero-image">
-  <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" alt="MindFit Logo" class="w-full h-full rounded-xl object-cover">
+  <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" alt="MindFit Logo" 
+       class="hero-logo-img-mobile"
+       loading="lazy"
+       decoding="async">
 </div>
         
       </div>
@@ -1059,4 +1294,82 @@ function navigateToCBTTools() {
 <script src="js/data-manager.js"></script>
 
 </body>
+          <script src="data-manager.js"></script>
+          <script>
+/* ============================================
+   Logo 优化 JavaScript
+   ============================================ */
+
+(function() {
+  'use strict';
+  
+  // 图片懒加载和优化
+  function optimizeLogoImages() {
+    const desktopLogo = document.querySelector('.hero-logo-img');
+    const mobileLogo = document.querySelector('.hero-logo-img-mobile');
+    
+    [desktopLogo, mobileLogo].forEach(img => {
+      if (!img) return;
+      
+      img.setAttribute('data-loading', 'true');
+      
+      img.addEventListener('load', function() {
+        this.removeAttribute('data-loading');
+        this.setAttribute('data-loaded', 'true');
+      });
+      
+      img.addEventListener('error', function() {
+        console.warn('Logo 图片加载失败');
+        this.style.background = 'linear-gradient(135deg, #8FD9A8 0%, #D4E7DD 100%)';
+      });
+    });
+  }
+  
+  // Logo 点击回到顶部
+  function addLogoClickHandler() {
+    const logos = document.querySelectorAll('.hero-logo-img, .hero-logo-img-mobile');
+    
+    logos.forEach(logo => {
+      if (!logo) return;
+      
+      logo.style.cursor = 'pointer';
+      logo.setAttribute('role', 'button');
+      logo.setAttribute('aria-label', '点击回到页面顶部');
+      
+      logo.addEventListener('click', function() {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+    });
+  }
+  
+  // 图片预加载
+  function preloadLogoImage() {
+    const preloadLink = document.createElement('link');
+    preloadLink.rel = 'preload';
+    preloadLink.as = 'image';
+    preloadLink.href = 'assets/images/logo-hero.jpg';
+    document.head.appendChild(preloadLink);
+  }
+  
+  // 初始化
+  function initLogoOptimizations() {
+    preloadLogoImage();
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        optimizeLogoImages();
+        addLogoClickHandler();
+      });
+    } else {
+      optimizeLogoImages();
+      addLogoClickHandler();
+    }
+  }
+  
+  initLogoOptimizations();
+})();
+</script>
 </html>
