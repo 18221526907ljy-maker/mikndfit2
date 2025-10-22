@@ -1385,17 +1385,7 @@ function navigateToCBTTools() {
   initLogoOptimizations();
 })();
 </script>
-</html><!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MindFit - 科学管理身心，告别身材焦虑</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-  <!-- Font Awesome -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+
   <style>
 /* ========================================
    Logo 完整优化样式
@@ -2760,17 +2750,7 @@ function navigateToCBTTools() {
   initLogoOptimizations();
 })();
 </script>
-</html><!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MindFit - 科学管理身心，告别身材焦虑</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-  <!-- Font Awesome -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+
   <style>
 /* ========================================
    Logo 完整优化样式
@@ -4055,84 +4035,3 @@ function navigateToCBTTools() {
   </script>
 <!-- MindFit 数据管理器 -->
 <script src="js/data-manager.js"></script>
-
-</body>
-          <script src="data-manager.js"></script>
-          <script>
-/* ============================================
-   Logo 优化 JavaScript
-   ============================================ */
-
-(function() {
-  'use strict';
-  
-  // 图片懒加载和优化
-  function optimizeLogoImages() {
-    const desktopLogo = document.querySelector('.hero-logo-img');
-    const mobileLogo = document.querySelector('.hero-logo-img-mobile');
-    
-    [desktopLogo, mobileLogo].forEach(img => {
-      if (!img) return;
-      
-      img.setAttribute('data-loading', 'true');
-      
-      img.addEventListener('load', function() {
-        this.removeAttribute('data-loading');
-        this.setAttribute('data-loaded', 'true');
-      });
-      
-      img.addEventListener('error', function() {
-        console.warn('Logo 图片加载失败');
-        this.style.background = 'linear-gradient(135deg, #8FD9A8 0%, #D4E7DD 100%)';
-      });
-    });
-  }
-  
-  // Logo 点击回到顶部
-  function addLogoClickHandler() {
-    const logos = document.querySelectorAll('.hero-logo-img, .hero-logo-img-mobile');
-    
-    logos.forEach(logo => {
-      if (!logo) return;
-      
-      logo.style.cursor = 'pointer';
-      logo.setAttribute('role', 'button');
-      logo.setAttribute('aria-label', '点击回到页面顶部');
-      
-      logo.addEventListener('click', function() {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
-    });
-  }
-  
-  // 图片预加载
-  function preloadLogoImage() {
-    const preloadLink = document.createElement('link');
-    preloadLink.rel = 'preload';
-    preloadLink.as = 'image';
-    preloadLink.href = 'assets/images/logo-hero.jpg';
-    document.head.appendChild(preloadLink);
-  }
-  
-  // 初始化
-  function initLogoOptimizations() {
-    preloadLogoImage();
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        optimizeLogoImages();
-        addLogoClickHandler();
-      });
-    } else {
-      optimizeLogoImages();
-      addLogoClickHandler();
-    }
-  }
-  
-  initLogoOptimizations();
-})();
-</script>
-</html>
