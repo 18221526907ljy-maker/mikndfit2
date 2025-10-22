@@ -629,29 +629,39 @@
         </div>
 
         <!-- 移动端布局 -->
-        <div class="md:hidden">
-          <div class="grid grid-cols-2 gap-4 px-4 mb-4">
-            
-            <div class="mobile-feature-card" data-delay="0" onclick="navigateToAssessment()">
-              <i class="fa fa-user-circle text-primary text-2xl mb-3"></i>
-              <h3 class="text-mobile-card-title font-bold text-primary mb-2">了解自己</h3>
-              <p class="text-mobile-description text-lightGray mb-4">通过各种帮助信任认知当下的自己</p>
-              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                开始评估
-              </button>
-            </div>
-
-            <div class="mobile-feature-card" data-delay="1" onclick="navigateToPractice()">
-              <i class="fa fa-apple text-mint text-2xl mb-3"></i>
-              <h3 class="text-mobile-card-title font-bold text-primary mb-2">日常练习</h3>
-              <p class="text-mobile-description text-lightGray mb-4">培养健康生活习惯的时候解决伴随紧张感</p>
-              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                开始练习
-              </button>
-            </div>
-
-          </div>
-          
+        <!-- 移动端布局 -->
+<div class="md:hidden hero-content" style="padding: 0 1rem;">
+  <div style="display: flex; align-items: stretch; gap: 1rem;">
+    <!-- 左侧文案和按钮 -->
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0;">
+      <div>
+        <h1 style="font-size: 1.375rem; line-height: 1.4; margin-bottom: 0.75rem; font-weight: bold;" class="text-primary">
+          科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
+        </h1>
+        <p style="font-size: 0.875rem; line-height: 1.5; margin-bottom: 1rem; color: #666666;">
+          平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
+        </p>
+      </div>
+      <button style="width: 100%; height: 44px; font-size: 0.9375rem; font-weight: 600; border-radius: 0.5rem; border: none;" 
+              class="bg-accent text-white" 
+              onclick="navigateToAssessment()">
+        开始探索
+      </button>
+    </div>
+    
+    <!-- 右侧 Logo -->
+    <div style="flex-shrink: 0; width: 120px; display: flex; align-items: center;" class="hero-image">
+      <div class="hero-image-mobile" style="width: 120px; height: 120px;">
+        <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
+             alt="MindFit Logo" 
+             class="hero-logo-img-mobile"
+             style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.75rem; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);"
+             loading="lazy"
+             decoding="async">
+      </div>
+    </div>
+  </div>
+</div>
           <!-- 深度工具居中 -->
           <div class="flex justify-center px-4">
            <div class="mobile-feature-card w-48" data-delay="2" onclick="navigateToCBTTools()">
