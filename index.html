@@ -576,15 +576,13 @@
     
     <!-- 右侧 Logo -->
     <div class="flex-shrink-0 hero-image hero-image-mobile">
-      <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
-           alt="MindFit Logo" 
-           class="hero-logo-img-mobile"
-           loading="lazy"
-           decoding="async">
-    </div>
-  </div>
+  <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
+       alt="MindFit Logo" 
+       class="hero-logo-img-mobile"
+       loading="eager"
+       decoding="async"
+       onerror="this.style.background='linear-gradient(135deg, #8FD9A8 0%, #D4E7DD 100%)'; this.alt='Logo加载失败';">
 </div>
-    </section>
 
     <!-- 主要功能区域 -->
     <section class="py-6 md:py-20">
@@ -1347,13 +1345,18 @@ function navigateToCBTTools() {
   }
   
   // 图片预加载
-  function preloadLogoImage() {
-    const preloadLink = document.createElement('link');
-    preloadLink.rel = 'preload';
-    preloadLink.as = 'image';
-    preloadLink.href = 'assets/images/logo-hero.jpg';
-    document.head.appendChild(preloadLink);
-  }
+ function preloadLogoImage() {
+  const imageUrl = 'assets/images/logo-hero.jpg';
+  const preloadLink = document.createElement('link');
+  preloadLink.rel = 'preload';
+  preloadLink.as = 'image';
+  preloadLink.href = imageUrl;
+  document.head.appendChild(preloadLink);
+  
+  // 提前加载图片
+  const img = new Image();
+  img.src = imageUrl;
+}
   
   // 初始化
   function initLogoOptimizations() {
