@@ -1,245 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MindFit - 科学管理身心，告别身材焦虑</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-  <!-- Font Awesome -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-  <style>
-/* ========================================
-   Logo 完整优化样式
-   ======================================== */
-
-/* 1. 桌面端 Logo 容器优化 */
-.hero-image-desktop {
-  position: relative;
-  perspective: 1000px;
-}
-
-/* Logo 背景光晕效果 */
-.hero-image-desktop::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(
-    circle at center,
-    rgba(143, 217, 168, 0.15) 0%,
-    rgba(143, 217, 168, 0.08) 40%,
-    rgba(143, 217, 168, 0.02) 70%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  animation: pulse-glow 4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 0.7;
-  }
-}
-
-/* Logo 图片本身 */
-.hero-logo-img {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: auto;
-  border-radius: 1rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: float-in 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both,
-             gentle-float 6s ease-in-out 1.5s infinite;
-}
-
-/* Logo 入场动画 */
-@keyframes float-in {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Logo 悬浮呼吸效果 */
-@keyframes gentle-float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-}
-
-/* 悬停效果 - 桌面端 */
-.hero-logo-img:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  filter: brightness(1.05);
-}
-
-/* 加载状态占位符 */
-.hero-logo-img[data-loading="true"] {
-  background: linear-gradient(
-    90deg,
-    rgba(143, 217, 168, 0.1) 0%,
-    rgba(143, 217, 168, 0.2) 50%,
-    rgba(143, 217, 168, 0.1) 100%
-  );
-  background-size: 200% 100%;
-  animation: loading-shimmer 1.5s ease-in-out infinite;
-}
-
-@keyframes loading-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-/* 2. 移动端 Logo 优化 */
-.hero-image-mobile {
-  position: relative;
-}
-
-/* 移动端光晕效果 */
-.hero-image-mobile::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(
-    circle at center,
-    rgba(143, 217, 168, 0.12) 0%,
-    rgba(143, 217, 168, 0.06) 50%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  animation: pulse-glow-mobile 4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes pulse-glow-mobile {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.08);
-    opacity: 0.8;
-  }
-}
-
-/* 移动端 Logo 图片 */
-.hero-logo-img-mobile {
-  position: relative;
-  z-index: 1;
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 0.75rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  animation: float-in-mobile 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both,
-             gentle-float-mobile 5s ease-in-out 1.2s infinite;
-}
-
-@keyframes float-in-mobile {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes gentle-float-mobile {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* 3. 图片懒加载淡入效果 */
-.hero-logo-img[data-loaded="true"],
-.hero-logo-img-mobile[data-loaded="true"] {
-  animation: fade-in 0.6s ease-out;
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* 4. 响应式优化 - 平板端 */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .hero-logo-img {
-    max-width: 400px;
-  }
-}
-
-/* 5. 性能优化 - 减少动画在低性能设备 */
-@media (prefers-reduced-motion: reduce) {
-  .hero-logo-img,
-  .hero-logo-img-mobile {
-    animation: none !important;
-  }
   
-  .hero-image-desktop::before,
-  .hero-image-mobile::before {
-    animation: none !important;
-  }
-  
-  .hero-logo-img:hover {
-    transform: none;
-  }
-}
-
-/* 6. 暗黑模式适配 */
-@media (prefers-color-scheme: dark) {
-  .hero-logo-img,
-  .hero-logo-img-mobile {
-    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.05);
-  }
-  
-  .hero-image-desktop::before {
-    background: radial-gradient(
-      circle at center,
-      rgba(143, 217, 168, 0.1) 0%,
-      rgba(143, 217, 168, 0.05) 40%,
-      transparent 70%
-    );
-  }
-}
-</style>
-<!-- MindFit 模块化样式 -->
-<link rel="stylesheet" href="css/main.css">
   <script>
     tailwind.config = {
       theme: {
@@ -255,3783 +22,427 @@
             gray: "#666666",
             lightGray: "#777777",
           },
-          fontSize: {
-            'mobile-title': '22px',
-            'mobile-subtitle': '14px',
-            'mobile-card-title': '16px',
-            'mobile-description': '12px',
-            'mobile-knowledge': '15px',
-            'mobile-intro': '13px',
-          }
         },
       },
     };
   </script>
   
   <style>
-    .hero-gradient { background: #F7F6F2; }
+    /* 自定义背景渐变 */
+    .hero-gradient {
+      background: linear-gradient(135deg, #F7F6F2 0%, rgba(143, 217, 168, 0.1) 100%);
+    }
     
-    /* === 页面加载动画 === */
-    .hero-content {
+    /* 模糊背景装饰 */
+    .blur-decoration {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      animation: float 20s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-30px); }
+    }
+    
+    /* 页面加载动画 */
+    .fade-in-up {
       opacity: 0;
       transform: translateY(30px);
-      animation: heroFadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+      animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
     
-    .hero-image {
-      opacity: 0;
-      transform: scale(0.9);
-      animation: heroImageIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
-    }
-    
-    @keyframes heroFadeInUp {
+    @keyframes fadeInUp {
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
     
-    @keyframes heroImageIn {
+    /* Logo 动画 */
+    .hero-logo {
+      opacity: 0;
+      transform: scale(0.9);
+      animation: logoIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+    }
+    
+    @keyframes logoIn {
       to {
         opacity: 1;
         transform: scale(1);
       }
     }
     
-    /* === 功能卡片动画 === */
-    .feature-card {
-      opacity: 0;
-      transform: scale(0.92) translateY(20px);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform, opacity;
-    }
-    
-    .feature-card.animate-in {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-    
+    /* 玻璃态卡片 */
     .glass-card {
-      background: #FFFFFF;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
       border: 1px solid rgba(0, 0, 0, 0.05);
       transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-      will-change: transform, box-shadow;
       cursor: pointer;
     }
     
     .glass-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     }
     
-    .glass-card:active {
-      transform: translateY(-3px) scale(0.98);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+    /* 移动端菜单 */
+    .mobile-menu {
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
     }
     
-    /* 移动端功能卡片 */
-    .mobile-feature-card {
-      opacity: 0;
-      transform: scale(0.92) translateY(20px);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform, opacity, box-shadow;
-      cursor: pointer;
+    .mobile-menu.active {
+      transform: translateX(0);
     }
     
-    .mobile-feature-card.animate-in {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-    
-    .mobile-feature-card:active {
-      transform: translateY(-2px) scale(0.98);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 滚动触发动画 === */
-    .scroll-fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .scroll-fade-in.animate-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
+    /* 知识卡片动画 */
     .knowledge-card {
       opacity: 0;
       transform: translateY(20px);
       transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: pointer;
     }
     
     .knowledge-card.animate-in {
       opacity: 1;
       transform: translateY(0);
     }
-    
-    .knowledge-card:active {
-      transform: scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 按钮交互动画 === */
-    button {
-      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform, background-color, box-shadow;
-    }
-    
-    /* 主按钮（深炭灰底白字） */
-    .btn-primary, .bg-accent {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn-primary:hover, .bg-accent:hover {
-      background-color: rgba(46, 46, 46, 0.9);
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 8px 25px rgba(46, 46, 46, 0.25);
-    }
-    
-    .btn-primary:active, .bg-accent:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* 次按钮（描边） */
-    .border-primary {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .border-primary:hover {
-      background-color: #8FD9A8;
-      border-color: #8FD9A8;
-      color: white;
-      transform: translateY(-1px) scale(1.01);
-    }
-    
-    .border-primary:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* 文字按钮 */
-    .text-gray-600:hover {
-      color: #4A6157;
-      transform: translateY(-1px);
-    }
-    
-    .text-gray-600:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 推荐列表动画 === */
-    .qa-item {
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: pointer;
-    }
-    
-    .qa-item:active {
-      background-color: #f8f9fa;
-      transform: scale(0.98);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    .qa-item:active .fa-chevron-right {
-      transform: translateX(4px);
-      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    .hero-image-placeholder {
-      background: linear-gradient(135deg, #FAFAFA, #F7F6F2);
-      border: 2px dashed #4A6157;
-    }
-    
-    .green-accent-line {
-      border-left: 3px solid #4A6157;
-      padding-left: 1rem;
-    }
-    
-    /* 移动端样式 */
-    @media (max-width: 768px) {
-      .mobile-feature-card {
-        padding: 1.5rem 1rem;
-        background: #FFFFFF;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        text-align: center;
-        min-height: 140px;
-      }
-      
-      .mobile-knowledge-card {
-        display: flex;
-        background: #FFFFFF;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        margin-bottom: 1rem;
-        cursor: pointer;
-      }
-      
-      .mobile-qa-item {
-        padding: 1rem;
-        border-bottom: 1px solid #F0F0F0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      
-      .mobile-qa-item:last-child {
-        border-bottom: none;
-      }
-    }
   </style>
 </head>
 
-<body class="bg-gray-50 font-sans">
+<body class="bg-secondary">
   
   <!-- 顶部导航 -->
-  <nav class="hidden md:block bg-light border-b border-gray-200 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-2">
+  <header class="absolute inset-x-0 top-0 z-50">
+    <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
+      <!-- Logo -->
+      <div class="flex lg:flex-1">
+        <a href="#" class="-m-1.5 p-1.5 flex items-center space-x-2">
           <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-            <i class="fa fa-heartbeat text-white text-sm"></i>
+            <i class="fa fa-heartbeat text-white"></i>
+          </div>
+          <span class="text-lg font-bold text-primary">MindFit</span>
+        </a>
+      </div>
+      
+      <!-- 移动端菜单按钮 -->
+      <div class="flex lg:hidden">
+        <button type="button" onclick="toggleMobileMenu()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary">
+          <span class="sr-only">打开菜单</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+      
+      <!-- 桌面端导航 -->
+      <div class="hidden lg:flex lg:gap-x-12">
+        <a href="assessment-test.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">评估</a>
+        <a href="daily_practice.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">练习</a>
+        <a href="practice_records.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">记录</a>
+        <a href="body-neutrality.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">理论</a>
+      </div>
+      
+      <!-- 个人中心 -->
+      <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+        <a href="profile.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">
+          个人中心 <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </nav>
+    
+    <!-- 移动端菜单面板 -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white lg:hidden shadow-2xl">
+      <div class="p-6">
+        <div class="flex items-center justify-between mb-8">
+          <a href="#" class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+              <i class="fa fa-heartbeat text-white"></i>
+            </div>
+            <span class="text-lg font-bold text-primary">MindFit</span>
+          </a>
+          <button type="button" onclick="toggleMobileMenu()" class="-m-2.5 rounded-md p-2.5 text-primary">
+            <span class="sr-only">关闭菜单</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
+              <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+        
+        <div class="space-y-2">
+          <a href="assessment-test.html" class="block rounded-lg px-3 py-3 text-base font-semibold text-primary hover:bg-mint/10">评估测试</a>
+          <a href="daily_practice.html" class="block rounded-lg px-3 py-3 text-base font-semibold text-primary hover:bg-mint/10">日常练习</a>
+          <a href="practice_records.html" class="block rounded-lg px-3 py-3 text-base font-semibold text-primary hover:bg-mint/10">练习记录</a>
+          <a href="body-neutrality.html" class="block rounded-lg px-3 py-3 text-base font-semibold text-primary hover:bg-mint/10">身体中立</a>
+        </div>
+        
+        <div class="mt-6 pt-6 border-t border-gray-200">
+          <a href="profile.html" class="block rounded-lg px-3 py-3 text-base font-semibold text-primary hover:bg-mint/10">个人中心</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero 区域 -->
+  <div class="relative isolate px-6 pt-14 lg:px-8 hero-gradient">
+    <!-- 背景装饰 -->
+    <div aria-hidden="true" class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
+      <div class="blur-decoration" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%); left: calc(50% - 11rem); width: 36.125rem; background: linear-gradient(to top right, #8FD9A8, #4A6157);"></div>
+    </div>
+    
+    <!-- Hero 内容 -->
+    <div class="mx-auto max-w-7xl py-32 sm:py-48 lg:py-56">
+      <div class="lg:flex lg:items-center lg:gap-x-12">
+        <!-- 左侧文字内容 -->
+        <div class="lg:flex-1 fade-in-up">
+          <h1 class="text-4xl font-bold tracking-tight text-primary sm:text-6xl leading-tight mb-6">
+            科学管理身心、<br>
+            <span class="text-accent">告别身材焦虑</span>
+          </h1>
+          <p class="mt-6 text-lg leading-8 text-content">
+            平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
+          </p>
+          <div class="mt-10 flex items-center gap-x-6">
+            <button onclick="navigateToAssessment()" class="rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary transition-all hover:scale-105">
+              开始探索
+            </button>
+            <a href="body-neutrality.html" class="text-sm font-semibold leading-6 text-primary hover:text-mint transition-colors">
+              了解更多 <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 右侧 Logo 图片 -->
+        <div class="mt-16 lg:mt-0 lg:flex-1 flex justify-center hero-logo">
+          <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
+               alt="MindFit Logo" 
+               class="w-full max-w-lg rounded-2xl shadow-2xl"
+               loading="lazy">
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部装饰 -->
+    <div aria-hidden="true" class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+      <div class="blur-decoration" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%); left: calc(50% + 3rem); width: 36.125rem; background: linear-gradient(to top right, #8FD9A8, #4A6157);"></div>
+    </div>
+  </div>
+
+  <!-- 主要功能区域 -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        
+        <!-- 了解自己 -->
+        <div class="glass-card rounded-2xl p-8 text-center" onclick="navigateToAssessment()">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
+            <i class="fa fa-user-circle text-primary text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-4">了解自己</h3>
+          <p class="text-content mb-6">通过各种帮助信任认知当下的自己</p>
+          <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+            开始评估
+          </button>
+        </div>
+
+        <!-- 日常练习 -->
+        <div class="glass-card rounded-2xl p-8 text-center" onclick="navigateToPractice()">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-mint/20 flex items-center justify-center">
+            <i class="fa fa-apple text-mint text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-4">日常练习</h3>
+          <p class="text-content mb-6">培养健康生活习惯的时候解决伴随紧张感</p>
+          <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+            开始练习
+          </button>
+        </div>
+
+        <!-- 深度工具 -->
+        <div class="glass-card rounded-2xl p-8 text-center" onclick="navigateToCBTTools()">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-accent/10 flex items-center justify-center">
+            <i class="fa fa-cogs text-accent text-3xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-4">深度工具</h3>
+          <p class="text-content mb-6">通过心理干预或深入了解内心</p>
+          <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+            探索工具
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 身体中立知识库 -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-primary mb-4">身体中立知识库</h2>
+        <p class="text-content text-lg">科学理论支撑，帮助建立健康的身体认知</p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+        
+        <div class="glass-card rounded-xl overflow-hidden knowledge-card" onclick="window.open('body-neutrality.html', '_blank')">
+          <div class="aspect-video bg-primary flex items-center justify-center">
+            <i class="fa fa-book text-5xl text-white"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="font-bold text-primary mb-2">身体中立基础</h3>
+            <p class="text-content text-sm">了解身体中立的核心理念</p>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-xl overflow-hidden knowledge-card" onclick="navigateToPractice()">
+          <div class="aspect-video bg-mint flex items-center justify-center">
+            <i class="fa fa-lightbulb-o text-5xl text-white"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="font-bold text-primary mb-2">实践方法</h3>
+            <p class="text-content text-sm">日常生活中的身体中立练习</p>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-xl overflow-hidden knowledge-card" onclick="navigateToRecords()">
+          <div class="aspect-video bg-accent flex items-center justify-center">
+            <i class="fa fa-flask text-5xl text-white"></i>
+          </div>
+          <div class="p-6">
+            <h3 class="font-bold text-primary mb-2">科学研究</h3>
+            <p class="text-content text-sm">相关心理学研究和证据</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 个性化推荐 -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-primary mb-4">个性化推荐</h2>
+        <p class="text-content text-lg">基于您的需求，为您推荐合适的内容</p>
+      </div>
+
+      <div class="space-y-4 max-w-3xl mx-auto">
+        
+        <div class="bg-gray-50 rounded-xl p-6 cursor-pointer hover:bg-gray-100 transition-all" onclick="navigateToAssessment()">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                <i class="fa fa-search text-white text-lg"></i>
+              </div>
+              <span class="text-primary font-medium">想了解自己的身心状态？</span>
+            </div>
+            <i class="fa fa-chevron-right text-gray-400"></i>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-6 cursor-pointer hover:bg-gray-100 transition-all" onclick="navigateToPractice()">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-mint rounded-full flex items-center justify-center">
+                <i class="fa fa-leaf text-white text-lg"></i>
+              </div>
+              <span class="text-primary font-medium">如何建立健康的身体观念？</span>
+            </div>
+            <i class="fa fa-chevron-right text-gray-400"></i>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-6 cursor-pointer hover:bg-gray-100 transition-all" onclick="window.open('body-neutrality.html', '_blank')">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                <i class="fa fa-book text-white text-lg"></i>
+              </div>
+              <span class="text-primary font-medium">什么是身体中立理念？</span>
+            </div>
+            <i class="fa fa-chevron-right text-gray-400"></i>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-6 cursor-pointer hover:bg-gray-100 transition-all" onclick="navigateToRecords()">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+                <i class="fa fa-chart-line text-white text-lg"></i>
+              </div>
+              <span class="text-primary font-medium">查看我的练习记录和进展？</span>
+            </div>
+            <i class="fa fa-chevron-right text-gray-400"></i>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部 -->
+  <footer class="py-12 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center">
+        <div class="flex items-center justify-center space-x-2 mb-4">
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-heartbeat text-white"></i>
           </div>
           <span class="text-xl font-bold text-primary">MindFit</span>
         </div>
-        <div class="flex items-center space-x-8">
-          <a href="#" class="text-primary hover:text-mint transition-colors font-medium">首页</a>
-          <a href="self-assessment.html" class="text-content hover:text-primary transition-colors font-medium">测评</a>
-          <a href="daily_practice.html" class="text-content hover:text-primary transition-colors font-medium">练习</a>
-          <a href="practice_records.html" class="text-content hover:text-primary transition-colors font-medium">记录</a>
-          <a href="body-neutrality.html" class="text-content hover:text-primary transition-colors font-medium">理论</a>
-           <a href="profile.html" class="text-content hover:text-primary transition-colors font-medium">个人中心</a>
-        </div>
+        <p class="text-gray-600 text-sm">科学管理身心，告别身材焦虑</p>
+        <p class="text-gray-500 text-xs mt-4">© 2024 MindFit. All rights reserved.</p>
       </div>
     </div>
-  </nav>
+  </footer>
 
-  <!-- 移动端顶部导航 -->
-  <nav class="md:hidden bg-light border-b border-gray-200 sticky top-0 z-50">
-    <div class="flex items-center justify-between px-4 py-3">
-      <div class="flex items-center space-x-2">
-        <div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center">
-          <i class="fa fa-heartbeat text-white text-xs"></i>
-        </div>
-        <span class="text-lg font-bold text-primary">MindFit</span>
-        <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center cursor-pointer" 
-         onclick="window.location.href='profile.html'">
-        <i class="fa fa-user text-white text-xs"></i>
-      </div>
-    </div>
-  </nav>
-
-  <main class="pb-20 md:pb-8 bg-secondary">
-    
-    <!-- Hero 区域 -->
-    <section class="hero-gradient py-6 md:py-20">
-      <div class="max-w-7xl mx-auto">
-        
-        <!-- 桌面端布局 -->
-        <div class="hidden md:flex items-center justify-between gap-12 px-6">
-          <div class="flex-1 hero-content">
-            <h1 class="text-5xl font-bold text-primary leading-tight mb-6">
-              科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
-            </h1>
-            <p class="text-xl text-content leading-relaxed mb-8">
-              平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
-            </p>
-            <button class="bg-accent hover:bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all" onclick="navigateToAssessment()">
-              开始探索
-            </button>
-          </div>
-         <div class="flex-1 max-w-lg hero-image">
-  <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" alt="MindFit Logo" 
-       class="hero-logo-img"
-       loading="lazy"
-       decoding="async">
-</div>
-
-<!-- 移动端布局 -->
-<div class="md:hidden" style="padding: 0 1rem;">
-  <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0;">
-    <!-- 左侧文案和按钮 -->
-    <div style="flex: 1; min-width: 0;">
-      <h1 style="font-size: 1.25rem; line-height: 1.3; margin-bottom: 0.5rem; font-weight: bold;" class="text-primary">
-        科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
-      </h1>
-      <p style="font-size: 0.8125rem; line-height: 1.4; margin-bottom: 0.75rem; color: #666666;">
-        平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
-      </p>
-      <button style="width: 100%; height: 40px; font-size: 0.875rem; font-weight: 600; border-radius: 0.5rem; border: none;" 
-              class="bg-accent text-white" 
-              onclick="navigateToAssessment()">
-        开始探索
-      </button>
-    </div>
-    
-    <!-- 右侧 Logo -->
-    <div style="flex-shrink: 0; width: 100px;">
-      <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
-           alt="MindFit Logo" 
-           style="width: 100px; height: 100px; object-fit: cover; border-radius: 0.75rem; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);"
-           loading="lazy"
-           decoding="async">
-    </div>
-  </div>
-</div>
-    </section>
-
-    <!-- 主要功能区域 -->
-    <section class="py-6 md:py-20">
-      <div class="max-w-7xl mx-auto">
-        
-        <!-- 桌面端：3列网格 -->
-        <div class="hidden md:grid grid-cols-3 gap-8 px-6">
-          
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="0" onclick="navigateToAssessment()">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-              <i class="fa fa-user-circle text-primary text-3xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">了解自己</h3>
-            <p class="text-content mb-6">通过各种帮助信任认知当下的自己</p>
-            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
-              开始评估
-            </button>
-          </div>
-
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="1" onclick="navigateToPractice()">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-              <i class="fa fa-apple text-primary text-3xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">日常练习</h3>
-            <p class="text-content mb-6">培养健康生活习惯的时候解决伴随紧张感</p>
-            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
-              开始练习
-            </button>
-          </div>
-
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="2" onclick="navigateToCBTTools()">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-              <i class="fa fa-cogs text-primary text-3xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">深度工具</h3>
-            <p class="text-content mb-6">通过心理干预或深入了解内心</p>
-            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
-              探索工具
-            </button>
-          </div>
-
-        </div>
-
-        <!-- 移动端布局 -->
-        <!-- 移动端布局 -->
-<div class="md:hidden hero-content" style="padding: 0 1rem; margin-bottom: 1rem;">
-  <div style="display: flex; align-items: stretch; gap: 1rem;">
-    <!-- 左侧文案和按钮 -->
-    <div style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; min-width: 0;">
-      <div>
-        <h1 style="font-size: 1.375rem; line-height: 1.4; margin-bottom: 0.75rem; font-weight: bold;" class="text-primary">
-          科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
-        </h1>
-        <p style="font-size: 0.875rem; line-height: 1.5; margin-bottom: 0.751rem; color: #666666;">
-          平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
-        </p>
-      </div>
-      <button style="width: 100%; height: 44px; font-size: 0.9375rem; font-weight: 600; border-radius: 0.5rem; border: none;" 
-              class="bg-accent text-white" 
-              onclick="navigateToAssessment()">
-        开始探索
-      </button>
-    </div>
-    
-    <!-- 右侧 Logo -->
-    <div style="flex-shrink: 0; width: 120px; display: flex; align-items: center;" class="hero-image">
-      <div class="hero-image-mobile" style="width: 120px; height: 120px;">
-        <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
-             alt="MindFit Logo" 
-             class="hero-logo-img-mobile"
-             style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.75rem; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);"
-             loading="lazy"
-             decoding="async">
-      </div>
-    </div>
-  </div>
-</div>
-          <!-- 深度工具居中 -->
-          <div class="flex justify-center px-4">
-           <div class="mobile-feature-card w-48" data-delay="2" onclick="navigateToCBTTools()">
-              <i class="fa fa-cogs text-accent text-2xl mb-3"></i>
-              <h3 class="text-mobile-card-title font-bold text-primary mb-2">深度工具</h3>
-              <p class="text-mobile-description text-lightGray mb-4">通过心理干预或深入了解内心</p>
-              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                探索工具
-              </button>
-            </div>
-          </div>
-
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- 身体中立知识库 -->
-    <section class="py-6 md:py-20 bg-gray-50">
-      <div class="max-w-7xl mx-auto">
-        
-        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
-          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4 green-accent-line">身体中立知识库</h2>
-          <p class="text-content text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
-        </div>
-
-        <!-- 桌面端 -->
-        <div class="hidden md:block px-6">
-          <div class="grid grid-cols-3 gap-8 mb-8">
-            
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
-              <div class="aspect-video bg-primary flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-white"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="font-bold text-primary mb-2">身体中立基础</h3>
-                <p class="text-content text-sm">了解身体中立的核心理念</p>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="1" onclick="navigateToPractice()">
-              <div class="aspect-video bg-mint flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-white"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="font-bold text-primary mb-2">实践方法</h3>
-                <p class="text-content text-sm">日常生活中的身体中立练习</p>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="2" onclick="navigateToRecords()">
-              <div class="aspect-video bg-accent flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-white"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="font-bold text-primary mb-2">科学研究</h3>
-                <p class="text-content text-sm">相关心理学研究和证据</p>
-              </div>
-            </div>
-
-          </div>
-          <div class="text-center">
-            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all" onclick="window.open('body-neutrality.html', '_blank')">
-              查看更多
-            </button>
-          </div>
-        </div>
-
-        <!-- 移动端 -->
-        <div class="md:hidden px-4">
-          
-          <div class="mobile-knowledge-card knowledge-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
-            <div class="w-24 h-18 bg-primary flex items-center justify-center flex-shrink-0">
-              <i class="fa fa-image text-white text-xl"></i>
-            </div>
-            <div class="flex-1 p-4">
-              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">身体中立基础</h3>
-              <p class="text-mobile-intro text-lightGray">了解身体中立的核心理念，学习如何建立健康的身体认知</p>
-            </div>
-          </div>
-
-          <div class="mobile-knowledge-card knowledge-card" data-delay="1" onclick="navigateToPractice()">
-            <div class="w-24 h-18 bg-mint flex items-center justify-center flex-shrink-0">
-              <i class="fa fa-image text-white text-xl"></i>
-            </div>
-            <div class="flex-1 p-4">
-              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">实践方法</h3>
-              <p class="text-mobile-intro text-lightGray">日常生活中的身体中立练习，简单易行的实用技巧</p>
-            </div>
-          </div>
-
-          <div class="mobile-knowledge-card knowledge-card" data-delay="2" onclick="navigateToRecords()">
-            <div class="w-24 h-18 bg-accent flex items-center justify-center flex-shrink-0">
-              <i class="fa fa-image text-white text-xl"></i>
-            </div>
-            <div class="flex-1 p-4">
-              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">科学研究</h3>
-              <p class="text-mobile-intro text-lightGray">相关心理学研究和证据，科学理论支撑实践效果</p>
-            </div>
-          </div>
-
-          <div class="text-center mt-6">
-            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all" onclick="window.open('body-neutrality.html', '_blank')">
-              查看更多
-            </button>
-          </div>
-
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- 个性化推荐 -->
-    <section class="py-6 md:py-20 bg-light">
-      <div class="max-w-4xl mx-auto">
-        
-        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
-          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4">个性化推荐</h2>
-          <p class="text-content text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
-        </div>
-
-        <!-- 桌面端 -->
-        <div class="hidden md:block space-y-4 px-6">
-          
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToAssessment()">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white"></i>
-                </div>
-                <span class="text-primary font-medium">想了解自己的身心状态？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToPractice()">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center">
-                  <i class="fa fa-leaf text-white"></i>
-                </div>
-                <span class="text-primary font-medium">如何建立健康的身体观念？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="window.open('body-neutrality.html', '_blank')">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                  <i class="fa fa-book text-white"></i>
-                </div>
-                <span class="text-primary font-medium">什么是身体中立理念？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToRecords()">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                  <i class="fa fa-chart-line text-white"></i>
-                </div>
-                <span class="text-primary font-medium">查看我的练习记录和进展？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 移动端 -->
-        <div class="md:hidden px-4">
-          <div class="bg-white rounded-xl overflow-hidden">
-            
-            <div class="mobile-qa-item qa-item" onclick="navigateToAssessment()">
-              <span class="text-mobile-knowledge text-primary font-medium">想了解自己的身心状态？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item" onclick="navigateToPractice()">
-              <span class="text-mobile-knowledge text-primary font-medium">如何建立健康的身体观念？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item" onclick="window.open('body-neutrality.html', '_blank')">
-              <span class="text-mobile-knowledge text-primary font-medium">什么是身体中立理念？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item" onclick="navigateToRecords()">
-              <span class="text-mobile-knowledge text-primary font-medium">查看我的练习记录和进展？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-          </div>
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- 桌面端底部 -->
-    <footer class="hidden md:block py-12 bg-gray-100">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
-            <div class="w-20 h-20 bg-gray-300 rounded-lg flex items-center justify-center">
-              <i class="fa fa-qrcode text-2xl text-gray-500"></i>
-            </div>
-            <div>
-              <p class="font-medium text-gray-800">微信二维码</p>
-              <p class="text-sm text-gray-600">扫码关注获取更多资源</p>
-            </div>
-          </div>
-          <div class="flex items-center space-x-4">
-            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-              <i class="fa fa-envelope text-primary"></i>
-            </div>
-            <div>
-              <p class="font-medium text-gray-800">邮箱</p>
-              <p class="text-sm text-gray-600">contact@mindfit.com</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-  </main>
-
-  <!-- 移动端底部导航 -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
-    <div class="flex justify-around py-2">
-      <button class="flex flex-col items-center py-2 px-3 text-primary">
-        <i class="fa fa-home text-lg mb-1"></i>
-        <span class="text-xs font-medium">首页</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToAssessment()">
-        <i class="fa fa-clipboard text-lg mb-1"></i>
-        <span class="text-xs">测评</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToPractice()">
-        <i class="fa fa-leaf text-lg mb-1"></i>
-        <span class="text-xs">练习</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToRecords()">
-        <i class="fa fa-chart-line text-lg mb-1"></i>
-        <span class="text-xs">记录</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" 
-            onclick="window.location.href='profile.html'">
-      <i class="fa fa-user text-lg mb-1"></i>
-      <span class="text-xs">我的</span>
-    </button>
-    </div>
-  </nav>
-
+  <!-- JavaScript -->
   <script>
-    /*****************
-     * 导航跳转逻辑
-     *****************/
-    
-    // 跳转到测评页面
-    function navigateToAssessment() {
-      window.location.href = 'self-assessment.html';
+    // 移动端菜单切换
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      menu.classList.toggle('active');
     }
-
-    // 跳转到练习页面
+    
+    // 导航函数
+    function navigateToAssessment() {
+      window.location.href = 'assessment-test.html';
+    }
+    
     function navigateToPractice() {
       window.location.href = 'daily_practice.html';
     }
-function navigateToCBTTools() {
-    window.location.href = 'cbt_tools.html';
-  }
-    // 跳转到记录页面
+    
+    function navigateToCBTTools() {
+      window.location.href = 'cbt_tools.html';
+    }
+    
     function navigateToRecords() {
       window.location.href = 'practice_records.html';
     }
-
-    /*****************
-     * 基础工具 & 存储
-     *****************/
-    const DB_KEY = "mindfit_db_v1";
-
-    const defaultDB = () => ({
-      records: [],          // 思维记录
-      emotions: [],         // 情绪练习完成 {card, ts}
-      experiments: [],      // 行为实验
-      mindfulness: [],      // 冥想练习 {seconds, ts}
-      assessments: [],      // 测评结果
-      bmiAssessments: [],   // BMI测评结果
-      bodyAnxietyAssessments: [], // 身材焦虑测评结果
-      practiceHistory: [],  // 练习历史
-      badges: {},           // 徽章布尔
-      streak: { count: 0, lastDate: "" }, // 连续天数
-      cachedAudio: false,   // 冥想音频缓存标记（提示用）
-    });
-
-    const loadDB = () => {
-      try {
-        const raw = localStorage.getItem(DB_KEY);
-        return raw ? JSON.parse(raw) : defaultDB();
-      } catch (e) {
-        return defaultDB();
-      }
-    };
-
-    const saveDB = (db) => localStorage.setItem(DB_KEY, JSON.stringify(db));
-
-    const todayStr = () => {
-      const d = new Date();
-      return d.toISOString().slice(0, 10);
-    };
-
-    const fmtTime = (ts) => {
-      const d = new Date(ts);
-      const pad = (n) => (n < 10 ? "0" + n : n);
-      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-    };
-
-    const showToast = (msg) => {
-      // 简单的toast实现
-      const toast = document.createElement('div');
-      toast.className = 'fixed top-4 right-4 bg-primary text-white px-6 py-3 rounded-lg shadow-lg z-50';
-      toast.textContent = msg;
-      document.body.appendChild(toast);
-      setTimeout(() => {
-        if (document.body.contains(toast)) {
-          document.body.removeChild(toast);
-        }
-      }, 3000);
-    };
-
-    // streak 更新：每天任意操作一次记为活跃
-    const touchStreak = (db) => {
-      const t = todayStr();
-      if (db.streak.lastDate === t) return;
-      // 判断是否连续
-      const last = db.streak.lastDate ? new Date(db.streak.lastDate) : null;
-      const y = new Date(t);
-      const one = 24 * 60 * 60 * 1000;
-      const isConsecutive = last && (y - last) / one === 1;
-      db.streak.count = isConsecutive ? (db.streak.count + 1) : 1;
-      db.streak.lastDate = t;
-    };
-
-    /*****************
-     * 页面动画控制
-     *****************/
     
-    // 🎯 页面加载动画控制
-    document.addEventListener('DOMContentLoaded', function() {
-      // 等待字体和关键资源加载完成
-      window.addEventListener('load', function() {
-        // 延迟执行，确保所有资源就绪
-        setTimeout(() => {
-          initPageAnimations();
-        }, 100);
-      });
-    });
-
-    function initPageAnimations() {
-      // 功能卡片 stagger 动画
-      animateFeatureCards();
-      
-      // 设置滚动监听
-      setupScrollAnimations();
-      
-      // 更新首页数据
-      updateHomeData();
-    }
-
-    function animateFeatureCards() {
-      // 桌面端卡片
-      const desktopCards = document.querySelectorAll('.feature-card');
-      // 移动端卡片
-      const mobileCards = document.querySelectorAll('.mobile-feature-card');
-      
-      // 合并所有卡片
-      const allCards = [...desktopCards, ...mobileCards];
-      
-      allCards.forEach((card, index) => {
-        const delay = parseInt(card.dataset.delay) || index;
-        setTimeout(() => {
-          card.classList.add('animate-in');
-        }, delay * 150); // 0.15s stagger - 更舒缓
-      });
-    }
+    // 知识卡片滚动动画
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
     
-    function setupScrollAnimations() {
-      // 创建 Intersection Observer
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (entry.target.classList.contains('scroll-fade-in')) {
-              entry.target.classList.add('animate-in');
-            } else if (entry.target.classList.contains('knowledge-card')) {
-              const delay = parseInt(entry.target.dataset.delay) || 0;
-              setTimeout(() => {
-                entry.target.classList.add('animate-in');
-              }, delay * 100);
-            }
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('animate-in');
+          }, index * 100);
+        }
       });
-      
-      // 监听所有需要滚动动画的元素
-      document.querySelectorAll('.scroll-fade-in, .knowledge-card').forEach(el => {
-        observer.observe(el);
-      });
-    }
-
-    /*****************
-     * 首页数据更新
-     *****************/
-    function updateHomeData() {
-      const db = loadDB();
-      
-      // 获取练习历史数据
-      const practiceHistory = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
-      const mindfulEating = JSON.parse(localStorage.getItem('mindfulEatingRecords') || '[]');
-      
-      // 合并所有练习记录
-      const allPractices = [
-        ...practiceHistory,
-        ...mindfulEating.map(p => ({
-          id: p.id,
-          title: `正念饮食：${p.food}`,
-          date: p.startTime,
-          duration: p.duration
-        }))
-      ];
-
-      // 更新推荐内容
-      updateRecommendations(db, allPractices);
-      
-      // 显示个性化欢迎信息
-      showWelcomeMessage(db, allPractices);
-    }
-
-    function updateRecommendations(db, practices) {
-      // 根据用户的练习历史和测评结果提供个性化推荐
-      const hasAssessments = db.assessments.length > 0 || db.bodyAnxietyAssessments.length > 0;
-      const hasPractices = practices.length > 0;
-      
-      // 动态更新推荐文案
-      const recommendItems = document.querySelectorAll('.qa-item span');
-      
-      if (!hasAssessments) {
-        // 如果没有测评，鼓励先做测评
-        if (recommendItems[0]) {
-          recommendItems[0].textContent = '还没有测评？先了解一下自己的身心状态';
-        }
-      }
-      
-      if (!hasPractices) {
-        // 如果没有练习记录，鼓励开始练习
-        if (recommendItems[1]) {
-          recommendItems[1].textContent = '想要开始改善身体关系？试试日常练习';
-        }
-      } else {
-        // 有练习记录，鼓励查看进展
-        if (recommendItems[3]) {
-          recommendItems[3].textContent = `已完成${practices.length}次练习，查看你的成长轨迹`;
-        }
-      }
-    }
-
-    function showWelcomeMessage(db, practices) {
-      // 延迟显示个性化欢迎信息
-      setTimeout(() => {
-        const totalPractices = practices.length;
-        const streak = calculateCurrentStreak(practices);
-        
-        let welcomeMsg = '欢迎来到MindFit！';
-        
-        if (totalPractices === 0) {
-          welcomeMsg = '开始你的身心健康之旅吧！先做个测评了解自己';
-        } else if (totalPractices < 5) {
-          welcomeMsg = `很棒！你已经完成了${totalPractices}次练习，继续保持`;
-        } else if (streak > 0) {
-          welcomeMsg = `太棒了！你已经连续${streak}天坚持练习`;
-        } else {
-          welcomeMsg = `欢迎回来！你已经完成了${totalPractices}次练习`;
-        }
-        
-        showToast(welcomeMsg);
-      }, 2000);
-    }
-
-    function calculateCurrentStreak(practices) {
-      if (practices.length === 0) return 0;
-      
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      let streak = 0;
-      let currentDate = new Date(today);
-      
-      // 检查连续天数
-      for (let i = 0; i < 30; i++) {
-        const dateStr = currentDate.toDateString();
-        const hasPractice = practices.some(p => 
-          new Date(p.date).toDateString() === dateStr
-        );
-        
-        if (hasPractice) {
-          streak++;
-        } else {
-          break;
-        }
-        
-        currentDate.setDate(currentDate.getDate() - 1);
-      }
-      
-      return streak;
-    }
-
-    /*****************
-     * 智能推荐系统
-     *****************/
-    function getSmartRecommendations() {
-      const db = loadDB();
-      const practices = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
-      const lastAssessment = db.bodyAnxietyAssessments[db.bodyAnxietyAssessments.length - 1];
-      
-      let recommendations = [];
-      
-      // 基于最后一次测评结果推荐
-      if (lastAssessment) {
-        if (lastAssessment.percentage >= 75) {
-          recommendations.push({
-            text: '基于你的测评结果，建议尝试4-7-8呼吸法缓解焦虑',
-            action: () => quickStartPractice('breathing')
-          });
-        } else if (lastAssessment.percentage >= 50) {
-          recommendations.push({
-            text: '正念练习可能对你很有帮助，试试正念饮食',
-            action: () => quickStartPractice('mindful-eating')
-          });
-        }
-      }
-      
-      // 基于练习历史推荐
-      if (practices.length === 0) {
-        recommendations.push({
-          text: '新手推荐：从简单的呼吸练习开始',
-          action: () => quickStartPractice('breathing')
-        });
-      } else {
-        const lastPractice = practices[practices.length - 1];
-        const daysSinceLastPractice = Math.floor((Date.now() - new Date(lastPractice.date)) / (1000 * 60 * 60 * 24));
-        
-        if (daysSinceLastPractice > 3) {
-          recommendations.push({
-            text: '好几天没练习了，来个快速的接地技术？',
-            action: () => quickStartPractice('grounding')
-          });
-        }
-      }
-      
-      return recommendations;
-    }
-
-    /*****************
-     * 快捷键支持
-     *****************/
-    document.addEventListener('keydown', function(e) {
-      // Alt + 数字键快速导航
-      if (e.altKey) {
-        switch(e.key) {
-          case '1':
-            e.preventDefault();
-            navigateToAssessment();
-            break;
-          case '2':
-            e.preventDefault();
-            navigateToPractice();
-            break;
-          case '3':
-            e.preventDefault();
-            navigateToRecords();
-            break;
-          case '4':
-            e.preventDefault();
-            window.open('body-neutrality.html', '_blank');
-            break;
-        }
-      }
-    });
-
-    // 显示快捷键提示
-    setTimeout(() => {
-      if (localStorage.getItem('showKeyboardTips') !== 'false') {
-        showToast('小贴士: 按 Alt+1/2/3/4 快速导航到各个功能模块');
-        localStorage.setItem('showKeyboardTips', 'false');
-      }
-    }, 8000);
-
-    // 🎨 增强交互体验
-    document.addEventListener('DOMContentLoaded', function() {
-      // 为所有卡片添加触摸反馈（移动端）
-      const cards = document.querySelectorAll('.mobile-feature-card, .glass-card, .practice-shortcut');
-      
-      cards.forEach(card => {
-        // 触摸开始
-        card.addEventListener('touchstart', function() {
-          this.style.transform = 'translateY(-2px) scale(0.98)';
-          this.style.transition = 'all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        });
-        
-        // 触摸结束
-        card.addEventListener('touchend', function() {
-          this.style.transform = '';
-          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        });
-        
-        // 触摸取消
-        card.addEventListener('touchcancel', function() {
-          this.style.transform = '';
-          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        });
-      });
-
-      // 智能推荐提示
-      setTimeout(() => {
-        const recommendations = getSmartRecommendations();
-        if (recommendations.length > 0) {
-          // 可以在这里显示智能推荐
-          console.log('智能推荐:', recommendations);
-        }
-      }, 5000);
+    }, observerOptions);
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.knowledge-card');
+      cards.forEach(card => observer.observe(card));
     });
   </script>
-<!-- MindFit 数据管理器 -->
-<script src="js/data-manager.js"></script>
-
 </body>
-          <script src="data-manager.js"></script>
-          <script>
-/* ============================================
-   Logo 优化 JavaScript
-   ============================================ */
-
-(function() {
-  'use strict';
-  
-  // 图片懒加载和优化
-  function optimizeLogoImages() {
-    const desktopLogo = document.querySelector('.hero-logo-img');
-    const mobileLogo = document.querySelector('.hero-logo-img-mobile');
-    
-    [desktopLogo, mobileLogo].forEach(img => {
-      if (!img) return;
-      
-      img.setAttribute('data-loading', 'true');
-      
-      img.addEventListener('load', function() {
-        this.removeAttribute('data-loading');
-        this.setAttribute('data-loaded', 'true');
-      });
-      
-      img.addEventListener('error', function() {
-        console.warn('Logo 图片加载失败');
-        this.style.background = 'linear-gradient(135deg, #8FD9A8 0%, #D4E7DD 100%)';
-      });
-    });
-  }
-  
-  // Logo 点击回到顶部
-  function addLogoClickHandler() {
-    const logos = document.querySelectorAll('.hero-logo-img, .hero-logo-img-mobile');
-    
-    logos.forEach(logo => {
-      if (!logo) return;
-      
-      logo.style.cursor = 'pointer';
-      logo.setAttribute('role', 'button');
-      logo.setAttribute('aria-label', '点击回到页面顶部');
-      
-      logo.addEventListener('click', function() {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
-    });
-  }
-  
-  // 图片预加载
-  function preloadLogoImage() {
-    const preloadLink = document.createElement('link');
-    preloadLink.rel = 'preload';
-    preloadLink.as = 'image';
-    preloadLink.href = 'assets/images/logo-hero.jpg';
-    document.head.appendChild(preloadLink);
-  }
-  
-  // 初始化
-  function initLogoOptimizations() {
-    preloadLogoImage();
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        optimizeLogoImages();
-        addLogoClickHandler();
-      });
-    } else {
-      optimizeLogoImages();
-      addLogoClickHandler();
-    }
-  }
-  
-  initLogoOptimizations();
-})();
-</script>
-
-  <style>
-/* ========================================
-   Logo 完整优化样式
-   ======================================== */
-
-/* 1. 桌面端 Logo 容器优化 */
-.hero-image-desktop {
-  position: relative;
-  perspective: 1000px;
-}
-
-/* Logo 背景光晕效果 */
-.hero-image-desktop::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(
-    circle at center,
-    rgba(143, 217, 168, 0.15) 0%,
-    rgba(143, 217, 168, 0.08) 40%,
-    rgba(143, 217, 168, 0.02) 70%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  animation: pulse-glow 4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 0.7;
-  }
-}
-
-/* Logo 图片本身 */
-.hero-logo-img {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: auto;
-  border-radius: 1rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: float-in 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both,
-             gentle-float 6s ease-in-out 1.5s infinite;
-}
-
-/* Logo 入场动画 */
-@keyframes float-in {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Logo 悬浮呼吸效果 */
-@keyframes gentle-float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-}
-
-/* 悬停效果 - 桌面端 */
-.hero-logo-img:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  filter: brightness(1.05);
-}
-
-/* 加载状态占位符 */
-.hero-logo-img[data-loading="true"] {
-  background: linear-gradient(
-    90deg,
-    rgba(143, 217, 168, 0.1) 0%,
-    rgba(143, 217, 168, 0.2) 50%,
-    rgba(143, 217, 168, 0.1) 100%
-  );
-  background-size: 200% 100%;
-  animation: loading-shimmer 1.5s ease-in-out infinite;
-}
-
-@keyframes loading-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-/* 2. 移动端 Logo 优化 */
-.hero-image-mobile {
-  position: relative;
-}
-
-/* 移动端光晕效果 */
-.hero-image-mobile::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(
-    circle at center,
-    rgba(143, 217, 168, 0.12) 0%,
-    rgba(143, 217, 168, 0.06) 50%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  animation: pulse-glow-mobile 4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes pulse-glow-mobile {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.08);
-    opacity: 0.8;
-  }
-}
-
-/* 移动端 Logo 图片 */
-.hero-logo-img-mobile {
-  position: relative;
-  z-index: 1;
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 0.75rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  animation: float-in-mobile 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both,
-             gentle-float-mobile 5s ease-in-out 1.2s infinite;
-}
-
-@keyframes float-in-mobile {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes gentle-float-mobile {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* 3. 图片懒加载淡入效果 */
-.hero-logo-img[data-loaded="true"],
-.hero-logo-img-mobile[data-loaded="true"] {
-  animation: fade-in 0.6s ease-out;
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* 4. 响应式优化 - 平板端 */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .hero-logo-img {
-    max-width: 400px;
-  }
-}
-
-/* 5. 性能优化 - 减少动画在低性能设备 */
-@media (prefers-reduced-motion: reduce) {
-  .hero-logo-img,
-  .hero-logo-img-mobile {
-    animation: none !important;
-  }
-  
-  .hero-image-desktop::before,
-  .hero-image-mobile::before {
-    animation: none !important;
-  }
-  
-  .hero-logo-img:hover {
-    transform: none;
-  }
-}
-
-/* 6. 暗黑模式适配 */
-@media (prefers-color-scheme: dark) {
-  .hero-logo-img,
-  .hero-logo-img-mobile {
-    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.05);
-  }
-  
-  .hero-image-desktop::before {
-    background: radial-gradient(
-      circle at center,
-      rgba(143, 217, 168, 0.1) 0%,
-      rgba(143, 217, 168, 0.05) 40%,
-      transparent 70%
-    );
-  }
-}
-</style>
-<!-- MindFit 模块化样式 -->
-<link rel="stylesheet" href="css/main.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#4A6157",
-            secondary: "#F7F6F2", 
-            accent: "#2E2E2E",
-            mint: "#8FD9A8",
-            light: "#FAFAFA",
-            white: "#FFFFFF",
-            content: "#444444",
-            gray: "#666666",
-            lightGray: "#777777",
-          },
-          fontSize: {
-            'mobile-title': '22px',
-            'mobile-subtitle': '14px',
-            'mobile-card-title': '16px',
-            'mobile-description': '12px',
-            'mobile-knowledge': '15px',
-            'mobile-intro': '13px',
-          }
-        },
-      },
-    };
-  </script>
-  
-  <style>
-    .hero-gradient { background: #F7F6F2; }
-    
-    /* === 页面加载动画 === */
-    .hero-content {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: heroFadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
-    }
-    
-    .hero-image {
-      opacity: 0;
-      transform: scale(0.9);
-      animation: heroImageIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
-    }
-    
-    @keyframes heroFadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes heroImageIn {
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    
-    /* === 功能卡片动画 === */
-    .feature-card {
-      opacity: 0;
-      transform: scale(0.92) translateY(20px);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform, opacity;
-    }
-    
-    .feature-card.animate-in {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-    
-    .glass-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-      will-change: transform, box-shadow;
-      cursor: pointer;
-    }
-    
-    .glass-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
-    }
-    
-    .glass-card:active {
-      transform: translateY(-3px) scale(0.98);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* 移动端功能卡片 */
-    .mobile-feature-card {
-      opacity: 0;
-      transform: scale(0.92) translateY(20px);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform, opacity, box-shadow;
-      cursor: pointer;
-    }
-    
-    .mobile-feature-card.animate-in {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-    
-    .mobile-feature-card:active {
-      transform: translateY(-2px) scale(0.98);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 滚动触发动画 === */
-    .scroll-fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .scroll-fade-in.animate-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .knowledge-card {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: pointer;
-    }
-    
-    .knowledge-card.animate-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .knowledge-card:active {
-      transform: scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 按钮交互动画 === */
-    button {
-      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform, background-color, box-shadow;
-    }
-    
-    /* 主按钮（深炭灰底白字） */
-    .btn-primary, .bg-accent {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn-primary:hover, .bg-accent:hover {
-      background-color: rgba(46, 46, 46, 0.9);
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 8px 25px rgba(46, 46, 46, 0.25);
-    }
-    
-    .btn-primary:active, .bg-accent:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* 次按钮（描边） */
-    .border-primary {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .border-primary:hover {
-      background-color: #8FD9A8;
-      border-color: #8FD9A8;
-      color: white;
-      transform: translateY(-1px) scale(1.01);
-    }
-    
-    .border-primary:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* 文字按钮 */
-    .text-gray-600:hover {
-      color: #4A6157;
-      transform: translateY(-1px);
-    }
-    
-    .text-gray-600:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 推荐列表动画 === */
-    .qa-item {
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: pointer;
-    }
-    
-    .qa-item:active {
-      background-color: #f8f9fa;
-      transform: scale(0.98);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    .qa-item:active .fa-chevron-right {
-      transform: translateX(4px);
-      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    .hero-image-placeholder {
-      background: linear-gradient(135deg, #FAFAFA, #F7F6F2);
-      border: 2px dashed #4A6157;
-    }
-    
-    .green-accent-line {
-      border-left: 3px solid #4A6157;
-      padding-left: 1rem;
-    }
-    
-    /* 移动端样式 */
-    @media (max-width: 768px) {
-      .mobile-feature-card {
-        padding: 1.5rem 1rem;
-        background: #FFFFFF;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        text-align: center;
-        min-height: 140px;
-      }
-      
-      .mobile-knowledge-card {
-        display: flex;
-        background: #FFFFFF;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        margin-bottom: 1rem;
-        cursor: pointer;
-      }
-      
-      .mobile-qa-item {
-        padding: 1rem;
-        border-bottom: 1px solid #F0F0F0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      
-      .mobile-qa-item:last-child {
-        border-bottom: none;
-      }
-    }
-  </style>
-</head>
-
-<body class="bg-gray-50 font-sans">
-  
-  <!-- 顶部导航 -->
-  <nav class="hidden md:block bg-light border-b border-gray-200 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-            <i class="fa fa-heartbeat text-white text-sm"></i>
-          </div>
-          <span class="text-xl font-bold text-primary">MindFit</span>
-        </div>
-        <div class="flex items-center space-x-8">
-          <a href="#" class="text-primary hover:text-mint transition-colors font-medium">首页</a>
-          <a href="self-assessment.html" class="text-content hover:text-primary transition-colors font-medium">测评</a>
-          <a href="daily_practice.html" class="text-content hover:text-primary transition-colors font-medium">练习</a>
-          <a href="practice_records.html" class="text-content hover:text-primary transition-colors font-medium">记录</a>
-          <a href="body-neutrality.html" class="text-content hover:text-primary transition-colors font-medium">理论</a>
-           <a href="profile.html" class="text-content hover:text-primary transition-colors font-medium">个人中心</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- 移动端顶部导航 -->
-  <nav class="md:hidden bg-light border-b border-gray-200 sticky top-0 z-50">
-    <div class="flex items-center justify-between px-4 py-3">
-      <div class="flex items-center space-x-2">
-        <div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center">
-          <i class="fa fa-heartbeat text-white text-xs"></i>
-        </div>
-        <span class="text-lg font-bold text-primary">MindFit</span>
-        <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center cursor-pointer" 
-         onclick="window.location.href='profile.html'">
-        <i class="fa fa-user text-white text-xs"></i>
-      </div>
-    </div>
-  </nav>
-
-  <main class="pb-20 md:pb-8 bg-secondary">
-    
-    <!-- Hero 区域 -->
-    <section class="hero-gradient py-8 md:py-20">
-      <div class="max-w-7xl mx-auto">
-        
-        <!-- 桌面端布局 -->
-        <div class="hidden md:flex items-center justify-between gap-12 px-6">
-          <div class="flex-1 hero-content">
-            <h1 class="text-5xl font-bold text-primary leading-tight mb-6">
-              科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
-            </h1>
-            <p class="text-xl text-content leading-relaxed mb-8">
-              平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
-            </p>
-            <button class="bg-accent hover:bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all" onclick="navigateToAssessment()">
-              开始探索
-            </button>
-          </div>
-         <div class="flex-1 max-w-lg hero-image">
-  <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" alt="MindFit Logo" 
-       class="hero-logo-img"
-       loading="lazy"
-       decoding="async">
-</div>
-
-      <!-- 移动端布局 -->
-<div class="md:hidden px-4">
-  <div class="flex items-center gap-4 mb-6 hero-content">
-    <!-- 左侧文案和按钮 -->
-    <div class="flex-1">
-      <h1 class="text-mobile-title font-bold text-primary leading-tight mb-3">
-        科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
-      </h1>
-      <p class="text-mobile-subtitle text-gray leading-relaxed mb-4">
-        平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
-      </p>
-      <button class="w-full bg-accent text-white rounded-lg font-semibold h-11 transition-all" onclick="navigateToAssessment()">
-        开始探索
-      </button>
-    </div>
-    
-    <!-- 右侧 Logo -->
-    <div class="flex-shrink-0 hero-image hero-image-mobile">
-      <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
-           alt="MindFit Logo" 
-           class="hero-logo-img-mobile"
-           loading="lazy"
-           decoding="async">
-    </div>
-  </div>
-</div>
-    </section>
-
-    <!-- 主要功能区域 -->
-    <section class="py-6 md:py-20">
-      <div class="max-w-7xl mx-auto">
-        
-        <!-- 桌面端：3列网格 -->
-        <div class="hidden md:grid grid-cols-3 gap-8 px-6">
-          
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="0" onclick="navigateToAssessment()">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-              <i class="fa fa-user-circle text-primary text-3xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">了解自己</h3>
-            <p class="text-content mb-6">通过各种帮助信任认知当下的自己</p>
-            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
-              开始评估
-            </button>
-          </div>
-
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="1" onclick="navigateToPractice()">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-              <i class="fa fa-apple text-primary text-3xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">日常练习</h3>
-            <p class="text-content mb-6">培养健康生活习惯的时候解决伴随紧张感</p>
-            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
-              开始练习
-            </button>
-          </div>
-
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="2" onclick="navigateToCBTTools()">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-              <i class="fa fa-cogs text-primary text-3xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">深度工具</h3>
-            <p class="text-content mb-6">通过心理干预或深入了解内心</p>
-            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
-              探索工具
-            </button>
-          </div>
-
-        </div>
-
-        <!-- 移动端布局 -->
-        <div class="md:hidden">
-          <div class="grid grid-cols-2 gap-4 px-4 mb-4">
-            
-            <div class="mobile-feature-card" data-delay="0" onclick="navigateToAssessment()">
-              <i class="fa fa-user-circle text-primary text-2xl mb-3"></i>
-              <h3 class="text-mobile-card-title font-bold text-primary mb-2">了解自己</h3>
-              <p class="text-mobile-description text-lightGray mb-4">通过各种帮助信任认知当下的自己</p>
-              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                开始评估
-              </button>
-            </div>
-
-            <div class="mobile-feature-card" data-delay="1" onclick="navigateToPractice()">
-              <i class="fa fa-apple text-mint text-2xl mb-3"></i>
-              <h3 class="text-mobile-card-title font-bold text-primary mb-2">日常练习</h3>
-              <p class="text-mobile-description text-lightGray mb-4">培养健康生活习惯的时候解决伴随紧张感</p>
-              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                开始练习
-              </button>
-            </div>
-
-          </div>
-          
-          <!-- 深度工具居中 -->
-          <div class="flex justify-center px-4">
-           <div class="mobile-feature-card w-48" data-delay="2" onclick="navigateToCBTTools()">
-              <i class="fa fa-cogs text-accent text-2xl mb-3"></i>
-              <h3 class="text-mobile-card-title font-bold text-primary mb-2">深度工具</h3>
-              <p class="text-mobile-description text-lightGray mb-4">通过心理干预或深入了解内心</p>
-              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                探索工具
-              </button>
-            </div>
-          </div>
-
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- 身体中立知识库 -->
-    <section class="py-6 md:py-20 bg-gray-50">
-      <div class="max-w-7xl mx-auto">
-        
-        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
-          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4 green-accent-line">身体中立知识库</h2>
-          <p class="text-content text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
-        </div>
-
-        <!-- 桌面端 -->
-        <div class="hidden md:block px-6">
-          <div class="grid grid-cols-3 gap-8 mb-8">
-            
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
-              <div class="aspect-video bg-primary flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-white"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="font-bold text-primary mb-2">身体中立基础</h3>
-                <p class="text-content text-sm">了解身体中立的核心理念</p>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="1" onclick="navigateToPractice()">
-              <div class="aspect-video bg-mint flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-white"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="font-bold text-primary mb-2">实践方法</h3>
-                <p class="text-content text-sm">日常生活中的身体中立练习</p>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="2" onclick="navigateToRecords()">
-              <div class="aspect-video bg-accent flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-white"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="font-bold text-primary mb-2">科学研究</h3>
-                <p class="text-content text-sm">相关心理学研究和证据</p>
-              </div>
-            </div>
-
-          </div>
-          <div class="text-center">
-            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all" onclick="window.open('body-neutrality.html', '_blank')">
-              查看更多
-            </button>
-          </div>
-        </div>
-
-        <!-- 移动端 -->
-        <div class="md:hidden px-4">
-          
-          <div class="mobile-knowledge-card knowledge-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
-            <div class="w-24 h-18 bg-primary flex items-center justify-center flex-shrink-0">
-              <i class="fa fa-image text-white text-xl"></i>
-            </div>
-            <div class="flex-1 p-4">
-              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">身体中立基础</h3>
-              <p class="text-mobile-intro text-lightGray">了解身体中立的核心理念，学习如何建立健康的身体认知</p>
-            </div>
-          </div>
-
-          <div class="mobile-knowledge-card knowledge-card" data-delay="1" onclick="navigateToPractice()">
-            <div class="w-24 h-18 bg-mint flex items-center justify-center flex-shrink-0">
-              <i class="fa fa-image text-white text-xl"></i>
-            </div>
-            <div class="flex-1 p-4">
-              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">实践方法</h3>
-              <p class="text-mobile-intro text-lightGray">日常生活中的身体中立练习，简单易行的实用技巧</p>
-            </div>
-          </div>
-
-          <div class="mobile-knowledge-card knowledge-card" data-delay="2" onclick="navigateToRecords()">
-            <div class="w-24 h-18 bg-accent flex items-center justify-center flex-shrink-0">
-              <i class="fa fa-image text-white text-xl"></i>
-            </div>
-            <div class="flex-1 p-4">
-              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">科学研究</h3>
-              <p class="text-mobile-intro text-lightGray">相关心理学研究和证据，科学理论支撑实践效果</p>
-            </div>
-          </div>
-
-          <div class="text-center mt-6">
-            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all" onclick="window.open('body-neutrality.html', '_blank')">
-              查看更多
-            </button>
-          </div>
-
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- 个性化推荐 -->
-    <section class="py-6 md:py-20 bg-light">
-      <div class="max-w-4xl mx-auto">
-        
-        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
-          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4">个性化推荐</h2>
-          <p class="text-content text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
-        </div>
-
-        <!-- 桌面端 -->
-        <div class="hidden md:block space-y-4 px-6">
-          
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToAssessment()">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white"></i>
-                </div>
-                <span class="text-primary font-medium">想了解自己的身心状态？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToPractice()">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center">
-                  <i class="fa fa-leaf text-white"></i>
-                </div>
-                <span class="text-primary font-medium">如何建立健康的身体观念？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="window.open('body-neutrality.html', '_blank')">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                  <i class="fa fa-book text-white"></i>
-                </div>
-                <span class="text-primary font-medium">什么是身体中立理念？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToRecords()">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                  <i class="fa fa-chart-line text-white"></i>
-                </div>
-                <span class="text-primary font-medium">查看我的练习记录和进展？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 移动端 -->
-        <div class="md:hidden px-4">
-          <div class="bg-white rounded-xl overflow-hidden">
-            
-            <div class="mobile-qa-item qa-item" onclick="navigateToAssessment()">
-              <span class="text-mobile-knowledge text-primary font-medium">想了解自己的身心状态？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item" onclick="navigateToPractice()">
-              <span class="text-mobile-knowledge text-primary font-medium">如何建立健康的身体观念？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item" onclick="window.open('body-neutrality.html', '_blank')">
-              <span class="text-mobile-knowledge text-primary font-medium">什么是身体中立理念？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item" onclick="navigateToRecords()">
-              <span class="text-mobile-knowledge text-primary font-medium">查看我的练习记录和进展？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-          </div>
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- 桌面端底部 -->
-    <footer class="hidden md:block py-12 bg-gray-100">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
-            <div class="w-20 h-20 bg-gray-300 rounded-lg flex items-center justify-center">
-              <i class="fa fa-qrcode text-2xl text-gray-500"></i>
-            </div>
-            <div>
-              <p class="font-medium text-gray-800">微信二维码</p>
-              <p class="text-sm text-gray-600">扫码关注获取更多资源</p>
-            </div>
-          </div>
-          <div class="flex items-center space-x-4">
-            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-              <i class="fa fa-envelope text-primary"></i>
-            </div>
-            <div>
-              <p class="font-medium text-gray-800">邮箱</p>
-              <p class="text-sm text-gray-600">contact@mindfit.com</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-  </main>
-
-  <!-- 移动端底部导航 -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
-    <div class="flex justify-around py-2">
-      <button class="flex flex-col items-center py-2 px-3 text-primary">
-        <i class="fa fa-home text-lg mb-1"></i>
-        <span class="text-xs font-medium">首页</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToAssessment()">
-        <i class="fa fa-clipboard text-lg mb-1"></i>
-        <span class="text-xs">测评</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToPractice()">
-        <i class="fa fa-leaf text-lg mb-1"></i>
-        <span class="text-xs">练习</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToRecords()">
-        <i class="fa fa-chart-line text-lg mb-1"></i>
-        <span class="text-xs">记录</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" 
-            onclick="window.location.href='profile.html'">
-      <i class="fa fa-user text-lg mb-1"></i>
-      <span class="text-xs">我的</span>
-    </button>
-    </div>
-  </nav>
-
-  <script>
-    /*****************
-     * 导航跳转逻辑
-     *****************/
-    
-    // 跳转到测评页面
-    function navigateToAssessment() {
-      window.location.href = 'self-assessment.html';
-    }
-
-    // 跳转到练习页面
-    function navigateToPractice() {
-      window.location.href = 'daily_practice.html';
-    }
-function navigateToCBTTools() {
-    window.location.href = 'cbt_tools.html';
-  }
-    // 跳转到记录页面
-    function navigateToRecords() {
-      window.location.href = 'practice_records.html';
-    }
-
-    /*****************
-     * 基础工具 & 存储
-     *****************/
-    const DB_KEY = "mindfit_db_v1";
-
-    const defaultDB = () => ({
-      records: [],          // 思维记录
-      emotions: [],         // 情绪练习完成 {card, ts}
-      experiments: [],      // 行为实验
-      mindfulness: [],      // 冥想练习 {seconds, ts}
-      assessments: [],      // 测评结果
-      bmiAssessments: [],   // BMI测评结果
-      bodyAnxietyAssessments: [], // 身材焦虑测评结果
-      practiceHistory: [],  // 练习历史
-      badges: {},           // 徽章布尔
-      streak: { count: 0, lastDate: "" }, // 连续天数
-      cachedAudio: false,   // 冥想音频缓存标记（提示用）
-    });
-
-    const loadDB = () => {
-      try {
-        const raw = localStorage.getItem(DB_KEY);
-        return raw ? JSON.parse(raw) : defaultDB();
-      } catch (e) {
-        return defaultDB();
-      }
-    };
-
-    const saveDB = (db) => localStorage.setItem(DB_KEY, JSON.stringify(db));
-
-    const todayStr = () => {
-      const d = new Date();
-      return d.toISOString().slice(0, 10);
-    };
-
-    const fmtTime = (ts) => {
-      const d = new Date(ts);
-      const pad = (n) => (n < 10 ? "0" + n : n);
-      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-    };
-
-    const showToast = (msg) => {
-      // 简单的toast实现
-      const toast = document.createElement('div');
-      toast.className = 'fixed top-4 right-4 bg-primary text-white px-6 py-3 rounded-lg shadow-lg z-50';
-      toast.textContent = msg;
-      document.body.appendChild(toast);
-      setTimeout(() => {
-        if (document.body.contains(toast)) {
-          document.body.removeChild(toast);
-        }
-      }, 3000);
-    };
-
-    // streak 更新：每天任意操作一次记为活跃
-    const touchStreak = (db) => {
-      const t = todayStr();
-      if (db.streak.lastDate === t) return;
-      // 判断是否连续
-      const last = db.streak.lastDate ? new Date(db.streak.lastDate) : null;
-      const y = new Date(t);
-      const one = 24 * 60 * 60 * 1000;
-      const isConsecutive = last && (y - last) / one === 1;
-      db.streak.count = isConsecutive ? (db.streak.count + 1) : 1;
-      db.streak.lastDate = t;
-    };
-
-    /*****************
-     * 页面动画控制
-     *****************/
-    
-    // 🎯 页面加载动画控制
-    document.addEventListener('DOMContentLoaded', function() {
-      // 等待字体和关键资源加载完成
-      window.addEventListener('load', function() {
-        // 延迟执行，确保所有资源就绪
-        setTimeout(() => {
-          initPageAnimations();
-        }, 100);
-      });
-    });
-
-    function initPageAnimations() {
-      // 功能卡片 stagger 动画
-      animateFeatureCards();
-      
-      // 设置滚动监听
-      setupScrollAnimations();
-      
-      // 更新首页数据
-      updateHomeData();
-    }
-
-    function animateFeatureCards() {
-      // 桌面端卡片
-      const desktopCards = document.querySelectorAll('.feature-card');
-      // 移动端卡片
-      const mobileCards = document.querySelectorAll('.mobile-feature-card');
-      
-      // 合并所有卡片
-      const allCards = [...desktopCards, ...mobileCards];
-      
-      allCards.forEach((card, index) => {
-        const delay = parseInt(card.dataset.delay) || index;
-        setTimeout(() => {
-          card.classList.add('animate-in');
-        }, delay * 150); // 0.15s stagger - 更舒缓
-      });
-    }
-    
-    function setupScrollAnimations() {
-      // 创建 Intersection Observer
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (entry.target.classList.contains('scroll-fade-in')) {
-              entry.target.classList.add('animate-in');
-            } else if (entry.target.classList.contains('knowledge-card')) {
-              const delay = parseInt(entry.target.dataset.delay) || 0;
-              setTimeout(() => {
-                entry.target.classList.add('animate-in');
-              }, delay * 100);
-            }
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-      
-      // 监听所有需要滚动动画的元素
-      document.querySelectorAll('.scroll-fade-in, .knowledge-card').forEach(el => {
-        observer.observe(el);
-      });
-    }
-
-    /*****************
-     * 首页数据更新
-     *****************/
-    function updateHomeData() {
-      const db = loadDB();
-      
-      // 获取练习历史数据
-      const practiceHistory = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
-      const mindfulEating = JSON.parse(localStorage.getItem('mindfulEatingRecords') || '[]');
-      
-      // 合并所有练习记录
-      const allPractices = [
-        ...practiceHistory,
-        ...mindfulEating.map(p => ({
-          id: p.id,
-          title: `正念饮食：${p.food}`,
-          date: p.startTime,
-          duration: p.duration
-        }))
-      ];
-
-      // 更新推荐内容
-      updateRecommendations(db, allPractices);
-      
-      // 显示个性化欢迎信息
-      showWelcomeMessage(db, allPractices);
-    }
-
-    function updateRecommendations(db, practices) {
-      // 根据用户的练习历史和测评结果提供个性化推荐
-      const hasAssessments = db.assessments.length > 0 || db.bodyAnxietyAssessments.length > 0;
-      const hasPractices = practices.length > 0;
-      
-      // 动态更新推荐文案
-      const recommendItems = document.querySelectorAll('.qa-item span');
-      
-      if (!hasAssessments) {
-        // 如果没有测评，鼓励先做测评
-        if (recommendItems[0]) {
-          recommendItems[0].textContent = '还没有测评？先了解一下自己的身心状态';
-        }
-      }
-      
-      if (!hasPractices) {
-        // 如果没有练习记录，鼓励开始练习
-        if (recommendItems[1]) {
-          recommendItems[1].textContent = '想要开始改善身体关系？试试日常练习';
-        }
-      } else {
-        // 有练习记录，鼓励查看进展
-        if (recommendItems[3]) {
-          recommendItems[3].textContent = `已完成${practices.length}次练习，查看你的成长轨迹`;
-        }
-      }
-    }
-
-    function showWelcomeMessage(db, practices) {
-      // 延迟显示个性化欢迎信息
-      setTimeout(() => {
-        const totalPractices = practices.length;
-        const streak = calculateCurrentStreak(practices);
-        
-        let welcomeMsg = '欢迎来到MindFit！';
-        
-        if (totalPractices === 0) {
-          welcomeMsg = '开始你的身心健康之旅吧！先做个测评了解自己';
-        } else if (totalPractices < 5) {
-          welcomeMsg = `很棒！你已经完成了${totalPractices}次练习，继续保持`;
-        } else if (streak > 0) {
-          welcomeMsg = `太棒了！你已经连续${streak}天坚持练习`;
-        } else {
-          welcomeMsg = `欢迎回来！你已经完成了${totalPractices}次练习`;
-        }
-        
-        showToast(welcomeMsg);
-      }, 2000);
-    }
-
-    function calculateCurrentStreak(practices) {
-      if (practices.length === 0) return 0;
-      
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      let streak = 0;
-      let currentDate = new Date(today);
-      
-      // 检查连续天数
-      for (let i = 0; i < 30; i++) {
-        const dateStr = currentDate.toDateString();
-        const hasPractice = practices.some(p => 
-          new Date(p.date).toDateString() === dateStr
-        );
-        
-        if (hasPractice) {
-          streak++;
-        } else {
-          break;
-        }
-        
-        currentDate.setDate(currentDate.getDate() - 1);
-      }
-      
-      return streak;
-    }
-
-    /*****************
-     * 智能推荐系统
-     *****************/
-    function getSmartRecommendations() {
-      const db = loadDB();
-      const practices = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
-      const lastAssessment = db.bodyAnxietyAssessments[db.bodyAnxietyAssessments.length - 1];
-      
-      let recommendations = [];
-      
-      // 基于最后一次测评结果推荐
-      if (lastAssessment) {
-        if (lastAssessment.percentage >= 75) {
-          recommendations.push({
-            text: '基于你的测评结果，建议尝试4-7-8呼吸法缓解焦虑',
-            action: () => quickStartPractice('breathing')
-          });
-        } else if (lastAssessment.percentage >= 50) {
-          recommendations.push({
-            text: '正念练习可能对你很有帮助，试试正念饮食',
-            action: () => quickStartPractice('mindful-eating')
-          });
-        }
-      }
-      
-      // 基于练习历史推荐
-      if (practices.length === 0) {
-        recommendations.push({
-          text: '新手推荐：从简单的呼吸练习开始',
-          action: () => quickStartPractice('breathing')
-        });
-      } else {
-        const lastPractice = practices[practices.length - 1];
-        const daysSinceLastPractice = Math.floor((Date.now() - new Date(lastPractice.date)) / (1000 * 60 * 60 * 24));
-        
-        if (daysSinceLastPractice > 3) {
-          recommendations.push({
-            text: '好几天没练习了，来个快速的接地技术？',
-            action: () => quickStartPractice('grounding')
-          });
-        }
-      }
-      
-      return recommendations;
-    }
-
-    /*****************
-     * 快捷键支持
-     *****************/
-    document.addEventListener('keydown', function(e) {
-      // Alt + 数字键快速导航
-      if (e.altKey) {
-        switch(e.key) {
-          case '1':
-            e.preventDefault();
-            navigateToAssessment();
-            break;
-          case '2':
-            e.preventDefault();
-            navigateToPractice();
-            break;
-          case '3':
-            e.preventDefault();
-            navigateToRecords();
-            break;
-          case '4':
-            e.preventDefault();
-            window.open('body-neutrality.html', '_blank');
-            break;
-        }
-      }
-    });
-
-    // 显示快捷键提示
-    setTimeout(() => {
-      if (localStorage.getItem('showKeyboardTips') !== 'false') {
-        showToast('小贴士: 按 Alt+1/2/3/4 快速导航到各个功能模块');
-        localStorage.setItem('showKeyboardTips', 'false');
-      }
-    }, 8000);
-
-    // 🎨 增强交互体验
-    document.addEventListener('DOMContentLoaded', function() {
-      // 为所有卡片添加触摸反馈（移动端）
-      const cards = document.querySelectorAll('.mobile-feature-card, .glass-card, .practice-shortcut');
-      
-      cards.forEach(card => {
-        // 触摸开始
-        card.addEventListener('touchstart', function() {
-          this.style.transform = 'translateY(-2px) scale(0.98)';
-          this.style.transition = 'all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        });
-        
-        // 触摸结束
-        card.addEventListener('touchend', function() {
-          this.style.transform = '';
-          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        });
-        
-        // 触摸取消
-        card.addEventListener('touchcancel', function() {
-          this.style.transform = '';
-          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        });
-      });
-
-      // 智能推荐提示
-      setTimeout(() => {
-        const recommendations = getSmartRecommendations();
-        if (recommendations.length > 0) {
-          // 可以在这里显示智能推荐
-          console.log('智能推荐:', recommendations);
-        }
-      }, 5000);
-    });
-  </script>
-<!-- MindFit 数据管理器 -->
-<script src="js/data-manager.js"></script>
-
-</body>
-          <script src="data-manager.js"></script>
-          <script>
-/* ============================================
-   Logo 优化 JavaScript
-   ============================================ */
-
-(function() {
-  'use strict';
-  
-  // 图片懒加载和优化
-  function optimizeLogoImages() {
-    const desktopLogo = document.querySelector('.hero-logo-img');
-    const mobileLogo = document.querySelector('.hero-logo-img-mobile');
-    
-    [desktopLogo, mobileLogo].forEach(img => {
-      if (!img) return;
-      
-      img.setAttribute('data-loading', 'true');
-      
-      img.addEventListener('load', function() {
-        this.removeAttribute('data-loading');
-        this.setAttribute('data-loaded', 'true');
-      });
-      
-      img.addEventListener('error', function() {
-        console.warn('Logo 图片加载失败');
-        this.style.background = 'linear-gradient(135deg, #8FD9A8 0%, #D4E7DD 100%)';
-      });
-    });
-  }
-  
-  // Logo 点击回到顶部
-  function addLogoClickHandler() {
-    const logos = document.querySelectorAll('.hero-logo-img, .hero-logo-img-mobile');
-    
-    logos.forEach(logo => {
-      if (!logo) return;
-      
-      logo.style.cursor = 'pointer';
-      logo.setAttribute('role', 'button');
-      logo.setAttribute('aria-label', '点击回到页面顶部');
-      
-      logo.addEventListener('click', function() {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      });
-    });
-  }
-  
-  // 图片预加载
-  function preloadLogoImage() {
-    const preloadLink = document.createElement('link');
-    preloadLink.rel = 'preload';
-    preloadLink.as = 'image';
-    preloadLink.href = 'assets/images/logo-hero.jpg';
-    document.head.appendChild(preloadLink);
-  }
-  
-  // 初始化
-  function initLogoOptimizations() {
-    preloadLogoImage();
-    
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', function() {
-        optimizeLogoImages();
-        addLogoClickHandler();
-      });
-    } else {
-      optimizeLogoImages();
-      addLogoClickHandler();
-    }
-  }
-  
-  initLogoOptimizations();
-})();
-</script>
-
-  <style>
-/* ========================================
-   Logo 完整优化样式
-   ======================================== */
-
-/* 1. 桌面端 Logo 容器优化 */
-.hero-image-desktop {
-  position: relative;
-  perspective: 1000px;
-}
-
-/* Logo 背景光晕效果 */
-.hero-image-desktop::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 120%;
-  height: 120%;
-  background: radial-gradient(
-    circle at center,
-    rgba(143, 217, 168, 0.15) 0%,
-    rgba(143, 217, 168, 0.08) 40%,
-    rgba(143, 217, 168, 0.02) 70%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  animation: pulse-glow 4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes pulse-glow {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1);
-    opacity: 0.7;
-  }
-}
-
-/* Logo 图片本身 */
-.hero-logo-img {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: auto;
-  border-radius: 1rem;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  animation: float-in 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s both,
-             gentle-float 6s ease-in-out 1.5s infinite;
-}
-
-/* Logo 入场动画 */
-@keyframes float-in {
-  0% {
-    opacity: 0;
-    transform: translateY(30px) scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-/* Logo 悬浮呼吸效果 */
-@keyframes gentle-float {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-15px);
-  }
-}
-
-/* 悬停效果 - 桌面端 */
-.hero-logo-img:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  filter: brightness(1.05);
-}
-
-/* 加载状态占位符 */
-.hero-logo-img[data-loading="true"] {
-  background: linear-gradient(
-    90deg,
-    rgba(143, 217, 168, 0.1) 0%,
-    rgba(143, 217, 168, 0.2) 50%,
-    rgba(143, 217, 168, 0.1) 100%
-  );
-  background-size: 200% 100%;
-  animation: loading-shimmer 1.5s ease-in-out infinite;
-}
-
-@keyframes loading-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-/* 2. 移动端 Logo 优化 */
-.hero-image-mobile {
-  position: relative;
-}
-
-/* 移动端光晕效果 */
-.hero-image-mobile::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(
-    circle at center,
-    rgba(143, 217, 168, 0.12) 0%,
-    rgba(143, 217, 168, 0.06) 50%,
-    transparent 100%
-  );
-  border-radius: 50%;
-  animation: pulse-glow-mobile 4s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes pulse-glow-mobile {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.08);
-    opacity: 0.8;
-  }
-}
-
-/* 移动端 Logo 图片 */
-.hero-logo-img-mobile {
-  position: relative;
-  z-index: 1;
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 0.75rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  animation: float-in-mobile 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both,
-             gentle-float-mobile 5s ease-in-out 1.2s infinite;
-}
-
-@keyframes float-in-mobile {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes gentle-float-mobile {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* 3. 图片懒加载淡入效果 */
-.hero-logo-img[data-loaded="true"],
-.hero-logo-img-mobile[data-loaded="true"] {
-  animation: fade-in 0.6s ease-out;
-}
-
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-/* 4. 响应式优化 - 平板端 */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .hero-logo-img {
-    max-width: 400px;
-  }
-}
-
-/* 5. 性能优化 - 减少动画在低性能设备 */
-@media (prefers-reduced-motion: reduce) {
-  .hero-logo-img,
-  .hero-logo-img-mobile {
-    animation: none !important;
-  }
-  
-  .hero-image-desktop::before,
-  .hero-image-mobile::before {
-    animation: none !important;
-  }
-  
-  .hero-logo-img:hover {
-    transform: none;
-  }
-}
-
-/* 6. 暗黑模式适配 */
-@media (prefers-color-scheme: dark) {
-  .hero-logo-img,
-  .hero-logo-img-mobile {
-    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.05);
-  }
-  
-  .hero-image-desktop::before {
-    background: radial-gradient(
-      circle at center,
-      rgba(143, 217, 168, 0.1) 0%,
-      rgba(143, 217, 168, 0.05) 40%,
-      transparent 70%
-    );
-  }
-}
-</style>
-<!-- MindFit 模块化样式 -->
-<link rel="stylesheet" href="css/main.css">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#4A6157",
-            secondary: "#F7F6F2", 
-            accent: "#2E2E2E",
-            mint: "#8FD9A8",
-            light: "#FAFAFA",
-            white: "#FFFFFF",
-            content: "#444444",
-            gray: "#666666",
-            lightGray: "#777777",
-          },
-          fontSize: {
-            'mobile-title': '22px',
-            'mobile-subtitle': '14px',
-            'mobile-card-title': '16px',
-            'mobile-description': '12px',
-            'mobile-knowledge': '15px',
-            'mobile-intro': '13px',
-          }
-        },
-      },
-    };
-  </script>
-  
-  <style>
-    .hero-gradient { background: #F7F6F2; }
-    
-    /* === 页面加载动画 === */
-    .hero-content {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: heroFadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
-    }
-    
-    .hero-image {
-      opacity: 0;
-      transform: scale(0.9);
-      animation: heroImageIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards;
-    }
-    
-    @keyframes heroFadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    
-    @keyframes heroImageIn {
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-    
-    /* === 功能卡片动画 === */
-    .feature-card {
-      opacity: 0;
-      transform: scale(0.92) translateY(20px);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform, opacity;
-    }
-    
-    .feature-card.animate-in {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-    
-    .glass-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-      will-change: transform, box-shadow;
-      cursor: pointer;
-    }
-    
-    .glass-card:hover {
-      transform: translateY(-6px) scale(1.02);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
-    }
-    
-    .glass-card:active {
-      transform: translateY(-3px) scale(0.98);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* 移动端功能卡片 */
-    .mobile-feature-card {
-      opacity: 0;
-      transform: scale(0.92) translateY(20px);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform, opacity, box-shadow;
-      cursor: pointer;
-    }
-    
-    .mobile-feature-card.animate-in {
-      opacity: 1;
-      transform: scale(1) translateY(0);
-    }
-    
-    .mobile-feature-card:active {
-      transform: translateY(-2px) scale(0.98);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 滚动触发动画 === */
-    .scroll-fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .scroll-fade-in.animate-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .knowledge-card {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: pointer;
-    }
-    
-    .knowledge-card.animate-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .knowledge-card:active {
-      transform: scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 按钮交互动画 === */
-    button {
-      transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      will-change: transform, background-color, box-shadow;
-    }
-    
-    /* 主按钮（深炭灰底白字） */
-    .btn-primary, .bg-accent {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn-primary:hover, .bg-accent:hover {
-      background-color: rgba(46, 46, 46, 0.9);
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 8px 25px rgba(46, 46, 46, 0.25);
-    }
-    
-    .btn-primary:active, .bg-accent:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* 次按钮（描边） */
-    .border-primary {
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .border-primary:hover {
-      background-color: #8FD9A8;
-      border-color: #8FD9A8;
-      color: white;
-      transform: translateY(-1px) scale(1.01);
-    }
-    
-    .border-primary:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* 文字按钮 */
-    .text-gray-600:hover {
-      color: #4A6157;
-      transform: translateY(-1px);
-    }
-    
-    .text-gray-600:active {
-      transform: translateY(0) scale(0.98);
-      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    /* === 推荐列表动画 === */
-    .qa-item {
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      cursor: pointer;
-    }
-    
-    .qa-item:active {
-      background-color: #f8f9fa;
-      transform: scale(0.98);
-      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    .qa-item:active .fa-chevron-right {
-      transform: translateX(4px);
-      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    
-    .hero-image-placeholder {
-      background: linear-gradient(135deg, #FAFAFA, #F7F6F2);
-      border: 2px dashed #4A6157;
-    }
-    
-    .green-accent-line {
-      border-left: 3px solid #4A6157;
-      padding-left: 1rem;
-    }
-    
-    /* 移动端样式 */
-    @media (max-width: 768px) {
-      .mobile-feature-card {
-        padding: 1.5rem 1rem;
-        background: #FFFFFF;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        text-align: center;
-        min-height: 140px;
-      }
-      
-      .mobile-knowledge-card {
-        display: flex;
-        background: #FFFFFF;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        margin-bottom: 1rem;
-        cursor: pointer;
-      }
-      
-      .mobile-qa-item {
-        padding: 1rem;
-        border-bottom: 1px solid #F0F0F0;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      
-      .mobile-qa-item:last-child {
-        border-bottom: none;
-      }
-    }
-  </style>
-</head>
-
-<body class="bg-gray-50 font-sans">
-  
-  <!-- 顶部导航 -->
-  <nav class="hidden md:block bg-light border-b border-gray-200 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-            <i class="fa fa-heartbeat text-white text-sm"></i>
-          </div>
-          <span class="text-xl font-bold text-primary">MindFit</span>
-        </div>
-        <div class="flex items-center space-x-8">
-          <a href="#" class="text-primary hover:text-mint transition-colors font-medium">首页</a>
-          <a href="self-assessment.html" class="text-content hover:text-primary transition-colors font-medium">测评</a>
-          <a href="daily_practice.html" class="text-content hover:text-primary transition-colors font-medium">练习</a>
-          <a href="practice_records.html" class="text-content hover:text-primary transition-colors font-medium">记录</a>
-          <a href="body-neutrality.html" class="text-content hover:text-primary transition-colors font-medium">理论</a>
-           <a href="profile.html" class="text-content hover:text-primary transition-colors font-medium">个人中心</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <!-- 移动端顶部导航 -->
-  <nav class="md:hidden bg-light border-b border-gray-200 sticky top-0 z-50">
-    <div class="flex items-center justify-between px-4 py-3">
-      <div class="flex items-center space-x-2">
-        <div class="w-7 h-7 rounded-full bg-primary flex items-center justify-center">
-          <i class="fa fa-heartbeat text-white text-xs"></i>
-        </div>
-        <span class="text-lg font-bold text-primary">MindFit</span>
-        <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center cursor-pointer" 
-         onclick="window.location.href='profile.html'">
-        <i class="fa fa-user text-white text-xs"></i>
-      </div>
-    </div>
-  </nav>
-
-  <main class="pb-20 md:pb-8 bg-secondary">
-    
-    <!-- Hero 区域 -->
-    <section class="hero-gradient py-8 md:py-20">
-      <div class="max-w-7xl mx-auto">
-        
-        <!-- 桌面端布局 -->
-        <div class="hidden md:flex items-center justify-between gap-12 px-6">
-          <div class="flex-1 hero-content">
-            <h1 class="text-5xl font-bold text-primary leading-tight mb-6">
-              科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
-            </h1>
-            <p class="text-xl text-content leading-relaxed mb-8">
-              平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
-            </p>
-            <button class="bg-accent hover:bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all" onclick="navigateToAssessment()">
-              开始探索
-            </button>
-          </div>
-         <div class="flex-1 max-w-lg hero-image">
-  <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" alt="MindFit Logo" 
-       class="hero-logo-img"
-       loading="lazy"
-       decoding="async">
-</div>
-
-      <!-- 移动端布局 -->
-<div class="md:hidden px-4">
-  <div class="flex items-center gap-4 mb-6 hero-content">
-    <!-- 左侧文案和按钮 -->
-    <div class="flex-1">
-      <h1 class="text-mobile-title font-bold text-primary leading-tight mb-3">
-        科学管理身心、<br><span class="text-accent">告别身材焦虑</span>
-      </h1>
-      <p class="text-mobile-subtitle text-gray leading-relaxed mb-4">
-        平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
-      </p>
-      <button class="w-full bg-accent text-white rounded-lg font-semibold h-11 transition-all" onclick="navigateToAssessment()">
-        开始探索
-      </button>
-    </div>
-    
-    <!-- 右侧 Logo -->
-    <div class="flex-shrink-0 hero-image hero-image-mobile">
-      <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
-           alt="MindFit Logo" 
-           class="hero-logo-img-mobile"
-           loading="lazy"
-           decoding="async">
-    </div>
-  </div>
-</div>
-    </section>
-
-    <!-- 主要功能区域 -->
-    <section class="py-6 md:py-20">
-      <div class="max-w-7xl mx-auto">
-        
-        <!-- 桌面端：3列网格 -->
-        <div class="hidden md:grid grid-cols-3 gap-8 px-6">
-          
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="0" onclick="navigateToAssessment()">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-              <i class="fa fa-user-circle text-primary text-3xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">了解自己</h3>
-            <p class="text-content mb-6">通过各种帮助信任认知当下的自己</p>
-            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
-              开始评估
-            </button>
-          </div>
-
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="1" onclick="navigateToPractice()">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-              <i class="fa fa-apple text-primary text-3xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">日常练习</h3>
-            <p class="text-content mb-6">培养健康生活习惯的时候解决伴随紧张感</p>
-            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
-              开始练习
-            </button>
-          </div>
-
-          <div class="glass-card rounded-2xl p-8 text-center feature-card" data-delay="2" onclick="navigateToCBTTools()">
-            <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-light flex items-center justify-center">
-              <i class="fa fa-cogs text-primary text-3xl"></i>
-            </div>
-            <h3 class="text-xl font-bold text-primary mb-4">深度工具</h3>
-            <p class="text-content mb-6">通过心理干预或深入了解内心</p>
-            <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
-              探索工具
-            </button>
-          </div>
-
-        </div>
-
-        <!-- 移动端布局 -->
-        <div class="md:hidden">
-          <div class="grid grid-cols-2 gap-4 px-4 mb-4">
-            
-            <div class="mobile-feature-card" data-delay="0" onclick="navigateToAssessment()">
-              <i class="fa fa-user-circle text-primary text-2xl mb-3"></i>
-              <h3 class="text-mobile-card-title font-bold text-primary mb-2">了解自己</h3>
-              <p class="text-mobile-description text-lightGray mb-4">通过各种帮助信任认知当下的自己</p>
-              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                开始评估
-              </button>
-            </div>
-
-            <div class="mobile-feature-card" data-delay="1" onclick="navigateToPractice()">
-              <i class="fa fa-apple text-mint text-2xl mb-3"></i>
-              <h3 class="text-mobile-card-title font-bold text-primary mb-2">日常练习</h3>
-              <p class="text-mobile-description text-lightGray mb-4">培养健康生活习惯的时候解决伴随紧张感</p>
-              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                开始练习
-              </button>
-            </div>
-
-          </div>
-          
-          <!-- 深度工具居中 -->
-          <div class="flex justify-center px-4">
-           <div class="mobile-feature-card w-48" data-delay="2" onclick="navigateToCBTTools()">
-              <i class="fa fa-cogs text-accent text-2xl mb-3"></i>
-              <h3 class="text-mobile-card-title font-bold text-primary mb-2">深度工具</h3>
-              <p class="text-mobile-description text-lightGray mb-4">通过心理干预或深入了解内心</p>
-              <button class="w-full bg-white border border-primary text-primary h-9 rounded-lg text-sm font-medium hover:bg-mint hover:text-white transition-all">
-                探索工具
-              </button>
-            </div>
-          </div>
-
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- 身体中立知识库 -->
-    <section class="py-6 md:py-20 bg-gray-50">
-      <div class="max-w-7xl mx-auto">
-        
-        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
-          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4 green-accent-line">身体中立知识库</h2>
-          <p class="text-content text-sm md:text-lg">科学理论支撑，帮助建立健康的身体认知</p>
-        </div>
-
-        <!-- 桌面端 -->
-        <div class="hidden md:block px-6">
-          <div class="grid grid-cols-3 gap-8 mb-8">
-            
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
-              <div class="aspect-video bg-primary flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-white"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="font-bold text-primary mb-2">身体中立基础</h3>
-                <p class="text-content text-sm">了解身体中立的核心理念</p>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="1" onclick="navigateToPractice()">
-              <div class="aspect-video bg-mint flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-white"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="font-bold text-primary mb-2">实践方法</h3>
-                <p class="text-content text-sm">日常生活中的身体中立练习</p>
-              </div>
-            </div>
-
-            <div class="bg-white rounded-xl overflow-hidden shadow-sm knowledge-card" data-delay="2" onclick="navigateToRecords()">
-              <div class="aspect-video bg-accent flex items-center justify-center">
-                <i class="fa fa-image text-3xl text-white"></i>
-              </div>
-              <div class="p-6">
-                <h3 class="font-bold text-primary mb-2">科学研究</h3>
-                <p class="text-content text-sm">相关心理学研究和证据</p>
-              </div>
-            </div>
-
-          </div>
-          <div class="text-center">
-            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all" onclick="window.open('body-neutrality.html', '_blank')">
-              查看更多
-            </button>
-          </div>
-        </div>
-
-        <!-- 移动端 -->
-        <div class="md:hidden px-4">
-          
-          <div class="mobile-knowledge-card knowledge-card" data-delay="0" onclick="window.open('body-neutrality.html', '_blank')">
-            <div class="w-24 h-18 bg-primary flex items-center justify-center flex-shrink-0">
-              <i class="fa fa-image text-white text-xl"></i>
-            </div>
-            <div class="flex-1 p-4">
-              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">身体中立基础</h3>
-              <p class="text-mobile-intro text-lightGray">了解身体中立的核心理念，学习如何建立健康的身体认知</p>
-            </div>
-          </div>
-
-          <div class="mobile-knowledge-card knowledge-card" data-delay="1" onclick="navigateToPractice()">
-            <div class="w-24 h-18 bg-mint flex items-center justify-center flex-shrink-0">
-              <i class="fa fa-image text-white text-xl"></i>
-            </div>
-            <div class="flex-1 p-4">
-              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">实践方法</h3>
-              <p class="text-mobile-intro text-lightGray">日常生活中的身体中立练习，简单易行的实用技巧</p>
-            </div>
-          </div>
-
-          <div class="mobile-knowledge-card knowledge-card" data-delay="2" onclick="navigateToRecords()">
-            <div class="w-24 h-18 bg-accent flex items-center justify-center flex-shrink-0">
-              <i class="fa fa-image text-white text-xl"></i>
-            </div>
-            <div class="flex-1 p-4">
-              <h3 class="text-mobile-knowledge font-bold text-primary mb-2">科学研究</h3>
-              <p class="text-mobile-intro text-lightGray">相关心理学研究和证据，科学理论支撑实践效果</p>
-            </div>
-          </div>
-
-          <div class="text-center mt-6">
-            <button class="text-gray-600 px-6 py-3 rounded-lg font-medium hover:text-primary transition-all" onclick="window.open('body-neutrality.html', '_blank')">
-              查看更多
-            </button>
-          </div>
-
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- 个性化推荐 -->
-    <section class="py-6 md:py-20 bg-light">
-      <div class="max-w-4xl mx-auto">
-        
-        <div class="text-center mb-6 md:mb-12 px-6 scroll-fade-in">
-          <h2 class="text-xl md:text-3xl font-bold text-primary mb-2 md:mb-4">个性化推荐</h2>
-          <p class="text-content text-sm md:text-lg">基于您的需求，为您推荐合适的内容</p>
-        </div>
-
-        <!-- 桌面端 -->
-        <div class="hidden md:block space-y-4 px-6">
-          
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToAssessment()">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                  <i class="fa fa-search text-white"></i>
-                </div>
-                <span class="text-primary font-medium">想了解自己的身心状态？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToPractice()">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-mint rounded-full flex items-center justify-center">
-                  <i class="fa fa-leaf text-white"></i>
-                </div>
-                <span class="text-primary font-medium">如何建立健康的身体观念？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="window.open('body-neutrality.html', '_blank')">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-accent rounded-full flex items-center justify-center">
-                  <i class="fa fa-book text-white"></i>
-                </div>
-                <span class="text-primary font-medium">什么是身体中立理念？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-          <div class="bg-white rounded-xl p-6 cursor-pointer hover:bg-gray-50 transition-all qa-item" onclick="navigateToRecords()">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-4">
-                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-                  <i class="fa fa-chart-line text-white"></i>
-                </div>
-                <span class="text-primary font-medium">查看我的练习记录和进展？</span>
-              </div>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 移动端 -->
-        <div class="md:hidden px-4">
-          <div class="bg-white rounded-xl overflow-hidden">
-            
-            <div class="mobile-qa-item qa-item" onclick="navigateToAssessment()">
-              <span class="text-mobile-knowledge text-primary font-medium">想了解自己的身心状态？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item" onclick="navigateToPractice()">
-              <span class="text-mobile-knowledge text-primary font-medium">如何建立健康的身体观念？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item" onclick="window.open('body-neutrality.html', '_blank')">
-              <span class="text-mobile-knowledge text-primary font-medium">什么是身体中立理念？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-            <div class="mobile-qa-item qa-item" onclick="navigateToRecords()">
-              <span class="text-mobile-knowledge text-primary font-medium">查看我的练习记录和进展？</span>
-              <i class="fa fa-chevron-right text-gray-400"></i>
-            </div>
-
-          </div>
-        </div>
-        
-      </div>
-    </section>
-
-    <!-- 桌面端底部 -->
-    <footer class="hidden md:block py-12 bg-gray-100">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-4">
-            <div class="w-20 h-20 bg-gray-300 rounded-lg flex items-center justify-center">
-              <i class="fa fa-qrcode text-2xl text-gray-500"></i>
-            </div>
-            <div>
-              <p class="font-medium text-gray-800">微信二维码</p>
-              <p class="text-sm text-gray-600">扫码关注获取更多资源</p>
-            </div>
-          </div>
-          <div class="flex items-center space-x-4">
-            <div class="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-              <i class="fa fa-envelope text-primary"></i>
-            </div>
-            <div>
-              <p class="font-medium text-gray-800">邮箱</p>
-              <p class="text-sm text-gray-600">contact@mindfit.com</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-  </main>
-
-  <!-- 移动端底部导航 -->
-  <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-gray-200 z-50">
-    <div class="flex justify-around py-2">
-      <button class="flex flex-col items-center py-2 px-3 text-primary">
-        <i class="fa fa-home text-lg mb-1"></i>
-        <span class="text-xs font-medium">首页</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToAssessment()">
-        <i class="fa fa-clipboard text-lg mb-1"></i>
-        <span class="text-xs">测评</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToPractice()">
-        <i class="fa fa-leaf text-lg mb-1"></i>
-        <span class="text-xs">练习</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" onclick="navigateToRecords()">
-        <i class="fa fa-chart-line text-lg mb-1"></i>
-        <span class="text-xs">记录</span>
-      </button>
-      <button class="flex flex-col items-center py-2 px-3 text-gray-500" 
-            onclick="window.location.href='profile.html'">
-      <i class="fa fa-user text-lg mb-1"></i>
-      <span class="text-xs">我的</span>
-    </button>
-    </div>
-  </nav>
-
-  <script>
-    /*****************
-     * 导航跳转逻辑
-     *****************/
-    
-    // 跳转到测评页面
-    function navigateToAssessment() {
-      window.location.href = 'self-assessment.html';
-    }
-
-    // 跳转到练习页面
-    function navigateToPractice() {
-      window.location.href = 'daily_practice.html';
-    }
-function navigateToCBTTools() {
-    window.location.href = 'cbt_tools.html';
-  }
-    // 跳转到记录页面
-    function navigateToRecords() {
-      window.location.href = 'practice_records.html';
-    }
-
-    /*****************
-     * 基础工具 & 存储
-     *****************/
-    const DB_KEY = "mindfit_db_v1";
-
-    const defaultDB = () => ({
-      records: [],          // 思维记录
-      emotions: [],         // 情绪练习完成 {card, ts}
-      experiments: [],      // 行为实验
-      mindfulness: [],      // 冥想练习 {seconds, ts}
-      assessments: [],      // 测评结果
-      bmiAssessments: [],   // BMI测评结果
-      bodyAnxietyAssessments: [], // 身材焦虑测评结果
-      practiceHistory: [],  // 练习历史
-      badges: {},           // 徽章布尔
-      streak: { count: 0, lastDate: "" }, // 连续天数
-      cachedAudio: false,   // 冥想音频缓存标记（提示用）
-    });
-
-    const loadDB = () => {
-      try {
-        const raw = localStorage.getItem(DB_KEY);
-        return raw ? JSON.parse(raw) : defaultDB();
-      } catch (e) {
-        return defaultDB();
-      }
-    };
-
-    const saveDB = (db) => localStorage.setItem(DB_KEY, JSON.stringify(db));
-
-    const todayStr = () => {
-      const d = new Date();
-      return d.toISOString().slice(0, 10);
-    };
-
-    const fmtTime = (ts) => {
-      const d = new Date(ts);
-      const pad = (n) => (n < 10 ? "0" + n : n);
-      return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-    };
-
-    const showToast = (msg) => {
-      // 简单的toast实现
-      const toast = document.createElement('div');
-      toast.className = 'fixed top-4 right-4 bg-primary text-white px-6 py-3 rounded-lg shadow-lg z-50';
-      toast.textContent = msg;
-      document.body.appendChild(toast);
-      setTimeout(() => {
-        if (document.body.contains(toast)) {
-          document.body.removeChild(toast);
-        }
-      }, 3000);
-    };
-
-    // streak 更新：每天任意操作一次记为活跃
-    const touchStreak = (db) => {
-      const t = todayStr();
-      if (db.streak.lastDate === t) return;
-      // 判断是否连续
-      const last = db.streak.lastDate ? new Date(db.streak.lastDate) : null;
-      const y = new Date(t);
-      const one = 24 * 60 * 60 * 1000;
-      const isConsecutive = last && (y - last) / one === 1;
-      db.streak.count = isConsecutive ? (db.streak.count + 1) : 1;
-      db.streak.lastDate = t;
-    };
-
-    /*****************
-     * 页面动画控制
-     *****************/
-    
-    // 🎯 页面加载动画控制
-    document.addEventListener('DOMContentLoaded', function() {
-      // 等待字体和关键资源加载完成
-      window.addEventListener('load', function() {
-        // 延迟执行，确保所有资源就绪
-        setTimeout(() => {
-          initPageAnimations();
-        }, 100);
-      });
-    });
-
-    function initPageAnimations() {
-      // 功能卡片 stagger 动画
-      animateFeatureCards();
-      
-      // 设置滚动监听
-      setupScrollAnimations();
-      
-      // 更新首页数据
-      updateHomeData();
-    }
-
-    function animateFeatureCards() {
-      // 桌面端卡片
-      const desktopCards = document.querySelectorAll('.feature-card');
-      // 移动端卡片
-      const mobileCards = document.querySelectorAll('.mobile-feature-card');
-      
-      // 合并所有卡片
-      const allCards = [...desktopCards, ...mobileCards];
-      
-      allCards.forEach((card, index) => {
-        const delay = parseInt(card.dataset.delay) || index;
-        setTimeout(() => {
-          card.classList.add('animate-in');
-        }, delay * 150); // 0.15s stagger - 更舒缓
-      });
-    }
-    
-    function setupScrollAnimations() {
-      // 创建 Intersection Observer
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (entry.target.classList.contains('scroll-fade-in')) {
-              entry.target.classList.add('animate-in');
-            } else if (entry.target.classList.contains('knowledge-card')) {
-              const delay = parseInt(entry.target.dataset.delay) || 0;
-              setTimeout(() => {
-                entry.target.classList.add('animate-in');
-              }, delay * 100);
-            }
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-      
-      // 监听所有需要滚动动画的元素
-      document.querySelectorAll('.scroll-fade-in, .knowledge-card').forEach(el => {
-        observer.observe(el);
-      });
-    }
-
-    /*****************
-     * 首页数据更新
-     *****************/
-    function updateHomeData() {
-      const db = loadDB();
-      
-      // 获取练习历史数据
-      const practiceHistory = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
-      const mindfulEating = JSON.parse(localStorage.getItem('mindfulEatingRecords') || '[]');
-      
-      // 合并所有练习记录
-      const allPractices = [
-        ...practiceHistory,
-        ...mindfulEating.map(p => ({
-          id: p.id,
-          title: `正念饮食：${p.food}`,
-          date: p.startTime,
-          duration: p.duration
-        }))
-      ];
-
-      // 更新推荐内容
-      updateRecommendations(db, allPractices);
-      
-      // 显示个性化欢迎信息
-      showWelcomeMessage(db, allPractices);
-    }
-
-    function updateRecommendations(db, practices) {
-      // 根据用户的练习历史和测评结果提供个性化推荐
-      const hasAssessments = db.assessments.length > 0 || db.bodyAnxietyAssessments.length > 0;
-      const hasPractices = practices.length > 0;
-      
-      // 动态更新推荐文案
-      const recommendItems = document.querySelectorAll('.qa-item span');
-      
-      if (!hasAssessments) {
-        // 如果没有测评，鼓励先做测评
-        if (recommendItems[0]) {
-          recommendItems[0].textContent = '还没有测评？先了解一下自己的身心状态';
-        }
-      }
-      
-      if (!hasPractices) {
-        // 如果没有练习记录，鼓励开始练习
-        if (recommendItems[1]) {
-          recommendItems[1].textContent = '想要开始改善身体关系？试试日常练习';
-        }
-      } else {
-        // 有练习记录，鼓励查看进展
-        if (recommendItems[3]) {
-          recommendItems[3].textContent = `已完成${practices.length}次练习，查看你的成长轨迹`;
-        }
-      }
-    }
-
-    function showWelcomeMessage(db, practices) {
-      // 延迟显示个性化欢迎信息
-      setTimeout(() => {
-        const totalPractices = practices.length;
-        const streak = calculateCurrentStreak(practices);
-        
-        let welcomeMsg = '欢迎来到MindFit！';
-        
-        if (totalPractices === 0) {
-          welcomeMsg = '开始你的身心健康之旅吧！先做个测评了解自己';
-        } else if (totalPractices < 5) {
-          welcomeMsg = `很棒！你已经完成了${totalPractices}次练习，继续保持`;
-        } else if (streak > 0) {
-          welcomeMsg = `太棒了！你已经连续${streak}天坚持练习`;
-        } else {
-          welcomeMsg = `欢迎回来！你已经完成了${totalPractices}次练习`;
-        }
-        
-        showToast(welcomeMsg);
-      }, 2000);
-    }
-
-    function calculateCurrentStreak(practices) {
-      if (practices.length === 0) return 0;
-      
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      let streak = 0;
-      let currentDate = new Date(today);
-      
-      // 检查连续天数
-      for (let i = 0; i < 30; i++) {
-        const dateStr = currentDate.toDateString();
-        const hasPractice = practices.some(p => 
-          new Date(p.date).toDateString() === dateStr
-        );
-        
-        if (hasPractice) {
-          streak++;
-        } else {
-          break;
-        }
-        
-        currentDate.setDate(currentDate.getDate() - 1);
-      }
-      
-      return streak;
-    }
-
-    /*****************
-     * 智能推荐系统
-     *****************/
-    function getSmartRecommendations() {
-      const db = loadDB();
-      const practices = JSON.parse(localStorage.getItem('practiceHistory') || '[]');
-      const lastAssessment = db.bodyAnxietyAssessments[db.bodyAnxietyAssessments.length - 1];
-      
-      let recommendations = [];
-      
-      // 基于最后一次测评结果推荐
-      if (lastAssessment) {
-        if (lastAssessment.percentage >= 75) {
-          recommendations.push({
-            text: '基于你的测评结果，建议尝试4-7-8呼吸法缓解焦虑',
-            action: () => quickStartPractice('breathing')
-          });
-        } else if (lastAssessment.percentage >= 50) {
-          recommendations.push({
-            text: '正念练习可能对你很有帮助，试试正念饮食',
-            action: () => quickStartPractice('mindful-eating')
-          });
-        }
-      }
-      
-      // 基于练习历史推荐
-      if (practices.length === 0) {
-        recommendations.push({
-          text: '新手推荐：从简单的呼吸练习开始',
-          action: () => quickStartPractice('breathing')
-        });
-      } else {
-        const lastPractice = practices[practices.length - 1];
-        const daysSinceLastPractice = Math.floor((Date.now() - new Date(lastPractice.date)) / (1000 * 60 * 60 * 24));
-        
-        if (daysSinceLastPractice > 3) {
-          recommendations.push({
-            text: '好几天没练习了，来个快速的接地技术？',
-            action: () => quickStartPractice('grounding')
-          });
-        }
-      }
-      
-      return recommendations;
-    }
-
-    /*****************
-     * 快捷键支持
-     *****************/
-    document.addEventListener('keydown', function(e) {
-      // Alt + 数字键快速导航
-      if (e.altKey) {
-        switch(e.key) {
-          case '1':
-            e.preventDefault();
-            navigateToAssessment();
-            break;
-          case '2':
-            e.preventDefault();
-            navigateToPractice();
-            break;
-          case '3':
-            e.preventDefault();
-            navigateToRecords();
-            break;
-          case '4':
-            e.preventDefault();
-            window.open('body-neutrality.html', '_blank');
-            break;
-        }
-      }
-    });
-
-    // 显示快捷键提示
-    setTimeout(() => {
-      if (localStorage.getItem('showKeyboardTips') !== 'false') {
-        showToast('小贴士: 按 Alt+1/2/3/4 快速导航到各个功能模块');
-        localStorage.setItem('showKeyboardTips', 'false');
-      }
-    }, 8000);
-
-    // 🎨 增强交互体验
-    document.addEventListener('DOMContentLoaded', function() {
-      // 为所有卡片添加触摸反馈（移动端）
-      const cards = document.querySelectorAll('.mobile-feature-card, .glass-card, .practice-shortcut');
-      
-      cards.forEach(card => {
-        // 触摸开始
-        card.addEventListener('touchstart', function() {
-          this.style.transform = 'translateY(-2px) scale(0.98)';
-          this.style.transition = 'all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        });
-        
-        // 触摸结束
-        card.addEventListener('touchend', function() {
-          this.style.transform = '';
-          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        });
-        
-        // 触摸取消
-        card.addEventListener('touchcancel', function() {
-          this.style.transform = '';
-          this.style.transition = 'all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-        });
-      });
-
-      // 智能推荐提示
-      setTimeout(() => {
-        const recommendations = getSmartRecommendations();
-        if (recommendations.length > 0) {
-          // 可以在这里显示智能推荐
-          console.log('智能推荐:', recommendations);
-        }
-      }, 5000);
-    });
-  </script>
-<!-- MindFit 数据管理器 -->
-<script src="js/data-manager.js"></script>
+</html>
