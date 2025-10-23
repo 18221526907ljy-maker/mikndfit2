@@ -476,39 +476,45 @@
       </div>
     </div>
     
-    <!-- 移动端 Hero -->
-    <div class="lg:hidden relative mx-auto max-w-4xl py-20 sm:py-32">
-      <div class="flex justify-center mb-8 fade-in-up">
-        <div class="announcement-badge rounded-full px-4 py-1.5 text-sm text-primary">
+    <!-- 移动端 Hero - 左文右图横向布局 -->
+    <div class="lg:hidden relative mx-auto max-w-4xl py-16 sm:py-24">
+      <!-- 通知徽章 -->
+      <div class="flex justify-center mb-6 fade-in-up px-4">
+        <div class="announcement-badge rounded-full px-3 py-1 text-xs text-primary">
           探索身心健康的全新旅程 
-          <a href="body-neutrality.html" class="font-semibold text-accent hover:text-mint ml-2">
+          <a href="body-neutrality.html" class="font-semibold text-accent hover:text-mint ml-1">
             了解更多 <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </div>
       
-      <div class="logo-container fade-in-up flex justify-center mb-8" style="animation-delay: 0.2s;">
-        <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
-             alt="MindFit Logo" 
-             class="logo-mobile"
-             loading="lazy">
-      </div>
-      
-      <div class="text-center fade-in-up" style="animation-delay: 0.4s;">
-        <h1 class="hero-title-mobile font-bold tracking-tight leading-tight mb-6">
-          科学管理身心<br>
-          <span class="title-black">告别身材焦虑</span>
-        </h1>
-        <p class="mt-6 text-lg leading-8 text-content max-w-2xl mx-auto">
-          平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
-        </p>
-        <div class="mt-10 flex items-center justify-center gap-x-6">
-          <button onclick="navigateToAssessment()" class="rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary transition-all hover:scale-105">
-            开始探索
-          </button>
-          <a href="body-neutrality.html" class="text-sm font-semibold leading-6 text-primary hover:text-mint transition-colors">
-            了解更多 <span aria-hidden="true">→</span>
-          </a>
+      <!-- 左文右图横向布局 -->
+      <div class="flex items-center gap-4 px-4 fade-in-up" style="animation-delay: 0.2s;">
+        <!-- 左侧文字内容 -->
+        <div class="flex-1 min-w-0">
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight leading-tight mb-3 text-left" style="color: #2d3e36;">
+            科学管理身心<br>
+            <span style="color: #000000;">告别身材焦虑</span>
+          </h1>
+          <p class="text-sm sm:text-base leading-relaxed text-content mb-4 text-left">
+            平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
+          </p>
+          <div class="flex items-center gap-3">
+            <button onclick="navigateToAssessment()" class="rounded-md bg-accent px-4 py-2 text-xs sm:text-sm font-semibold text-white shadow-sm hover:bg-primary transition-all">
+              开始探索
+            </button>
+            <a href="body-neutrality.html" class="text-xs sm:text-sm font-semibold text-primary hover:text-mint transition-colors whitespace-nowrap">
+              了解更多 <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+        
+        <!-- 右侧 Logo -->
+        <div class="logo-container flex-shrink-0">
+          <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
+               alt="MindFit Logo" 
+               class="logo-mobile"
+               loading="lazy">
         </div>
       </div>
     </div>
