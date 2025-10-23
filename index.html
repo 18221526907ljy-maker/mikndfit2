@@ -35,7 +35,7 @@
       overflow: hidden;
     }
     
-    /* 清新绿色烟雾装饰 - 更多层叠加 */
+    /* 清新绿色烟雾装饰 - 5层 */
     .smoke-blur {
       position: absolute;
       border-radius: 50%;
@@ -45,7 +45,6 @@
       pointer-events: none;
     }
     
-    /* 第一层烟雾 - 浅薄荷绿 */
     .smoke-1 {
       width: 600px;
       height: 600px;
@@ -55,7 +54,6 @@
       animation-delay: 0s;
     }
     
-    /* 第二层烟雾 - 更浅的绿 */
     .smoke-2 {
       width: 700px;
       height: 700px;
@@ -65,7 +63,6 @@
       animation-delay: 7s;
     }
     
-    /* 第三层烟雾 - 淡绿色 */
     .smoke-3 {
       width: 500px;
       height: 500px;
@@ -75,7 +72,6 @@
       animation-delay: 14s;
     }
     
-    /* 第四层烟雾 - 中部增强 */
     .smoke-4 {
       width: 550px;
       height: 550px;
@@ -86,7 +82,6 @@
       animation-delay: 21s;
     }
     
-    /* 第五层烟雾 - 底部补充 */
     .smoke-5 {
       width: 650px;
       height: 650px;
@@ -124,13 +119,11 @@
       object-fit: cover;
     }
     
-    /* 桌面端 Logo */
     .logo-desktop {
       width: 384px !important;
       height: 384px !important;
     }
     
-    /* 移动端 Logo - 正方形且更小 */
     .logo-mobile {
       width: 120px !important;
       height: 120px !important;
@@ -155,7 +148,7 @@
       }
     }
     
-    /* 桌面端标题 - 左对齐 */
+    /* 桌面端标题 */
     .hero-title-desktop {
       color: #2d3e36;
       font-size: 3.5rem;
@@ -163,7 +156,6 @@
       text-align: left;
     }
     
-    /* 移动端标题 - 居中 */
     .hero-title-mobile {
       color: #2d3e36;
       font-size: 2.5rem;
@@ -171,7 +163,6 @@
       text-align: center;
     }
     
-    /* 标题中的黑色部分 */
     .title-black {
       color: #000000;
     }
@@ -189,18 +180,139 @@
       backdrop-filter: blur(10px);
     }
     
-    /* 功能卡片 - 紧凑型 */
-    .compact-card {
+    /* Apple 卡片轮播样式 */
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      padding: 2rem 0;
+    }
+    
+    .carousel-track {
+      display: flex;
+      gap: 2rem;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 0 2rem;
+    }
+    
+    .carousel-card {
+      min-width: 350px;
       background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(0, 0, 0, 0.05);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    
+    .carousel-card:hover {
+      transform: scale(1.05) translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    }
+    
+    .carousel-card-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    }
+    
+    .carousel-card-content {
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .carousel-card-icon {
+      width: 80px;
+      height: 80px;
+      margin: -60px auto 1.5rem;
+      border-radius: 1.25rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      position: relative;
+      z-index: 10;
+    }
+    
+    .carousel-card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #4A6157;
+      margin-bottom: 0.75rem;
+    }
+    
+    .carousel-card-description {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    
+    .carousel-card-button {
+      width: 100%;
+      padding: 0.875rem;
+      background: white;
+      border: 2px solid #4A6157;
+      color: #4A6157;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
       cursor: pointer;
     }
     
-    .compact-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+    .carousel-card-button:hover {
+      background: #8FD9A8;
+      border-color: #8FD9A8;
+      color: white;
+      transform: translateY(-2px);
+    }
+    
+    /* 轮播导航按钮 */
+    .carousel-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d1d5db;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .carousel-dot.active {
+      width: 24px;
+      border-radius: 4px;
+      background: #4A6157;
+    }
+    
+    /* 移动端适配 */
+    @media (max-width: 768px) {
+      .carousel-card {
+        min-width: 280px;
+      }
+      
+      .carousel-card-image {
+        height: 200px;
+      }
+      
+      .carousel-card-icon {
+        width: 64px;
+        height: 64px;
+        margin-top: -50px;
+      }
+      
+      .carousel-card-title {
+        font-size: 1.25rem;
+      }
+      
+      .carousel-card-description {
+        font-size: 0.875rem;
+      }
     }
     
     /* 玻璃态卡片 */
@@ -239,7 +351,6 @@
       transform: translateY(0);
     }
     
-    /* 响应式调整 */
     @media (max-width: 1023px) {
       .smoke-1, .smoke-2, .smoke-3, .smoke-4, .smoke-5 {
         width: 350px;
@@ -254,7 +365,6 @@
   <!-- 顶部导航 -->
   <header class="absolute inset-x-0 top-0 z-50">
     <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
-      <!-- Logo -->
       <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5 flex items-center space-x-2">
           <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
@@ -264,7 +374,6 @@
         </a>
       </div>
       
-      <!-- 移动端菜单按钮 -->
       <div class="flex lg:hidden">
         <button type="button" onclick="toggleMobileMenu()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary">
           <span class="sr-only">打开菜单</span>
@@ -274,7 +383,6 @@
         </button>
       </div>
       
-      <!-- 桌面端导航 -->
       <div class="hidden lg:flex lg:gap-x-12">
         <a href="assessment-test.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">评估</a>
         <a href="daily_practice.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">练习</a>
@@ -282,7 +390,6 @@
         <a href="body-neutrality.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">理论</a>
       </div>
       
-      <!-- 个人中心 -->
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
         <a href="profile.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">
           个人中心 <span aria-hidden="true">&rarr;</span>
@@ -290,7 +397,7 @@
       </div>
     </nav>
     
-    <!-- 移动端菜单面板 -->
+    <!-- 移动端菜单 -->
     <div id="mobileMenu" class="mobile-menu fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white lg:hidden shadow-2xl">
       <div class="p-6">
         <div class="flex items-center justify-between mb-8">
@@ -324,19 +431,16 @@
 
   <!-- Hero 区域 -->
   <div class="relative isolate px-6 pt-14 lg:px-8 hero-gradient">
-    <!-- 清新绿色烟雾背景装饰 - 5层 -->
     <div aria-hidden="true" class="smoke-blur smoke-1"></div>
     <div aria-hidden="true" class="smoke-blur smoke-2"></div>
     <div aria-hidden="true" class="smoke-blur smoke-3"></div>
     <div aria-hidden="true" class="smoke-blur smoke-4"></div>
     <div aria-hidden="true" class="smoke-blur smoke-5"></div>
     
-    <!-- 桌面端 Hero - 左文右图 -->
+    <!-- 桌面端 Hero -->
     <div class="hidden lg:block relative mx-auto max-w-7xl py-32 lg:py-40">
       <div class="flex items-center gap-x-16">
-        <!-- 左侧文字内容 -->
         <div class="flex-1 fade-in-up">
-          <!-- 通知徽章 -->
           <div class="mb-8">
             <div class="announcement-badge inline-block rounded-full px-4 py-1.5 text-sm text-primary">
               探索身心健康的全新旅程 
@@ -363,7 +467,6 @@
           </div>
         </div>
         
-        <!-- 右侧 Logo 图片 -->
         <div class="flex-1 logo-container fade-in-up flex justify-center" style="animation-delay: 0.3s;">
           <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
                alt="MindFit Logo" 
@@ -373,9 +476,8 @@
       </div>
     </div>
     
-    <!-- 移动端 Hero - 上下排列（保持原样）-->
+    <!-- 移动端 Hero -->
     <div class="lg:hidden relative mx-auto max-w-4xl py-20 sm:py-32">
-      <!-- 通知徽章 -->
       <div class="flex justify-center mb-8 fade-in-up">
         <div class="announcement-badge rounded-full px-4 py-1.5 text-sm text-primary">
           探索身心健康的全新旅程 
@@ -385,7 +487,6 @@
         </div>
       </div>
       
-      <!-- Logo 图片 -->
       <div class="logo-container fade-in-up flex justify-center mb-8" style="animation-delay: 0.2s;">
         <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
              alt="MindFit Logo" 
@@ -393,7 +494,6 @@
              loading="lazy">
       </div>
       
-      <!-- 文字内容 -->
       <div class="text-center fade-in-up" style="animation-delay: 0.4s;">
         <h1 class="hero-title-mobile font-bold tracking-tight leading-tight mb-6">
           科学管理身心<br>
@@ -414,47 +514,96 @@
     </div>
   </div>
 
-  <!-- 主要功能区域 - 紧凑型三卡片 -->
-  <section class="py-12 bg-white">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
-        
-        <!-- 了解自己 -->
-        <div class="compact-card rounded-2xl p-6 text-center" onclick="navigateToAssessment()">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
-            <i class="fa fa-user-circle text-primary text-3xl"></i>
+  <!-- Apple 卡片轮播 - 替换三个功能卡片 -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl md:text-5xl font-bold text-primary mb-4 text-center">
+        探索您的身心健康之旅
+      </h2>
+      <p class="text-center text-content text-lg mb-12">
+        选择适合您的工具，开始改变
+      </p>
+      
+      <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+          
+          <!-- 卡片1: 了解自己 -->
+          <div class="carousel-card" onclick="navigateToAssessment()">
+            <img src="assets/images/了解自己.jpg" 
+                 alt="了解自己" 
+                 class="carousel-card-image"
+                 onerror="this.style.background='linear-gradient(135deg, #4A6157, #8FD9A8)'">
+            <div class="carousel-card-content">
+              <div class="carousel-card-icon">
+                <img src="assets/images/了解自己.jpg" 
+                     alt="了解自己图标" 
+                     class="w-full h-full rounded-xl object-cover"
+                     onerror="this.outerHTML='<div class=\'w-full h-full rounded-xl bg-primary/10 flex items-center justify-center\'><i class=\'fa fa-user-circle text-primary text-3xl\'></i></div>'">
+              </div>
+              <h3 class="carousel-card-title">了解自己</h3>
+              <p class="carousel-card-description">
+                通过各种帮助信任认知当下的自己
+              </p>
+              <button class="carousel-card-button">
+                开始评估
+              </button>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-primary mb-2">了解自己</h3>
-          <p class="text-content text-sm mb-4">通过各种帮助信任认知当下的自己</p>
-          <button class="w-full bg-white border border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-2.5 rounded-lg text-sm font-medium transition-all">
-            开始评估
-          </button>
-        </div>
 
-        <!-- 日常练习 -->
-        <div class="compact-card rounded-2xl p-6 text-center" onclick="navigateToPractice()">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-mint/20 flex items-center justify-center">
-            <i class="fa fa-apple text-mint text-3xl"></i>
+          <!-- 卡片2: 日常练习 -->
+          <div class="carousel-card" onclick="navigateToPractice()">
+            <img src="assets/images/日常练习.jpg" 
+                 alt="日常练习" 
+                 class="carousel-card-image"
+                 onerror="this.style.background='linear-gradient(135deg, #8FD9A8, #c3e6cb)'">
+            <div class="carousel-card-content">
+              <div class="carousel-card-icon">
+                <img src="assets/images/日常练习.jpg" 
+                     alt="日常练习图标" 
+                     class="w-full h-full rounded-xl object-cover"
+                     onerror="this.outerHTML='<div class=\'w-full h-full rounded-xl bg-mint/20 flex items-center justify-center\'><i class=\'fa fa-apple text-mint text-3xl\'></i></div>'">
+              </div>
+              <h3 class="carousel-card-title">日常练习</h3>
+              <p class="carousel-card-description">
+                培养健康生活习惯的时候解决伴随紧张感
+              </p>
+              <button class="carousel-card-button">
+                开始练习
+              </button>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-primary mb-2">日常练习</h3>
-          <p class="text-content text-sm mb-4">培养健康生活习惯的时候解决伴随紧张感</p>
-          <button class="w-full bg-white border border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-2.5 rounded-lg text-sm font-medium transition-all">
-            开始练习
-          </button>
-        </div>
 
-        <!-- 深度工具 -->
-        <div class="compact-card rounded-2xl p-6 text-center" onclick="navigateToCBTTools()">
-          <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-accent/10 flex items-center justify-center">
-            <i class="fa fa-cogs text-accent text-3xl"></i>
+          <!-- 卡片3: 深度工具 -->
+          <div class="carousel-card" onclick="navigateToCBTTools()">
+            <img src="assets/images/深度工具.jpg" 
+                 alt="深度工具" 
+                 class="carousel-card-image"
+                 onerror="this.style.background='linear-gradient(135deg, #2E2E2E, #666666)'">
+            <div class="carousel-card-content">
+              <div class="carousel-card-icon">
+                <img src="assets/images/深度工具.jpg" 
+                     alt="深度工具图标" 
+                     class="w-full h-full rounded-xl object-cover"
+                     onerror="this.outerHTML='<div class=\'w-full h-full rounded-xl bg-accent/10 flex items-center justify-center\'><i class=\'fa fa-cogs text-accent text-3xl\'></i></div>'">
+              </div>
+              <h3 class="carousel-card-title">深度工具</h3>
+              <p class="carousel-card-description">
+                通过心理干预或深入了解内心
+              </p>
+              <button class="carousel-card-button">
+                探索工具
+              </button>
+            </div>
           </div>
-          <h3 class="text-lg font-bold text-primary mb-2">深度工具</h3>
-          <p class="text-content text-sm mb-4">通过心理干预或深入了解内心</p>
-          <button class="w-full bg-white border border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-2.5 rounded-lg text-sm font-medium transition-all">
-            探索工具
-          </button>
-        </div>
 
+        </div>
+      </div>
+      
+      <!-- 轮播导航点 -->
+      <div class="carousel-nav">
+        <div class="carousel-dot active" data-index="0"></div>
+        <div class="carousel-dot" data-index="1"></div>
+        <div class="carousel-dot" data-index="2"></div>
       </div>
     </div>
   </section>
@@ -606,6 +755,85 @@
       window.location.href = 'practice_records.html';
     }
     
+    // 轮播功能
+    let currentSlide = 0;
+    const track = document.getElementById('carouselTrack');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const cards = document.querySelectorAll('.carousel-card');
+    const totalSlides = cards.length;
+    
+    // 自动轮播
+    let autoplayInterval = setInterval(nextSlide, 5000);
+    
+    function updateCarousel() {
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 32; // 2rem
+      const offset = -(currentSlide * (cardWidth + gap));
+      track.style.transform = `translateX(${offset}px)`;
+      
+      // 更新导航点
+      dots.forEach((dot, index) => {
+        if (index === currentSlide) {
+          dot.classList.add('active');
+        } else {
+          dot.classList.remove('active');
+        }
+      });
+    }
+    
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+    
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+    
+    function goToSlide(index) {
+      currentSlide = index;
+      updateCarousel();
+      resetAutoplay();
+    }
+    
+    function resetAutoplay() {
+      clearInterval(autoplayInterval);
+      autoplayInterval = setInterval(nextSlide, 5000);
+    }
+    
+    // 导航点点击事件
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => goToSlide(index));
+    });
+    
+    // 触摸滑动支持
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    track.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    track.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+    
+    function handleSwipe() {
+      if (touchEndX < touchStartX - 50) {
+        nextSlide();
+        resetAutoplay();
+      }
+      if (touchEndX > touchStartX + 50) {
+        prevSlide();
+        resetAutoplay();
+      }
+    }
+    
+    // 响应式调整
+    window.addEventListener('resize', updateCarousel);
+    
     // 知识卡片滚动动画
     const observerOptions = {
       threshold: 0.1,
@@ -623,8 +851,8 @@
     }, observerOptions);
     
     document.addEventListener('DOMContentLoaded', () => {
-      const cards = document.querySelectorAll('.knowledge-card');
-      cards.forEach(card => observer.observe(card));
+      const knowledgeCards = document.querySelectorAll('.knowledge-card');
+      knowledgeCards.forEach(card => observer.observe(card));
     });
   </script>
 </body>
