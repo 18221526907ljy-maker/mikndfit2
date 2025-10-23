@@ -28,6 +28,237 @@
   </script>
   
   <style>
+    /* 新导航样式 */
+    .navbar-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .navbar-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+    }
+    
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .navbar-logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .navbar-logo-icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: #4A6157;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .navbar-logo-text {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #4A6157;
+    }
+    
+    .navbar-items {
+      display: none;
+      gap: 2rem;
+    }
+    
+    @media (min-width: 1024px) {
+      .navbar-items {
+        display: flex;
+      }
+    }
+    
+    .navbar-link {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #4A6157;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+    
+    .navbar-link:hover {
+      color: #8FD9A8;
+    }
+    
+    .navbar-link::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #8FD9A8;
+      transition: width 0.3s ease;
+    }
+    
+    .navbar-link:hover::after {
+      width: 100%;
+    }
+    
+    .navbar-buttons {
+      display: none;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    @media (min-width: 1024px) {
+      .navbar-buttons {
+        display: flex;
+      }
+    }
+    
+    .navbar-button {
+      padding: 0.5rem 1.25rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .navbar-button-secondary {
+      background: transparent;
+      color: #4A6157;
+      border: 2px solid #4A6157;
+    }
+    
+    .navbar-button-secondary:hover {
+      background: #4A6157;
+      color: white;
+    }
+    
+    .navbar-button-primary {
+      background: #4A6157;
+      color: white;
+    }
+    
+    .navbar-button-primary:hover {
+      background: #8FD9A8;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(74, 97, 87, 0.3);
+    }
+    
+    .mobile-nav-toggle {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+    
+    @media (min-width: 1024px) {
+      .mobile-nav-toggle {
+        display: none;
+      }
+    }
+    
+    .mobile-nav-toggle span {
+      width: 24px;
+      height: 2px;
+      background: #4A6157;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+    
+    .mobile-nav-toggle.active span:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    .mobile-nav-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+    
+    .mobile-nav-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+    
+    .mobile-nav-menu {
+      display: none;
+      position: fixed;
+      top: 73px;
+      left: 0;
+      right: 0;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      animation: slideDown 0.3s ease;
+    }
+    
+    @media (min-width: 1024px) {
+      .mobile-nav-menu {
+        display: none !important;
+      }
+    }
+    
+    .mobile-nav-menu.active {
+      display: block;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .mobile-nav-link {
+      display: block;
+      padding: 1rem;
+      color: #4A6157;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      border-radius: 0.5rem;
+    }
+    
+    .mobile-nav-link:hover {
+      background: #f0faf5;
+      color: #8FD9A8;
+    }
+    
+    .mobile-nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .mobile-nav-button {
+      width: 100%;
+      text-align: center;
+    }
+    
     /* Hero 背景 - 米白色 + 清新绿色烟雾 */
     .hero-gradient {
       background: #F5F3EE;
@@ -364,16 +595,6 @@
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
     }
     
-    /* 移动端菜单 */
-    .mobile-menu {
-      transform: translateX(100%);
-      transition: transform 0.3s ease-in-out;
-    }
-    
-    .mobile-menu.active {
-      transform: translateX(0);
-    }
-    
     /* 知识卡片动画 */
     .knowledge-card {
       opacity: 0;
@@ -442,74 +663,56 @@
 <body class="bg-secondary">
   
   <!-- 顶部导航 -->
-  <header class="absolute inset-x-0 top-0 z-50">
-    <nav aria-label="Global" class="flex items-center justify-between p-6 lg:px-8">
-      <div class="flex lg:flex-1">
-        <a href="#" class="-m-1.5 p-1.5 flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-            <i class="fa fa-heartbeat text-white"></i>
-          </div>
-          <span class="text-lg font-bold text-primary">MindFit</span>
+  <nav class="navbar-container">
+    <div class="navbar-body">
+      <!-- Logo -->
+      <a href="index.html" class="navbar-logo">
+        <div class="navbar-logo-icon">
+          <i class="fa fa-heartbeat text-white"></i>
+        </div>
+        <span class="navbar-logo-text">MindFit</span>
+      </a>
+      
+      <!-- Desktop Navigation Items -->
+      <div class="navbar-items">
+        <a href="assessment-test.html" class="navbar-link">评估</a>
+        <a href="daily_practice.html" class="navbar-link">练习</a>
+        <a href="practice_records.html" class="navbar-link">记录</a>
+        <a href="body-neutrality.html" class="navbar-link">理论</a>
+      </div>
+      
+      <!-- Desktop Buttons -->
+      <div class="navbar-buttons">
+        <a href="profile.html" class="navbar-button navbar-button-primary">
+          个人中心
         </a>
       </div>
       
-      <div class="flex lg:hidden">
-        <button type="button" onclick="toggleMobileMenu()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary">
-          <span class="sr-only">打开菜单</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
-            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-      </div>
-      
-      <div class="hidden lg:flex lg:gap-x-12">
-        <a href="assessment-test.html" class="text-base/6 font-semibold text-primary hover:text-mint transition-colors">评估</a>
-        <a href="daily_practice.html" class="text-base/6 font-semibold text-primary hover:text-mint transition-colors">练习</a>
-        <a href="practice_records.html" class="text-base/6 font-semibold text-primary hover:text-mint transition-colors">记录</a>
-        <a href="body-neutrality.html" class="text-base/6 font-semibold text-primary hover:text-mint transition-colors">理论</a>
-      </div>
-      
-      <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a href="profile.html" class="text-base/6 font-semibold text-primary hover:text-mint transition-colors">
-          个人中心 <span aria-hidden="true">&rarr;</span>
-        </a>
-      </div>
-    </nav>
-    
-    <!-- 移动端菜单 -->
-    <div id="mobileMenu" class="mobile-menu fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white lg:hidden shadow-2xl">
-      <div class="p-6">
-        <div class="flex items-center justify-between mb-8">
-          <a href="#" class="flex items-center space-x-2">
-            <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
-              <i class="fa fa-heartbeat text-white"></i>
-            </div>
-            <span class="text-lg font-bold text-primary">MindFit</span>
-          </a>
-          <button type="button" onclick="toggleMobileMenu()" class="-m-2.5 rounded-md p-2.5 text-primary">
-            <span class="sr-only">关闭菜单</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
-              <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-        </div>
-        
-        <div class="space-y-2">
-          <a href="assessment-test.html" class="block rounded-lg px-3 py-3 text-base font-semibold text-primary hover:bg-mint/10">评估测试</a>
-          <a href="daily_practice.html" class="block rounded-lg px-3 py-3 text-base font-semibold text-primary hover:bg-mint/10">日常练习</a>
-          <a href="practice_records.html" class="block rounded-lg px-3 py-3 text-base font-semibold text-primary hover:bg-mint/10">练习记录</a>
-          <a href="body-neutrality.html" class="block rounded-lg px-3 py-3 text-base font-semibold text-primary hover:bg-mint/10">身体中立</a>
-        </div>
-        
-        <div class="mt-6 pt-6 border-t border-gray-200">
-          <a href="profile.html" class="block rounded-lg px-3 py-3 text-base font-semibold text-primary hover:bg-mint/10">个人中心</a>
-        </div>
+      <!-- Mobile Menu Toggle -->
+      <div class="mobile-nav-toggle" onclick="toggleMobileMenu()" id="mobileToggle">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
     </div>
-  </header>
+    
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav-menu" id="mobileMenu">
+      <a href="assessment-test.html" class="mobile-nav-link" onclick="closeMobileMenu()">评估测试</a>
+      <a href="daily_practice.html" class="mobile-nav-link" onclick="closeMobileMenu()">日常练习</a>
+      <a href="practice_records.html" class="mobile-nav-link" onclick="closeMobileMenu()">练习记录</a>
+      <a href="body-neutrality.html" class="mobile-nav-link" onclick="closeMobileMenu()">身体中立</a>
+      
+      <div class="mobile-nav-buttons">
+        <a href="profile.html" class="navbar-button navbar-button-primary mobile-nav-button" onclick="closeMobileMenu()">
+          个人中心
+        </a>
+      </div>
+    </div>
+  </nav>
 
   <!-- Hero 区域 -->
-  <div class="relative isolate px-6 pt-14 lg:px-8 hero-gradient">
+  <div class="relative isolate px-6 lg:px-8 hero-gradient" style="padding-top: 90px;">
     <div aria-hidden="true" class="smoke-blur smoke-1"></div>
     <div aria-hidden="true" class="smoke-blur smoke-2"></div>
     <div aria-hidden="true" class="smoke-blur smoke-3"></div>
@@ -883,8 +1086,28 @@
     // 移动端菜单切换
     function toggleMobileMenu() {
       const menu = document.getElementById('mobileMenu');
+      const toggle = document.getElementById('mobileToggle');
       menu.classList.toggle('active');
+      toggle.classList.toggle('active');
     }
+    
+    function closeMobileMenu() {
+      const menu = document.getElementById('mobileMenu');
+      const toggle = document.getElementById('mobileToggle');
+      menu.classList.remove('active');
+      toggle.classList.remove('active');
+    }
+    
+    // 点击菜单外部关闭菜单
+    document.addEventListener('click', function(event) {
+      const menu = document.getElementById('mobileMenu');
+      const toggle = document.getElementById('mobileToggle');
+      const navbar = document.querySelector('.navbar-container');
+      
+      if (!navbar.contains(event.target) && menu.classList.contains('active')) {
+        closeMobileMenu();
+      }
+    });
     
     // 导航函数
     function navigateToAssessment() {
