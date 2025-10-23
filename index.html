@@ -180,7 +180,7 @@
       backdrop-filter: blur(10px);
     }
     
-    /* Apple 卡片轮播样式 */
+    /* Apple 卡片轮播样式 - 移除电脑端的移动效果 */
     .carousel-container {
       position: relative;
       width: 100%;
@@ -206,9 +206,19 @@
       flex-shrink: 0;
     }
     
-    .carousel-card:hover {
-      transform: scale(1.05) translateY(-8px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    /* 移除电脑端的悬停移动效果 */
+    @media (min-width: 1024px) {
+      .carousel-card:hover {
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      }
+    }
+    
+    /* 保留移动端的悬停效果 */
+    @media (max-width: 1023px) {
+      .carousel-card:hover {
+        transform: scale(1.05) translateY(-8px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+      }
     }
     
     .carousel-card-image {
@@ -384,14 +394,14 @@
       </div>
       
       <div class="hidden lg:flex lg:gap-x-12">
-        <a href="assessment-test.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">评估</a>
-        <a href="daily_practice.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">练习</a>
-        <a href="practice_records.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">记录</a>
-        <a href="body-neutrality.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">理论</a>
+        <a href="assessment-test.html" class="text-base/6 font-semibold text-primary hover:text-mint transition-colors">评估</a>
+        <a href="daily_practice.html" class="text-base/6 font-semibold text-primary hover:text-mint transition-colors">练习</a>
+        <a href="practice_records.html" class="text-base/6 font-semibold text-primary hover:text-mint transition-colors">记录</a>
+        <a href="body-neutrality.html" class="text-base/6 font-semibold text-primary hover:text-mint transition-colors">理论</a>
       </div>
       
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a href="profile.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">
+        <a href="profile.html" class="text-base/6 font-semibold text-primary hover:text-mint transition-colors">
           个人中心 <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
@@ -795,6 +805,7 @@
     function prevSlide() {
       currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
       updateCarousel();
+      resetAutoplay();
     }
     
     function goToSlide(index) {
