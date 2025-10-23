@@ -28,81 +28,114 @@
   </script>
   
   <style>
-    /* Hero 背景 - 米白色 + 清新绿色烟雾 */
+    /* Hero 背景 - Aurora 浅绿色效果 */
     .hero-gradient {
-      background: #F5F3EE;
+      background: linear-gradient(to bottom, #d4f1e0, #e8f7ee, #f0faf5);
       position: relative;
       overflow: hidden;
     }
     
-    /* 清新绿色烟雾装饰 - 5层 */
-    .smoke-blur {
+    /* Aurora 光效层 */
+    .aurora-layer {
       position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      opacity: 0.25;
-      animation: float 25s ease-in-out infinite;
+      inset: 0;
       pointer-events: none;
+      mix-blend-mode: normal;
+      opacity: 0.5;
     }
     
-    .smoke-1 {
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(143, 217, 168, 0.4) 0%, rgba(143, 217, 168, 0.1) 50%, transparent 100%);
-      top: -100px;
-      left: -150px;
-      animation-delay: 0s;
+    .aurora-gradient-1 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(143, 217, 168, 0.6), transparent 50%);
+      animation: aurora-move-1 20s ease-in-out infinite;
     }
     
-    .smoke-2 {
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(195, 230, 203, 0.5) 0%, rgba(195, 230, 203, 0.15) 50%, transparent 100%);
-      top: 20%;
-      right: -200px;
-      animation-delay: 7s;
+    .aurora-gradient-2 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse 60% 40% at 80% 10%, rgba(195, 230, 203, 0.5), transparent 50%);
+      animation: aurora-move-2 25s ease-in-out infinite;
+      animation-delay: 2s;
     }
     
-    .smoke-3 {
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(143, 217, 168, 0.35) 0%, rgba(143, 217, 168, 0.08) 50%, transparent 100%);
-      bottom: 10%;
-      left: 20%;
-      animation-delay: 14s;
+    .aurora-gradient-3 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse 70% 50% at 20% 20%, rgba(174, 223, 186, 0.4), transparent 50%);
+      animation: aurora-move-3 30s ease-in-out infinite;
+      animation-delay: 4s;
     }
     
-    .smoke-4 {
-      width: 550px;
-      height: 550px;
-      background: radial-gradient(circle, rgba(174, 223, 186, 0.4) 0%, rgba(174, 223, 186, 0.12) 50%, transparent 100%);
-      top: 40%;
-      left: 50%;
-      transform: translateX(-50%);
-      animation-delay: 21s;
+    .aurora-gradient-4 {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse 90% 60% at 50% 80%, rgba(143, 217, 168, 0.3), transparent 50%);
+      animation: aurora-move-4 35s ease-in-out infinite;
+      animation-delay: 6s;
     }
     
-    .smoke-5 {
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(143, 217, 168, 0.3) 0%, rgba(143, 217, 168, 0.1) 50%, transparent 100%);
-      bottom: -100px;
-      right: 10%;
-      animation-delay: 28s;
-    }
-    
-    @keyframes float {
-      0%, 100% { 
+    @keyframes aurora-move-1 {
+      0%, 100% {
         transform: translate(0, 0) scale(1);
+        opacity: 0.5;
       }
-      25% { 
-        transform: translate(40px, -40px) scale(1.05);
+      25% {
+        transform: translate(10%, -5%) scale(1.1);
+        opacity: 0.6;
       }
-      50% { 
-        transform: translate(-30px, 30px) scale(0.95);
+      50% {
+        transform: translate(-5%, 5%) scale(0.95);
+        opacity: 0.4;
       }
-      75% { 
-        transform: translate(20px, -20px) scale(1.02);
+      75% {
+        transform: translate(5%, -10%) scale(1.05);
+        opacity: 0.55;
+      }
+    }
+    
+    @keyframes aurora-move-2 {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.4;
+      }
+      33% {
+        transform: translate(-10%, 5%) scale(1.1);
+        opacity: 0.5;
+      }
+      66% {
+        transform: translate(5%, -5%) scale(0.9);
+        opacity: 0.35;
+      }
+    }
+    
+    @keyframes aurora-move-3 {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.3;
+      }
+      40% {
+        transform: translate(8%, 8%) scale(1.15);
+        opacity: 0.45;
+      }
+      80% {
+        transform: translate(-8%, -5%) scale(0.95);
+        opacity: 0.3;
+      }
+    }
+    
+    @keyframes aurora-move-4 {
+      0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.25;
+      }
+      50% {
+        transform: translate(-5%, -10%) scale(1.1);
+        opacity: 0.4;
       }
     }
     
@@ -134,10 +167,10 @@
       50% { transform: translateY(-8px); }
     }
     
-    /* 页面加载动画 */
+    /* 页面加载动画 - 增强版 */
     .fade-in-up {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(40px);
       animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
     
@@ -146,6 +179,12 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+    
+    /* Hero 内容容器 - 确保在 Aurora 之上 */
+    .hero-content {
+      position: relative;
+      z-index: 10;
     }
     
     /* 桌面端标题 */
@@ -362,9 +401,11 @@
     }
     
     @media (max-width: 1023px) {
-      .smoke-1, .smoke-2, .smoke-3, .smoke-4, .smoke-5 {
-        width: 350px;
-        height: 350px;
+      .aurora-gradient-1,
+      .aurora-gradient-2,
+      .aurora-gradient-3,
+      .aurora-gradient-4 {
+        animation-duration: 15s;
       }
     }
     
@@ -485,14 +526,16 @@
 
   <!-- Hero 区域 -->
   <div class="relative isolate px-6 pt-14 lg:px-8 hero-gradient">
-    <div aria-hidden="true" class="smoke-blur smoke-1"></div>
-    <div aria-hidden="true" class="smoke-blur smoke-2"></div>
-    <div aria-hidden="true" class="smoke-blur smoke-3"></div>
-    <div aria-hidden="true" class="smoke-blur smoke-4"></div>
-    <div aria-hidden="true" class="smoke-blur smoke-5"></div>
+    <!-- Aurora 光效层 -->
+    <div class="aurora-layer">
+      <div class="aurora-gradient-1"></div>
+      <div class="aurora-gradient-2"></div>
+      <div class="aurora-gradient-3"></div>
+      <div class="aurora-gradient-4"></div>
+    </div>
     
     <!-- 桌面端 Hero -->
-    <div class="hidden lg:block relative mx-auto max-w-7xl py-32 lg:py-40">
+    <div class="hidden lg:block relative mx-auto max-w-7xl py-32 lg:py-40 hero-content">
       <div class="flex items-center gap-x-16">
         <div class="flex-1 fade-in-up">
           <div class="mb-8">
@@ -531,7 +574,7 @@
     </div>
     
     <!-- 移动端 Hero - 左文右图横向布局 -->
-    <div class="lg:hidden relative mx-auto max-w-4xl py-16 sm:py-24">
+    <div class="lg:hidden relative mx-auto max-w-4xl py-16 sm:py-24 hero-content">
       <!-- 通知徽章 -->
       <div class="flex justify-center mb-6 fade-in-up px-4">
         <div class="announcement-badge rounded-full px-3 py-1 text-xs text-primary">
