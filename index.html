@@ -367,6 +367,50 @@
         height: 350px;
       }
     }
+    
+    /* 3D 卡片样式 */
+    .card-container {
+      perspective: 1000px;
+    }
+    
+    .card-body {
+      transform-style: preserve-3d;
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    
+    .card-container:hover .card-body {
+      transform: rotateY(5deg) rotateX(5deg);
+    }
+    
+    .card-item {
+      transform-style: preserve-3d;
+    }
+    
+    .card-item-50 {
+      transform: translateZ(50px);
+    }
+    
+    .card-item-60 {
+      transform: translateZ(60px);
+    }
+    
+    .card-item-100 {
+      transform: translateZ(100px);
+    }
+    
+    .card-item-20 {
+      transform: translateZ(20px);
+    }
+    
+    .knowledge-3d-card {
+      background: white;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .knowledge-3d-card:hover {
+      box-shadow: 0 20px 60px rgba(74, 97, 87, 0.2);
+    }
   </style>
 </head>
 
@@ -625,7 +669,7 @@
   </section>
 
   <!-- 身体中立知识库 -->
-  <section class="py-20 bg-gray-50">
+  <section class="py-20 bg-white">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center mb-12">
         <h2 class="text-3xl font-bold text-primary mb-4">身体中立知识库</h2>
@@ -634,33 +678,96 @@
 
       <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
         
-        <div class="glass-card rounded-xl overflow-hidden knowledge-card" onclick="window.open('body-neutrality.html', '_blank')">
-          <div class="aspect-video bg-primary flex items-center justify-center">
-            <i class="fa fa-book text-5xl text-white"></i>
-          </div>
-          <div class="p-6">
-            <h3 class="font-bold text-primary mb-2">身体中立基础</h3>
-            <p class="text-content text-sm">了解身体中立的核心理念</p>
+        <!-- 卡片1: 身体中立基础 -->
+        <div class="card-container">
+          <div class="card-body knowledge-3d-card rounded-xl p-6 border cursor-pointer" onclick="window.open('body-neutrality.html', '_blank')">
+            <div class="card-item card-item-50">
+              <h3 class="text-xl font-bold text-primary">身体中立基础</h3>
+            </div>
+            <div class="card-item card-item-60">
+              <p class="text-content text-sm max-w-sm mt-2">
+                了解身体中立的核心理念
+              </p>
+            </div>
+            <div class="card-item card-item-100 mt-4">
+              <img
+                src="assets/images/身体中立基础.jpg"
+                alt="身体中立基础"
+                class="h-60 w-full object-cover rounded-xl hover:shadow-xl transition-shadow"
+                onerror="this.style.background='linear-gradient(135deg, #4A6157, #8FD9A8)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<i class=\'fa fa-book text-white text-5xl\'></i>';" />
+            </div>
+            <div class="flex justify-between items-center mt-6">
+              <div class="card-item card-item-20">
+                <span class="text-xs font-normal text-primary">探索更多 →</span>
+              </div>
+              <div class="card-item card-item-20">
+                <button class="px-4 py-2 rounded-xl bg-primary text-white text-xs font-bold hover:bg-primary/90 transition-colors">
+                  开始学习
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="glass-card rounded-xl overflow-hidden knowledge-card" onclick="navigateToPractice()">
-          <div class="aspect-video bg-mint flex items-center justify-center">
-            <i class="fa fa-lightbulb-o text-5xl text-white"></i>
-          </div>
-          <div class="p-6">
-            <h3 class="font-bold text-primary mb-2">实践方法</h3>
-            <p class="text-content text-sm">日常生活中的身体中立练习</p>
+        <!-- 卡片2: 实践方法 -->
+        <div class="card-container">
+          <div class="card-body knowledge-3d-card rounded-xl p-6 border cursor-pointer" onclick="navigateToPractice()">
+            <div class="card-item card-item-50">
+              <h3 class="text-xl font-bold text-primary">实践方法</h3>
+            </div>
+            <div class="card-item card-item-60">
+              <p class="text-content text-sm max-w-sm mt-2">
+                日常生活中的身体中立练习
+              </p>
+            </div>
+            <div class="card-item card-item-100 mt-4">
+              <img
+                src="assets/images/实践方法.jpg"
+                alt="实践方法"
+                class="h-60 w-full object-cover rounded-xl hover:shadow-xl transition-shadow"
+                onerror="this.style.background='linear-gradient(135deg, #8FD9A8, #c3e6cb)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<i class=\'fa fa-lightbulb-o text-white text-5xl\'></i>';" />
+            </div>
+            <div class="flex justify-between items-center mt-6">
+              <div class="card-item card-item-20">
+                <span class="text-xs font-normal text-primary">立即尝试 →</span>
+              </div>
+              <div class="card-item card-item-20">
+                <button class="px-4 py-2 rounded-xl bg-mint text-white text-xs font-bold hover:bg-mint/90 transition-colors">
+                  开始练习
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="glass-card rounded-xl overflow-hidden knowledge-card" onclick="navigateToRecords()">
-          <div class="aspect-video bg-accent flex items-center justify-center">
-            <i class="fa fa-flask text-5xl text-white"></i>
-          </div>
-          <div class="p-6">
-            <h3 class="font-bold text-primary mb-2">科学研究</h3>
-            <p class="text-content text-sm">相关心理学研究和证据</p>
+        <!-- 卡片3: 科学研究 -->
+        <div class="card-container">
+          <div class="card-body knowledge-3d-card rounded-xl p-6 border cursor-pointer" onclick="navigateToRecords()">
+            <div class="card-item card-item-50">
+              <h3 class="text-xl font-bold text-primary">科学研究</h3>
+            </div>
+            <div class="card-item card-item-60">
+              <p class="text-content text-sm max-w-sm mt-2">
+                相关心理学研究和证据
+              </p>
+            </div>
+            <div class="card-item card-item-100 mt-4">
+              <img
+                src="assets/images/科学研究.jpg"
+                alt="科学研究"
+                class="h-60 w-full object-cover rounded-xl hover:shadow-xl transition-shadow"
+                onerror="this.style.background='linear-gradient(135deg, #2E2E2E, #666666)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'; this.innerHTML='<i class=\'fa fa-flask text-white text-5xl\'></i>';" />
+            </div>
+            <div class="flex justify-between items-center mt-6">
+              <div class="card-item card-item-20">
+                <span class="text-xs font-normal text-primary">了解详情 →</span>
+              </div>
+              <div class="card-item card-item-20">
+                <button class="px-4 py-2 rounded-xl bg-accent text-white text-xs font-bold hover:bg-accent/90 transition-colors">
+                  查看研究
+                </button>
+              </div>
+            </div>
           </div>
         </div>
 
