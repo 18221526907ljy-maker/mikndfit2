@@ -233,6 +233,8 @@
       height: 250px;
       object-fit: cover;
       background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+      /* 图片本身不应该有hover效果，效果在父容器上 */
+      transition: none;
     }
     
     .carousel-card-content {
@@ -248,6 +250,7 @@
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
       position: relative;
       z-index: 10;
+      /* 移除电脑端的图标动画效果 */
     }
     
     .carousel-card-title {
@@ -341,6 +344,11 @@
       cursor: pointer;
     }
     
+    /* 知识库卡片内的图标也不应该有独立的移动效果 */
+    .glass-card .fa {
+      transition: none;
+    }
+    
     /* 移除桌面端hover效果 - 使用媒体查询只在移动端保留 */
     @media (max-width: 1023px) {
       .glass-card:hover {
@@ -403,16 +411,16 @@
         </button>
       </div>
       
-      <!-- 导航菜单 - 字体放大一倍 -->
+      <!-- 导航菜单 - 字体缩小0.5倍 -->
       <div class="hidden lg:flex lg:gap-x-12">
-        <a href="assessment-test.html" class="font-semibold text-primary hover:text-mint transition-colors" style="font-size: 1.75rem; line-height: 2.25rem;">评估</a>
-        <a href="daily_practice.html" class="font-semibold text-primary hover:text-mint transition-colors" style="font-size: 1.75rem; line-height: 2.25rem;">练习</a>
-        <a href="practice_records.html" class="font-semibold text-primary hover:text-mint transition-colors" style="font-size: 1.75rem; line-height: 2.25rem;">记录</a>
-        <a href="body-neutrality.html" class="font-semibold text-primary hover:text-mint transition-colors" style="font-size: 1.75rem; line-height: 2.25rem;">理论</a>
+        <a href="assessment-test.html" class="font-semibold text-primary hover:text-mint transition-colors" style="font-size: 0.4375rem; line-height: 0.75rem;">评估</a>
+        <a href="daily_practice.html" class="font-semibold text-primary hover:text-mint transition-colors" style="font-size: 0.4375rem; line-height: 0.75rem;">练习</a>
+        <a href="practice_records.html" class="font-semibold text-primary hover:text-mint transition-colors" style="font-size: 0.4375rem; line-height: 0.75rem;">记录</a>
+        <a href="body-neutrality.html" class="font-semibold text-primary hover:text-mint transition-colors" style="font-size: 0.4375rem; line-height: 0.75rem;">理论</a>
       </div>
       
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a href="profile.html" class="font-semibold text-primary hover:text-mint transition-colors" style="font-size: 1.75rem; line-height: 2.25rem;">
+        <a href="profile.html" class="font-semibold text-primary hover:text-mint transition-colors" style="font-size: 0.4375rem; line-height: 0.75rem;">
           个人中心 <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
