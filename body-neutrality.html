@@ -1,69 +1,831 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>身体中立入门</title>
-
-  <!-- ✅ 加入 Tailwind CDN -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>身体中立理论 - MindFit</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4A6157",
+            secondary: "#F7F6F2", 
+            accent: "#2E2E2E",
+            mint: "#8FD9A8",
+            light: "#FAFAFA",
+            white: "#FFFFFF",
+            content: "#444444",
+            gray: "#666666",
+            lightGray: "#777777",
+          },
+        },
+      },
+    };
+  </script>
+  
+  <style>
+    /* 导航栏样式 */
+    .navbar-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .navbar-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+    }
+    
+    .navbar-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .navbar-logo:hover {
+      transform: scale(1.05);
+    }
+    
+    .navbar-logo-icon {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background: #4A6157;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .navbar-logo-text {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: #4A6157;
+    }
+    
+    /* Hero 区域 */
+    .hero-section {
+      background: linear-gradient(135deg, #4A6157 0%, #8FD9A8 100%);
+      padding-top: 120px;
+      padding-bottom: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+      animation: float 20s linear infinite;
+    }
+    
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-100px); }
+    }
+    
+    /* 功能展示区域 */
+    .features-section {
+      position: relative;
+      z-index: 20;
+      padding: 5rem 0;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      margin-top: 3rem;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+    
+    @media (min-width: 1024px) {
+      .features-grid {
+        grid-template-columns: repeat(6, 1fr);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+    
+    .feature-card {
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      background: white;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-card-1 {
+      grid-column: span 1;
+    }
+    
+    @media (min-width: 1024px) {
+      .feature-card-1 {
+        grid-column: span 3;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+    
+    .feature-card-2 {
+      grid-column: span 1;
+    }
+    
+    @media (min-width: 1024px) {
+      .feature-card-2 {
+        grid-column: span 3;
+      }
+    }
+    
+    .feature-card-3 {
+      grid-column: span 1;
+    }
+    
+    @media (min-width: 1024px) {
+      .feature-card-3 {
+        grid-column: span 2;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+    
+    .feature-card-4 {
+      grid-column: span 1;
+    }
+    
+    @media (min-width: 1024px) {
+      .feature-card-4 {
+        grid-column: span 4;
+      }
+    }
+    
+    .feature-card-5 {
+      grid-column: span 1;
+    }
+    
+    @media (min-width: 1024px) {
+      .feature-card-5 {
+        grid-column: span 4;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+    
+    .feature-card-6 {
+      grid-column: span 1;
+      border-bottom: none;
+    }
+    
+    @media (min-width: 1024px) {
+      .feature-card-6 {
+        grid-column: span 2;
+        border-bottom: none;
+      }
+    }
+    
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #000;
+      margin-bottom: 0.5rem;
+      text-align: left;
+    }
+    
+    @media (min-width: 768px) {
+      .feature-title {
+        font-size: 1.5rem;
+      }
+    }
+    
+    .feature-description {
+      font-size: 0.875rem;
+      color: #666;
+      text-align: left;
+      margin-bottom: 1.5rem;
+      max-width: 28rem;
+    }
+    
+    @media (min-width: 768px) {
+      .feature-description {
+        font-size: 1rem;
+      }
+    }
+    
+    .feature-skeleton {
+      height: 100%;
+      width: 100%;
+      min-height: 200px;
+    }
+    
+    /* 骨架样式 - 定义 */
+    .skeleton-definition {
+      position: relative;
+      padding: 2rem 1rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .definition-card {
+      background: linear-gradient(135deg, #f0faf5, #e8f7ee);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+    }
+    
+    .definition-icon {
+      width: 4rem;
+      height: 4rem;
+      background: #4A6157;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    
+    .definition-text {
+      text-align: center;
+      color: #4A6157;
+      font-size: 1.125rem;
+      font-weight: 600;
+      line-height: 1.6;
+    }
+    
+    /* 骨架样式 - 核心原则 */
+    .skeleton-principles {
+      position: relative;
+      padding: 2rem 1rem;
+      height: 100%;
+    }
+    
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    
+    .principle-item {
+      background: white;
+      border: 2px solid #8FD9A8;
+      border-radius: 0.75rem;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .principle-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(143, 217, 168, 0.3);
+      background: #f0faf5;
+    }
+    
+    .principle-number {
+      width: 2.5rem;
+      height: 2.5rem;
+      background: #8FD9A8;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 0.75rem;
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+    
+    .principle-text {
+      color: #4A6157;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    
+    /* 骨架样式 - 对比 */
+    .skeleton-comparison {
+      position: relative;
+      padding: 2rem 1rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .comparison-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .comparison-card {
+      flex: 1;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      text-align: center;
+    }
+    
+    .comparison-negative {
+      background: linear-gradient(135deg, #fee, #fcc);
+      border: 2px solid #faa;
+    }
+    
+    .comparison-positive {
+      background: linear-gradient(135deg, #e8f7ee, #d0f0dd);
+      border: 2px solid #8FD9A8;
+    }
+    
+    .comparison-title {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    
+    .comparison-text {
+      font-size: 0.875rem;
+      color: #444;
+    }
+    
+    /* 骨架样式 - 好处 */
+    .skeleton-benefits {
+      position: relative;
+      padding: 2rem;
+      height: 100%;
+      background: linear-gradient(135deg, #4A6157, #8FD9A8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .benefits-content {
+      text-align: center;
+      color: white;
+    }
+    
+    .benefits-icon {
+      width: 5rem;
+      height: 5rem;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+    
+    .benefits-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .benefits-list li {
+      padding: 0.5rem 0;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    
+    .benefits-list li::before {
+      content: '✓';
+      margin-right: 0.5rem;
+      font-weight: 700;
+    }
+    
+    /* 骨架样式 - 实践步骤 */
+    .skeleton-practice {
+      position: relative;
+      padding: 2rem 1rem;
+      height: 100%;
+    }
+    
+    .practice-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .practice-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem;
+      background: #f5f5f5;
+      border-radius: 0.75rem;
+      border-left: 4px solid #8FD9A8;
+      transition: all 0.3s ease;
+    }
+    
+    .practice-step:hover {
+      background: #e8f7ee;
+      transform: translateX(5px);
+    }
+    
+    .practice-step-number {
+      width: 2rem;
+      height: 2rem;
+      background: #4A6157;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    
+    .practice-step-text {
+      color: #444;
+      font-size: 0.875rem;
+      line-height: 1.6;
+    }
+    
+    /* 骨架样式 - 科学支持 */
+    .skeleton-science {
+      position: relative;
+      padding: 2rem;
+      height: 100%;
+      background: linear-gradient(135deg, #2E2E2E, #666666);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .science-content {
+      text-align: center;
+      color: white;
+    }
+    
+    .science-icon {
+      width: 4rem;
+      height: 4rem;
+      margin: 0 auto 1rem;
+    }
+    
+    .science-stat {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .science-text {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    
+    /* CTA 区域 */
+    .cta-section {
+      background: linear-gradient(135deg, #8FD9A8, #4A6157);
+      padding: 4rem 2rem;
+      text-align: center;
+      color: white;
+    }
+    
+    .cta-button {
+      background: white;
+      color: #4A6157;
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 700;
+      font-size: 1.125rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* 渐变遮罩 */
+    .gradient-mask {
+      position: absolute;
+      pointer-events: none;
+    }
+    
+    .gradient-mask-bottom {
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4rem;
+      background: linear-gradient(to top, white, transparent);
+    }
+    
+    .gradient-mask-top {
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4rem;
+      background: linear-gradient(to bottom, white, transparent);
+    }
+  </style>
 </head>
-<body class="bg-sky-50 p-4 text-gray-800">
 
-  <a href="index.html" class="text-blue-600 text-sm">&larr; 返回首页</a>
-
-  <div class="max-w-xl mx-auto mt-6 bg-white rounded-xl shadow-md p-6">
-    <!-- 封面图片 -->
-    <img src="https://images.unsplash.com/photo-1599058917212-d750089bc07d?auto=format&fit=crop&w=800&q=80"
-         alt="身体感知"
-         class="w-full h-40 object-cover rounded mb-4" />
-
-    <!-- 标题 -->
-    <h1 class="text-xl font-bold text-blue-800 mb-1">🌿 身体中立入门</h1>
-    <p class="text-sm text-gray-500 mb-4">从功能与健康角度看待身体</p>
-
-    <!-- 正文介绍 -->
-    <p class="mb-4 leading-relaxed text-[15px]">
-      身体中立（Body Neutrality）是一种更温和的身体观念，强调接受身体的现状而不是追求完美外形。
-      它关注身体的<strong>功能</strong>而非外貌，例如“我的身体可以带我散步”、“我的手可以写字”。<br><br>
-      它帮助你减少对身体的苛责评价，从而减少焦虑，并促进更健康的生活方式。
-    </p>
-
-    <!-- 建议列表 -->
-    <h2 class="font-semibold text-base text-green-700 mb-2">✅ 开始身体中立的 3 个建议</h2>
-    <ul class="list-disc pl-5 space-y-2 text-sm mb-4">
-      <li>记录身体每天能完成的小事（如“我今天完成了一次深呼吸练习”）。</li>
-      <li>练习 5 分钟身体扫描或呼吸练习，增强身体连接感。</li>
-      <li>减少外貌评价语句，如“我今天看起来好丑”，可以换成“我今天有点疲惫”。</li>
-    </ul>
-
-    <!-- 温馨提醒 -->
-    <div class="bg-blue-50 border border-blue-200 text-blue-800 text-sm rounded px-3 py-2 mb-4">
-      🌟 温柔提醒：你不需要每天都喜欢自己的身体，但可以选择每天尊重它。
-    </div>
-
-    <!-- 延伸阅读 -->
-    <p class="text-sm text-gray-600 mb-4">
-      📚 延伸阅读：
-      <a href="https://www.health.harvard.edu/mind-and-mood/recognizing-and-easing-the-physical-symptoms-of-anxiety"
-         class="text-blue-600 underline"
-         target="_blank">
-         为什么我们会对身体感到焦虑（Harvard Health）
+<body class="bg-secondary">
+  
+  <!-- 顶部导航 -->
+  <nav class="navbar-container">
+    <div class="navbar-body">
+      <a href="index.html" class="navbar-logo">
+        <div class="navbar-logo-icon">
+          <i class="fa fa-heartbeat text-white"></i>
+        </div>
+        <span class="navbar-logo-text">MindFit</span>
       </a>
-    </p>
-
-    <!-- 去练习按钮 -->
-    <div class="text-center">
-      <a href="practice.html"
-         class="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm transition duration-150">
-        ✨ 立即前往练习
-      </a>
+      
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="text-sm font-semibold text-primary hover:text-mint transition-colors">
+          <i class="fa fa-arrow-left mr-2"></i>返回首页
+        </a>
+      </div>
     </div>
-  </div>
-<!-- MindFit 数据管理器 -->
-<script src="js/data-manager.js"></script>
+  </nav>
+
+  <!-- Hero 区域 -->
+  <section class="hero-section">
+    <div class="max-w-5xl mx-auto px-6 text-center relative z-10">
+      <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white">
+        身体中立理论
+      </h1>
+      <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto">
+        从"爱自己的身体"到"接纳自己的身体"
+      </p>
+      <p class="text-base md:text-lg text-white/80 max-w-2xl mx-auto">
+        身体中立是一种新的身体意象理念，它不要求你热爱自己的身体，而是帮助你建立中立、客观的身体认知，减少身材焦虑，提升生活质量
+      </p>
+    </div>
+  </section>
+
+  <!-- 核心概念展示区域 -->
+  <section class="features-section bg-white">
+    <div class="px-8">
+      <h2 class="text-3xl lg:text-5xl lg:leading-tight max-w-5xl mx-auto text-center tracking-tight font-bold text-primary">
+        理解身体中立
+      </h2>
+      <p class="text-sm lg:text-base max-w-2xl my-4 mx-auto text-content text-center font-normal">
+        深入了解身体中立的核心理念、原则和实践方法
+      </p>
+    </div>
+    
+    <div class="relative px-6">
+      <div class="features-grid">
+        
+        <!-- 1. 什么是身体中立 -->
+        <div class="feature-card feature-card-1">
+          <h3 class="feature-title">什么是身体中立？</h3>
+          <p class="feature-description">
+            身体中立强调对身体持中立态度，不过分关注外表，而是关注身体的功能和感受
+          </p>
+          <div class="feature-skeleton">
+            <div class="skeleton-definition">
+              <div class="definition-card">
+                <div class="definition-icon">
+                  <i class="fa fa-balance-scale text-white text-3xl"></i>
+                </div>
+                <p class="definition-text">
+                  "我的身体就是我的身体，<br>它不需要被评判，<br>只需要被尊重和善待"
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 核心原则 -->
+        <div class="feature-card feature-card-2">
+          <h3 class="feature-title">四大核心原则</h3>
+          <p class="feature-description">
+            身体中立的实践建立在四个基本原则之上
+          </p>
+          <div class="feature-skeleton">
+            <div class="skeleton-principles">
+              <div class="principles-grid">
+                <div class="principle-item">
+                  <div class="principle-number">1</div>
+                  <p class="principle-text">身体是中立的</p>
+                </div>
+                <div class="principle-item">
+                  <div class="principle-number">2</div>
+                  <p class="principle-text">关注功能而非外表</p>
+                </div>
+                <div class="principle-item">
+                  <div class="principle-number">3</div>
+                  <p class="principle-text">减少身体评判</p>
+                </div>
+                <div class="principle-item">
+                  <div class="principle-number">4</div>
+                  <p class="principle-text">接纳身体多样性</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 身体中立 vs 身体积极 -->
+        <div class="feature-card feature-card-3">
+          <h3 class="feature-title">与身体积极的区别</h3>
+          <p class="feature-description">
+            理解两种理念的差异，选择适合自己的方式
+          </p>
+          <div class="feature-skeleton">
+            <div class="skeleton-comparison">
+              <div class="comparison-row">
+                <div class="comparison-card comparison-negative">
+                  <p class="comparison-title" style="color: #d33;">身体积极</p>
+                  <p class="comparison-text">要求"爱自己的身体"</p>
+                </div>
+              </div>
+              <div class="comparison-row">
+                <div class="comparison-card comparison-positive">
+                  <p class="comparison-title" style="color: #4A6157;">身体中立</p>
+                  <p class="comparison-text">只需"接纳自己的身体"</p>
+                </div>
+              </div>
+              <p class="text-sm text-center text-content mt-4">
+                更现实、更易实现的目标
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 身体中立的好处 -->
+        <div class="feature-card feature-card-4">
+          <h3 class="feature-title">实践身体中立的好处</h3>
+          <p class="feature-description">
+            科学研究证明，身体中立可以带来多方面的积极改变
+          </p>
+          <div class="feature-skeleton">
+            <div class="skeleton-benefits">
+              <div class="benefits-content">
+                <div class="benefits-icon">
+                  <i class="fa fa-heart text-white text-4xl"></i>
+                </div>
+                <ul class="benefits-list">
+                  <li>减少身材焦虑和抑郁</li>
+                  <li>提升自我价值感</li>
+                  <li>改善饮食关系</li>
+                  <li>增强心理健康</li>
+                  <li>提高生活质量</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. 如何实践身体中立 -->
+        <div class="feature-card feature-card-5">
+          <h3 class="feature-title">如何开始实践</h3>
+          <p class="feature-description">
+            简单实用的步骤，帮助你开启身体中立之旅
+          </p>
+          <div class="feature-skeleton">
+            <div class="skeleton-practice">
+              <div class="practice-steps">
+                <div class="practice-step">
+                  <div class="practice-step-number">1</div>
+                  <p class="practice-step-text">
+                    <strong>觉察评判：</strong>注意自己何时在评判身体
+                  </p>
+                </div>
+                <div class="practice-step">
+                  <div class="practice-step-number">2</div>
+                  <p class="practice-step-text">
+                    <strong>转换语言：</strong>用中立的词汇替代评判性语言
+                  </p>
+                </div>
+                <div class="practice-step">
+                  <div class="practice-step-number">3</div>
+                  <p class="practice-step-text">
+                    <strong>关注功能：</strong>感谢身体能做什么，而不是看起来如何
+                  </p>
+                </div>
+                <div class="practice-step">
+                  <div class="practice-step-number">4</div>
+                  <p class="practice-step-text">
+                    <strong>日常练习：</strong>使用正念工具和认知重构技术
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. 科学支持 -->
+        <div class="feature-card feature-card-6">
+          <h3 class="feature-title">科学研究支持</h3>
+          <p class="feature-description">
+            大量研究证实身体中立的有效性
+          </p>
+          <div class="feature-skeleton">
+            <div class="skeleton-science">
+              <div class="science-content">
+                <svg class="science-icon mx-auto mb-4" fill="white" viewBox="0 0 24 24">
+                  <path d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 0 0-3.7-3.7 47.702 47.702 0 0 0-7.324 0 4.006 4.006 0 0 0-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 0 0 3.7 3.7 47.702 47.702 0 0 0 7.324 0 4.006 4.006 0 0 0 3.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3-3 3" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+                <p class="science-stat">60%</p>
+                <p class="science-text">降低饮食失调风险</p>
+                <p class="text-sm mt-4 opacity-80">基于多项临床研究</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 相关资源 -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-primary mb-8 text-center">深入学习</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer" onclick="window.location.href='body-neutrality-basics.html'">
+          <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="fa fa-book text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-3 text-center">基础知识</h3>
+          <p class="text-content text-sm text-center">
+            详细了解身体中立的理论基础和核心概念
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer" onclick="window.location.href='practice-methods.html'">
+          <div class="w-16 h-16 bg-mint rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="fa fa-leaf text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-3 text-center">实践方法</h3>
+          <p class="text-content text-sm text-center">
+            具体可行的日常练习和实践技巧
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all cursor-pointer" onclick="window.location.href='scientific-research.html'">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mb-4 mx-auto">
+            <i class="fa fa-flask text-white text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-bold text-primary mb-3 text-center">科学研究</h3>
+          <p class="text-content text-sm text-center">
+            查看支持身体中立的科学证据和研究
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA 区域 -->
+  <section class="cta-section">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">准备好开始你的身体中立之旅了吗？</h2>
+      <p class="text-lg mb-8 opacity-90">使用我们的专业工具，开始你的改变</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="assessment-test.html" class="cta-button">
+          开始评估测试
+        </a>
+        <a href="daily_practice.html" class="cta-button">
+          开始日常练习
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部 -->
+  <footer class="py-12 bg-gray-100">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center">
+        <div class="flex items-center justify-center space-x-2 mb-4">
+          <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+            <i class="fa fa-heartbeat text-white"></i>
+          </div>
+          <span class="text-xl font-bold text-primary">MindFit</span>
+        </div>
+        <p class="text-gray-600 text-sm">科学管理身心，告别身材焦虑</p>
+        <p class="text-gray-500 text-xs mt-4">© 2024 MindFit. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
-
-
-
