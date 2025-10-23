@@ -28,23 +28,79 @@
   </script>
   
   <style>
-    /* 自定义背景渐变 */
+    /* Hero 背景 - 深色基底 + 绿色烟雾效果 */
     .hero-gradient {
-      background: linear-gradient(135deg, #F7F6F2 0%, rgba(143, 217, 168, 0.1) 100%);
+      background: linear-gradient(135deg, #2d3e36 0%, #1a2920 100%);
+      position: relative;
+      overflow: hidden;
     }
     
-    /* 模糊背景装饰 */
-    .blur-decoration {
+    /* 绿色烟雾装饰 - 多层叠加 */
+    .smoke-blur {
       position: absolute;
       border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.3;
+      filter: blur(100px);
+      opacity: 0.4;
       animation: float 20s ease-in-out infinite;
     }
     
+    .smoke-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(143, 217, 168, 0.6) 0%, transparent 70%);
+      top: -200px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+    
+    .smoke-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(74, 97, 87, 0.5) 0%, transparent 70%);
+      top: 50%;
+      right: -200px;
+      animation-delay: 5s;
+    }
+    
+    .smoke-3 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(143, 217, 168, 0.3) 0%, transparent 70%);
+      bottom: -150px;
+      left: 30%;
+      animation-delay: 10s;
+    }
+    
     @keyframes float {
+      0%, 100% { 
+        transform: translate(0, 0) scale(1);
+      }
+      33% { 
+        transform: translate(30px, -30px) scale(1.1);
+      }
+      66% { 
+        transform: translate(-20px, 20px) scale(0.9);
+      }
+    }
+    
+    /* Logo 容器 */
+    .logo-container {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+    
+    .logo-container img {
+      border-radius: 1rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+    
+    @keyframes logoFloat {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-30px); }
+      50% { transform: translateY(-10px); }
     }
     
     /* 页面加载动画 */
@@ -61,18 +117,33 @@
       }
     }
     
-    /* Logo 动画 */
-    .hero-logo {
-      opacity: 0;
-      transform: scale(0.9);
-      animation: logoIn 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+    /* 标题渐变效果 */
+    .hero-title {
+      background: linear-gradient(to right, #ffffff, #8FD9A8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     
-    @keyframes logoIn {
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
+    /* 通知徽章 */
+    .announcement-badge {
+      background: rgba(143, 217, 168, 0.15);
+      border: 1px solid rgba(143, 217, 168, 0.3);
+      backdrop-filter: blur(10px);
+    }
+    
+    /* 功能卡片 - 紧凑型 */
+    .compact-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      cursor: pointer;
+    }
+    
+    .compact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
     }
     
     /* 玻璃态卡片 */
@@ -110,6 +181,18 @@
       opacity: 1;
       transform: translateY(0);
     }
+    
+    /* 响应式调整 */
+    @media (max-width: 768px) {
+      .smoke-1, .smoke-2, .smoke-3 {
+        width: 300px;
+        height: 300px;
+      }
+      
+      .logo-container img {
+        max-width: 200px;
+      }
+    }
   </style>
 </head>
 
@@ -121,16 +204,16 @@
       <!-- Logo -->
       <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5 flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+          <div class="w-8 h-8 rounded-full bg-mint flex items-center justify-center">
             <i class="fa fa-heartbeat text-white"></i>
           </div>
-          <span class="text-lg font-bold text-primary">MindFit</span>
+          <span class="text-lg font-bold text-white">MindFit</span>
         </a>
       </div>
       
       <!-- 移动端菜单按钮 -->
       <div class="flex lg:hidden">
-        <button type="button" onclick="toggleMobileMenu()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary">
+        <button type="button" onclick="toggleMobileMenu()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
           <span class="sr-only">打开菜单</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
             <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -140,15 +223,15 @@
       
       <!-- 桌面端导航 -->
       <div class="hidden lg:flex lg:gap-x-12">
-        <a href="assessment-test.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">评估</a>
-        <a href="daily_practice.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">练习</a>
-        <a href="practice_records.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">记录</a>
-        <a href="body-neutrality.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">理论</a>
+        <a href="assessment-test.html" class="text-sm/6 font-semibold text-white hover:text-mint transition-colors">评估</a>
+        <a href="daily_practice.html" class="text-sm/6 font-semibold text-white hover:text-mint transition-colors">练习</a>
+        <a href="practice_records.html" class="text-sm/6 font-semibold text-white hover:text-mint transition-colors">记录</a>
+        <a href="body-neutrality.html" class="text-sm/6 font-semibold text-white hover:text-mint transition-colors">理论</a>
       </div>
       
       <!-- 个人中心 -->
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a href="profile.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">
+        <a href="profile.html" class="text-sm/6 font-semibold text-white hover:text-mint transition-colors">
           个人中心 <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
@@ -186,88 +269,91 @@
     </div>
   </header>
 
-  <!-- Hero 区域 -->
+  <!-- Hero 区域 - 上下排列 -->
   <div class="relative isolate px-6 pt-14 lg:px-8 hero-gradient">
-    <!-- 背景装饰 -->
-    <div aria-hidden="true" class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
-      <div class="blur-decoration" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%); left: calc(50% - 11rem); width: 36.125rem; background: linear-gradient(to top right, #8FD9A8, #4A6157);"></div>
-    </div>
+    <!-- 绿色烟雾背景装饰 -->
+    <div aria-hidden="true" class="smoke-blur smoke-1"></div>
+    <div aria-hidden="true" class="smoke-blur smoke-2"></div>
+    <div aria-hidden="true" class="smoke-blur smoke-3"></div>
     
     <!-- Hero 内容 -->
-    <div class="mx-auto max-w-7xl py-32 sm:py-48 lg:py-56">
-      <div class="lg:flex lg:items-center lg:gap-x-12">
-        <!-- 左侧文字内容 -->
-        <div class="lg:flex-1 fade-in-up">
-          <h1 class="text-4xl font-bold tracking-tight text-primary sm:text-6xl leading-tight mb-6">
-            科学管理身心、<br>
-            <span class="text-accent">告别身材焦虑</span>
-          </h1>
-          <p class="mt-6 text-lg leading-8 text-content">
-            平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
-          </p>
-          <div class="mt-10 flex items-center gap-x-6">
-            <button onclick="navigateToAssessment()" class="rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary transition-all hover:scale-105">
-              开始探索
-            </button>
-            <a href="body-neutrality.html" class="text-sm font-semibold leading-6 text-primary hover:text-mint transition-colors">
-              了解更多 <span aria-hidden="true">→</span>
-            </a>
-          </div>
+    <div class="relative mx-auto max-w-4xl py-20 sm:py-32 lg:py-40">
+      <!-- 通知徽章 -->
+      <div class="flex justify-center mb-8 fade-in-up">
+        <div class="announcement-badge rounded-full px-4 py-1.5 text-sm text-mint">
+          探索身心健康的全新旅程 
+          <a href="body-neutrality.html" class="font-semibold text-white hover:text-mint ml-2">
+            了解更多 <span aria-hidden="true">&rarr;</span>
+          </a>
         </div>
-        
-        <!-- 右侧 Logo 图片 -->
-        <div class="mt-16 lg:mt-0 lg:flex-1 flex justify-center hero-logo">
-          <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
-               alt="MindFit Logo" 
-               class="w-full max-w-lg rounded-2xl shadow-2xl"
-               loading="lazy">
+      </div>
+      
+      <!-- Logo 图片 -->
+      <div class="logo-container fade-in-up" style="animation-delay: 0.2s;">
+        <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
+             alt="MindFit Logo" 
+             class="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover"
+             loading="lazy">
+      </div>
+      
+      <!-- 文字内容 -->
+      <div class="text-center fade-in-up" style="animation-delay: 0.4s;">
+        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl leading-tight mb-6 hero-title">
+          科学管理身心<br>
+          告别身材焦虑
+        </h1>
+        <p class="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto">
+          平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
+        </p>
+        <div class="mt-10 flex items-center justify-center gap-x-6">
+          <button onclick="navigateToAssessment()" class="rounded-md bg-mint px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary transition-all hover:scale-105">
+            开始探索
+          </button>
+          <a href="body-neutrality.html" class="text-sm font-semibold leading-6 text-white hover:text-mint transition-colors">
+            了解更多 <span aria-hidden="true">→</span>
+          </a>
         </div>
       </div>
     </div>
-    
-    <!-- 底部装饰 -->
-    <div aria-hidden="true" class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
-      <div class="blur-decoration" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%); left: calc(50% + 3rem); width: 36.125rem; background: linear-gradient(to top right, #8FD9A8, #4A6157);"></div>
-    </div>
   </div>
 
-  <!-- 主要功能区域 -->
-  <section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-6">
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+  <!-- 主要功能区域 - 紧凑型三卡片 -->
+  <section class="py-12 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
         
         <!-- 了解自己 -->
-        <div class="glass-card rounded-2xl p-8 text-center" onclick="navigateToAssessment()">
-          <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-primary/10 flex items-center justify-center">
+        <div class="compact-card rounded-2xl p-6 text-center" onclick="navigateToAssessment()">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-primary/10 flex items-center justify-center">
             <i class="fa fa-user-circle text-primary text-3xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-primary mb-4">了解自己</h3>
-          <p class="text-content mb-6">通过各种帮助信任认知当下的自己</p>
-          <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+          <h3 class="text-lg font-bold text-primary mb-2">了解自己</h3>
+          <p class="text-content text-sm mb-4">通过各种帮助信任认知当下的自己</p>
+          <button class="w-full bg-white border border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-2.5 rounded-lg text-sm font-medium transition-all">
             开始评估
           </button>
         </div>
 
         <!-- 日常练习 -->
-        <div class="glass-card rounded-2xl p-8 text-center" onclick="navigateToPractice()">
-          <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-mint/20 flex items-center justify-center">
+        <div class="compact-card rounded-2xl p-6 text-center" onclick="navigateToPractice()">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-mint/20 flex items-center justify-center">
             <i class="fa fa-apple text-mint text-3xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-primary mb-4">日常练习</h3>
-          <p class="text-content mb-6">培养健康生活习惯的时候解决伴随紧张感</p>
-          <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+          <h3 class="text-lg font-bold text-primary mb-2">日常练习</h3>
+          <p class="text-content text-sm mb-4">培养健康生活习惯的时候解决伴随紧张感</p>
+          <button class="w-full bg-white border border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-2.5 rounded-lg text-sm font-medium transition-all">
             开始练习
           </button>
         </div>
 
         <!-- 深度工具 -->
-        <div class="glass-card rounded-2xl p-8 text-center" onclick="navigateToCBTTools()">
-          <div class="w-16 h-16 mx-auto mb-6 rounded-2xl bg-accent/10 flex items-center justify-center">
+        <div class="compact-card rounded-2xl p-6 text-center" onclick="navigateToCBTTools()">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-accent/10 flex items-center justify-center">
             <i class="fa fa-cogs text-accent text-3xl"></i>
           </div>
-          <h3 class="text-xl font-bold text-primary mb-4">深度工具</h3>
-          <p class="text-content mb-6">通过心理干预或深入了解内心</p>
-          <button class="w-full bg-white border-2 border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-3 rounded-xl font-medium transition-all">
+          <h3 class="text-lg font-bold text-primary mb-2">深度工具</h3>
+          <p class="text-content text-sm mb-4">通过心理干预或深入了解内心</p>
+          <button class="w-full bg-white border border-primary text-primary hover:bg-mint hover:border-mint hover:text-white py-2.5 rounded-lg text-sm font-medium transition-all">
             探索工具
           </button>
         </div>
@@ -333,7 +419,7 @@
         <div class="bg-gray-50 rounded-xl p-6 cursor-pointer hover:bg-gray-100 transition-all" onclick="navigateToAssessment()">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4">
-              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
                 <i class="fa fa-search text-white text-lg"></i>
               </div>
               <span class="text-primary font-medium">想了解自己的身心状态？</span>
@@ -345,7 +431,7 @@
         <div class="bg-gray-50 rounded-xl p-6 cursor-pointer hover:bg-gray-100 transition-all" onclick="navigateToPractice()">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4">
-              <div class="w-12 h-12 bg-mint rounded-full flex items-center justify-center">
+              <div class="w-12 h-12 bg-mint rounded-full flex items-center justify-center flex-shrink-0">
                 <i class="fa fa-leaf text-white text-lg"></i>
               </div>
               <span class="text-primary font-medium">如何建立健康的身体观念？</span>
@@ -357,7 +443,7 @@
         <div class="bg-gray-50 rounded-xl p-6 cursor-pointer hover:bg-gray-100 transition-all" onclick="window.open('body-neutrality.html', '_blank')">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4">
-              <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+              <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center flex-shrink-0">
                 <i class="fa fa-book text-white text-lg"></i>
               </div>
               <span class="text-primary font-medium">什么是身体中立理念？</span>
@@ -369,7 +455,7 @@
         <div class="bg-gray-50 rounded-xl p-6 cursor-pointer hover:bg-gray-100 transition-all" onclick="navigateToRecords()">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-4">
-              <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center">
+              <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
                 <i class="fa fa-chart-line text-white text-lg"></i>
               </div>
               <span class="text-primary font-medium">查看我的练习记录和进展？</span>
