@@ -28,62 +28,90 @@
   </script>
   
   <style>
-    /* Hero 背景 - 深色基底 + 绿色烟雾效果 */
+    /* Hero 背景 - 米白色 + 清新绿色烟雾 */
     .hero-gradient {
-      background: linear-gradient(135deg, #2d3e36 0%, #1a2920 100%);
+      background: #F5F3EE;
       position: relative;
       overflow: hidden;
     }
     
-    /* 绿色烟雾装饰 - 多层叠加 */
+    /* 清新绿色烟雾装饰 - 更多层叠加 */
     .smoke-blur {
       position: absolute;
       border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.4;
-      animation: float 20s ease-in-out infinite;
+      filter: blur(120px);
+      opacity: 0.25;
+      animation: float 25s ease-in-out infinite;
+      pointer-events: none;
     }
     
+    /* 第一层烟雾 - 浅薄荷绿 */
     .smoke-1 {
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(143, 217, 168, 0.6) 0%, transparent 70%);
-      top: -200px;
-      left: -100px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(143, 217, 168, 0.4) 0%, rgba(143, 217, 168, 0.1) 50%, transparent 100%);
+      top: -100px;
+      left: -150px;
       animation-delay: 0s;
     }
     
+    /* 第二层烟雾 - 更浅的绿 */
     .smoke-2 {
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(74, 97, 87, 0.5) 0%, transparent 70%);
-      top: 50%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(195, 230, 203, 0.5) 0%, rgba(195, 230, 203, 0.15) 50%, transparent 100%);
+      top: 20%;
       right: -200px;
-      animation-delay: 5s;
+      animation-delay: 7s;
     }
     
+    /* 第三层烟雾 - 淡绿色 */
     .smoke-3 {
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(143, 217, 168, 0.3) 0%, transparent 70%);
-      bottom: -150px;
-      left: 30%;
-      animation-delay: 10s;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(143, 217, 168, 0.35) 0%, rgba(143, 217, 168, 0.08) 50%, transparent 100%);
+      bottom: 10%;
+      left: 20%;
+      animation-delay: 14s;
+    }
+    
+    /* 第四层烟雾 - 中部增强 */
+    .smoke-4 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, rgba(174, 223, 186, 0.4) 0%, rgba(174, 223, 186, 0.12) 50%, transparent 100%);
+      top: 40%;
+      left: 50%;
+      transform: translateX(-50%);
+      animation-delay: 21s;
+    }
+    
+    /* 第五层烟雾 - 底部补充 */
+    .smoke-5 {
+      width: 650px;
+      height: 650px;
+      background: radial-gradient(circle, rgba(143, 217, 168, 0.3) 0%, rgba(143, 217, 168, 0.1) 50%, transparent 100%);
+      bottom: -100px;
+      right: 10%;
+      animation-delay: 28s;
     }
     
     @keyframes float {
       0%, 100% { 
         transform: translate(0, 0) scale(1);
       }
-      33% { 
-        transform: translate(30px, -30px) scale(1.1);
+      25% { 
+        transform: translate(40px, -40px) scale(1.05);
       }
-      66% { 
-        transform: translate(-20px, 20px) scale(0.9);
+      50% { 
+        transform: translate(-30px, 30px) scale(0.95);
+      }
+      75% { 
+        transform: translate(20px, -20px) scale(1.02);
       }
     }
     
-    /* Logo 容器 */
+    /* Logo 容器 - 缩小50% */
     .logo-container {
       position: relative;
       z-index: 10;
@@ -94,13 +122,26 @@
     
     .logo-container img {
       border-radius: 1rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      animation: logoFloat 3s ease-in-out infinite;
+      box-shadow: 0 10px 40px rgba(74, 97, 87, 0.15);
+      animation: logoFloat 4s ease-in-out infinite;
+      object-fit: cover;
+    }
+    
+    /* 桌面端 Logo - 缩小到原来的一半 */
+    .logo-desktop {
+      width: 192px !important;
+      height: 192px !important;
+    }
+    
+    /* 移动端 Logo - 正方形且更小 */
+    .logo-mobile {
+      width: 120px !important;
+      height: 120px !important;
     }
     
     @keyframes logoFloat {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-8px); }
     }
     
     /* 页面加载动画 */
@@ -117,18 +158,29 @@
       }
     }
     
-    /* 标题渐变效果 */
+    /* 标题 - 放大 */
     .hero-title {
-      background: linear-gradient(to right, #ffffff, #8FD9A8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: #2d3e36;
+      font-size: 3.5rem;
+      line-height: 1.1;
+    }
+    
+    @media (min-width: 640px) {
+      .hero-title {
+        font-size: 4.5rem;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-title {
+        font-size: 5.5rem;
+      }
     }
     
     /* 通知徽章 */
     .announcement-badge {
-      background: rgba(143, 217, 168, 0.15);
-      border: 1px solid rgba(143, 217, 168, 0.3);
+      background: rgba(143, 217, 168, 0.2);
+      border: 1px solid rgba(143, 217, 168, 0.4);
       backdrop-filter: blur(10px);
     }
     
@@ -184,13 +236,13 @@
     
     /* 响应式调整 */
     @media (max-width: 768px) {
-      .smoke-1, .smoke-2, .smoke-3 {
-        width: 300px;
-        height: 300px;
+      .smoke-1, .smoke-2, .smoke-3, .smoke-4, .smoke-5 {
+        width: 350px;
+        height: 350px;
       }
       
-      .logo-container img {
-        max-width: 200px;
+      .hero-title {
+        font-size: 2.5rem;
       }
     }
   </style>
@@ -204,16 +256,16 @@
       <!-- Logo -->
       <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5 flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-full bg-mint flex items-center justify-center">
+          <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
             <i class="fa fa-heartbeat text-white"></i>
           </div>
-          <span class="text-lg font-bold text-white">MindFit</span>
+          <span class="text-lg font-bold text-primary">MindFit</span>
         </a>
       </div>
       
       <!-- 移动端菜单按钮 -->
       <div class="flex lg:hidden">
-        <button type="button" onclick="toggleMobileMenu()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
+        <button type="button" onclick="toggleMobileMenu()" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-primary">
           <span class="sr-only">打开菜单</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="size-6">
             <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -223,15 +275,15 @@
       
       <!-- 桌面端导航 -->
       <div class="hidden lg:flex lg:gap-x-12">
-        <a href="assessment-test.html" class="text-sm/6 font-semibold text-white hover:text-mint transition-colors">评估</a>
-        <a href="daily_practice.html" class="text-sm/6 font-semibold text-white hover:text-mint transition-colors">练习</a>
-        <a href="practice_records.html" class="text-sm/6 font-semibold text-white hover:text-mint transition-colors">记录</a>
-        <a href="body-neutrality.html" class="text-sm/6 font-semibold text-white hover:text-mint transition-colors">理论</a>
+        <a href="assessment-test.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">评估</a>
+        <a href="daily_practice.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">练习</a>
+        <a href="practice_records.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">记录</a>
+        <a href="body-neutrality.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">理论</a>
       </div>
       
       <!-- 个人中心 -->
       <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a href="profile.html" class="text-sm/6 font-semibold text-white hover:text-mint transition-colors">
+        <a href="profile.html" class="text-sm/6 font-semibold text-primary hover:text-mint transition-colors">
           个人中心 <span aria-hidden="true">&rarr;</span>
         </a>
       </div>
@@ -271,45 +323,51 @@
 
   <!-- Hero 区域 - 上下排列 -->
   <div class="relative isolate px-6 pt-14 lg:px-8 hero-gradient">
-    <!-- 绿色烟雾背景装饰 -->
+    <!-- 清新绿色烟雾背景装饰 - 5层 -->
     <div aria-hidden="true" class="smoke-blur smoke-1"></div>
     <div aria-hidden="true" class="smoke-blur smoke-2"></div>
     <div aria-hidden="true" class="smoke-blur smoke-3"></div>
+    <div aria-hidden="true" class="smoke-blur smoke-4"></div>
+    <div aria-hidden="true" class="smoke-blur smoke-5"></div>
     
     <!-- Hero 内容 -->
     <div class="relative mx-auto max-w-4xl py-20 sm:py-32 lg:py-40">
       <!-- 通知徽章 -->
       <div class="flex justify-center mb-8 fade-in-up">
-        <div class="announcement-badge rounded-full px-4 py-1.5 text-sm text-mint">
+        <div class="announcement-badge rounded-full px-4 py-1.5 text-sm text-primary">
           探索身心健康的全新旅程 
-          <a href="body-neutrality.html" class="font-semibold text-white hover:text-mint ml-2">
+          <a href="body-neutrality.html" class="font-semibold text-accent hover:text-mint ml-2">
             了解更多 <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </div>
       
-      <!-- Logo 图片 -->
+      <!-- Logo 图片 - 缩小50% -->
       <div class="logo-container fade-in-up" style="animation-delay: 0.2s;">
         <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
              alt="MindFit Logo" 
-             class="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover"
+             class="logo-desktop hidden sm:block"
+             loading="lazy">
+        <img src="assets/images/4628bfc1e3354401744b6bcf8a6e267.jpg" 
+             alt="MindFit Logo" 
+             class="logo-mobile sm:hidden"
              loading="lazy">
       </div>
       
-      <!-- 文字内容 -->
+      <!-- 文字内容 - 标题放大 -->
       <div class="text-center fade-in-up" style="animation-delay: 0.4s;">
-        <h1 class="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl leading-tight mb-6 hero-title">
+        <h1 class="hero-title font-bold tracking-tight leading-tight mb-6">
           科学管理身心<br>
           告别身材焦虑
         </h1>
-        <p class="mt-6 text-lg leading-8 text-gray-300 max-w-2xl mx-auto">
+        <p class="mt-6 text-lg leading-8 text-content max-w-2xl mx-auto">
           平台提供个性化推荐、心理干预和身体管理工具，帮助用户缓解心理管身材焦虑
         </p>
         <div class="mt-10 flex items-center justify-center gap-x-6">
-          <button onclick="navigateToAssessment()" class="rounded-md bg-mint px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary transition-all hover:scale-105">
+          <button onclick="navigateToAssessment()" class="rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-primary transition-all hover:scale-105">
             开始探索
           </button>
-          <a href="body-neutrality.html" class="text-sm font-semibold leading-6 text-white hover:text-mint transition-colors">
+          <a href="body-neutrality.html" class="text-sm font-semibold leading-6 text-primary hover:text-mint transition-colors">
             了解更多 <span aria-hidden="true">→</span>
           </a>
         </div>
