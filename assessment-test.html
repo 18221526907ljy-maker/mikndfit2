@@ -1,81 +1,31 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>身材焦虑测评 - MindFit</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: "#4A6157",
-            secondary: "#F7F6F2", 
-            accent: "#2E2E2E",
-            mint: "#8FD9A8",
-            light: "#FAFAFA",
-            white: "#FFFFFF",
-            content: "#444444",
-            gray: "#666666",
-            lightGray: "#777777",
-          },
-        },
-      },
-    };
-  </script>
-  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>身材焦虑自评 - MindFit</title>
+  <meta name="description" content="通过9道科学问卷了解你对身体形象的感受">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <style>
-    .page-content {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #4A6157, #8FD9A8);
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      box-shadow: 0 4px 20px rgba(74, 97, 87, 0.2);
-    }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 8px 30px rgba(74, 97, 87, 0.3);
-    }
-
-    .btn-secondary {
-      border: 2px solid #4A6157;
-      color: #4A6157;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    .btn-secondary:hover {
-      background: #8FD9A8;
-      border-color: #8FD9A8;
-      color: white;
-      transform: translateY(-2px);
+    body {
+      background-color: #F5F7F6;
     }
 
     .progress-bar {
-      transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      background: linear-gradient(90deg, #4A6157, #8FD9A8);
+      transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     .answer-option {
+      cursor: pointer;
       transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      border: 2px solid #e5e7eb;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    .answer-option input {
       cursor: pointer;
     }
     
@@ -155,7 +105,7 @@
       <!-- 页面标题 -->
       <div class="text-center mb-8">
         <h1 class="text-2xl md:text-3xl font-bold text-primary mb-2">身材焦虑自评</h1>
-        <p class="text-content">通过9道题目，了解你对身体形象的感受</p>
+        <p class="text-content">通过9道题目,了解你对身体形象的感受</p>
       </div>
 
       <!-- 进度指示器 -->
@@ -221,15 +171,15 @@
   <script>
     // 身材焦虑测评题目
     const BODY_ANXIETY_QUESTIONS = [
-      "照镜子或翻看照片时，我会特别关注自己的某些身体部位",
+      "照镜子或翻看照片时,我会特别关注自己的某些身体部位",
       "我会把自己和社交媒体上的\"完美身材\"比较",
-      "吃完喜欢的食物后，我会感到后悔或愧疚",
-      "如果对自己的外貌不满意，我会情绪低落或心情受到影响",
-      "我会给自己制定严格的饮食或运动计划，若未完成会自责",
-      "因为担心身材，我会避免拍照或参加社交活动",
-      "我觉得类似于\"如果我变得更好看，生活会更顺利\"这类想法有一定道理",
-      "我想摆脱这些焦虑想法，但不知道从哪里开始",
-      "如果有简单可操作的心理自助练习（例如思维记录、情绪卡片等），我愿意尝试",
+      "吃完喜欢的食物后,我会感到后悔或愧疚",
+      "如果对自己的外貌不满意,我会情绪低落或心情受到影响",
+      "我会给自己制定严格的饮食或运动计划,若未完成会自责",
+      "因为担心身材,我会避免拍照或参加社交活动",
+      "我觉得类似于\"如果我变得更好看,生活会更顺利\"这类想法有一定道理",
+      "我想摆脱这些焦虑想法,但不知道从哪里开始",
+      "如果有简单可操作的心理自助练习(例如思维记录、情绪卡片等),我愿意尝试",
     ];
 
     let currentQuestion = 0;
@@ -277,7 +227,7 @@
           option.classList.remove('selected');
         });
 
-        // 如果有之前的答案，显示
+        // 如果有之前的答案,显示
         if (bodyAnxietyAnswers[index]) {
           const selectedOption = document.querySelector(`input[name="currentAnswer"][value="${bodyAnxietyAnswers[index]}"]`);
           if (selectedOption) {
@@ -354,13 +304,15 @@
       const advice = generateBodyAnxietyAdvice(totalScore, percentage);
 
       // ⭐ 保存到数据管理器
-      dataManager.addAssessment('anxiety', {
-        score: totalScore,
-        percentage: percentage,
-        answers: bodyAnxietyAnswers,
-        totalQuestions: BODY_ANXIETY_QUESTIONS.length,
-        maxScore: maxScore
-      });
+      if (typeof dataManager !== 'undefined') {
+        dataManager.addAssessment('anxiety', {
+          score: totalScore,
+          percentage: percentage,
+          answers: bodyAnxietyAnswers,
+          totalQuestions: BODY_ANXIETY_QUESTIONS.length,
+          maxScore: maxScore
+        });
+      }
 
       // 准备结果数据
       const resultData = {
@@ -371,14 +323,23 @@
         timestamp: Date.now()
       };
 
-      // ⭐ 使用 sessionStorage 传递数据到结果页
-      sessionStorage.setItem('assessment_result', JSON.stringify({
-        type: 'anxiety',
-        data: resultData
-      }));
-      
-      // 跳转到结果页
-      window.location.href = 'assessment-result.html?type=anxiety';
+      // ⭐ 使用 sessionStorage 传递数据到结果页面
+      try {
+        sessionStorage.setItem('assessment_result', JSON.stringify({
+          type: 'anxiety',
+          data: resultData
+        }));
+        
+        showToast('测评完成,正在跳转到结果页面...');
+        
+        // ⭐ 跳转到结果页面
+        setTimeout(() => {
+          window.location.href = 'assessment-result.html?type=anxiety';
+        }, 1000);
+      } catch (error) {
+        console.error('保存测评结果失败:', error);
+        alert('保存结果时出现错误,请重试');
+      }
     }
 
     // 生成身材焦虑建议
@@ -389,52 +350,52 @@
         advice.push({
           icon: '⛈',
           title: '高度焦虑',
-          content: '你当前的身材焦虑程度较高，建议优先考虑专业心理支持，配合自我调节练习。',
+          content: '你当前的身材焦虑程度较高,建议优先考虑专业心理支持,配合自我调节练习。',
           color: 'text-red-600'
         });
         advice.push({
           icon: '🧘',
           title: '今日小任务',
-          content: '进行一次 10 分钟的身体扫描冥想，关注身体的功能而非外貌。尝试对镜子中的自己说一句鼓励的话。',
+          content: '进行一次 10 分钟的身体扫描冥想,关注身体的功能而非外貌。尝试对镜子中的自己说一句鼓励的话。',
           color: 'text-gray-600'
         });
       } else if (percentage >= 50) {
         advice.push({
           icon: '🌧',
           title: '中度焦虑',
-          content: '你对身材有一定程度的焦虑，建议尝试身体中立练习和正念技巧。',
+          content: '你对身材有一定程度的焦虑,建议尝试身体中立练习和正念技巧。',
           color: 'text-orange-600'
         });
         advice.push({
           icon: '📝',
           title: '今日小任务',
-          content: '写下 3 条你身体的功能性优点，例如"我的身体让我可以自由行走"、"我的手可以拥抱他人"。',
+          content: '写下 3 条你身体的功能性优点,例如"我的身体让我可以自由行走"、"我的手可以拥抱他人"。',
           color: 'text-gray-600'
         });
       } else if (percentage >= 25) {
         advice.push({
           icon: '🌤',
           title: '轻度焦虑',
-          content: '你偶尔会对身材感到担忧，这很正常。建议保持积极的身体意识。',
+          content: '你偶尔会对身材感到担忧,这很正常。建议保持积极的身体意识。',
           color: 'text-yellow-600'
         });
         advice.push({
           icon: '🌿',
           title: '今日小任务',
-          content: '每日 1 次正念呼吸（约 3 分钟），并练习自我肯定语："我接纳现在的自己"。',
+          content: '每日 1 次正念呼吸(约 3 分钟),并练习自我肯定语:"我接纳现在的自己"。',
           color: 'text-gray-600'
         });
       } else {
         advice.push({
           icon: '🌟',
           title: '状态良好',
-          content: '你对身材保持着健康的态度，继续保持这种平衡的心态。',
+          content: '你对身材保持着健康的态度,继续保持这种平衡的心态。',
           color: 'text-green-600'
         });
         advice.push({
           icon: '💫',
           title: '今日小任务',
-          content: '分享你的积极心态，帮助身边的人建立健康的身体观念。可以推荐一个身体中立的理念给朋友。',
+          content: '分享你的积极心态,帮助身边的人建立健康的身体观念。可以推荐一个身体中立的理念给朋友。',
           color: 'text-gray-600'
         });
       }
@@ -452,7 +413,7 @@
     // 取消测试
     function cancelTest() {
       if (currentQuestion > 0) {
-        if (confirm('确定要取消测评吗？当前进度将丢失。')) {
+        if (confirm('确定要取消测评吗?当前进度将丢失。')) {
           history.back();
         }
       } else {
@@ -484,14 +445,14 @@
     // 页面加载完成后初始化
     document.addEventListener('DOMContentLoaded', function() {
       initAssessment();
-      showToast('开始测评，请根据实际情况如实回答');
+      showToast('开始测评,请根据实际情况如实回答');
     });
 
     // 防止意外刷新丢失进度
     window.addEventListener('beforeunload', function(e) {
       if (currentQuestion > 0 && currentQuestion < BODY_ANXIETY_QUESTIONS.length) {
         e.preventDefault();
-        e.returnValue = '测评进行中，确定要离开吗？';
+        e.returnValue = '测评进行中,确定要离开吗?';
       }
     });
   </script>
